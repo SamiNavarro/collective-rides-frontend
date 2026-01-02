@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.1" creator="Sydney Cycles Test">
+  <trk>
+    <name>Small Test Route</name>
+    <trkseg>
+      <trkpt lat="-33.8688" lon="151.2093">
+        <ele>50</ele>
+        <time>2025-12-30T06:00:00Z</time>
+      </trkpt>
+      <trkpt lat="-33.8700" lon="151.2100">
+        <ele>55</ele>
+        <time>2025-12-30T06:01:00Z</time>
+      </trkpt>
+      <trkpt lat="-33.8712" lon="151.2107">
+        <ele>60</ele>
+        <time>2025-12-30T06:02:00Z</time>
+      </trkpt>
+    </trkseg>
+  </trk>
+</gpx>

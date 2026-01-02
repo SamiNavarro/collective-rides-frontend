@@ -1,0 +1,18 @@
+{
+  "name": "route-file-service-handlers",
+  "version": "1.0.0",
+  "description": "Route File Service Lambda handlers for Phase 2.4",
+  "main": "index.js",
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.0.0",
+    "@aws-sdk/s3-request-presigner": "^3.0.0",
+    "@aws-sdk/client-dynamodb": "^3.0.0",
+    "@aws-sdk/lib-dynamodb": "^3.0.0",
+    "uuid": "^9.0.0",
+    "xml2js": "^0.6.0"
+  },
+  "devDependencies": {
+    "@types/uuid": "^9.0.0",
+    "@types/xml2js": "^0.4.0"
+  }
+}

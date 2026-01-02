@@ -1,0 +1,27 @@
+{
+  "name": "user-profile-handlers",
+  "version": "1.0.0",
+  "description": "Lambda handlers for User Profile Service - Phase 1.2",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest"
+  },
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.400.0",
+    "@aws-sdk/lib-dynamodb": "^3.400.0"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.0",
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0"
+  },
+  "keywords": [
+    "aws",
+    "lambda",
+    "user-profile",
+    "sydney-cycles"
+  ],
+  "author": "Sydney Cycles Team",
+  "license": "MIT"
+}

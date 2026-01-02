@@ -1,0 +1,6178 @@
+{
+ "Description": "Sydney Cycling Platform v1 Backend Infrastructure - Phase 1.1 Foundation",
+ "Resources": {
+  "UserPoolSydneyCyclesUserPool0813CCE2": {
+   "Type": "AWS::Cognito::UserPool",
+   "Properties": {
+    "AccountRecoverySetting": {
+     "RecoveryMechanisms": [
+      {
+       "Name": "verified_email",
+       "Priority": 1
+      }
+     ]
+    },
+    "AdminCreateUserConfig": {
+     "AllowAdminCreateUserOnly": true,
+     "InviteMessageTemplate": {
+      "EmailMessage": "Hello {username}, your temporary password is {####}",
+      "EmailSubject": "Welcome to Sydney Cycles!"
+     }
+    },
+    "AutoVerifiedAttributes": [
+     "email"
+    ],
+    "DeletionProtection": "INACTIVE",
+    "DeviceConfiguration": {
+     "ChallengeRequiredOnNewDevice": true,
+     "DeviceOnlyRememberedOnUserPrompt": true
+    },
+    "EmailConfiguration": {
+     "EmailSendingAccount": "COGNITO_DEFAULT"
+    },
+    "EmailVerificationMessage": "Thanks for signing up! Your verification code is {####}",
+    "EmailVerificationSubject": "Verify your Sydney Cycles account",
+    "MfaConfiguration": "OFF",
+    "Policies": {
+     "PasswordPolicy": {
+      "MinimumLength": 8,
+      "RequireLowercase": true,
+      "RequireNumbers": true,
+      "RequireSymbols": false,
+      "RequireUppercase": true,
+      "TemporaryPasswordValidityDays": 7
+     }
+    },
+    "Schema": [
+     {
+      "Mutable": false,
+      "Name": "email",
+      "Required": true
+     },
+     {
+      "Mutable": true,
+      "Name": "given_name",
+      "Required": false
+     },
+     {
+      "Mutable": true,
+      "Name": "family_name",
+      "Required": false
+     },
+     {
+      "Mutable": true,
+      "Name": "picture",
+      "Required": false
+     },
+     {
+      "AttributeDataType": "String",
+      "Mutable": true,
+      "Name": "system_role",
+      "StringAttributeConstraints": {
+       "MaxLength": "20",
+       "MinLength": "1"
+      }
+     }
+    ],
+    "SmsVerificationMessage": "The verification code to your new account is {####}",
+    "UserPoolAddOns": {
+     "AdvancedSecurityMode": "AUDIT"
+    },
+    "UserPoolName": "sydney-cycles-development",
+    "UserPoolTags": {
+     "Component": "Authentication",
+     "Environment": "development",
+     "ManagedBy": "CDK",
+     "Phase": "1.1-Infrastructure",
+     "Project": "SydneyCycles"
+    },
+    "UsernameAttributes": [
+     "email"
+    ],
+    "VerificationMessageTemplate": {
+     "DefaultEmailOption": "CONFIRM_WITH_CODE",
+     "EmailMessage": "Thanks for signing up! Your verification code is {####}",
+     "EmailSubject": "Verify your Sydney Cycles account",
+     "SmsMessage": "The verification code to your new account is {####}"
+    }
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/UserPool/SydneyCyclesUserPool/Resource"
+   }
+  },
+  "UserPoolSydneyCyclesUserPoolClient4213E9FA": {
+   "Type": "AWS::Cognito::UserPoolClient",
+   "Properties": {
+    "AccessTokenValidity": 60,
+    "AllowedOAuthFlows": [
+     "code"
+    ],
+    "AllowedOAuthFlowsUserPoolClient": true,
+    "AllowedOAuthScopes": [
+     "email",
+     "openid",
+     "profile"
+    ],
+    "CallbackURLs": [
+     "http://localhost:3000/auth/callback"
+    ],
+    "ClientName": "sydney-cycles-client-development",
+    "ExplicitAuthFlows": [
+     "ALLOW_ADMIN_USER_PASSWORD_AUTH",
+     "ALLOW_USER_SRP_AUTH",
+     "ALLOW_REFRESH_TOKEN_AUTH"
+    ],
+    "GenerateSecret": false,
+    "IdTokenValidity": 60,
+    "LogoutURLs": [
+     "http://localhost:3000/auth/logout"
+    ],
+    "PreventUserExistenceErrors": "ENABLED",
+    "ReadAttributes": [
+     "custom:system_role",
+     "email",
+     "email_verified",
+     "family_name",
+     "given_name",
+     "picture"
+    ],
+    "RefreshTokenValidity": 43200,
+    "SupportedIdentityProviders": [
+     "COGNITO"
+    ],
+    "TokenValidityUnits": {
+     "AccessToken": "minutes",
+     "IdToken": "minutes",
+     "RefreshToken": "minutes"
+    },
+    "UserPoolId": {
+     "Ref": "UserPoolSydneyCyclesUserPool0813CCE2"
+    },
+    "WriteAttributes": [
+     "custom:system_role",
+     "email",
+     "family_name",
+     "given_name",
+     "picture"
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/UserPool/SydneyCyclesUserPoolClient/Resource"
+   }
+  },
+  "MainTableSydneyCyclesMainTable4AA7164E": {
+   "Type": "AWS::DynamoDB::Table",
+   "Properties": {
+    "AttributeDefinitions": [
+     {
+      "AttributeName": "PK",
+      "AttributeType": "S"
+     },
+     {
+      "AttributeName": "SK",
+      "AttributeType": "S"
+     },
+     {
+      "AttributeName": "GSI1PK",
+      "AttributeType": "S"
+     },
+     {
+      "AttributeName": "GSI1SK",
+      "AttributeType": "S"
+     },
+     {
+      "AttributeName": "GSI2PK",
+      "AttributeType": "S"
+     },
+     {
+      "AttributeName": "GSI2SK",
+      "AttributeType": "S"
+     },
+     {
+      "AttributeName": "LSI1SK",
+      "AttributeType": "S"
+     }
+    ],
+    "BillingMode": "PAY_PER_REQUEST",
+    "DeletionProtectionEnabled": false,
+    "GlobalSecondaryIndexes": [
+     {
+      "IndexName": "GSI1",
+      "KeySchema": [
+       {
+        "AttributeName": "GSI1PK",
+        "KeyType": "HASH"
+       },
+       {
+        "AttributeName": "GSI1SK",
+        "KeyType": "RANGE"
+       }
+      ],
+      "Projection": {
+       "ProjectionType": "ALL"
+      }
+     },
+     {
+      "IndexName": "GSI2",
+      "KeySchema": [
+       {
+        "AttributeName": "GSI2PK",
+        "KeyType": "HASH"
+       },
+       {
+        "AttributeName": "GSI2SK",
+        "KeyType": "RANGE"
+       }
+      ],
+      "Projection": {
+       "ProjectionType": "ALL"
+      }
+     }
+    ],
+    "KeySchema": [
+     {
+      "AttributeName": "PK",
+      "KeyType": "HASH"
+     },
+     {
+      "AttributeName": "SK",
+      "KeyType": "RANGE"
+     }
+    ],
+    "LocalSecondaryIndexes": [
+     {
+      "IndexName": "LSI1",
+      "KeySchema": [
+       {
+        "AttributeName": "PK",
+        "KeyType": "HASH"
+       },
+       {
+        "AttributeName": "LSI1SK",
+        "KeyType": "RANGE"
+       }
+      ],
+      "Projection": {
+       "ProjectionType": "ALL"
+      }
+     }
+    ],
+    "PointInTimeRecoverySpecification": {
+     "PointInTimeRecoveryEnabled": false
+    },
+    "SSESpecification": {
+     "SSEEnabled": true
+    },
+    "StreamSpecification": {
+     "StreamViewType": "NEW_AND_OLD_IMAGES"
+    },
+    "TableClass": "STANDARD",
+    "TableName": "sydney-cycles-main-development",
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "DataStorage"
+     },
+     {
+      "Key": "DataPattern",
+      "Value": "SingleTable"
+     },
+     {
+      "Key": "Environment",
+      "Value": "development"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Phase",
+      "Value": "1.1-Infrastructure"
+     },
+     {
+      "Key": "Project",
+      "Value": "SydneyCycles"
+     }
+    ]
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/MainTable/SydneyCyclesMainTable/Resource"
+   }
+  },
+  "RestApiApiGatewayLogGroup426293AF": {
+   "Type": "AWS::Logs::LogGroup",
+   "Properties": {
+    "LogGroupName": "/aws/apigateway/sydney-cycles-development",
+    "RetentionInDays": 7,
+    "Tags": [
+     {
+      "Key": "Environment",
+      "Value": "development"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Phase",
+      "Value": "2.1-ClubService"
+     },
+     {
+      "Key": "Project",
+      "Value": "SydneyCycles"
+     }
+    ]
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RestApi/ApiGatewayLogGroup/Resource"
+   }
+  },
+  "RestApiSydneyCyclesRestApiC3FBF1D6": {
+   "Type": "AWS::ApiGateway::RestApi",
+   "Properties": {
+    "ApiKeySourceType": "HEADER",
+    "BinaryMediaTypes": [
+     "image/*",
+     "application/pdf"
+    ],
+    "Description": "Sydney Cycling Platform v1 REST API - development",
+    "EndpointConfiguration": {
+     "Types": [
+      "REGIONAL"
+     ]
+    },
+    "MinimumCompressionSize": 1024,
+    "Name": "sydney-cycles-api-development",
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "ApiLayer"
+     },
+     {
+      "Key": "Environment",
+      "Value": "development"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Phase",
+      "Value": "1.1-Infrastructure"
+     },
+     {
+      "Key": "Project",
+      "Value": "SydneyCycles"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Resource"
+   }
+  },
+  "RestApiSydneyCyclesRestApiCloudWatchRoleA3878D42": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "apigateway.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AmazonAPIGatewayPushToCloudWatchLogs"
+       ]
+      ]
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "ApiLayer"
+     },
+     {
+      "Key": "Environment",
+      "Value": "development"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Phase",
+      "Value": "1.1-Infrastructure"
+     },
+     {
+      "Key": "Project",
+      "Value": "SydneyCycles"
+     }
+    ]
+   },
+   "UpdateReplacePolicy": "Retain",
+   "DeletionPolicy": "Retain",
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/CloudWatchRole/Resource"
+   }
+  },
+  "RestApiSydneyCyclesRestApiAccount539C709B": {
+   "Type": "AWS::ApiGateway::Account",
+   "Properties": {
+    "CloudWatchRoleArn": {
+     "Fn::GetAtt": [
+      "RestApiSydneyCyclesRestApiCloudWatchRoleA3878D42",
+      "Arn"
+     ]
+    }
+   },
+   "DependsOn": [
+    "RestApiSydneyCyclesRestApiC3FBF1D6"
+   ],
+   "UpdateReplacePolicy": "Retain",
+   "DeletionPolicy": "Retain",
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Account"
+   }
+  },
+  "RestApiSydneyCyclesRestApiDeployment050DCABAe8c54488a8b3ce3693130c72332ed0cf": {
+   "Type": "AWS::ApiGateway::Deployment",
+   "Properties": {
+    "Description": "Sydney Cycling Platform v1 REST API - development",
+    "RestApiId": {
+     "Ref": "RestApiSydneyCyclesRestApiC3FBF1D6"
+    }
+   },
+   "DependsOn": [
+    "RestApiCognitoAuthorizerD2BF1AF9",
+    "RestApiSydneyCyclesRestApihealthGET5091A933",
+    "RestApiSydneyCyclesRestApihealthOPTIONS497D08D8",
+    "RestApiSydneyCyclesRestApihealth0DB2B9F2",
+    "RestApiSydneyCyclesRestApiOPTIONS22E7A9FA",
+    "RestApiSydneyCyclesRestApiv1clubsclubIdmembershipsOPTIONSB768DE6B",
+    "RestApiSydneyCyclesRestApiv1clubsclubIdmembershipsBFF9DDB3",
+    "RestApiSydneyCyclesRestApiv1clubsclubIdOPTIONS3D70AB7D",
+    "RestApiSydneyCyclesRestApiv1clubsclubId7FA55AF3",
+    "RestApiSydneyCyclesRestApiv1clubsclubIdridesOPTIONSDE5D7D36",
+    "RestApiSydneyCyclesRestApiv1clubsclubIdrides96ABC095",
+    "RestApiSydneyCyclesRestApiv1clubsidGETBEEA22B6",
+    "RestApiSydneyCyclesRestApiv1clubsidmembersGET4905B871",
+    "RestApiSydneyCyclesRestApiv1clubsidmembersmeDELETEBCB2C228",
+    "RestApiSydneyCyclesRestApiv1clubsidmembersmeOPTIONSDBA89EF6",
+    "RestApiSydneyCyclesRestApiv1clubsidmembersmeFC6F9D7E",
+    "RestApiSydneyCyclesRestApiv1clubsidmembersOPTIONS329252A1",
+    "RestApiSydneyCyclesRestApiv1clubsidmembersPOST3BBECC2D",
+    "RestApiSydneyCyclesRestApiv1clubsidmembers4AAEBF51",
+    "RestApiSydneyCyclesRestApiv1clubsidOPTIONSAD9FDAB2",
+    "RestApiSydneyCyclesRestApiv1clubsidPUTABA28505",
+    "RestApiSydneyCyclesRestApiv1clubsidB9232480",
+    "RestApiSydneyCyclesRestApiv1clubsGET43D1B96B",
+    "RestApiSydneyCyclesRestApiv1clubsOPTIONSC3BAB8A0",
+    "RestApiSydneyCyclesRestApiv1clubsPOST5F76E841",
+    "RestApiSydneyCyclesRestApiv1clubsA5F04352",
+    "RestApiSydneyCyclesRestApiv1invitationsOPTIONSA8E12708",
+    "RestApiSydneyCyclesRestApiv1invitations0DE40C65",
+    "RestApiSydneyCyclesRestApiv1membershipsmembershipIdOPTIONS295F823F",
+    "RestApiSydneyCyclesRestApiv1membershipsmembershipId0B03951E",
+    "RestApiSydneyCyclesRestApiv1membershipsOPTIONSDABE585C",
+    "RestApiSydneyCyclesRestApiv1memberships7E057C9C",
+    "RestApiSydneyCyclesRestApiv1OPTIONS4AC74D5B",
+    "RestApiSydneyCyclesRestApiv1participationsparticipationIdOPTIONS24172738",
+    "RestApiSydneyCyclesRestApiv1participationsparticipationId1A5E49F3",
+    "RestApiSydneyCyclesRestApiv1participationsOPTIONS24C77DAD",
+    "RestApiSydneyCyclesRestApiv1participations6DE96801",
+    "RestApiSydneyCyclesRestApiv1E226772B",
+    "RestApiSydneyCyclesRestApiv1ridesrideIdOPTIONS18BC60C2",
+    "RestApiSydneyCyclesRestApiv1ridesrideIdparticipationsOPTIONS7F87E1DE",
+    "RestApiSydneyCyclesRestApiv1ridesrideIdparticipationsBE2F9F3D",
+    "RestApiSydneyCyclesRestApiv1ridesrideId9BB5F7D5",
+    "RestApiSydneyCyclesRestApiv1ridesOPTIONS50E7B2D3",
+    "RestApiSydneyCyclesRestApiv1rides22EB792A",
+    "RestApiSydneyCyclesRestApiv1usersidGET6CCC2BE6",
+    "RestApiSydneyCyclesRestApiv1usersidOPTIONSAE932062",
+    "RestApiSydneyCyclesRestApiv1usersidPUTA07523DC",
+    "RestApiSydneyCyclesRestApiv1usersidC1A3F27A",
+    "RestApiSydneyCyclesRestApiv1usersmeGET2E340FE5",
+    "RestApiSydneyCyclesRestApiv1usersmeOPTIONS1DC5F0B5",
+    "RestApiSydneyCyclesRestApiv1usersme4315889D",
+    "RestApiSydneyCyclesRestApiv1usersOPTIONSBEB4FD60",
+    "RestApiSydneyCyclesRestApiv1users283392C5",
+    "RestApiSydneyCyclesRestApiErrorModel2B01E4A0",
+    "RestApiSydneyCyclesRestApiSuccessModelA229996F"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Deployment/Resource",
+    "aws:cdk:do-not-refactor": true
+   }
+  },
+  "RestApiSydneyCyclesRestApiDeploymentStagedevelopmentDF98341E": {
+   "Type": "AWS::ApiGateway::Stage",
+   "Properties": {
+    "AccessLogSetting": {
+     "DestinationArn": {
+      "Fn::GetAtt": [
+       "RestApiApiGatewayLogGroup426293AF",
+       "Arn"
+      ]
+     },
+     "Format": "{\"requestId\":\"$context.requestId\",\"ip\":\"$context.identity.sourceIp\",\"user\":\"$context.identity.user\",\"caller\":\"$context.identity.caller\",\"requestTime\":\"$context.requestTime\",\"httpMethod\":\"$context.httpMethod\",\"resourcePath\":\"$context.resourcePath\",\"status\":\"$context.status\",\"protocol\":\"$context.protocol\",\"responseLength\":\"$context.responseLength\"}"
+    },
+    "DeploymentId": {
+     "Ref": "RestApiSydneyCyclesRestApiDeployment050DCABAe8c54488a8b3ce3693130c72332ed0cf"
+    },
+    "MethodSettings": [
+     {
+      "DataTraceEnabled": true,
+      "HttpMethod": "*",
+      "LoggingLevel": "INFO",
+      "MetricsEnabled": true,
+      "ResourcePath": "/*"
+     }
+    ],
+    "RestApiId": {
+     "Ref": "RestApiSydneyCyclesRestApiC3FBF1D6"
+    },
+    "StageName": "development",
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "ApiLayer"
+     },
+     {
+      "Key": "Environment",
+      "Value": "development"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Phase",
+      "Value": "1.1-Infrastructure"
+     },
+     {
+      "Key": "Project",
+      "Value": "SydneyCycles"
+     }
+    ]
+   },
+   "DependsOn": [
+    "RestApiSydneyCyclesRestApiAccount539C709B"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/DeploymentStage.development/Resource"
+   }
+  },
+  "RestApiSydneyCyclesRestApiOPTIONS22E7A9FA": {
+   "Type": "AWS::ApiGateway::Method",
+   "Properties": {
+    "ApiKeyRequired": false,
+    "AuthorizationType": "NONE",
+    "HttpMethod": "OPTIONS",
+    "Integration": {
+     "IntegrationResponses": [
+      {
+       "ResponseParameters": {
+        "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
+        "method.response.header.Access-Control-Allow-Origin": "'http://localhost:3000'",
+        "method.response.header.Vary": "'Origin'",
+        "method.response.header.Access-Control-Allow-Methods": "'GET,POST,PUT,DELETE,OPTIONS'",
+        "method.response.header.Access-Control-Allow-Credentials": "'true'",
+        "method.response.header.Access-Control-Max-Age": "'3600'"
+       },
+       "ResponseTemplates": {
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+       },
+       "StatusCode": "204"
+      }
+     ],
+     "RequestTemplates": {
+      "application/json": "{ statusCode: 200 }"
+     },
+     "Type": "MOCK"
+    },
+    "MethodResponses": [
+     {
+      "ResponseParameters": {
+       "method.response.header.Access-Control-Allow-Headers": true,
+       "method.response.header.Access-Control-Allow-Origin": true,
+       "method.response.header.Vary": true,
+       "method.response.header.Access-Control-Allow-Methods": true,
+       "method.response.header.Access-Control-Allow-Credentials": true,
+       "method.response.header.Access-Control-Max-Age": true
+      },
+      "StatusCode": "204"
+     }
+    ],
+    "ResourceId": {
+     "Fn::GetAtt": [
+      "RestApiSydneyCyclesRestApiC3FBF1D6",
+      "RootResourceId"
+     ]
+    },
+    "RestApiId": {
+     "Ref": "RestApiSydneyCyclesRestApiC3FBF1D6"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/OPTIONS/Resource"
+   }
+  },
+  "RestApiSydneyCyclesRestApihealth0DB2B9F2": {
+   "Type": "AWS::ApiGateway::Resource",
+   "Properties": {
+    "ParentId": {
+     "Fn::GetAtt": [
+      "RestApiSydneyCyclesRestApiC3FBF1D6",
+      "RootResourceId"
+     ]
+    },
+    "PathPart": "health",
+    "RestApiId": {
+     "Ref": "RestApiSydneyCyclesRestApiC3FBF1D6"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/health/Resource"
+   }
+  },
+  "RestApiSydneyCyclesRestApihealthOPTIONS497D08D8": {
+   "Type": "AWS::ApiGateway::Method",
+   "Properties": {
+    "ApiKeyRequired": false,
+    "AuthorizationType": "NONE",
+    "HttpMethod": "OPTIONS",
+    "Integration": {
+     "IntegrationResponses": [
+      {
+       "ResponseParameters": {
+        "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
+        "method.response.header.Access-Control-Allow-Origin": "'http://localhost:3000'",
+        "method.response.header.Vary": "'Origin'",
+        "method.response.header.Access-Control-Allow-Methods": "'GET,POST,PUT,DELETE,OPTIONS'",
+        "method.response.header.Access-Control-Allow-Credentials": "'true'",
+        "method.response.header.Access-Control-Max-Age": "'3600'"
+       },
+       "ResponseTemplates": {
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+       },
+       "StatusCode": "204"
+      }
+     ],
+     "RequestTemplates": {
+      "application/json": "{ statusCode: 200 }"
+     },
+     "Type": "MOCK"
+    },
+    "MethodResponses": [
+     {
+      "ResponseParameters": {
+       "method.response.header.Access-Control-Allow-Headers": true,
+       "method.response.header.Access-Control-Allow-Origin": true,
+       "method.response.header.Vary": true,
+       "method.response.header.Access-Control-Allow-Methods": true,
+       "method.response.header.Access-Control-Allow-Credentials": true,
+       "method.response.header.Access-Control-Max-Age": true
+      },
+      "StatusCode": "204"
+     }
+    ],
+    "ResourceId": {
+     "Ref": "RestApiSydneyCyclesRestApihealth0DB2B9F2"
+    },
+    "RestApiId": {
+     "Ref": "RestApiSydneyCyclesRestApiC3FBF1D6"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/health/OPTIONS/Resource"
+   }
+  },
+  "RestApiSydneyCyclesRestApihealthGETApiPermissionSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514GEThealthB5283C18": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "RestApiHealthCheckFunctionB43053A4",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:aws:execute-api:us-east-2:924748161040:",
+       {
+        "Ref": "RestApiSydneyCyclesRestApiC3FBF1D6"
+       },
+       "/",
+       {
+        "Ref": "RestApiSydneyCyclesRestApiDeploymentStagedevelopmentDF98341E"
+       },
+       "/GET/health"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/health/GET/ApiPermission.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.GET..health"
+   }
+  },
+  "RestApiSydneyCyclesRestApihealthGETApiPermissionTestSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514GEThealthC3CF9C15": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "RestApiHealthCheckFunctionB43053A4",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:aws:execute-api:us-east-2:924748161040:",
+       {
+        "Ref": "RestApiSydneyCyclesRestApiC3FBF1D6"
+       },
+       "/test-invoke-stage/GET/health"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/health/GET/ApiPermission.Test.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.GET..health"
+   }
+  },
+  "RestApiSydneyCyclesRestApihealthGET5091A933": {
+   "Type": "AWS::ApiGateway::Method",
+   "Properties": {
+    "AuthorizationType": "NONE",
+    "HttpMethod": "GET",
+    "Integration": {
+     "IntegrationHttpMethod": "POST",
+     "Type": "AWS_PROXY",
+     "Uri": {
+      "Fn::Join": [
+       "",
+       [
+        "arn:aws:apigateway:us-east-2:lambda:path/2015-03-31/functions/",
+        {
+         "Fn::GetAtt": [
+          "RestApiHealthCheckFunctionB43053A4",
+          "Arn"
+         ]
+        },
+        "/invocations"
+       ]
+      ]
+     }
+    },
+    "MethodResponses": [
+     {
+      "ResponseModels": {
+       "application/json": "Empty"
+      },
+      "StatusCode": "200"
+     }
+    ],
+    "ResourceId": {
+     "Ref": "RestApiSydneyCyclesRestApihealth0DB2B9F2"
+    },
+    "RestApiId": {
+     "Ref": "RestApiSydneyCyclesRestApiC3FBF1D6"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/health/GET/Resource"
+   }
+  },
+  "RestApiSydneyCyclesRestApiv1E226772B": {
+   "Type": "AWS::ApiGateway::Resource",
+   "Properties": {
+    "ParentId": {
+     "Fn::GetAtt": [
+      "RestApiSydneyCyclesRestApiC3FBF1D6",
+      "RootResourceId"
+     ]
+    },
+    "PathPart": "v1",
+    "RestApiId": {
+     "Ref": "RestApiSydneyCyclesRestApiC3FBF1D6"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/Resource"
+   }
+  },
+  "RestApiSydneyCyclesRestApiv1OPTIONS4AC74D5B": {
+   "Type": "AWS::ApiGateway::Method",
+   "Properties": {
+    "ApiKeyRequired": false,
+    "AuthorizationType": "NONE",
+    "HttpMethod": "OPTIONS",
+    "Integration": {
+     "IntegrationResponses": [
+      {
+       "ResponseParameters": {
+        "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
+        "method.response.header.Access-Control-Allow-Origin": "'http://localhost:3000'",
+        "method.response.header.Vary": "'Origin'",
+        "method.response.header.Access-Control-Allow-Methods": "'GET,POST,PUT,DELETE,OPTIONS'",
+        "method.response.header.Access-Control-Allow-Credentials": "'true'",
+        "method.response.header.Access-Control-Max-Age": "'3600'"
+       },
+       "ResponseTemplates": {
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+       },
+       "StatusCode": "204"
+      }
+     ],
+     "RequestTemplates": {
+      "application/json": "{ statusCode: 200 }"
+     },
+     "Type": "MOCK"
+    },
+    "MethodResponses": [
+     {
+      "ResponseParameters": {
+       "method.response.header.Access-Control-Allow-Headers": true,
+       "method.response.header.Access-Control-Allow-Origin": true,
+       "method.response.header.Vary": true,
+       "method.response.header.Access-Control-Allow-Methods": true,
+       "method.response.header.Access-Control-Allow-Credentials": true,
+       "method.response.header.Access-Control-Max-Age": true
+      },
+      "StatusCode": "204"
+     }
+    ],
+    "ResourceId": {
+     "Ref": "RestApiSydneyCyclesRestApiv1E226772B"
+    },
+    "RestApiId": {
+     "Ref": "RestApiSydneyCyclesRestApiC3FBF1D6"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/OPTIONS/Resource"
+   }
+  },
+  "RestApiSydneyCyclesRestApiv1users283392C5": {
+   "Type": "AWS::ApiGateway::Resource",
+   "Properties": {
+    "ParentId": {
+     "Ref": "RestApiSydneyCyclesRestApiv1E226772B"
+    },
+    "PathPart": "users",
+    "RestApiId": {
+     "Ref": "RestApiSydneyCyclesRestApiC3FBF1D6"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/users/Resource"
+   }
+  },
+  "RestApiSydneyCyclesRestApiv1usersOPTIONSBEB4FD60": {
+   "Type": "AWS::ApiGateway::Method",
+   "Properties": {
+    "ApiKeyRequired": false,
+    "AuthorizationType": "NONE",
+    "HttpMethod": "OPTIONS",
+    "Integration": {
+     "IntegrationResponses": [
+      {
+       "ResponseParameters": {
+        "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
+        "method.response.header.Access-Control-Allow-Origin": "'http://localhost:3000'",
+        "method.response.header.Vary": "'Origin'",
+        "method.response.header.Access-Control-Allow-Methods": "'GET,POST,PUT,DELETE,OPTIONS'",
+        "method.response.header.Access-Control-Allow-Credentials": "'true'",
+        "method.response.header.Access-Control-Max-Age": "'3600'"
+       },
+       "ResponseTemplates": {
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+       },
+       "StatusCode": "204"
+      }
+     ],
+     "RequestTemplates": {
+      "application/json": "{ statusCode: 200 }"
+     },
+     "Type": "MOCK"
+    },
+    "MethodResponses": [
+     {
+      "ResponseParameters": {
+       "method.response.header.Access-Control-Allow-Headers": true,
+       "method.response.header.Access-Control-Allow-Origin": true,
+       "method.response.header.Vary": true,
+       "method.response.header.Access-Control-Allow-Methods": true,
+       "method.response.header.Access-Control-Allow-Credentials": true,
+       "method.response.header.Access-Control-Max-Age": true
+      },
+      "StatusCode": "204"
+     }
+    ],
+    "ResourceId": {
+     "Ref": "RestApiSydneyCyclesRestApiv1users283392C5"
+    },
+    "RestApiId": {
+     "Ref": "RestApiSydneyCyclesRestApiC3FBF1D6"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/users/OPTIONS/Resource"
+   }
+  },
+  "RestApiSydneyCyclesRestApiv1usersidC1A3F27A": {
+   "Type": "AWS::ApiGateway::Resource",
+   "Properties": {
+    "ParentId": {
+     "Ref": "RestApiSydneyCyclesRestApiv1users283392C5"
+    },
+    "PathPart": "{id}",
+    "RestApiId": {
+     "Ref": "RestApiSydneyCyclesRestApiC3FBF1D6"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/users/{id}/Resource"
+   }
+  },
+  "RestApiSydneyCyclesRestApiv1usersidOPTIONSAE932062": {
+   "Type": "AWS::ApiGateway::Method",
+   "Properties": {
+    "ApiKeyRequired": false,
+    "AuthorizationType": "NONE",
+    "HttpMethod": "OPTIONS",
+    "Integration": {
+     "IntegrationResponses": [
+      {
+       "ResponseParameters": {
+        "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
+        "method.response.header.Access-Control-Allow-Origin": "'http://localhost:3000'",
+        "method.response.header.Vary": "'Origin'",
+        "method.response.header.Access-Control-Allow-Methods": "'GET,POST,PUT,DELETE,OPTIONS'",
+        "method.response.header.Access-Control-Allow-Credentials": "'true'",
+        "method.response.header.Access-Control-Max-Age": "'3600'"
+       },
+       "ResponseTemplates": {
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+       },
+       "StatusCode": "204"
+      }
+     ],
+     "RequestTemplates": {
+      "application/json": "{ statusCode: 200 }"
+     },
+     "Type": "MOCK"
+    },
+    "MethodResponses": [
+     {
+      "ResponseParameters": {
+       "method.response.header.Access-Control-Allow-Headers": true,
+       "method.response.header.Access-Control-Allow-Origin": true,
+       "method.response.header.Vary": true,
+       "method.response.header.Access-Control-Allow-Methods": true,
+       "method.response.header.Access-Control-Allow-Credentials": true,
+       "method.response.header.Access-Control-Max-Age": true
+      },
+      "StatusCode": "204"
+     }
+    ],
+    "ResourceId": {
+     "Ref": "RestApiSydneyCyclesRestApiv1usersidC1A3F27A"
+    },
+    "RestApiId": {
+     "Ref": "RestApiSydneyCyclesRestApiC3FBF1D6"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/users/{id}/OPTIONS/Resource"
+   }
+  },
+  "RestApiSydneyCyclesRestApiv1usersidGETApiPermissionSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514GETv1usersid57B39EEE": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "UserProfileServiceGetUserByIdFunctionCDCB03BA",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:aws:execute-api:us-east-2:924748161040:",
+       {
+        "Ref": "RestApiSydneyCyclesRestApiC3FBF1D6"
+       },
+       "/",
+       {
+        "Ref": "RestApiSydneyCyclesRestApiDeploymentStagedevelopmentDF98341E"
+       },
+       "/GET/v1/users/*"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/users/{id}/GET/ApiPermission.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.GET..v1.users.{id}"
+   }
+  },
+  "RestApiSydneyCyclesRestApiv1usersidGETApiPermissionTestSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514GETv1usersidBD2C2DD6": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "UserProfileServiceGetUserByIdFunctionCDCB03BA",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:aws:execute-api:us-east-2:924748161040:",
+       {
+        "Ref": "RestApiSydneyCyclesRestApiC3FBF1D6"
+       },
+       "/test-invoke-stage/GET/v1/users/*"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/users/{id}/GET/ApiPermission.Test.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.GET..v1.users.{id}"
+   }
+  },
+  "RestApiSydneyCyclesRestApiv1usersidGET6CCC2BE6": {
+   "Type": "AWS::ApiGateway::Method",
+   "Properties": {
+    "AuthorizationType": "COGNITO_USER_POOLS",
+    "AuthorizerId": {
+     "Ref": "RestApiCognitoAuthorizerD2BF1AF9"
+    },
+    "HttpMethod": "GET",
+    "Integration": {
+     "IntegrationHttpMethod": "POST",
+     "Type": "AWS_PROXY",
+     "Uri": {
+      "Fn::Join": [
+       "",
+       [
+        "arn:aws:apigateway:us-east-2:lambda:path/2015-03-31/functions/",
+        {
+         "Fn::GetAtt": [
+          "UserProfileServiceGetUserByIdFunctionCDCB03BA",
+          "Arn"
+         ]
+        },
+        "/invocations"
+       ]
+      ]
+     }
+    },
+    "MethodResponses": [
+     {
+      "ResponseModels": {
+       "application/json": "Empty"
+      },
+      "StatusCode": "200"
+     },
+     {
+      "ResponseModels": {
+       "application/json": "Error"
+      },
+      "StatusCode": "401"
+     },
+     {
+      "ResponseModels": {
+       "application/json": "Error"
+      },
+      "StatusCode": "403"
+     },
+     {
+      "ResponseModels": {
+       "application/json": "Error"
+      },
+      "StatusCode": "404"
+     },
+     {
+      "ResponseModels": {
+       "application/json": "Error"
+      },
+      "StatusCode": "500"
+     }
+    ],
+    "RequestParameters": {
+     "method.request.path.id": true
+    },
+    "ResourceId": {
+     "Ref": "RestApiSydneyCyclesRestApiv1usersidC1A3F27A"
+    },
+    "RestApiId": {
+     "Ref": "RestApiSydneyCyclesRestApiC3FBF1D6"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/users/{id}/GET/Resource"
+   }
+  },
+  "RestApiSydneyCyclesRestApiv1usersidPUTApiPermissionSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514PUTv1usersid560FF9B1": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "UserProfileServiceUpdateUserFunction6DAF8698",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:aws:execute-api:us-east-2:924748161040:",
+       {
+        "Ref": "RestApiSydneyCyclesRestApiC3FBF1D6"
+       },
+       "/",
+       {
+        "Ref": "RestApiSydneyCyclesRestApiDeploymentStagedevelopmentDF98341E"
+       },
+       "/PUT/v1/users/*"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/users/{id}/PUT/ApiPermission.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.PUT..v1.users.{id}"
+   }
+  },
+  "RestApiSydneyCyclesRestApiv1usersidPUTApiPermissionTestSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514PUTv1usersidF646F80E": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "UserProfileServiceUpdateUserFunction6DAF8698",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:aws:execute-api:us-east-2:924748161040:",
+       {
+        "Ref": "RestApiSydneyCyclesRestApiC3FBF1D6"
+       },
+       "/test-invoke-stage/PUT/v1/users/*"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/users/{id}/PUT/ApiPermission.Test.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.PUT..v1.users.{id}"
+   }
+  },
+  "RestApiSydneyCyclesRestApiv1usersidPUTA07523DC": {
+   "Type": "AWS::ApiGateway::Method",
+   "Properties": {
+    "AuthorizationType": "COGNITO_USER_POOLS",
+    "AuthorizerId": {
+     "Ref": "RestApiCognitoAuthorizerD2BF1AF9"
+    },
+    "HttpMethod": "PUT",
+    "Integration": {
+     "IntegrationHttpMethod": "POST",
+     "Type": "AWS_PROXY",
+     "Uri": {
+      "Fn::Join": [
+       "",
+       [
+        "arn:aws:apigateway:us-east-2:lambda:path/2015-03-31/functions/",
+        {
+         "Fn::GetAtt": [
+          "UserProfileServiceUpdateUserFunction6DAF8698",
+          "Arn"
+         ]
+        },
+        "/invocations"
+       ]
+      ]
+     }
+    },
+    "MethodResponses": [
+     {
+      "ResponseModels": {
+       "application/json": "Empty"
+      },
+      "StatusCode": "200"
+     },
+     {
+      "ResponseModels": {
+       "application/json": "Error"
+      },
+      "StatusCode": "400"
+     },
+     {
+      "ResponseModels": {
+       "application/json": "Error"
+      },
+      "StatusCode": "401"
+     },
+     {
+      "ResponseModels": {
+       "application/json": "Error"
+      },
+      "StatusCode": "403"
+     },
+     {
+      "ResponseModels": {
+       "application/json": "Error"
+      },
+      "StatusCode": "404"
+     },
+     {
+      "ResponseModels": {
+       "application/json": "Error"
+      },
+      "StatusCode": "500"
+     }
+    ],
+    "RequestModels": {
+     "application/json": "Empty"
+    },
+    "RequestParameters": {
+     "method.request.path.id": true
+    },
+    "ResourceId": {
+     "Ref": "RestApiSydneyCyclesRestApiv1usersidC1A3F27A"
+    },
+    "RestApiId": {
+     "Ref": "RestApiSydneyCyclesRestApiC3FBF1D6"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/users/{id}/PUT/Resource"
+   }
+  },
+  "RestApiSydneyCyclesRestApiv1usersme4315889D": {
+   "Type": "AWS::ApiGateway::Resource",
+   "Properties": {
+    "ParentId": {
+     "Ref": "RestApiSydneyCyclesRestApiv1users283392C5"
+    },
+    "PathPart": "me",
+    "RestApiId": {
+     "Ref": "RestApiSydneyCyclesRestApiC3FBF1D6"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/users/me/Resource"
+   }
+  },
+  "RestApiSydneyCyclesRestApiv1usersmeOPTIONS1DC5F0B5": {
+   "Type": "AWS::ApiGateway::Method",
+   "Properties": {
+    "ApiKeyRequired": false,
+    "AuthorizationType": "NONE",
+    "HttpMethod": "OPTIONS",
+    "Integration": {
+     "IntegrationResponses": [
+      {
+       "ResponseParameters": {
+        "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
+        "method.response.header.Access-Control-Allow-Origin": "'http://localhost:3000'",
+        "method.response.header.Vary": "'Origin'",
+        "method.response.header.Access-Control-Allow-Methods": "'GET,POST,PUT,DELETE,OPTIONS'",
+        "method.response.header.Access-Control-Allow-Credentials": "'true'",
+        "method.response.header.Access-Control-Max-Age": "'3600'"
+       },
+       "ResponseTemplates": {
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+       },
+       "StatusCode": "204"
+      }
+     ],
+     "RequestTemplates": {
+      "application/json": "{ statusCode: 200 }"
+     },
+     "Type": "MOCK"
+    },
+    "MethodResponses": [
+     {
+      "ResponseParameters": {
+       "method.response.header.Access-Control-Allow-Headers": true,
+       "method.response.header.Access-Control-Allow-Origin": true,
+       "method.response.header.Vary": true,
+       "method.response.header.Access-Control-Allow-Methods": true,
+       "method.response.header.Access-Control-Allow-Credentials": true,
+       "method.response.header.Access-Control-Max-Age": true
+      },
+      "StatusCode": "204"
+     }
+    ],
+    "ResourceId": {
+     "Ref": "RestApiSydneyCyclesRestApiv1usersme4315889D"
+    },
+    "RestApiId": {
+     "Ref": "RestApiSydneyCyclesRestApiC3FBF1D6"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/users/me/OPTIONS/Resource"
+   }
+  },
+  "RestApiSydneyCyclesRestApiv1usersmeGETApiPermissionSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514GETv1usersme1E9B1135": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "UserProfileServiceGetCurrentUserFunction4B580C64",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:aws:execute-api:us-east-2:924748161040:",
+       {
+        "Ref": "RestApiSydneyCyclesRestApiC3FBF1D6"
+       },
+       "/",
+       {
+        "Ref": "RestApiSydneyCyclesRestApiDeploymentStagedevelopmentDF98341E"
+       },
+       "/GET/v1/users/me"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/users/me/GET/ApiPermission.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.GET..v1.users.me"
+   }
+  },
+  "RestApiSydneyCyclesRestApiv1usersmeGETApiPermissionTestSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514GETv1usersme747C434B": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "UserProfileServiceGetCurrentUserFunction4B580C64",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:aws:execute-api:us-east-2:924748161040:",
+       {
+        "Ref": "RestApiSydneyCyclesRestApiC3FBF1D6"
+       },
+       "/test-invoke-stage/GET/v1/users/me"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/users/me/GET/ApiPermission.Test.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.GET..v1.users.me"
+   }
+  },
+  "RestApiSydneyCyclesRestApiv1usersmeGET2E340FE5": {
+   "Type": "AWS::ApiGateway::Method",
+   "Properties": {
+    "AuthorizationType": "COGNITO_USER_POOLS",
+    "AuthorizerId": {
+     "Ref": "RestApiCognitoAuthorizerD2BF1AF9"
+    },
+    "HttpMethod": "GET",
+    "Integration": {
+     "IntegrationHttpMethod": "POST",
+     "Type": "AWS_PROXY",
+     "Uri": {
+      "Fn::Join": [
+       "",
+       [
+        "arn:aws:apigateway:us-east-2:lambda:path/2015-03-31/functions/",
+        {
+         "Fn::GetAtt": [
+          "UserProfileServiceGetCurrentUserFunction4B580C64",
+          "Arn"
+         ]
+        },
+        "/invocations"
+       ]
+      ]
+     }
+    },
+    "MethodResponses": [
+     {
+      "ResponseModels": {
+       "application/json": "Empty"
+      },
+      "StatusCode": "200"
+     },
+     {
+      "ResponseModels": {
+       "application/json": "Error"
+      },
+      "StatusCode": "401"
+     },
+     {
+      "ResponseModels": {
+       "application/json": "Error"
+      },
+      "StatusCode": "500"
+     }
+    ],
+    "ResourceId": {
+     "Ref": "RestApiSydneyCyclesRestApiv1usersme4315889D"
+    },
+    "RestApiId": {
+     "Ref": "RestApiSydneyCyclesRestApiC3FBF1D6"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/users/me/GET/Resource"
+   }
+  },
+  "RestApiSydneyCyclesRestApiv1clubsA5F04352": {
+   "Type": "AWS::ApiGateway::Resource",
+   "Properties": {
+    "ParentId": {
+     "Ref": "RestApiSydneyCyclesRestApiv1E226772B"
+    },
+    "PathPart": "clubs",
+    "RestApiId": {
+     "Ref": "RestApiSydneyCyclesRestApiC3FBF1D6"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/Resource"
+   }
+  },
+  "RestApiSydneyCyclesRestApiv1clubsOPTIONSC3BAB8A0": {
+   "Type": "AWS::ApiGateway::Method",
+   "Properties": {
+    "ApiKeyRequired": false,
+    "AuthorizationType": "NONE",
+    "HttpMethod": "OPTIONS",
+    "Integration": {
+     "IntegrationResponses": [
+      {
+       "ResponseParameters": {
+        "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
+        "method.response.header.Access-Control-Allow-Origin": "'http://localhost:3000'",
+        "method.response.header.Vary": "'Origin'",
+        "method.response.header.Access-Control-Allow-Methods": "'GET,POST,PUT,DELETE,OPTIONS'",
+        "method.response.header.Access-Control-Allow-Credentials": "'true'",
+        "method.response.header.Access-Control-Max-Age": "'3600'"
+       },
+       "ResponseTemplates": {
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+       },
+       "StatusCode": "204"
+      }
+     ],
+     "RequestTemplates": {
+      "application/json": "{ statusCode: 200 }"
+     },
+     "Type": "MOCK"
+    },
+    "MethodResponses": [
+     {
+      "ResponseParameters": {
+       "method.response.header.Access-Control-Allow-Headers": true,
+       "method.response.header.Access-Control-Allow-Origin": true,
+       "method.response.header.Vary": true,
+       "method.response.header.Access-Control-Allow-Methods": true,
+       "method.response.header.Access-Control-Allow-Credentials": true,
+       "method.response.header.Access-Control-Max-Age": true
+      },
+      "StatusCode": "204"
+     }
+    ],
+    "ResourceId": {
+     "Ref": "RestApiSydneyCyclesRestApiv1clubsA5F04352"
+    },
+    "RestApiId": {
+     "Ref": "RestApiSydneyCyclesRestApiC3FBF1D6"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/OPTIONS/Resource"
+   }
+  },
+  "RestApiSydneyCyclesRestApiv1clubsclubId7FA55AF3": {
+   "Type": "AWS::ApiGateway::Resource",
+   "Properties": {
+    "ParentId": {
+     "Ref": "RestApiSydneyCyclesRestApiv1clubsA5F04352"
+    },
+    "PathPart": "{clubId}",
+    "RestApiId": {
+     "Ref": "RestApiSydneyCyclesRestApiC3FBF1D6"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/Resource"
+   }
+  },
+  "RestApiSydneyCyclesRestApiv1clubsclubIdOPTIONS3D70AB7D": {
+   "Type": "AWS::ApiGateway::Method",
+   "Properties": {
+    "ApiKeyRequired": false,
+    "AuthorizationType": "NONE",
+    "HttpMethod": "OPTIONS",
+    "Integration": {
+     "IntegrationResponses": [
+      {
+       "ResponseParameters": {
+        "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
+        "method.response.header.Access-Control-Allow-Origin": "'http://localhost:3000'",
+        "method.response.header.Vary": "'Origin'",
+        "method.response.header.Access-Control-Allow-Methods": "'GET,POST,PUT,DELETE,OPTIONS'",
+        "method.response.header.Access-Control-Allow-Credentials": "'true'",
+        "method.response.header.Access-Control-Max-Age": "'3600'"
+       },
+       "ResponseTemplates": {
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+       },
+       "StatusCode": "204"
+      }
+     ],
+     "RequestTemplates": {
+      "application/json": "{ statusCode: 200 }"
+     },
+     "Type": "MOCK"
+    },
+    "MethodResponses": [
+     {
+      "ResponseParameters": {
+       "method.response.header.Access-Control-Allow-Headers": true,
+       "method.response.header.Access-Control-Allow-Origin": true,
+       "method.response.header.Vary": true,
+       "method.response.header.Access-Control-Allow-Methods": true,
+       "method.response.header.Access-Control-Allow-Credentials": true,
+       "method.response.header.Access-Control-Max-Age": true
+      },
+      "StatusCode": "204"
+     }
+    ],
+    "ResourceId": {
+     "Ref": "RestApiSydneyCyclesRestApiv1clubsclubId7FA55AF3"
+    },
+    "RestApiId": {
+     "Ref": "RestApiSydneyCyclesRestApiC3FBF1D6"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/OPTIONS/Resource"
+   }
+  },
+  "RestApiSydneyCyclesRestApiv1clubsclubIdmembershipsBFF9DDB3": {
+   "Type": "AWS::ApiGateway::Resource",
+   "Properties": {
+    "ParentId": {
+     "Ref": "RestApiSydneyCyclesRestApiv1clubsclubId7FA55AF3"
+    },
+    "PathPart": "memberships",
+    "RestApiId": {
+     "Ref": "RestApiSydneyCyclesRestApiC3FBF1D6"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/memberships/Resource"
+   }
+  },
+  "RestApiSydneyCyclesRestApiv1clubsclubIdmembershipsOPTIONSB768DE6B": {
+   "Type": "AWS::ApiGateway::Method",
+   "Properties": {
+    "ApiKeyRequired": false,
+    "AuthorizationType": "NONE",
+    "HttpMethod": "OPTIONS",
+    "Integration": {
+     "IntegrationResponses": [
+      {
+       "ResponseParameters": {
+        "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
+        "method.response.header.Access-Control-Allow-Origin": "'http://localhost:3000'",
+        "method.response.header.Vary": "'Origin'",
+        "method.response.header.Access-Control-Allow-Methods": "'GET,POST,PUT,DELETE,OPTIONS'",
+        "method.response.header.Access-Control-Allow-Credentials": "'true'",
+        "method.response.header.Access-Control-Max-Age": "'3600'"
+       },
+       "ResponseTemplates": {
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+       },
+       "StatusCode": "204"
+      }
+     ],
+     "RequestTemplates": {
+      "application/json": "{ statusCode: 200 }"
+     },
+     "Type": "MOCK"
+    },
+    "MethodResponses": [
+     {
+      "ResponseParameters": {
+       "method.response.header.Access-Control-Allow-Headers": true,
+       "method.response.header.Access-Control-Allow-Origin": true,
+       "method.response.header.Vary": true,
+       "method.response.header.Access-Control-Allow-Methods": true,
+       "method.response.header.Access-Control-Allow-Credentials": true,
+       "method.response.header.Access-Control-Max-Age": true
+      },
+      "StatusCode": "204"
+     }
+    ],
+    "ResourceId": {
+     "Ref": "RestApiSydneyCyclesRestApiv1clubsclubIdmembershipsBFF9DDB3"
+    },
+    "RestApiId": {
+     "Ref": "RestApiSydneyCyclesRestApiC3FBF1D6"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/memberships/OPTIONS/Resource"
+   }
+  },
+  "RestApiSydneyCyclesRestApiv1clubsclubIdrides96ABC095": {
+   "Type": "AWS::ApiGateway::Resource",
+   "Properties": {
+    "ParentId": {
+     "Ref": "RestApiSydneyCyclesRestApiv1clubsclubId7FA55AF3"
+    },
+    "PathPart": "rides",
+    "RestApiId": {
+     "Ref": "RestApiSydneyCyclesRestApiC3FBF1D6"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/rides/Resource"
+   }
+  },
+  "RestApiSydneyCyclesRestApiv1clubsclubIdridesOPTIONSDE5D7D36": {
+   "Type": "AWS::ApiGateway::Method",
+   "Properties": {
+    "ApiKeyRequired": false,
+    "AuthorizationType": "NONE",
+    "HttpMethod": "OPTIONS",
+    "Integration": {
+     "IntegrationResponses": [
+      {
+       "ResponseParameters": {
+        "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
+        "method.response.header.Access-Control-Allow-Origin": "'http://localhost:3000'",
+        "method.response.header.Vary": "'Origin'",
+        "method.response.header.Access-Control-Allow-Methods": "'GET,POST,PUT,DELETE,OPTIONS'",
+        "method.response.header.Access-Control-Allow-Credentials": "'true'",
+        "method.response.header.Access-Control-Max-Age": "'3600'"
+       },
+       "ResponseTemplates": {
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+       },
+       "StatusCode": "204"
+      }
+     ],
+     "RequestTemplates": {
+      "application/json": "{ statusCode: 200 }"
+     },
+     "Type": "MOCK"
+    },
+    "MethodResponses": [
+     {
+      "ResponseParameters": {
+       "method.response.header.Access-Control-Allow-Headers": true,
+       "method.response.header.Access-Control-Allow-Origin": true,
+       "method.response.header.Vary": true,
+       "method.response.header.Access-Control-Allow-Methods": true,
+       "method.response.header.Access-Control-Allow-Credentials": true,
+       "method.response.header.Access-Control-Max-Age": true
+      },
+      "StatusCode": "204"
+     }
+    ],
+    "ResourceId": {
+     "Ref": "RestApiSydneyCyclesRestApiv1clubsclubIdrides96ABC095"
+    },
+    "RestApiId": {
+     "Ref": "RestApiSydneyCyclesRestApiC3FBF1D6"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/rides/OPTIONS/Resource"
+   }
+  },
+  "RestApiSydneyCyclesRestApiv1clubsGETApiPermissionSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514GETv1clubsECBA4FBC": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "ClubServiceListClubsFunction63F834C0",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:aws:execute-api:us-east-2:924748161040:",
+       {
+        "Ref": "RestApiSydneyCyclesRestApiC3FBF1D6"
+       },
+       "/",
+       {
+        "Ref": "RestApiSydneyCyclesRestApiDeploymentStagedevelopmentDF98341E"
+       },
+       "/GET/v1/clubs"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/GET/ApiPermission.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.GET..v1.clubs"
+   }
+  },
+  "RestApiSydneyCyclesRestApiv1clubsGETApiPermissionTestSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514GETv1clubs334662A4": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "ClubServiceListClubsFunction63F834C0",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:aws:execute-api:us-east-2:924748161040:",
+       {
+        "Ref": "RestApiSydneyCyclesRestApiC3FBF1D6"
+       },
+       "/test-invoke-stage/GET/v1/clubs"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/GET/ApiPermission.Test.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.GET..v1.clubs"
+   }
+  },
+  "RestApiSydneyCyclesRestApiv1clubsGET43D1B96B": {
+   "Type": "AWS::ApiGateway::Method",
+   "Properties": {
+    "AuthorizationType": "NONE",
+    "HttpMethod": "GET",
+    "Integration": {
+     "IntegrationHttpMethod": "POST",
+     "Type": "AWS_PROXY",
+     "Uri": {
+      "Fn::Join": [
+       "",
+       [
+        "arn:aws:apigateway:us-east-2:lambda:path/2015-03-31/functions/",
+        {
+         "Fn::GetAtt": [
+          "ClubServiceListClubsFunction63F834C0",
+          "Arn"
+         ]
+        },
+        "/invocations"
+       ]
+      ]
+     }
+    },
+    "MethodResponses": [
+     {
+      "ResponseModels": {
+       "application/json": "Empty"
+      },
+      "StatusCode": "200"
+     },
+     {
+      "ResponseModels": {
+       "application/json": "Error"
+      },
+      "StatusCode": "400"
+     },
+     {
+      "ResponseModels": {
+       "application/json": "Error"
+      },
+      "StatusCode": "500"
+     }
+    ],
+    "ResourceId": {
+     "Ref": "RestApiSydneyCyclesRestApiv1clubsA5F04352"
+    },
+    "RestApiId": {
+     "Ref": "RestApiSydneyCyclesRestApiC3FBF1D6"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/GET/Resource"
+   }
+  },
+  "RestApiSydneyCyclesRestApiv1clubsPOSTApiPermissionSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514POSTv1clubsF694EE08": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "ClubServiceCreateClubFunction9485933C",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:aws:execute-api:us-east-2:924748161040:",
+       {
+        "Ref": "RestApiSydneyCyclesRestApiC3FBF1D6"
+       },
+       "/",
+       {
+        "Ref": "RestApiSydneyCyclesRestApiDeploymentStagedevelopmentDF98341E"
+       },
+       "/POST/v1/clubs"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/POST/ApiPermission.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.POST..v1.clubs"
+   }
+  },
+  "RestApiSydneyCyclesRestApiv1clubsPOSTApiPermissionTestSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514POSTv1clubsDC7B4895": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "ClubServiceCreateClubFunction9485933C",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:aws:execute-api:us-east-2:924748161040:",
+       {
+        "Ref": "RestApiSydneyCyclesRestApiC3FBF1D6"
+       },
+       "/test-invoke-stage/POST/v1/clubs"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/POST/ApiPermission.Test.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.POST..v1.clubs"
+   }
+  },
+  "RestApiSydneyCyclesRestApiv1clubsPOST5F76E841": {
+   "Type": "AWS::ApiGateway::Method",
+   "Properties": {
+    "AuthorizationType": "COGNITO_USER_POOLS",
+    "AuthorizerId": {
+     "Ref": "RestApiCognitoAuthorizerD2BF1AF9"
+    },
+    "HttpMethod": "POST",
+    "Integration": {
+     "IntegrationHttpMethod": "POST",
+     "Type": "AWS_PROXY",
+     "Uri": {
+      "Fn::Join": [
+       "",
+       [
+        "arn:aws:apigateway:us-east-2:lambda:path/2015-03-31/functions/",
+        {
+         "Fn::GetAtt": [
+          "ClubServiceCreateClubFunction9485933C",
+          "Arn"
+         ]
+        },
+        "/invocations"
+       ]
+      ]
+     }
+    },
+    "MethodResponses": [
+     {
+      "ResponseModels": {
+       "application/json": "Empty"
+      },
+      "StatusCode": "201"
+     },
+     {
+      "ResponseModels": {
+       "application/json": "Error"
+      },
+      "StatusCode": "400"
+     },
+     {
+      "ResponseModels": {
+       "application/json": "Error"
+      },
+      "StatusCode": "401"
+     },
+     {
+      "ResponseModels": {
+       "application/json": "Error"
+      },
+      "StatusCode": "403"
+     },
+     {
+      "ResponseModels": {
+       "application/json": "Error"
+      },
+      "StatusCode": "409"
+     },
+     {
+      "ResponseModels": {
+       "application/json": "Error"
+      },
+      "StatusCode": "500"
+     }
+    ],
+    "RequestModels": {
+     "application/json": "Empty"
+    },
+    "ResourceId": {
+     "Ref": "RestApiSydneyCyclesRestApiv1clubsA5F04352"
+    },
+    "RestApiId": {
+     "Ref": "RestApiSydneyCyclesRestApiC3FBF1D6"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/POST/Resource"
+   }
+  },
+  "RestApiSydneyCyclesRestApiv1clubsidB9232480": {
+   "Type": "AWS::ApiGateway::Resource",
+   "Properties": {
+    "ParentId": {
+     "Ref": "RestApiSydneyCyclesRestApiv1clubsA5F04352"
+    },
+    "PathPart": "{id}",
+    "RestApiId": {
+     "Ref": "RestApiSydneyCyclesRestApiC3FBF1D6"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{id}/Resource"
+   }
+  },
+  "RestApiSydneyCyclesRestApiv1clubsidOPTIONSAD9FDAB2": {
+   "Type": "AWS::ApiGateway::Method",
+   "Properties": {
+    "ApiKeyRequired": false,
+    "AuthorizationType": "NONE",
+    "HttpMethod": "OPTIONS",
+    "Integration": {
+     "IntegrationResponses": [
+      {
+       "ResponseParameters": {
+        "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
+        "method.response.header.Access-Control-Allow-Origin": "'http://localhost:3000'",
+        "method.response.header.Vary": "'Origin'",
+        "method.response.header.Access-Control-Allow-Methods": "'GET,POST,PUT,DELETE,OPTIONS'",
+        "method.response.header.Access-Control-Allow-Credentials": "'true'",
+        "method.response.header.Access-Control-Max-Age": "'3600'"
+       },
+       "ResponseTemplates": {
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+       },
+       "StatusCode": "204"
+      }
+     ],
+     "RequestTemplates": {
+      "application/json": "{ statusCode: 200 }"
+     },
+     "Type": "MOCK"
+    },
+    "MethodResponses": [
+     {
+      "ResponseParameters": {
+       "method.response.header.Access-Control-Allow-Headers": true,
+       "method.response.header.Access-Control-Allow-Origin": true,
+       "method.response.header.Vary": true,
+       "method.response.header.Access-Control-Allow-Methods": true,
+       "method.response.header.Access-Control-Allow-Credentials": true,
+       "method.response.header.Access-Control-Max-Age": true
+      },
+      "StatusCode": "204"
+     }
+    ],
+    "ResourceId": {
+     "Ref": "RestApiSydneyCyclesRestApiv1clubsidB9232480"
+    },
+    "RestApiId": {
+     "Ref": "RestApiSydneyCyclesRestApiC3FBF1D6"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{id}/OPTIONS/Resource"
+   }
+  },
+  "RestApiSydneyCyclesRestApiv1clubsidGETApiPermissionSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514GETv1clubsid94BB920C": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "ClubServiceGetClubFunctionA1AC042C",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:aws:execute-api:us-east-2:924748161040:",
+       {
+        "Ref": "RestApiSydneyCyclesRestApiC3FBF1D6"
+       },
+       "/",
+       {
+        "Ref": "RestApiSydneyCyclesRestApiDeploymentStagedevelopmentDF98341E"
+       },
+       "/GET/v1/clubs/*"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{id}/GET/ApiPermission.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.GET..v1.clubs.{id}"
+   }
+  },
+  "RestApiSydneyCyclesRestApiv1clubsidGETApiPermissionTestSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514GETv1clubsid31675DA8": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "ClubServiceGetClubFunctionA1AC042C",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:aws:execute-api:us-east-2:924748161040:",
+       {
+        "Ref": "RestApiSydneyCyclesRestApiC3FBF1D6"
+       },
+       "/test-invoke-stage/GET/v1/clubs/*"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{id}/GET/ApiPermission.Test.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.GET..v1.clubs.{id}"
+   }
+  },
+  "RestApiSydneyCyclesRestApiv1clubsidGETBEEA22B6": {
+   "Type": "AWS::ApiGateway::Method",
+   "Properties": {
+    "AuthorizationType": "NONE",
+    "HttpMethod": "GET",
+    "Integration": {
+     "IntegrationHttpMethod": "POST",
+     "Type": "AWS_PROXY",
+     "Uri": {
+      "Fn::Join": [
+       "",
+       [
+        "arn:aws:apigateway:us-east-2:lambda:path/2015-03-31/functions/",
+        {
+         "Fn::GetAtt": [
+          "ClubServiceGetClubFunctionA1AC042C",
+          "Arn"
+         ]
+        },
+        "/invocations"
+       ]
+      ]
+     }
+    },
+    "MethodResponses": [
+     {
+      "ResponseModels": {
+       "application/json": "Empty"
+      },
+      "StatusCode": "200"
+     },
+     {
+      "ResponseModels": {
+       "application/json": "Error"
+      },
+      "StatusCode": "400"
+     },
+     {
+      "ResponseModels": {
+       "application/json": "Error"
+      },
+      "StatusCode": "404"
+     },
+     {
+      "ResponseModels": {
+       "application/json": "Error"
+      },
+      "StatusCode": "500"
+     }
+    ],
+    "RequestParameters": {
+     "method.request.path.id": true
+    },
+    "ResourceId": {
+     "Ref": "RestApiSydneyCyclesRestApiv1clubsidB9232480"
+    },
+    "RestApiId": {
+     "Ref": "RestApiSydneyCyclesRestApiC3FBF1D6"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{id}/GET/Resource"
+   }
+  },
+  "RestApiSydneyCyclesRestApiv1clubsidPUTApiPermissionSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514PUTv1clubsid9559E251": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "ClubServiceUpdateClubFunction0A2D1091",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:aws:execute-api:us-east-2:924748161040:",
+       {
+        "Ref": "RestApiSydneyCyclesRestApiC3FBF1D6"
+       },
+       "/",
+       {
+        "Ref": "RestApiSydneyCyclesRestApiDeploymentStagedevelopmentDF98341E"
+       },
+       "/PUT/v1/clubs/*"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{id}/PUT/ApiPermission.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.PUT..v1.clubs.{id}"
+   }
+  },
+  "RestApiSydneyCyclesRestApiv1clubsidPUTApiPermissionTestSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514PUTv1clubsid8C9CA0CE": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "ClubServiceUpdateClubFunction0A2D1091",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:aws:execute-api:us-east-2:924748161040:",
+       {
+        "Ref": "RestApiSydneyCyclesRestApiC3FBF1D6"
+       },
+       "/test-invoke-stage/PUT/v1/clubs/*"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{id}/PUT/ApiPermission.Test.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.PUT..v1.clubs.{id}"
+   }
+  },
+  "RestApiSydneyCyclesRestApiv1clubsidPUTABA28505": {
+   "Type": "AWS::ApiGateway::Method",
+   "Properties": {
+    "AuthorizationType": "COGNITO_USER_POOLS",
+    "AuthorizerId": {
+     "Ref": "RestApiCognitoAuthorizerD2BF1AF9"
+    },
+    "HttpMethod": "PUT",
+    "Integration": {
+     "IntegrationHttpMethod": "POST",
+     "Type": "AWS_PROXY",
+     "Uri": {
+      "Fn::Join": [
+       "",
+       [
+        "arn:aws:apigateway:us-east-2:lambda:path/2015-03-31/functions/",
+        {
+         "Fn::GetAtt": [
+          "ClubServiceUpdateClubFunction0A2D1091",
+          "Arn"
+         ]
+        },
+        "/invocations"
+       ]
+      ]
+     }
+    },
+    "MethodResponses": [
+     {
+      "ResponseModels": {
+       "application/json": "Empty"
+      },
+      "StatusCode": "200"
+     },
+     {
+      "ResponseModels": {
+       "application/json": "Error"
+      },
+      "StatusCode": "400"
+     },
+     {
+      "ResponseModels": {
+       "application/json": "Error"
+      },
+      "StatusCode": "401"
+     },
+     {
+      "ResponseModels": {
+       "application/json": "Error"
+      },
+      "StatusCode": "403"
+     },
+     {
+      "ResponseModels": {
+       "application/json": "Error"
+      },
+      "StatusCode": "404"
+     },
+     {
+      "ResponseModels": {
+       "application/json": "Error"
+      },
+      "StatusCode": "409"
+     },
+     {
+      "ResponseModels": {
+       "application/json": "Error"
+      },
+      "StatusCode": "500"
+     }
+    ],
+    "RequestModels": {
+     "application/json": "Empty"
+    },
+    "RequestParameters": {
+     "method.request.path.id": true
+    },
+    "ResourceId": {
+     "Ref": "RestApiSydneyCyclesRestApiv1clubsidB9232480"
+    },
+    "RestApiId": {
+     "Ref": "RestApiSydneyCyclesRestApiC3FBF1D6"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{id}/PUT/Resource"
+   }
+  },
+  "RestApiSydneyCyclesRestApiv1clubsidmembers4AAEBF51": {
+   "Type": "AWS::ApiGateway::Resource",
+   "Properties": {
+    "ParentId": {
+     "Ref": "RestApiSydneyCyclesRestApiv1clubsidB9232480"
+    },
+    "PathPart": "members",
+    "RestApiId": {
+     "Ref": "RestApiSydneyCyclesRestApiC3FBF1D6"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{id}/members/Resource"
+   }
+  },
+  "RestApiSydneyCyclesRestApiv1clubsidmembersOPTIONS329252A1": {
+   "Type": "AWS::ApiGateway::Method",
+   "Properties": {
+    "ApiKeyRequired": false,
+    "AuthorizationType": "NONE",
+    "HttpMethod": "OPTIONS",
+    "Integration": {
+     "IntegrationResponses": [
+      {
+       "ResponseParameters": {
+        "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
+        "method.response.header.Access-Control-Allow-Origin": "'http://localhost:3000'",
+        "method.response.header.Vary": "'Origin'",
+        "method.response.header.Access-Control-Allow-Methods": "'GET,POST,PUT,DELETE,OPTIONS'",
+        "method.response.header.Access-Control-Allow-Credentials": "'true'",
+        "method.response.header.Access-Control-Max-Age": "'3600'"
+       },
+       "ResponseTemplates": {
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+       },
+       "StatusCode": "204"
+      }
+     ],
+     "RequestTemplates": {
+      "application/json": "{ statusCode: 200 }"
+     },
+     "Type": "MOCK"
+    },
+    "MethodResponses": [
+     {
+      "ResponseParameters": {
+       "method.response.header.Access-Control-Allow-Headers": true,
+       "method.response.header.Access-Control-Allow-Origin": true,
+       "method.response.header.Vary": true,
+       "method.response.header.Access-Control-Allow-Methods": true,
+       "method.response.header.Access-Control-Allow-Credentials": true,
+       "method.response.header.Access-Control-Max-Age": true
+      },
+      "StatusCode": "204"
+     }
+    ],
+    "ResourceId": {
+     "Ref": "RestApiSydneyCyclesRestApiv1clubsidmembers4AAEBF51"
+    },
+    "RestApiId": {
+     "Ref": "RestApiSydneyCyclesRestApiC3FBF1D6"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{id}/members/OPTIONS/Resource"
+   }
+  },
+  "RestApiSydneyCyclesRestApiv1clubsidmembersPOSTApiPermissionSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514POSTv1clubsidmembers773F873A": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "ClubServiceJoinClubFunctionED48F36B",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:aws:execute-api:us-east-2:924748161040:",
+       {
+        "Ref": "RestApiSydneyCyclesRestApiC3FBF1D6"
+       },
+       "/",
+       {
+        "Ref": "RestApiSydneyCyclesRestApiDeploymentStagedevelopmentDF98341E"
+       },
+       "/POST/v1/clubs/*/members"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{id}/members/POST/ApiPermission.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.POST..v1.clubs.{id}.members"
+   }
+  },
+  "RestApiSydneyCyclesRestApiv1clubsidmembersPOSTApiPermissionTestSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514POSTv1clubsidmembers8D69B923": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "ClubServiceJoinClubFunctionED48F36B",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:aws:execute-api:us-east-2:924748161040:",
+       {
+        "Ref": "RestApiSydneyCyclesRestApiC3FBF1D6"
+       },
+       "/test-invoke-stage/POST/v1/clubs/*/members"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{id}/members/POST/ApiPermission.Test.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.POST..v1.clubs.{id}.members"
+   }
+  },
+  "RestApiSydneyCyclesRestApiv1clubsidmembersPOST3BBECC2D": {
+   "Type": "AWS::ApiGateway::Method",
+   "Properties": {
+    "AuthorizationType": "COGNITO_USER_POOLS",
+    "AuthorizerId": {
+     "Ref": "RestApiCognitoAuthorizerD2BF1AF9"
+    },
+    "HttpMethod": "POST",
+    "Integration": {
+     "IntegrationHttpMethod": "POST",
+     "Type": "AWS_PROXY",
+     "Uri": {
+      "Fn::Join": [
+       "",
+       [
+        "arn:aws:apigateway:us-east-2:lambda:path/2015-03-31/functions/",
+        {
+         "Fn::GetAtt": [
+          "ClubServiceJoinClubFunctionED48F36B",
+          "Arn"
+         ]
+        },
+        "/invocations"
+       ]
+      ]
+     }
+    },
+    "MethodResponses": [
+     {
+      "StatusCode": "201"
+     },
+     {
+      "StatusCode": "202"
+     },
+     {
+      "StatusCode": "400"
+     },
+     {
+      "StatusCode": "401"
+     },
+     {
+      "StatusCode": "403"
+     },
+     {
+      "StatusCode": "409"
+     },
+     {
+      "StatusCode": "500"
+     }
+    ],
+    "RequestParameters": {
+     "method.request.path.id": true
+    },
+    "ResourceId": {
+     "Ref": "RestApiSydneyCyclesRestApiv1clubsidmembers4AAEBF51"
+    },
+    "RestApiId": {
+     "Ref": "RestApiSydneyCyclesRestApiC3FBF1D6"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{id}/members/POST/Resource"
+   }
+  },
+  "RestApiSydneyCyclesRestApiv1clubsidmembersGETApiPermissionSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514GETv1clubsidmembers6FBE02D5": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "ClubServiceListMembersFunction448D3124",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:aws:execute-api:us-east-2:924748161040:",
+       {
+        "Ref": "RestApiSydneyCyclesRestApiC3FBF1D6"
+       },
+       "/",
+       {
+        "Ref": "RestApiSydneyCyclesRestApiDeploymentStagedevelopmentDF98341E"
+       },
+       "/GET/v1/clubs/*/members"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{id}/members/GET/ApiPermission.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.GET..v1.clubs.{id}.members"
+   }
+  },
+  "RestApiSydneyCyclesRestApiv1clubsidmembersGETApiPermissionTestSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514GETv1clubsidmembersB9E271C3": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "ClubServiceListMembersFunction448D3124",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:aws:execute-api:us-east-2:924748161040:",
+       {
+        "Ref": "RestApiSydneyCyclesRestApiC3FBF1D6"
+       },
+       "/test-invoke-stage/GET/v1/clubs/*/members"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{id}/members/GET/ApiPermission.Test.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.GET..v1.clubs.{id}.members"
+   }
+  },
+  "RestApiSydneyCyclesRestApiv1clubsidmembersGET4905B871": {
+   "Type": "AWS::ApiGateway::Method",
+   "Properties": {
+    "AuthorizationType": "COGNITO_USER_POOLS",
+    "AuthorizerId": {
+     "Ref": "RestApiCognitoAuthorizerD2BF1AF9"
+    },
+    "HttpMethod": "GET",
+    "Integration": {
+     "IntegrationHttpMethod": "POST",
+     "Type": "AWS_PROXY",
+     "Uri": {
+      "Fn::Join": [
+       "",
+       [
+        "arn:aws:apigateway:us-east-2:lambda:path/2015-03-31/functions/",
+        {
+         "Fn::GetAtt": [
+          "ClubServiceListMembersFunction448D3124",
+          "Arn"
+         ]
+        },
+        "/invocations"
+       ]
+      ]
+     }
+    },
+    "MethodResponses": [
+     {
+      "StatusCode": "200"
+     },
+     {
+      "StatusCode": "400"
+     },
+     {
+      "StatusCode": "401"
+     },
+     {
+      "StatusCode": "403"
+     },
+     {
+      "StatusCode": "404"
+     },
+     {
+      "StatusCode": "500"
+     }
+    ],
+    "RequestParameters": {
+     "method.request.path.id": true,
+     "method.request.querystring.limit": false,
+     "method.request.querystring.cursor": false,
+     "method.request.querystring.role": false,
+     "method.request.querystring.status": false
+    },
+    "ResourceId": {
+     "Ref": "RestApiSydneyCyclesRestApiv1clubsidmembers4AAEBF51"
+    },
+    "RestApiId": {
+     "Ref": "RestApiSydneyCyclesRestApiC3FBF1D6"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{id}/members/GET/Resource"
+   }
+  },
+  "RestApiSydneyCyclesRestApiv1clubsidmembersmeFC6F9D7E": {
+   "Type": "AWS::ApiGateway::Resource",
+   "Properties": {
+    "ParentId": {
+     "Ref": "RestApiSydneyCyclesRestApiv1clubsidmembers4AAEBF51"
+    },
+    "PathPart": "me",
+    "RestApiId": {
+     "Ref": "RestApiSydneyCyclesRestApiC3FBF1D6"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{id}/members/me/Resource"
+   }
+  },
+  "RestApiSydneyCyclesRestApiv1clubsidmembersmeOPTIONSDBA89EF6": {
+   "Type": "AWS::ApiGateway::Method",
+   "Properties": {
+    "ApiKeyRequired": false,
+    "AuthorizationType": "NONE",
+    "HttpMethod": "OPTIONS",
+    "Integration": {
+     "IntegrationResponses": [
+      {
+       "ResponseParameters": {
+        "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
+        "method.response.header.Access-Control-Allow-Origin": "'http://localhost:3000'",
+        "method.response.header.Vary": "'Origin'",
+        "method.response.header.Access-Control-Allow-Methods": "'GET,POST,PUT,DELETE,OPTIONS'",
+        "method.response.header.Access-Control-Allow-Credentials": "'true'",
+        "method.response.header.Access-Control-Max-Age": "'3600'"
+       },
+       "ResponseTemplates": {
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+       },
+       "StatusCode": "204"
+      }
+     ],
+     "RequestTemplates": {
+      "application/json": "{ statusCode: 200 }"
+     },
+     "Type": "MOCK"
+    },
+    "MethodResponses": [
+     {
+      "ResponseParameters": {
+       "method.response.header.Access-Control-Allow-Headers": true,
+       "method.response.header.Access-Control-Allow-Origin": true,
+       "method.response.header.Vary": true,
+       "method.response.header.Access-Control-Allow-Methods": true,
+       "method.response.header.Access-Control-Allow-Credentials": true,
+       "method.response.header.Access-Control-Max-Age": true
+      },
+      "StatusCode": "204"
+     }
+    ],
+    "ResourceId": {
+     "Ref": "RestApiSydneyCyclesRestApiv1clubsidmembersmeFC6F9D7E"
+    },
+    "RestApiId": {
+     "Ref": "RestApiSydneyCyclesRestApiC3FBF1D6"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{id}/members/me/OPTIONS/Resource"
+   }
+  },
+  "RestApiSydneyCyclesRestApiv1clubsidmembersmeDELETEApiPermissionSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514DELETEv1clubsidmembersmeAF0CF02F": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "ClubServiceLeaveClubFunctionBA920A0A",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:aws:execute-api:us-east-2:924748161040:",
+       {
+        "Ref": "RestApiSydneyCyclesRestApiC3FBF1D6"
+       },
+       "/",
+       {
+        "Ref": "RestApiSydneyCyclesRestApiDeploymentStagedevelopmentDF98341E"
+       },
+       "/DELETE/v1/clubs/*/members/me"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{id}/members/me/DELETE/ApiPermission.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.DELETE..v1.clubs.{id}.members.me"
+   }
+  },
+  "RestApiSydneyCyclesRestApiv1clubsidmembersmeDELETEApiPermissionTestSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514DELETEv1clubsidmembersme07DE009D": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "ClubServiceLeaveClubFunctionBA920A0A",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:aws:execute-api:us-east-2:924748161040:",
+       {
+        "Ref": "RestApiSydneyCyclesRestApiC3FBF1D6"
+       },
+       "/test-invoke-stage/DELETE/v1/clubs/*/members/me"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{id}/members/me/DELETE/ApiPermission.Test.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.DELETE..v1.clubs.{id}.members.me"
+   }
+  },
+  "RestApiSydneyCyclesRestApiv1clubsidmembersmeDELETEBCB2C228": {
+   "Type": "AWS::ApiGateway::Method",
+   "Properties": {
+    "AuthorizationType": "COGNITO_USER_POOLS",
+    "AuthorizerId": {
+     "Ref": "RestApiCognitoAuthorizerD2BF1AF9"
+    },
+    "HttpMethod": "DELETE",
+    "Integration": {
+     "IntegrationHttpMethod": "POST",
+     "Type": "AWS_PROXY",
+     "Uri": {
+      "Fn::Join": [
+       "",
+       [
+        "arn:aws:apigateway:us-east-2:lambda:path/2015-03-31/functions/",
+        {
+         "Fn::GetAtt": [
+          "ClubServiceLeaveClubFunctionBA920A0A",
+          "Arn"
+         ]
+        },
+        "/invocations"
+       ]
+      ]
+     }
+    },
+    "MethodResponses": [
+     {
+      "StatusCode": "200"
+     },
+     {
+      "StatusCode": "400"
+     },
+     {
+      "StatusCode": "401"
+     },
+     {
+      "StatusCode": "403"
+     },
+     {
+      "StatusCode": "404"
+     },
+     {
+      "StatusCode": "500"
+     }
+    ],
+    "RequestParameters": {
+     "method.request.path.id": true
+    },
+    "ResourceId": {
+     "Ref": "RestApiSydneyCyclesRestApiv1clubsidmembersmeFC6F9D7E"
+    },
+    "RestApiId": {
+     "Ref": "RestApiSydneyCyclesRestApiC3FBF1D6"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{id}/members/me/DELETE/Resource"
+   }
+  },
+  "RestApiSydneyCyclesRestApiv1memberships7E057C9C": {
+   "Type": "AWS::ApiGateway::Resource",
+   "Properties": {
+    "ParentId": {
+     "Ref": "RestApiSydneyCyclesRestApiv1E226772B"
+    },
+    "PathPart": "memberships",
+    "RestApiId": {
+     "Ref": "RestApiSydneyCyclesRestApiC3FBF1D6"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/memberships/Resource"
+   }
+  },
+  "RestApiSydneyCyclesRestApiv1membershipsOPTIONSDABE585C": {
+   "Type": "AWS::ApiGateway::Method",
+   "Properties": {
+    "ApiKeyRequired": false,
+    "AuthorizationType": "NONE",
+    "HttpMethod": "OPTIONS",
+    "Integration": {
+     "IntegrationResponses": [
+      {
+       "ResponseParameters": {
+        "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
+        "method.response.header.Access-Control-Allow-Origin": "'http://localhost:3000'",
+        "method.response.header.Vary": "'Origin'",
+        "method.response.header.Access-Control-Allow-Methods": "'GET,POST,PUT,DELETE,OPTIONS'",
+        "method.response.header.Access-Control-Allow-Credentials": "'true'",
+        "method.response.header.Access-Control-Max-Age": "'3600'"
+       },
+       "ResponseTemplates": {
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+       },
+       "StatusCode": "204"
+      }
+     ],
+     "RequestTemplates": {
+      "application/json": "{ statusCode: 200 }"
+     },
+     "Type": "MOCK"
+    },
+    "MethodResponses": [
+     {
+      "ResponseParameters": {
+       "method.response.header.Access-Control-Allow-Headers": true,
+       "method.response.header.Access-Control-Allow-Origin": true,
+       "method.response.header.Vary": true,
+       "method.response.header.Access-Control-Allow-Methods": true,
+       "method.response.header.Access-Control-Allow-Credentials": true,
+       "method.response.header.Access-Control-Max-Age": true
+      },
+      "StatusCode": "204"
+     }
+    ],
+    "ResourceId": {
+     "Ref": "RestApiSydneyCyclesRestApiv1memberships7E057C9C"
+    },
+    "RestApiId": {
+     "Ref": "RestApiSydneyCyclesRestApiC3FBF1D6"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/memberships/OPTIONS/Resource"
+   }
+  },
+  "RestApiSydneyCyclesRestApiv1membershipsmembershipId0B03951E": {
+   "Type": "AWS::ApiGateway::Resource",
+   "Properties": {
+    "ParentId": {
+     "Ref": "RestApiSydneyCyclesRestApiv1memberships7E057C9C"
+    },
+    "PathPart": "{membershipId}",
+    "RestApiId": {
+     "Ref": "RestApiSydneyCyclesRestApiC3FBF1D6"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/memberships/{membershipId}/Resource"
+   }
+  },
+  "RestApiSydneyCyclesRestApiv1membershipsmembershipIdOPTIONS295F823F": {
+   "Type": "AWS::ApiGateway::Method",
+   "Properties": {
+    "ApiKeyRequired": false,
+    "AuthorizationType": "NONE",
+    "HttpMethod": "OPTIONS",
+    "Integration": {
+     "IntegrationResponses": [
+      {
+       "ResponseParameters": {
+        "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
+        "method.response.header.Access-Control-Allow-Origin": "'http://localhost:3000'",
+        "method.response.header.Vary": "'Origin'",
+        "method.response.header.Access-Control-Allow-Methods": "'GET,POST,PUT,DELETE,OPTIONS'",
+        "method.response.header.Access-Control-Allow-Credentials": "'true'",
+        "method.response.header.Access-Control-Max-Age": "'3600'"
+       },
+       "ResponseTemplates": {
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+       },
+       "StatusCode": "204"
+      }
+     ],
+     "RequestTemplates": {
+      "application/json": "{ statusCode: 200 }"
+     },
+     "Type": "MOCK"
+    },
+    "MethodResponses": [
+     {
+      "ResponseParameters": {
+       "method.response.header.Access-Control-Allow-Headers": true,
+       "method.response.header.Access-Control-Allow-Origin": true,
+       "method.response.header.Vary": true,
+       "method.response.header.Access-Control-Allow-Methods": true,
+       "method.response.header.Access-Control-Allow-Credentials": true,
+       "method.response.header.Access-Control-Max-Age": true
+      },
+      "StatusCode": "204"
+     }
+    ],
+    "ResourceId": {
+     "Ref": "RestApiSydneyCyclesRestApiv1membershipsmembershipId0B03951E"
+    },
+    "RestApiId": {
+     "Ref": "RestApiSydneyCyclesRestApiC3FBF1D6"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/memberships/{membershipId}/OPTIONS/Resource"
+   }
+  },
+  "RestApiSydneyCyclesRestApiv1rides22EB792A": {
+   "Type": "AWS::ApiGateway::Resource",
+   "Properties": {
+    "ParentId": {
+     "Ref": "RestApiSydneyCyclesRestApiv1E226772B"
+    },
+    "PathPart": "rides",
+    "RestApiId": {
+     "Ref": "RestApiSydneyCyclesRestApiC3FBF1D6"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/rides/Resource"
+   }
+  },
+  "RestApiSydneyCyclesRestApiv1ridesOPTIONS50E7B2D3": {
+   "Type": "AWS::ApiGateway::Method",
+   "Properties": {
+    "ApiKeyRequired": false,
+    "AuthorizationType": "NONE",
+    "HttpMethod": "OPTIONS",
+    "Integration": {
+     "IntegrationResponses": [
+      {
+       "ResponseParameters": {
+        "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
+        "method.response.header.Access-Control-Allow-Origin": "'http://localhost:3000'",
+        "method.response.header.Vary": "'Origin'",
+        "method.response.header.Access-Control-Allow-Methods": "'GET,POST,PUT,DELETE,OPTIONS'",
+        "method.response.header.Access-Control-Allow-Credentials": "'true'",
+        "method.response.header.Access-Control-Max-Age": "'3600'"
+       },
+       "ResponseTemplates": {
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+       },
+       "StatusCode": "204"
+      }
+     ],
+     "RequestTemplates": {
+      "application/json": "{ statusCode: 200 }"
+     },
+     "Type": "MOCK"
+    },
+    "MethodResponses": [
+     {
+      "ResponseParameters": {
+       "method.response.header.Access-Control-Allow-Headers": true,
+       "method.response.header.Access-Control-Allow-Origin": true,
+       "method.response.header.Vary": true,
+       "method.response.header.Access-Control-Allow-Methods": true,
+       "method.response.header.Access-Control-Allow-Credentials": true,
+       "method.response.header.Access-Control-Max-Age": true
+      },
+      "StatusCode": "204"
+     }
+    ],
+    "ResourceId": {
+     "Ref": "RestApiSydneyCyclesRestApiv1rides22EB792A"
+    },
+    "RestApiId": {
+     "Ref": "RestApiSydneyCyclesRestApiC3FBF1D6"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/rides/OPTIONS/Resource"
+   }
+  },
+  "RestApiSydneyCyclesRestApiv1ridesrideId9BB5F7D5": {
+   "Type": "AWS::ApiGateway::Resource",
+   "Properties": {
+    "ParentId": {
+     "Ref": "RestApiSydneyCyclesRestApiv1rides22EB792A"
+    },
+    "PathPart": "{rideId}",
+    "RestApiId": {
+     "Ref": "RestApiSydneyCyclesRestApiC3FBF1D6"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/rides/{rideId}/Resource"
+   }
+  },
+  "RestApiSydneyCyclesRestApiv1ridesrideIdOPTIONS18BC60C2": {
+   "Type": "AWS::ApiGateway::Method",
+   "Properties": {
+    "ApiKeyRequired": false,
+    "AuthorizationType": "NONE",
+    "HttpMethod": "OPTIONS",
+    "Integration": {
+     "IntegrationResponses": [
+      {
+       "ResponseParameters": {
+        "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
+        "method.response.header.Access-Control-Allow-Origin": "'http://localhost:3000'",
+        "method.response.header.Vary": "'Origin'",
+        "method.response.header.Access-Control-Allow-Methods": "'GET,POST,PUT,DELETE,OPTIONS'",
+        "method.response.header.Access-Control-Allow-Credentials": "'true'",
+        "method.response.header.Access-Control-Max-Age": "'3600'"
+       },
+       "ResponseTemplates": {
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+       },
+       "StatusCode": "204"
+      }
+     ],
+     "RequestTemplates": {
+      "application/json": "{ statusCode: 200 }"
+     },
+     "Type": "MOCK"
+    },
+    "MethodResponses": [
+     {
+      "ResponseParameters": {
+       "method.response.header.Access-Control-Allow-Headers": true,
+       "method.response.header.Access-Control-Allow-Origin": true,
+       "method.response.header.Vary": true,
+       "method.response.header.Access-Control-Allow-Methods": true,
+       "method.response.header.Access-Control-Allow-Credentials": true,
+       "method.response.header.Access-Control-Max-Age": true
+      },
+      "StatusCode": "204"
+     }
+    ],
+    "ResourceId": {
+     "Ref": "RestApiSydneyCyclesRestApiv1ridesrideId9BB5F7D5"
+    },
+    "RestApiId": {
+     "Ref": "RestApiSydneyCyclesRestApiC3FBF1D6"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/rides/{rideId}/OPTIONS/Resource"
+   }
+  },
+  "RestApiSydneyCyclesRestApiv1ridesrideIdparticipationsBE2F9F3D": {
+   "Type": "AWS::ApiGateway::Resource",
+   "Properties": {
+    "ParentId": {
+     "Ref": "RestApiSydneyCyclesRestApiv1ridesrideId9BB5F7D5"
+    },
+    "PathPart": "participations",
+    "RestApiId": {
+     "Ref": "RestApiSydneyCyclesRestApiC3FBF1D6"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/rides/{rideId}/participations/Resource"
+   }
+  },
+  "RestApiSydneyCyclesRestApiv1ridesrideIdparticipationsOPTIONS7F87E1DE": {
+   "Type": "AWS::ApiGateway::Method",
+   "Properties": {
+    "ApiKeyRequired": false,
+    "AuthorizationType": "NONE",
+    "HttpMethod": "OPTIONS",
+    "Integration": {
+     "IntegrationResponses": [
+      {
+       "ResponseParameters": {
+        "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
+        "method.response.header.Access-Control-Allow-Origin": "'http://localhost:3000'",
+        "method.response.header.Vary": "'Origin'",
+        "method.response.header.Access-Control-Allow-Methods": "'GET,POST,PUT,DELETE,OPTIONS'",
+        "method.response.header.Access-Control-Allow-Credentials": "'true'",
+        "method.response.header.Access-Control-Max-Age": "'3600'"
+       },
+       "ResponseTemplates": {
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+       },
+       "StatusCode": "204"
+      }
+     ],
+     "RequestTemplates": {
+      "application/json": "{ statusCode: 200 }"
+     },
+     "Type": "MOCK"
+    },
+    "MethodResponses": [
+     {
+      "ResponseParameters": {
+       "method.response.header.Access-Control-Allow-Headers": true,
+       "method.response.header.Access-Control-Allow-Origin": true,
+       "method.response.header.Vary": true,
+       "method.response.header.Access-Control-Allow-Methods": true,
+       "method.response.header.Access-Control-Allow-Credentials": true,
+       "method.response.header.Access-Control-Max-Age": true
+      },
+      "StatusCode": "204"
+     }
+    ],
+    "ResourceId": {
+     "Ref": "RestApiSydneyCyclesRestApiv1ridesrideIdparticipationsBE2F9F3D"
+    },
+    "RestApiId": {
+     "Ref": "RestApiSydneyCyclesRestApiC3FBF1D6"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/rides/{rideId}/participations/OPTIONS/Resource"
+   }
+  },
+  "RestApiSydneyCyclesRestApiv1participations6DE96801": {
+   "Type": "AWS::ApiGateway::Resource",
+   "Properties": {
+    "ParentId": {
+     "Ref": "RestApiSydneyCyclesRestApiv1E226772B"
+    },
+    "PathPart": "participations",
+    "RestApiId": {
+     "Ref": "RestApiSydneyCyclesRestApiC3FBF1D6"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/participations/Resource"
+   }
+  },
+  "RestApiSydneyCyclesRestApiv1participationsOPTIONS24C77DAD": {
+   "Type": "AWS::ApiGateway::Method",
+   "Properties": {
+    "ApiKeyRequired": false,
+    "AuthorizationType": "NONE",
+    "HttpMethod": "OPTIONS",
+    "Integration": {
+     "IntegrationResponses": [
+      {
+       "ResponseParameters": {
+        "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
+        "method.response.header.Access-Control-Allow-Origin": "'http://localhost:3000'",
+        "method.response.header.Vary": "'Origin'",
+        "method.response.header.Access-Control-Allow-Methods": "'GET,POST,PUT,DELETE,OPTIONS'",
+        "method.response.header.Access-Control-Allow-Credentials": "'true'",
+        "method.response.header.Access-Control-Max-Age": "'3600'"
+       },
+       "ResponseTemplates": {
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+       },
+       "StatusCode": "204"
+      }
+     ],
+     "RequestTemplates": {
+      "application/json": "{ statusCode: 200 }"
+     },
+     "Type": "MOCK"
+    },
+    "MethodResponses": [
+     {
+      "ResponseParameters": {
+       "method.response.header.Access-Control-Allow-Headers": true,
+       "method.response.header.Access-Control-Allow-Origin": true,
+       "method.response.header.Vary": true,
+       "method.response.header.Access-Control-Allow-Methods": true,
+       "method.response.header.Access-Control-Allow-Credentials": true,
+       "method.response.header.Access-Control-Max-Age": true
+      },
+      "StatusCode": "204"
+     }
+    ],
+    "ResourceId": {
+     "Ref": "RestApiSydneyCyclesRestApiv1participations6DE96801"
+    },
+    "RestApiId": {
+     "Ref": "RestApiSydneyCyclesRestApiC3FBF1D6"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/participations/OPTIONS/Resource"
+   }
+  },
+  "RestApiSydneyCyclesRestApiv1participationsparticipationId1A5E49F3": {
+   "Type": "AWS::ApiGateway::Resource",
+   "Properties": {
+    "ParentId": {
+     "Ref": "RestApiSydneyCyclesRestApiv1participations6DE96801"
+    },
+    "PathPart": "{participationId}",
+    "RestApiId": {
+     "Ref": "RestApiSydneyCyclesRestApiC3FBF1D6"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/participations/{participationId}/Resource"
+   }
+  },
+  "RestApiSydneyCyclesRestApiv1participationsparticipationIdOPTIONS24172738": {
+   "Type": "AWS::ApiGateway::Method",
+   "Properties": {
+    "ApiKeyRequired": false,
+    "AuthorizationType": "NONE",
+    "HttpMethod": "OPTIONS",
+    "Integration": {
+     "IntegrationResponses": [
+      {
+       "ResponseParameters": {
+        "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
+        "method.response.header.Access-Control-Allow-Origin": "'http://localhost:3000'",
+        "method.response.header.Vary": "'Origin'",
+        "method.response.header.Access-Control-Allow-Methods": "'GET,POST,PUT,DELETE,OPTIONS'",
+        "method.response.header.Access-Control-Allow-Credentials": "'true'",
+        "method.response.header.Access-Control-Max-Age": "'3600'"
+       },
+       "ResponseTemplates": {
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+       },
+       "StatusCode": "204"
+      }
+     ],
+     "RequestTemplates": {
+      "application/json": "{ statusCode: 200 }"
+     },
+     "Type": "MOCK"
+    },
+    "MethodResponses": [
+     {
+      "ResponseParameters": {
+       "method.response.header.Access-Control-Allow-Headers": true,
+       "method.response.header.Access-Control-Allow-Origin": true,
+       "method.response.header.Vary": true,
+       "method.response.header.Access-Control-Allow-Methods": true,
+       "method.response.header.Access-Control-Allow-Credentials": true,
+       "method.response.header.Access-Control-Max-Age": true
+      },
+      "StatusCode": "204"
+     }
+    ],
+    "ResourceId": {
+     "Ref": "RestApiSydneyCyclesRestApiv1participationsparticipationId1A5E49F3"
+    },
+    "RestApiId": {
+     "Ref": "RestApiSydneyCyclesRestApiC3FBF1D6"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/participations/{participationId}/OPTIONS/Resource"
+   }
+  },
+  "RestApiSydneyCyclesRestApiv1invitations0DE40C65": {
+   "Type": "AWS::ApiGateway::Resource",
+   "Properties": {
+    "ParentId": {
+     "Ref": "RestApiSydneyCyclesRestApiv1E226772B"
+    },
+    "PathPart": "invitations",
+    "RestApiId": {
+     "Ref": "RestApiSydneyCyclesRestApiC3FBF1D6"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/invitations/Resource"
+   }
+  },
+  "RestApiSydneyCyclesRestApiv1invitationsOPTIONSA8E12708": {
+   "Type": "AWS::ApiGateway::Method",
+   "Properties": {
+    "ApiKeyRequired": false,
+    "AuthorizationType": "NONE",
+    "HttpMethod": "OPTIONS",
+    "Integration": {
+     "IntegrationResponses": [
+      {
+       "ResponseParameters": {
+        "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
+        "method.response.header.Access-Control-Allow-Origin": "'http://localhost:3000'",
+        "method.response.header.Vary": "'Origin'",
+        "method.response.header.Access-Control-Allow-Methods": "'GET,POST,PUT,DELETE,OPTIONS'",
+        "method.response.header.Access-Control-Allow-Credentials": "'true'",
+        "method.response.header.Access-Control-Max-Age": "'3600'"
+       },
+       "ResponseTemplates": {
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+       },
+       "StatusCode": "204"
+      }
+     ],
+     "RequestTemplates": {
+      "application/json": "{ statusCode: 200 }"
+     },
+     "Type": "MOCK"
+    },
+    "MethodResponses": [
+     {
+      "ResponseParameters": {
+       "method.response.header.Access-Control-Allow-Headers": true,
+       "method.response.header.Access-Control-Allow-Origin": true,
+       "method.response.header.Vary": true,
+       "method.response.header.Access-Control-Allow-Methods": true,
+       "method.response.header.Access-Control-Allow-Credentials": true,
+       "method.response.header.Access-Control-Max-Age": true
+      },
+      "StatusCode": "204"
+     }
+    ],
+    "ResourceId": {
+     "Ref": "RestApiSydneyCyclesRestApiv1invitations0DE40C65"
+    },
+    "RestApiId": {
+     "Ref": "RestApiSydneyCyclesRestApiC3FBF1D6"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/invitations/OPTIONS/Resource"
+   }
+  },
+  "RestApiSydneyCyclesRestApiErrorModel2B01E4A0": {
+   "Type": "AWS::ApiGateway::Model",
+   "Properties": {
+    "ContentType": "application/json",
+    "Name": "ErrorModel",
+    "RestApiId": {
+     "Ref": "RestApiSydneyCyclesRestApiC3FBF1D6"
+    },
+    "Schema": {
+     "$schema": "http://json-schema.org/draft-04/schema#",
+     "type": "object",
+     "properties": {
+      "error": {
+       "type": "string"
+      },
+      "message": {
+       "type": "string"
+      },
+      "timestamp": {
+       "type": "string"
+      }
+     },
+     "required": [
+      "error",
+      "message"
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/ErrorModel/Resource"
+   }
+  },
+  "RestApiSydneyCyclesRestApiSuccessModelA229996F": {
+   "Type": "AWS::ApiGateway::Model",
+   "Properties": {
+    "ContentType": "application/json",
+    "Name": "SuccessModel",
+    "RestApiId": {
+     "Ref": "RestApiSydneyCyclesRestApiC3FBF1D6"
+    },
+    "Schema": {
+     "$schema": "http://json-schema.org/draft-04/schema#",
+     "type": "object",
+     "properties": {
+      "success": {
+       "type": "boolean"
+      },
+      "data": {
+       "type": "object"
+      },
+      "timestamp": {
+       "type": "string"
+      }
+     },
+     "required": [
+      "success"
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/SuccessModel/Resource"
+   }
+  },
+  "RestApiCognitoAuthorizerD2BF1AF9": {
+   "Type": "AWS::ApiGateway::Authorizer",
+   "Properties": {
+    "AuthorizerResultTtlInSeconds": 300,
+    "IdentitySource": "method.request.header.Authorization",
+    "Name": "sydney-cycles-authorizer-development",
+    "ProviderARNs": [
+     {
+      "Fn::GetAtt": [
+       "UserPoolSydneyCyclesUserPool0813CCE2",
+       "Arn"
+      ]
+     }
+    ],
+    "RestApiId": {
+     "Ref": "RestApiSydneyCyclesRestApiC3FBF1D6"
+    },
+    "Type": "COGNITO_USER_POOLS"
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RestApi/CognitoAuthorizer/Resource"
+   }
+  },
+  "RestApiHealthCheckFunctionServiceRoleAD64852F": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "HealthCheck"
+     },
+     {
+      "Key": "Environment",
+      "Value": "development"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Phase",
+      "Value": "1.1-Infrastructure"
+     },
+     {
+      "Key": "Project",
+      "Value": "SydneyCycles"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RestApi/HealthCheckFunction/ServiceRole/Resource"
+   }
+  },
+  "RestApiHealthCheckFunctionB43053A4": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "ZipFile": "\n        exports.handler = async (event) => {\n          const response = {\n            statusCode: 200,\n            headers: {\n              'Content-Type': 'application/json',\n              'Access-Control-Allow-Origin': '*',\n            },\n            body: JSON.stringify({\n              status: 'healthy',\n              timestamp: new Date().toISOString(),\n              version: '1.0.0',\n              phase: '1.1-Infrastructure-Foundation',\n              environment: process.env.ENVIRONMENT || 'development',\n            }),\n          };\n          return response;\n        };\n      "
+    },
+    "Environment": {
+     "Variables": {
+      "ENVIRONMENT": "development"
+     }
+    },
+    "Handler": "index.handler",
+    "MemorySize": 128,
+    "Role": {
+     "Fn::GetAtt": [
+      "RestApiHealthCheckFunctionServiceRoleAD64852F",
+      "Arn"
+     ]
+    },
+    "Runtime": "nodejs18.x",
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "HealthCheck"
+     },
+     {
+      "Key": "Environment",
+      "Value": "development"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Phase",
+      "Value": "1.1-Infrastructure"
+     },
+     {
+      "Key": "Project",
+      "Value": "SydneyCycles"
+     }
+    ],
+    "Timeout": 10
+   },
+   "DependsOn": [
+    "RestApiHealthCheckFunctionServiceRoleAD64852F"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RestApi/HealthCheckFunction/Resource"
+   }
+  },
+  "UserProfileServiceGetCurrentUserFunctionServiceRole3D35E663": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "UserProfileService"
+     },
+     {
+      "Key": "Environment",
+      "Value": "development"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Phase",
+      "Value": "1.2-UserProfile"
+     },
+     {
+      "Key": "Project",
+      "Value": "SydneyCycles"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/UserProfileService/GetCurrentUserFunction/ServiceRole/Resource"
+   }
+  },
+  "UserProfileServiceGetCurrentUserFunctionServiceRoleDefaultPolicyCD7B8669": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "dynamodb:BatchGetItem",
+        "dynamodb:BatchWriteItem",
+        "dynamodb:ConditionCheckItem",
+        "dynamodb:DeleteItem",
+        "dynamodb:DescribeTable",
+        "dynamodb:GetItem",
+        "dynamodb:GetRecords",
+        "dynamodb:GetShardIterator",
+        "dynamodb:PutItem",
+        "dynamodb:Query",
+        "dynamodb:Scan",
+        "dynamodb:UpdateItem"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "MainTableSydneyCyclesMainTable4AA7164E",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "MainTableSydneyCyclesMainTable4AA7164E",
+             "Arn"
+            ]
+           },
+           "/index/*"
+          ]
+         ]
+        }
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "UserProfileServiceGetCurrentUserFunctionServiceRoleDefaultPolicyCD7B8669",
+    "Roles": [
+     {
+      "Ref": "UserProfileServiceGetCurrentUserFunctionServiceRole3D35E663"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/UserProfileService/GetCurrentUserFunction/ServiceRole/DefaultPolicy/Resource"
+   }
+  },
+  "UserProfileServiceGetCurrentUserFunction4B580C64": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-924748161040-us-east-2",
+     "S3Key": "e08a5b66128d1551e58f268f77ba8ac3a973e68422a47c0da89dd3831b6e3a2f.zip"
+    },
+    "Description": "Get current user profile with lazy creation",
+    "Environment": {
+     "Variables": {
+      "TABLE_NAME": {
+       "Ref": "MainTableSydneyCyclesMainTable4AA7164E"
+      },
+      "ENVIRONMENT": "development"
+     }
+    },
+    "FunctionName": "sydney-cycles-get-current-user-development",
+    "Handler": "index.handler",
+    "MemorySize": 256,
+    "Role": {
+     "Fn::GetAtt": [
+      "UserProfileServiceGetCurrentUserFunctionServiceRole3D35E663",
+      "Arn"
+     ]
+    },
+    "Runtime": "nodejs18.x",
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "UserProfileService"
+     },
+     {
+      "Key": "Environment",
+      "Value": "development"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Phase",
+      "Value": "1.2-UserProfile"
+     },
+     {
+      "Key": "Project",
+      "Value": "SydneyCycles"
+     }
+    ],
+    "Timeout": 30
+   },
+   "DependsOn": [
+    "UserProfileServiceGetCurrentUserFunctionServiceRoleDefaultPolicyCD7B8669",
+    "UserProfileServiceGetCurrentUserFunctionServiceRole3D35E663"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/UserProfileService/GetCurrentUserFunction/Resource",
+    "aws:asset:path": "asset.e08a5b66128d1551e58f268f77ba8ac3a973e68422a47c0da89dd3831b6e3a2f",
+    "aws:asset:is-bundled": true,
+    "aws:asset:property": "Code"
+   }
+  },
+  "UserProfileServiceGetCurrentUserFunctionLogRetention1F586C19": {
+   "Type": "Custom::LogRetention",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aFD4BFC8A",
+      "Arn"
+     ]
+    },
+    "LogGroupName": {
+     "Fn::Join": [
+      "",
+      [
+       "/aws/lambda/",
+       {
+        "Ref": "UserProfileServiceGetCurrentUserFunction4B580C64"
+       }
+      ]
+     ]
+    },
+    "RetentionInDays": 7
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/UserProfileService/GetCurrentUserFunction/LogRetention/Resource"
+   }
+  },
+  "UserProfileServiceGetUserByIdFunctionServiceRoleE5104FD0": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "UserProfileService"
+     },
+     {
+      "Key": "Environment",
+      "Value": "development"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Phase",
+      "Value": "1.2-UserProfile"
+     },
+     {
+      "Key": "Project",
+      "Value": "SydneyCycles"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/UserProfileService/GetUserByIdFunction/ServiceRole/Resource"
+   }
+  },
+  "UserProfileServiceGetUserByIdFunctionServiceRoleDefaultPolicy72BDA098": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "dynamodb:BatchGetItem",
+        "dynamodb:BatchWriteItem",
+        "dynamodb:ConditionCheckItem",
+        "dynamodb:DeleteItem",
+        "dynamodb:DescribeTable",
+        "dynamodb:GetItem",
+        "dynamodb:GetRecords",
+        "dynamodb:GetShardIterator",
+        "dynamodb:PutItem",
+        "dynamodb:Query",
+        "dynamodb:Scan",
+        "dynamodb:UpdateItem"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "MainTableSydneyCyclesMainTable4AA7164E",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "MainTableSydneyCyclesMainTable4AA7164E",
+             "Arn"
+            ]
+           },
+           "/index/*"
+          ]
+         ]
+        }
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "UserProfileServiceGetUserByIdFunctionServiceRoleDefaultPolicy72BDA098",
+    "Roles": [
+     {
+      "Ref": "UserProfileServiceGetUserByIdFunctionServiceRoleE5104FD0"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/UserProfileService/GetUserByIdFunction/ServiceRole/DefaultPolicy/Resource"
+   }
+  },
+  "UserProfileServiceGetUserByIdFunctionCDCB03BA": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-924748161040-us-east-2",
+     "S3Key": "9798911d58960061f57c3ff32bfe7074d823530b032411b4dc841cfd37b6b866.zip"
+    },
+    "Description": "Get user profile by ID (SiteAdmin only)",
+    "Environment": {
+     "Variables": {
+      "TABLE_NAME": {
+       "Ref": "MainTableSydneyCyclesMainTable4AA7164E"
+      },
+      "ENVIRONMENT": "development"
+     }
+    },
+    "FunctionName": "sydney-cycles-get-user-by-id-development",
+    "Handler": "index.handler",
+    "MemorySize": 256,
+    "Role": {
+     "Fn::GetAtt": [
+      "UserProfileServiceGetUserByIdFunctionServiceRoleE5104FD0",
+      "Arn"
+     ]
+    },
+    "Runtime": "nodejs18.x",
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "UserProfileService"
+     },
+     {
+      "Key": "Environment",
+      "Value": "development"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Phase",
+      "Value": "1.2-UserProfile"
+     },
+     {
+      "Key": "Project",
+      "Value": "SydneyCycles"
+     }
+    ],
+    "Timeout": 30
+   },
+   "DependsOn": [
+    "UserProfileServiceGetUserByIdFunctionServiceRoleDefaultPolicy72BDA098",
+    "UserProfileServiceGetUserByIdFunctionServiceRoleE5104FD0"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/UserProfileService/GetUserByIdFunction/Resource",
+    "aws:asset:path": "asset.9798911d58960061f57c3ff32bfe7074d823530b032411b4dc841cfd37b6b866",
+    "aws:asset:is-bundled": true,
+    "aws:asset:property": "Code"
+   }
+  },
+  "UserProfileServiceGetUserByIdFunctionLogRetention84A1CAE5": {
+   "Type": "Custom::LogRetention",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aFD4BFC8A",
+      "Arn"
+     ]
+    },
+    "LogGroupName": {
+     "Fn::Join": [
+      "",
+      [
+       "/aws/lambda/",
+       {
+        "Ref": "UserProfileServiceGetUserByIdFunctionCDCB03BA"
+       }
+      ]
+     ]
+    },
+    "RetentionInDays": 7
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/UserProfileService/GetUserByIdFunction/LogRetention/Resource"
+   }
+  },
+  "UserProfileServiceUpdateUserFunctionServiceRole4E5792B3": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "UserProfileService"
+     },
+     {
+      "Key": "Environment",
+      "Value": "development"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Phase",
+      "Value": "1.2-UserProfile"
+     },
+     {
+      "Key": "Project",
+      "Value": "SydneyCycles"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/UserProfileService/UpdateUserFunction/ServiceRole/Resource"
+   }
+  },
+  "UserProfileServiceUpdateUserFunctionServiceRoleDefaultPolicyB595A748": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "dynamodb:BatchGetItem",
+        "dynamodb:BatchWriteItem",
+        "dynamodb:ConditionCheckItem",
+        "dynamodb:DeleteItem",
+        "dynamodb:DescribeTable",
+        "dynamodb:GetItem",
+        "dynamodb:GetRecords",
+        "dynamodb:GetShardIterator",
+        "dynamodb:PutItem",
+        "dynamodb:Query",
+        "dynamodb:Scan",
+        "dynamodb:UpdateItem"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "MainTableSydneyCyclesMainTable4AA7164E",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "MainTableSydneyCyclesMainTable4AA7164E",
+             "Arn"
+            ]
+           },
+           "/index/*"
+          ]
+         ]
+        }
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "UserProfileServiceUpdateUserFunctionServiceRoleDefaultPolicyB595A748",
+    "Roles": [
+     {
+      "Ref": "UserProfileServiceUpdateUserFunctionServiceRole4E5792B3"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/UserProfileService/UpdateUserFunction/ServiceRole/DefaultPolicy/Resource"
+   }
+  },
+  "UserProfileServiceUpdateUserFunction6DAF8698": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-924748161040-us-east-2",
+     "S3Key": "cdfd2a6465330eb09ff275b9da6bfc7e84c50d7acd484bb562b74a4157d62b6f.zip"
+    },
+    "Description": "Update user profile with authorization",
+    "Environment": {
+     "Variables": {
+      "TABLE_NAME": {
+       "Ref": "MainTableSydneyCyclesMainTable4AA7164E"
+      },
+      "ENVIRONMENT": "development"
+     }
+    },
+    "FunctionName": "sydney-cycles-update-user-development",
+    "Handler": "index.handler",
+    "MemorySize": 256,
+    "Role": {
+     "Fn::GetAtt": [
+      "UserProfileServiceUpdateUserFunctionServiceRole4E5792B3",
+      "Arn"
+     ]
+    },
+    "Runtime": "nodejs18.x",
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "UserProfileService"
+     },
+     {
+      "Key": "Environment",
+      "Value": "development"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Phase",
+      "Value": "1.2-UserProfile"
+     },
+     {
+      "Key": "Project",
+      "Value": "SydneyCycles"
+     }
+    ],
+    "Timeout": 30
+   },
+   "DependsOn": [
+    "UserProfileServiceUpdateUserFunctionServiceRoleDefaultPolicyB595A748",
+    "UserProfileServiceUpdateUserFunctionServiceRole4E5792B3"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/UserProfileService/UpdateUserFunction/Resource",
+    "aws:asset:path": "asset.cdfd2a6465330eb09ff275b9da6bfc7e84c50d7acd484bb562b74a4157d62b6f",
+    "aws:asset:is-bundled": true,
+    "aws:asset:property": "Code"
+   }
+  },
+  "UserProfileServiceUpdateUserFunctionLogRetentionE808A98B": {
+   "Type": "Custom::LogRetention",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aFD4BFC8A",
+      "Arn"
+     ]
+    },
+    "LogGroupName": {
+     "Fn::Join": [
+      "",
+      [
+       "/aws/lambda/",
+       {
+        "Ref": "UserProfileServiceUpdateUserFunction6DAF8698"
+       }
+      ]
+     ]
+    },
+    "RetentionInDays": 7
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/UserProfileService/UpdateUserFunction/LogRetention/Resource"
+   }
+  },
+  "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRole9741ECFB": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "Environment",
+      "Value": "development"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Phase",
+      "Value": "2.1-ClubService"
+     },
+     {
+      "Key": "Project",
+      "Value": "SydneyCycles"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a/ServiceRole/Resource"
+   }
+  },
+  "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRoleDefaultPolicyADDA7DEB": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "logs:DeleteRetentionPolicy",
+        "logs:PutRetentionPolicy"
+       ],
+       "Effect": "Allow",
+       "Resource": "*"
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRoleDefaultPolicyADDA7DEB",
+    "Roles": [
+     {
+      "Ref": "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRole9741ECFB"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a/ServiceRole/DefaultPolicy/Resource"
+   }
+  },
+  "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aFD4BFC8A": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Handler": "index.handler",
+    "Runtime": "nodejs22.x",
+    "Timeout": 900,
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-924748161040-us-east-2",
+     "S3Key": "2819175352ad1ce0dae768e83fc328fb70fb5f10b4a8ff0ccbcb791f02b0716d.zip"
+    },
+    "Role": {
+     "Fn::GetAtt": [
+      "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRole9741ECFB",
+      "Arn"
+     ]
+    },
+    "Tags": [
+     {
+      "Key": "Environment",
+      "Value": "development"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Phase",
+      "Value": "2.1-ClubService"
+     },
+     {
+      "Key": "Project",
+      "Value": "SydneyCycles"
+     }
+    ]
+   },
+   "DependsOn": [
+    "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRoleDefaultPolicyADDA7DEB",
+    "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRole9741ECFB"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a/Resource",
+    "aws:asset:path": "asset.2819175352ad1ce0dae768e83fc328fb70fb5f10b4a8ff0ccbcb791f02b0716d",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "ClubServiceListClubsFunctionServiceRoleBF8F2593": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "ClubService"
+     },
+     {
+      "Key": "Environment",
+      "Value": "development"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Phase",
+      "Value": "2.1-ClubService"
+     },
+     {
+      "Key": "Project",
+      "Value": "SydneyCycles"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/ClubService/ListClubsFunction/ServiceRole/Resource"
+   }
+  },
+  "ClubServiceListClubsFunctionServiceRoleDefaultPolicy25E8C595": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "dynamodb:BatchGetItem",
+        "dynamodb:BatchWriteItem",
+        "dynamodb:ConditionCheckItem",
+        "dynamodb:DeleteItem",
+        "dynamodb:DescribeTable",
+        "dynamodb:GetItem",
+        "dynamodb:GetRecords",
+        "dynamodb:GetShardIterator",
+        "dynamodb:PutItem",
+        "dynamodb:Query",
+        "dynamodb:Scan",
+        "dynamodb:UpdateItem"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "MainTableSydneyCyclesMainTable4AA7164E",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "MainTableSydneyCyclesMainTable4AA7164E",
+             "Arn"
+            ]
+           },
+           "/index/*"
+          ]
+         ]
+        }
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "ClubServiceListClubsFunctionServiceRoleDefaultPolicy25E8C595",
+    "Roles": [
+     {
+      "Ref": "ClubServiceListClubsFunctionServiceRoleBF8F2593"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/ClubService/ListClubsFunction/ServiceRole/DefaultPolicy/Resource"
+   }
+  },
+  "ClubServiceListClubsFunction63F834C0": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-924748161040-us-east-2",
+     "S3Key": "e93d2ee0d387c0d793404d5bacc8642035f2e4bc694b6138353a5bb801dc9b27.zip"
+    },
+    "Description": "List clubs with pagination and filtering (public endpoint)",
+    "Environment": {
+     "Variables": {
+      "TABLE_NAME": {
+       "Ref": "MainTableSydneyCyclesMainTable4AA7164E"
+      },
+      "ENVIRONMENT": "development"
+     }
+    },
+    "FunctionName": "sydney-cycles-list-clubs-development",
+    "Handler": "index.handler",
+    "MemorySize": 256,
+    "Role": {
+     "Fn::GetAtt": [
+      "ClubServiceListClubsFunctionServiceRoleBF8F2593",
+      "Arn"
+     ]
+    },
+    "Runtime": "nodejs18.x",
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "ClubService"
+     },
+     {
+      "Key": "Environment",
+      "Value": "development"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Phase",
+      "Value": "2.1-ClubService"
+     },
+     {
+      "Key": "Project",
+      "Value": "SydneyCycles"
+     }
+    ],
+    "Timeout": 30
+   },
+   "DependsOn": [
+    "ClubServiceListClubsFunctionServiceRoleDefaultPolicy25E8C595",
+    "ClubServiceListClubsFunctionServiceRoleBF8F2593"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/ClubService/ListClubsFunction/Resource",
+    "aws:asset:path": "asset.e93d2ee0d387c0d793404d5bacc8642035f2e4bc694b6138353a5bb801dc9b27",
+    "aws:asset:is-bundled": true,
+    "aws:asset:property": "Code"
+   }
+  },
+  "ClubServiceListClubsFunctionLogRetention3A6C1B68": {
+   "Type": "Custom::LogRetention",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aFD4BFC8A",
+      "Arn"
+     ]
+    },
+    "LogGroupName": {
+     "Fn::Join": [
+      "",
+      [
+       "/aws/lambda/",
+       {
+        "Ref": "ClubServiceListClubsFunction63F834C0"
+       }
+      ]
+     ]
+    },
+    "RetentionInDays": 7
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/ClubService/ListClubsFunction/LogRetention/Resource"
+   }
+  },
+  "ClubServiceGetClubFunctionServiceRole5271DF7D": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "ClubService"
+     },
+     {
+      "Key": "Environment",
+      "Value": "development"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Phase",
+      "Value": "2.1-ClubService"
+     },
+     {
+      "Key": "Project",
+      "Value": "SydneyCycles"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/ClubService/GetClubFunction/ServiceRole/Resource"
+   }
+  },
+  "ClubServiceGetClubFunctionServiceRoleDefaultPolicyE0560054": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "dynamodb:BatchGetItem",
+        "dynamodb:BatchWriteItem",
+        "dynamodb:ConditionCheckItem",
+        "dynamodb:DeleteItem",
+        "dynamodb:DescribeTable",
+        "dynamodb:GetItem",
+        "dynamodb:GetRecords",
+        "dynamodb:GetShardIterator",
+        "dynamodb:PutItem",
+        "dynamodb:Query",
+        "dynamodb:Scan",
+        "dynamodb:UpdateItem"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "MainTableSydneyCyclesMainTable4AA7164E",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "MainTableSydneyCyclesMainTable4AA7164E",
+             "Arn"
+            ]
+           },
+           "/index/*"
+          ]
+         ]
+        }
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "ClubServiceGetClubFunctionServiceRoleDefaultPolicyE0560054",
+    "Roles": [
+     {
+      "Ref": "ClubServiceGetClubFunctionServiceRole5271DF7D"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/ClubService/GetClubFunction/ServiceRole/DefaultPolicy/Resource"
+   }
+  },
+  "ClubServiceGetClubFunctionA1AC042C": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-924748161040-us-east-2",
+     "S3Key": "b93e396523aeb7295ff10d08a78ce3fa8bf7b7ba4dc475f3371b42e74f636665.zip"
+    },
+    "Description": "Get club details by ID (public endpoint)",
+    "Environment": {
+     "Variables": {
+      "TABLE_NAME": {
+       "Ref": "MainTableSydneyCyclesMainTable4AA7164E"
+      },
+      "ENVIRONMENT": "development"
+     }
+    },
+    "FunctionName": "sydney-cycles-get-club-development",
+    "Handler": "index.handler",
+    "MemorySize": 256,
+    "Role": {
+     "Fn::GetAtt": [
+      "ClubServiceGetClubFunctionServiceRole5271DF7D",
+      "Arn"
+     ]
+    },
+    "Runtime": "nodejs18.x",
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "ClubService"
+     },
+     {
+      "Key": "Environment",
+      "Value": "development"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Phase",
+      "Value": "2.1-ClubService"
+     },
+     {
+      "Key": "Project",
+      "Value": "SydneyCycles"
+     }
+    ],
+    "Timeout": 30
+   },
+   "DependsOn": [
+    "ClubServiceGetClubFunctionServiceRoleDefaultPolicyE0560054",
+    "ClubServiceGetClubFunctionServiceRole5271DF7D"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/ClubService/GetClubFunction/Resource",
+    "aws:asset:path": "asset.b93e396523aeb7295ff10d08a78ce3fa8bf7b7ba4dc475f3371b42e74f636665",
+    "aws:asset:is-bundled": true,
+    "aws:asset:property": "Code"
+   }
+  },
+  "ClubServiceGetClubFunctionLogRetention9C4B4A97": {
+   "Type": "Custom::LogRetention",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aFD4BFC8A",
+      "Arn"
+     ]
+    },
+    "LogGroupName": {
+     "Fn::Join": [
+      "",
+      [
+       "/aws/lambda/",
+       {
+        "Ref": "ClubServiceGetClubFunctionA1AC042C"
+       }
+      ]
+     ]
+    },
+    "RetentionInDays": 7
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/ClubService/GetClubFunction/LogRetention/Resource"
+   }
+  },
+  "ClubServiceCreateClubFunctionServiceRoleE9715759": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "ClubService"
+     },
+     {
+      "Key": "Environment",
+      "Value": "development"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Phase",
+      "Value": "2.1-ClubService"
+     },
+     {
+      "Key": "Project",
+      "Value": "SydneyCycles"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/ClubService/CreateClubFunction/ServiceRole/Resource"
+   }
+  },
+  "ClubServiceCreateClubFunctionServiceRoleDefaultPolicyD03C9670": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "dynamodb:BatchGetItem",
+        "dynamodb:BatchWriteItem",
+        "dynamodb:ConditionCheckItem",
+        "dynamodb:DeleteItem",
+        "dynamodb:DescribeTable",
+        "dynamodb:GetItem",
+        "dynamodb:GetRecords",
+        "dynamodb:GetShardIterator",
+        "dynamodb:PutItem",
+        "dynamodb:Query",
+        "dynamodb:Scan",
+        "dynamodb:UpdateItem"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "MainTableSydneyCyclesMainTable4AA7164E",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "MainTableSydneyCyclesMainTable4AA7164E",
+             "Arn"
+            ]
+           },
+           "/index/*"
+          ]
+         ]
+        }
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "ClubServiceCreateClubFunctionServiceRoleDefaultPolicyD03C9670",
+    "Roles": [
+     {
+      "Ref": "ClubServiceCreateClubFunctionServiceRoleE9715759"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/ClubService/CreateClubFunction/ServiceRole/DefaultPolicy/Resource"
+   }
+  },
+  "ClubServiceCreateClubFunction9485933C": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-924748161040-us-east-2",
+     "S3Key": "9804981c329e428852edc43fcf3168a377c392271378288c86ea826e0754fbe3.zip"
+    },
+    "Description": "Create new club (SiteAdmin only)",
+    "Environment": {
+     "Variables": {
+      "TABLE_NAME": {
+       "Ref": "MainTableSydneyCyclesMainTable4AA7164E"
+      },
+      "ENVIRONMENT": "development"
+     }
+    },
+    "FunctionName": "sydney-cycles-create-club-development",
+    "Handler": "index.handler",
+    "MemorySize": 256,
+    "Role": {
+     "Fn::GetAtt": [
+      "ClubServiceCreateClubFunctionServiceRoleE9715759",
+      "Arn"
+     ]
+    },
+    "Runtime": "nodejs18.x",
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "ClubService"
+     },
+     {
+      "Key": "Environment",
+      "Value": "development"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Phase",
+      "Value": "2.1-ClubService"
+     },
+     {
+      "Key": "Project",
+      "Value": "SydneyCycles"
+     }
+    ],
+    "Timeout": 30
+   },
+   "DependsOn": [
+    "ClubServiceCreateClubFunctionServiceRoleDefaultPolicyD03C9670",
+    "ClubServiceCreateClubFunctionServiceRoleE9715759"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/ClubService/CreateClubFunction/Resource",
+    "aws:asset:path": "asset.9804981c329e428852edc43fcf3168a377c392271378288c86ea826e0754fbe3",
+    "aws:asset:is-bundled": true,
+    "aws:asset:property": "Code"
+   }
+  },
+  "ClubServiceCreateClubFunctionLogRetention79E69717": {
+   "Type": "Custom::LogRetention",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aFD4BFC8A",
+      "Arn"
+     ]
+    },
+    "LogGroupName": {
+     "Fn::Join": [
+      "",
+      [
+       "/aws/lambda/",
+       {
+        "Ref": "ClubServiceCreateClubFunction9485933C"
+       }
+      ]
+     ]
+    },
+    "RetentionInDays": 7
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/ClubService/CreateClubFunction/LogRetention/Resource"
+   }
+  },
+  "ClubServiceUpdateClubFunctionServiceRoleD0D58BB0": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "ClubService"
+     },
+     {
+      "Key": "Environment",
+      "Value": "development"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Phase",
+      "Value": "2.1-ClubService"
+     },
+     {
+      "Key": "Project",
+      "Value": "SydneyCycles"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/ClubService/UpdateClubFunction/ServiceRole/Resource"
+   }
+  },
+  "ClubServiceUpdateClubFunctionServiceRoleDefaultPolicy66F1C85A": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "dynamodb:BatchGetItem",
+        "dynamodb:BatchWriteItem",
+        "dynamodb:ConditionCheckItem",
+        "dynamodb:DeleteItem",
+        "dynamodb:DescribeTable",
+        "dynamodb:GetItem",
+        "dynamodb:GetRecords",
+        "dynamodb:GetShardIterator",
+        "dynamodb:PutItem",
+        "dynamodb:Query",
+        "dynamodb:Scan",
+        "dynamodb:UpdateItem"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "MainTableSydneyCyclesMainTable4AA7164E",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "MainTableSydneyCyclesMainTable4AA7164E",
+             "Arn"
+            ]
+           },
+           "/index/*"
+          ]
+         ]
+        }
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "ClubServiceUpdateClubFunctionServiceRoleDefaultPolicy66F1C85A",
+    "Roles": [
+     {
+      "Ref": "ClubServiceUpdateClubFunctionServiceRoleD0D58BB0"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/ClubService/UpdateClubFunction/ServiceRole/DefaultPolicy/Resource"
+   }
+  },
+  "ClubServiceUpdateClubFunction0A2D1091": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-924748161040-us-east-2",
+     "S3Key": "596b203bdc5d2ceda491cfab675c322f0d3d72b954eb8af68be34421b39ba3aa.zip"
+    },
+    "Description": "Update existing club (SiteAdmin only)",
+    "Environment": {
+     "Variables": {
+      "TABLE_NAME": {
+       "Ref": "MainTableSydneyCyclesMainTable4AA7164E"
+      },
+      "ENVIRONMENT": "development"
+     }
+    },
+    "FunctionName": "sydney-cycles-update-club-development",
+    "Handler": "index.handler",
+    "MemorySize": 256,
+    "Role": {
+     "Fn::GetAtt": [
+      "ClubServiceUpdateClubFunctionServiceRoleD0D58BB0",
+      "Arn"
+     ]
+    },
+    "Runtime": "nodejs18.x",
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "ClubService"
+     },
+     {
+      "Key": "Environment",
+      "Value": "development"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Phase",
+      "Value": "2.1-ClubService"
+     },
+     {
+      "Key": "Project",
+      "Value": "SydneyCycles"
+     }
+    ],
+    "Timeout": 30
+   },
+   "DependsOn": [
+    "ClubServiceUpdateClubFunctionServiceRoleDefaultPolicy66F1C85A",
+    "ClubServiceUpdateClubFunctionServiceRoleD0D58BB0"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/ClubService/UpdateClubFunction/Resource",
+    "aws:asset:path": "asset.596b203bdc5d2ceda491cfab675c322f0d3d72b954eb8af68be34421b39ba3aa",
+    "aws:asset:is-bundled": true,
+    "aws:asset:property": "Code"
+   }
+  },
+  "ClubServiceUpdateClubFunctionLogRetentionFE026655": {
+   "Type": "Custom::LogRetention",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aFD4BFC8A",
+      "Arn"
+     ]
+    },
+    "LogGroupName": {
+     "Fn::Join": [
+      "",
+      [
+       "/aws/lambda/",
+       {
+        "Ref": "ClubServiceUpdateClubFunction0A2D1091"
+       }
+      ]
+     ]
+    },
+    "RetentionInDays": 7
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/ClubService/UpdateClubFunction/LogRetention/Resource"
+   }
+  },
+  "ClubServiceJoinClubFunctionServiceRoleD03A23B0": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "ClubService"
+     },
+     {
+      "Key": "Environment",
+      "Value": "development"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Phase",
+      "Value": "2.2-ClubMembership"
+     },
+     {
+      "Key": "Project",
+      "Value": "SydneyCycles"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/ClubService/JoinClubFunction/ServiceRole/Resource"
+   }
+  },
+  "ClubServiceJoinClubFunctionServiceRoleDefaultPolicy773D87C1": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "dynamodb:BatchGetItem",
+        "dynamodb:BatchWriteItem",
+        "dynamodb:ConditionCheckItem",
+        "dynamodb:DeleteItem",
+        "dynamodb:DescribeTable",
+        "dynamodb:GetItem",
+        "dynamodb:GetRecords",
+        "dynamodb:GetShardIterator",
+        "dynamodb:PutItem",
+        "dynamodb:Query",
+        "dynamodb:Scan",
+        "dynamodb:UpdateItem"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "MainTableSydneyCyclesMainTable4AA7164E",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "MainTableSydneyCyclesMainTable4AA7164E",
+             "Arn"
+            ]
+           },
+           "/index/*"
+          ]
+         ]
+        }
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "ClubServiceJoinClubFunctionServiceRoleDefaultPolicy773D87C1",
+    "Roles": [
+     {
+      "Ref": "ClubServiceJoinClubFunctionServiceRoleD03A23B0"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/ClubService/JoinClubFunction/ServiceRole/DefaultPolicy/Resource"
+   }
+  },
+  "ClubServiceJoinClubFunctionED48F36B": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-924748161040-us-east-2",
+     "S3Key": "2a6e22b0e926380118f1a1cf37bf6ca334e7f4f90c94a818dc3e8cc5c1b811bd.zip"
+    },
+    "Description": "Join club (authenticated users)",
+    "Environment": {
+     "Variables": {
+      "TABLE_NAME": {
+       "Ref": "MainTableSydneyCyclesMainTable4AA7164E"
+      },
+      "ENVIRONMENT": "development"
+     }
+    },
+    "FunctionName": "sydney-cycles-join-club-development",
+    "Handler": "index.handler",
+    "MemorySize": 256,
+    "Role": {
+     "Fn::GetAtt": [
+      "ClubServiceJoinClubFunctionServiceRoleD03A23B0",
+      "Arn"
+     ]
+    },
+    "Runtime": "nodejs18.x",
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "ClubService"
+     },
+     {
+      "Key": "Environment",
+      "Value": "development"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Phase",
+      "Value": "2.2-ClubMembership"
+     },
+     {
+      "Key": "Project",
+      "Value": "SydneyCycles"
+     }
+    ],
+    "Timeout": 30
+   },
+   "DependsOn": [
+    "ClubServiceJoinClubFunctionServiceRoleDefaultPolicy773D87C1",
+    "ClubServiceJoinClubFunctionServiceRoleD03A23B0"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/ClubService/JoinClubFunction/Resource",
+    "aws:asset:path": "asset.2a6e22b0e926380118f1a1cf37bf6ca334e7f4f90c94a818dc3e8cc5c1b811bd",
+    "aws:asset:is-bundled": true,
+    "aws:asset:property": "Code"
+   }
+  },
+  "ClubServiceJoinClubFunctionLogRetention8A797A51": {
+   "Type": "Custom::LogRetention",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aFD4BFC8A",
+      "Arn"
+     ]
+    },
+    "LogGroupName": {
+     "Fn::Join": [
+      "",
+      [
+       "/aws/lambda/",
+       {
+        "Ref": "ClubServiceJoinClubFunctionED48F36B"
+       }
+      ]
+     ]
+    },
+    "RetentionInDays": 7
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/ClubService/JoinClubFunction/LogRetention/Resource"
+   }
+  },
+  "ClubServiceLeaveClubFunctionServiceRole2746D263": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "ClubService"
+     },
+     {
+      "Key": "Environment",
+      "Value": "development"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Phase",
+      "Value": "2.2-ClubMembership"
+     },
+     {
+      "Key": "Project",
+      "Value": "SydneyCycles"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/ClubService/LeaveClubFunction/ServiceRole/Resource"
+   }
+  },
+  "ClubServiceLeaveClubFunctionServiceRoleDefaultPolicy99212AA4": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "dynamodb:BatchGetItem",
+        "dynamodb:BatchWriteItem",
+        "dynamodb:ConditionCheckItem",
+        "dynamodb:DeleteItem",
+        "dynamodb:DescribeTable",
+        "dynamodb:GetItem",
+        "dynamodb:GetRecords",
+        "dynamodb:GetShardIterator",
+        "dynamodb:PutItem",
+        "dynamodb:Query",
+        "dynamodb:Scan",
+        "dynamodb:UpdateItem"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "MainTableSydneyCyclesMainTable4AA7164E",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "MainTableSydneyCyclesMainTable4AA7164E",
+             "Arn"
+            ]
+           },
+           "/index/*"
+          ]
+         ]
+        }
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "ClubServiceLeaveClubFunctionServiceRoleDefaultPolicy99212AA4",
+    "Roles": [
+     {
+      "Ref": "ClubServiceLeaveClubFunctionServiceRole2746D263"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/ClubService/LeaveClubFunction/ServiceRole/DefaultPolicy/Resource"
+   }
+  },
+  "ClubServiceLeaveClubFunctionBA920A0A": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-924748161040-us-east-2",
+     "S3Key": "816bf0cd67986d5d3706085ba3a08f2d26e2452c142e5fdd023cfa51e9db7e5f.zip"
+    },
+    "Description": "Leave club (authenticated users)",
+    "Environment": {
+     "Variables": {
+      "TABLE_NAME": {
+       "Ref": "MainTableSydneyCyclesMainTable4AA7164E"
+      },
+      "ENVIRONMENT": "development"
+     }
+    },
+    "FunctionName": "sydney-cycles-leave-club-development",
+    "Handler": "index.handler",
+    "MemorySize": 256,
+    "Role": {
+     "Fn::GetAtt": [
+      "ClubServiceLeaveClubFunctionServiceRole2746D263",
+      "Arn"
+     ]
+    },
+    "Runtime": "nodejs18.x",
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "ClubService"
+     },
+     {
+      "Key": "Environment",
+      "Value": "development"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Phase",
+      "Value": "2.2-ClubMembership"
+     },
+     {
+      "Key": "Project",
+      "Value": "SydneyCycles"
+     }
+    ],
+    "Timeout": 30
+   },
+   "DependsOn": [
+    "ClubServiceLeaveClubFunctionServiceRoleDefaultPolicy99212AA4",
+    "ClubServiceLeaveClubFunctionServiceRole2746D263"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/ClubService/LeaveClubFunction/Resource",
+    "aws:asset:path": "asset.816bf0cd67986d5d3706085ba3a08f2d26e2452c142e5fdd023cfa51e9db7e5f",
+    "aws:asset:is-bundled": true,
+    "aws:asset:property": "Code"
+   }
+  },
+  "ClubServiceLeaveClubFunctionLogRetentionE1F08DA8": {
+   "Type": "Custom::LogRetention",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aFD4BFC8A",
+      "Arn"
+     ]
+    },
+    "LogGroupName": {
+     "Fn::Join": [
+      "",
+      [
+       "/aws/lambda/",
+       {
+        "Ref": "ClubServiceLeaveClubFunctionBA920A0A"
+       }
+      ]
+     ]
+    },
+    "RetentionInDays": 7
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/ClubService/LeaveClubFunction/LogRetention/Resource"
+   }
+  },
+  "ClubServiceListMembersFunctionServiceRole4E62EC30": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "ClubService"
+     },
+     {
+      "Key": "Environment",
+      "Value": "development"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Phase",
+      "Value": "2.2-ClubMembership"
+     },
+     {
+      "Key": "Project",
+      "Value": "SydneyCycles"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/ClubService/ListMembersFunction/ServiceRole/Resource"
+   }
+  },
+  "ClubServiceListMembersFunctionServiceRoleDefaultPolicy0079D3B7": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "dynamodb:BatchGetItem",
+        "dynamodb:BatchWriteItem",
+        "dynamodb:ConditionCheckItem",
+        "dynamodb:DeleteItem",
+        "dynamodb:DescribeTable",
+        "dynamodb:GetItem",
+        "dynamodb:GetRecords",
+        "dynamodb:GetShardIterator",
+        "dynamodb:PutItem",
+        "dynamodb:Query",
+        "dynamodb:Scan",
+        "dynamodb:UpdateItem"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "MainTableSydneyCyclesMainTable4AA7164E",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "MainTableSydneyCyclesMainTable4AA7164E",
+             "Arn"
+            ]
+           },
+           "/index/*"
+          ]
+         ]
+        }
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "ClubServiceListMembersFunctionServiceRoleDefaultPolicy0079D3B7",
+    "Roles": [
+     {
+      "Ref": "ClubServiceListMembersFunctionServiceRole4E62EC30"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/ClubService/ListMembersFunction/ServiceRole/DefaultPolicy/Resource"
+   }
+  },
+  "ClubServiceListMembersFunction448D3124": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-924748161040-us-east-2",
+     "S3Key": "e4cadadef63b9cac1f1f952c3fbecd247ffedc5476e956b954e2cb458e0f621f.zip"
+    },
+    "Description": "List club members (club members)",
+    "Environment": {
+     "Variables": {
+      "TABLE_NAME": {
+       "Ref": "MainTableSydneyCyclesMainTable4AA7164E"
+      },
+      "ENVIRONMENT": "development"
+     }
+    },
+    "FunctionName": "sydney-cycles-list-members-development",
+    "Handler": "index.handler",
+    "MemorySize": 256,
+    "Role": {
+     "Fn::GetAtt": [
+      "ClubServiceListMembersFunctionServiceRole4E62EC30",
+      "Arn"
+     ]
+    },
+    "Runtime": "nodejs18.x",
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "ClubService"
+     },
+     {
+      "Key": "Environment",
+      "Value": "development"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Phase",
+      "Value": "2.2-ClubMembership"
+     },
+     {
+      "Key": "Project",
+      "Value": "SydneyCycles"
+     }
+    ],
+    "Timeout": 30
+   },
+   "DependsOn": [
+    "ClubServiceListMembersFunctionServiceRoleDefaultPolicy0079D3B7",
+    "ClubServiceListMembersFunctionServiceRole4E62EC30"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/ClubService/ListMembersFunction/Resource",
+    "aws:asset:path": "asset.e4cadadef63b9cac1f1f952c3fbecd247ffedc5476e956b954e2cb458e0f621f",
+    "aws:asset:is-bundled": true,
+    "aws:asset:property": "Code"
+   }
+  },
+  "ClubServiceListMembersFunctionLogRetention66F7E50B": {
+   "Type": "Custom::LogRetention",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aFD4BFC8A",
+      "Arn"
+     ]
+    },
+    "LogGroupName": {
+     "Fn::Join": [
+      "",
+      [
+       "/aws/lambda/",
+       {
+        "Ref": "ClubServiceListMembersFunction448D3124"
+       }
+      ]
+     ]
+    },
+    "RetentionInDays": 7
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/ClubService/ListMembersFunction/LogRetention/Resource"
+   }
+  },
+  "ClubServiceUpdateMemberFunctionServiceRoleF4C0A949": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "Environment",
+      "Value": "development"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Phase",
+      "Value": "2.1-ClubService"
+     },
+     {
+      "Key": "Project",
+      "Value": "SydneyCycles"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/ClubService/UpdateMemberFunction/ServiceRole/Resource"
+   }
+  },
+  "ClubServiceUpdateMemberFunction08BC355D": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-924748161040-us-east-2",
+     "S3Key": "7c0e46a6d3a68d95fbb80476ecee29e1ed8a1c00b0ebc4540154daba4c8f9b45.zip"
+    },
+    "Description": "Update member role (club admins)",
+    "Environment": {
+     "Variables": {
+      "TABLE_NAME": {
+       "Ref": "MainTableSydneyCyclesMainTable4AA7164E"
+      },
+      "ENVIRONMENT": "development"
+     }
+    },
+    "FunctionName": "sydney-cycles-update-member-development",
+    "Handler": "index.handler",
+    "MemorySize": 256,
+    "Role": {
+     "Fn::GetAtt": [
+      "ClubServiceUpdateMemberFunctionServiceRoleF4C0A949",
+      "Arn"
+     ]
+    },
+    "Runtime": "nodejs18.x",
+    "Tags": [
+     {
+      "Key": "Environment",
+      "Value": "development"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Phase",
+      "Value": "2.1-ClubService"
+     },
+     {
+      "Key": "Project",
+      "Value": "SydneyCycles"
+     }
+    ],
+    "Timeout": 30
+   },
+   "DependsOn": [
+    "ClubServiceUpdateMemberFunctionServiceRoleF4C0A949"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/ClubService/UpdateMemberFunction/Resource",
+    "aws:asset:path": "asset.7c0e46a6d3a68d95fbb80476ecee29e1ed8a1c00b0ebc4540154daba4c8f9b45",
+    "aws:asset:is-bundled": true,
+    "aws:asset:property": "Code"
+   }
+  },
+  "ClubServiceUpdateMemberFunctionLogRetention7672998D": {
+   "Type": "Custom::LogRetention",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aFD4BFC8A",
+      "Arn"
+     ]
+    },
+    "LogGroupName": {
+     "Fn::Join": [
+      "",
+      [
+       "/aws/lambda/",
+       {
+        "Ref": "ClubServiceUpdateMemberFunction08BC355D"
+       }
+      ]
+     ]
+    },
+    "RetentionInDays": 7
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/ClubService/UpdateMemberFunction/LogRetention/Resource"
+   }
+  },
+  "ClubServiceRemoveMemberFunctionServiceRole309A310F": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "Environment",
+      "Value": "development"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Phase",
+      "Value": "2.1-ClubService"
+     },
+     {
+      "Key": "Project",
+      "Value": "SydneyCycles"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/ClubService/RemoveMemberFunction/ServiceRole/Resource"
+   }
+  },
+  "ClubServiceRemoveMemberFunction479954CC": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-924748161040-us-east-2",
+     "S3Key": "44f6e42b68f84db51a19cd6c5ab26b100c4483aa52629a34799ae7de1bfe304f.zip"
+    },
+    "Description": "Remove member from club (club admins)",
+    "Environment": {
+     "Variables": {
+      "TABLE_NAME": {
+       "Ref": "MainTableSydneyCyclesMainTable4AA7164E"
+      },
+      "ENVIRONMENT": "development"
+     }
+    },
+    "FunctionName": "sydney-cycles-remove-member-development",
+    "Handler": "index.handler",
+    "MemorySize": 256,
+    "Role": {
+     "Fn::GetAtt": [
+      "ClubServiceRemoveMemberFunctionServiceRole309A310F",
+      "Arn"
+     ]
+    },
+    "Runtime": "nodejs18.x",
+    "Tags": [
+     {
+      "Key": "Environment",
+      "Value": "development"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Phase",
+      "Value": "2.1-ClubService"
+     },
+     {
+      "Key": "Project",
+      "Value": "SydneyCycles"
+     }
+    ],
+    "Timeout": 30
+   },
+   "DependsOn": [
+    "ClubServiceRemoveMemberFunctionServiceRole309A310F"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/ClubService/RemoveMemberFunction/Resource",
+    "aws:asset:path": "asset.44f6e42b68f84db51a19cd6c5ab26b100c4483aa52629a34799ae7de1bfe304f",
+    "aws:asset:is-bundled": true,
+    "aws:asset:property": "Code"
+   }
+  },
+  "ClubServiceRemoveMemberFunctionLogRetention62F04A2B": {
+   "Type": "Custom::LogRetention",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aFD4BFC8A",
+      "Arn"
+     ]
+    },
+    "LogGroupName": {
+     "Fn::Join": [
+      "",
+      [
+       "/aws/lambda/",
+       {
+        "Ref": "ClubServiceRemoveMemberFunction479954CC"
+       }
+      ]
+     ]
+    },
+    "RetentionInDays": 7
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/ClubService/RemoveMemberFunction/LogRetention/Resource"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/1WQT0/DMAzFPwv3LEB32bUbgssGUwfnKU1Nly2Nq9phKlG/O0r/qZzez/aT7OdEJutEJg/qTitd3FbW5DKcWOmbUHc6B42lM4wyfBE0R0Qrdt9u5gl21oDj5WjodKJonaqwyGX4VLmFaOmhExZLkmGP5VuDvo6DmfdYZsDg2KDrhKpNqRjuqpUhA+K0NtG9wFRr9I7FC9QW22o8ZVGdWJX97gEyIPSNhq0iEAfgCxZxONI0HZcMfMAC+uwjDG+Z0lLq+YKN+YWmv2euOmFUJUOGQ/Rej2iNbmM5UCesqvJCyRBb0FSGyKATr97p+IHonHjynh0WcCX53svspPVZEQGTTKMIWsut1zfgmLT7l+zDc+1Z9L74FePKZeBOxA3ySo8/zxuZPMnNw5WMWTXesalAZoP+ASNOQHQ/AgAA"
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/CDKMetadata/Default"
+   }
+  }
+ },
+ "Outputs": {
+  "RestApiSydneyCyclesRestApiEndpointD3CB654C": {
+   "Value": {
+    "Fn::Join": [
+     "",
+     [
+      "https://",
+      {
+       "Ref": "RestApiSydneyCyclesRestApiC3FBF1D6"
+      },
+      ".execute-api.us-east-2.",
+      {
+       "Ref": "AWS::URLSuffix"
+      },
+      "/",
+      {
+       "Ref": "RestApiSydneyCyclesRestApiDeploymentStagedevelopmentDF98341E"
+      },
+      "/"
+     ]
+    ]
+   }
+  },
+  "UserPoolId": {
+   "Description": "Cognito User Pool ID for authentication",
+   "Value": {
+    "Ref": "UserPoolSydneyCyclesUserPool0813CCE2"
+   },
+   "Export": {
+    "Name": "SydneyCyclesStack-UserPoolId"
+   }
+  },
+  "UserPoolClientId": {
+   "Description": "Cognito User Pool Client ID for frontend integration",
+   "Value": {
+    "Ref": "UserPoolSydneyCyclesUserPoolClient4213E9FA"
+   },
+   "Export": {
+    "Name": "SydneyCyclesStack-UserPoolClientId"
+   }
+  },
+  "MainTableName": {
+   "Description": "DynamoDB main table name for data operations",
+   "Value": {
+    "Ref": "MainTableSydneyCyclesMainTable4AA7164E"
+   },
+   "Export": {
+    "Name": "SydneyCyclesStack-MainTableName"
+   }
+  },
+  "MainTableArn": {
+   "Description": "DynamoDB main table ARN for IAM policies",
+   "Value": {
+    "Fn::GetAtt": [
+     "MainTableSydneyCyclesMainTable4AA7164E",
+     "Arn"
+    ]
+   },
+   "Export": {
+    "Name": "SydneyCyclesStack-MainTableArn"
+   }
+  },
+  "RestApiId": {
+   "Description": "API Gateway REST API ID",
+   "Value": {
+    "Ref": "RestApiSydneyCyclesRestApiC3FBF1D6"
+   },
+   "Export": {
+    "Name": "SydneyCyclesStack-RestApiId"
+   }
+  },
+  "RestApiUrl": {
+   "Description": "API Gateway REST API URL for frontend integration",
+   "Value": {
+    "Fn::Join": [
+     "",
+     [
+      "https://",
+      {
+       "Ref": "RestApiSydneyCyclesRestApiC3FBF1D6"
+      },
+      ".execute-api.us-east-2.",
+      {
+       "Ref": "AWS::URLSuffix"
+      },
+      "/",
+      {
+       "Ref": "RestApiSydneyCyclesRestApiDeploymentStagedevelopmentDF98341E"
+      },
+      "/"
+     ]
+    ]
+   },
+   "Export": {
+    "Name": "SydneyCyclesStack-RestApiUrl"
+   }
+  },
+  "GetCurrentUserFunctionName": {
+   "Description": "Get current user Lambda function name",
+   "Value": {
+    "Ref": "UserProfileServiceGetCurrentUserFunction4B580C64"
+   },
+   "Export": {
+    "Name": "SydneyCyclesStack-GetCurrentUserFunctionName"
+   }
+  },
+  "GetUserByIdFunctionName": {
+   "Description": "Get user by ID Lambda function name",
+   "Value": {
+    "Ref": "UserProfileServiceGetUserByIdFunctionCDCB03BA"
+   },
+   "Export": {
+    "Name": "SydneyCyclesStack-GetUserByIdFunctionName"
+   }
+  },
+  "UpdateUserFunctionName": {
+   "Description": "Update user Lambda function name",
+   "Value": {
+    "Ref": "UserProfileServiceUpdateUserFunction6DAF8698"
+   },
+   "Export": {
+    "Name": "SydneyCyclesStack-UpdateUserFunctionName"
+   }
+  },
+  "ListClubsFunctionName": {
+   "Description": "List clubs Lambda function name",
+   "Value": {
+    "Ref": "ClubServiceListClubsFunction63F834C0"
+   },
+   "Export": {
+    "Name": "SydneyCyclesStack-ListClubsFunctionName"
+   }
+  },
+  "GetClubFunctionName": {
+   "Description": "Get club Lambda function name",
+   "Value": {
+    "Ref": "ClubServiceGetClubFunctionA1AC042C"
+   },
+   "Export": {
+    "Name": "SydneyCyclesStack-GetClubFunctionName"
+   }
+  },
+  "CreateClubFunctionName": {
+   "Description": "Create club Lambda function name",
+   "Value": {
+    "Ref": "ClubServiceCreateClubFunction9485933C"
+   },
+   "Export": {
+    "Name": "SydneyCyclesStack-CreateClubFunctionName"
+   }
+  },
+  "UpdateClubFunctionName": {
+   "Description": "Update club Lambda function name",
+   "Value": {
+    "Ref": "ClubServiceUpdateClubFunction0A2D1091"
+   },
+   "Export": {
+    "Name": "SydneyCyclesStack-UpdateClubFunctionName"
+   }
+  }
+ },
+ "Parameters": {
+  "BootstrapVersion": {
+   "Type": "AWS::SSM::Parameter::Value<String>",
+   "Default": "/cdk-bootstrap/hnb659fds/version",
+   "Description": "Version of the CDK Bootstrap resources in this environment, automatically retrieved from SSM Parameter Store. [cdk:skip]"
+  }
+ },
+ "Rules": {
+  "CheckBootstrapVersion": {
+   "Assertions": [
+    {
+     "Assert": {
+      "Fn::Not": [
+       {
+        "Fn::Contains": [
+         [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+         ],
+         {
+          "Ref": "BootstrapVersion"
+         }
+        ]
+       }
+      ]
+     },
+     "AssertDescription": "CDK bootstrap stack version 6 required. Please run 'cdk bootstrap' with a recent version of the CDK CLI."
+    }
+   ]
+  }
+ }
+}

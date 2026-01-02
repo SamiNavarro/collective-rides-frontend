@@ -1,0 +1,2882 @@
+{
+  "version": "48.0.0",
+  "artifacts": {
+    "SydneyCyclesStack.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "SydneyCyclesStack.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "SydneyCyclesStack": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://924748161040/us-east-2",
+      "properties": {
+        "templateFile": "SydneyCyclesStack.template.json",
+        "terminationProtection": false,
+        "tags": {
+          "Environment": "development",
+          "ManagedBy": "CDK",
+          "Phase": "2.5-RideCompletion",
+          "Project": "SydneyCycles"
+        },
+        "validateOnSynth": false,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::924748161040:role/cdk-hnb659fds-deploy-role-924748161040-us-east-2",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::924748161040:role/cdk-hnb659fds-cfn-exec-role-924748161040-us-east-2",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-924748161040-us-east-2/6ab0210ea74c331896b32f033ebd476c74cd6827330b601710a2876b2b79bebc.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "SydneyCyclesStack.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::924748161040:role/cdk-hnb659fds-lookup-role-924748161040-us-east-2",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        }
+      },
+      "dependencies": [
+        "SydneyCyclesStack.assets"
+      ],
+      "metadata": {
+        "/SydneyCyclesStack": [
+          {
+            "type": "aws:cdk:stack-tags",
+            "data": [
+              {
+                "Key": "Environment",
+                "Value": "development"
+              },
+              {
+                "Key": "ManagedBy",
+                "Value": "CDK"
+              },
+              {
+                "Key": "Phase",
+                "Value": "2.5-RideCompletion"
+              },
+              {
+                "Key": "Project",
+                "Value": "SydneyCycles"
+              }
+            ]
+          }
+        ],
+        "/SydneyCyclesStack/UserPool/SydneyCyclesUserPool/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "UserPoolSydneyCyclesUserPool0813CCE2"
+          }
+        ],
+        "/SydneyCyclesStack/UserPool/SydneyCyclesUserPoolClient/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "UserPoolSydneyCyclesUserPoolClient4213E9FA"
+          }
+        ],
+        "/SydneyCyclesStack/MainTable/SydneyCyclesMainTable": [
+          {
+            "type": "aws:cdk:hasPhysicalName",
+            "data": {
+              "Ref": "MainTableSydneyCyclesMainTable4AA7164E"
+            }
+          }
+        ],
+        "/SydneyCyclesStack/MainTable/SydneyCyclesMainTable/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MainTableSydneyCyclesMainTable4AA7164E"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/ApiGatewayLogGroup/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiApiGatewayLogGroup426293AF"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiC3FBF1D6"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/CloudWatchRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiCloudWatchRoleA3878D42"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Account": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiAccount539C709B"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Deployment/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiDeployment050DCABA50807319bac1bd7004a50b9b6d8a9d20"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/DeploymentStage.development/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiDeploymentStagedevelopmentDF98341E"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Endpoint": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiEndpointD3CB654C"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/OPTIONS/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiOPTIONS22E7A9FA"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/health/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApihealth0DB2B9F2"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/health/OPTIONS/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApihealthOPTIONS497D08D8"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/health/GET/ApiPermission.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.GET..health": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApihealthGETApiPermissionSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514GEThealthB5283C18"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/health/GET/ApiPermission.Test.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.GET..health": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApihealthGETApiPermissionTestSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514GEThealthC3CF9C15"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/health/GET/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApihealthGET5091A933"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1E226772B"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/OPTIONS/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1OPTIONS4AC74D5B"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/users/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1users283392C5"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/users/OPTIONS/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1usersOPTIONSBEB4FD60"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/users/me/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1usersme4315889D"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/users/me/OPTIONS/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1usersmeOPTIONS1DC5F0B5"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/users/me/GET/ApiPermission.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.GET..v1.users.me": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1usersmeGETApiPermissionSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514GETv1usersme1E9B1135"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/users/me/GET/ApiPermission.Test.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.GET..v1.users.me": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1usersmeGETApiPermissionTestSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514GETv1usersme747C434B"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/users/me/GET/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1usersmeGET2E340FE5"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/users/me/memberships/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1usersmememberships27C8404C"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/users/me/memberships/OPTIONS/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1usersmemembershipsOPTIONS0309E7A4"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/users/me/memberships/GET/ApiPermission.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.GET..v1.users.me.memberships": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1usersmemembershipsGETApiPermissionSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514GETv1usersmemembershipsAB951D29"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/users/me/memberships/GET/ApiPermission.Test.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.GET..v1.users.me.memberships": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1usersmemembershipsGETApiPermissionTestSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514GETv1usersmemembershipsEF4F9C45"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/users/me/memberships/GET/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1usersmemembershipsGETD1D79D97"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/users/me/invitations/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1usersmeinvitationsAF9C4DA7"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/users/me/invitations/OPTIONS/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1usersmeinvitationsOPTIONSBC0CECD4"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/users/me/invitations/GET/ApiPermission.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.GET..v1.users.me.invitations": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1usersmeinvitationsGETApiPermissionSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514GETv1usersmeinvitations81E6953E"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/users/me/invitations/GET/ApiPermission.Test.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.GET..v1.users.me.invitations": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1usersmeinvitationsGETApiPermissionTestSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514GETv1usersmeinvitationsDE5BB108"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/users/me/invitations/GET/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1usersmeinvitationsGETB7F4E668"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/users/me/rides/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1usersmerides677B8058"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/users/me/rides/OPTIONS/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1usersmeridesOPTIONSB48052BA"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/users/me/rides/GET/ApiPermission.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.GET..v1.users.me.rides": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1usersmeridesGETApiPermissionSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514GETv1usersmeridesA2192FFD"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/users/me/rides/GET/ApiPermission.Test.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.GET..v1.users.me.rides": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1usersmeridesGETApiPermissionTestSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514GETv1usersmerides94BABEA2"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/users/me/rides/GET/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1usersmeridesGET6BDCDF06"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/users/{id}/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1usersidC1A3F27A"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/users/{id}/OPTIONS/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1usersidOPTIONSAE932062"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/users/{id}/GET/ApiPermission.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.GET..v1.users.{id}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1usersidGETApiPermissionSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514GETv1usersid57B39EEE"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/users/{id}/GET/ApiPermission.Test.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.GET..v1.users.{id}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1usersidGETApiPermissionTestSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514GETv1usersidBD2C2DD6"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/users/{id}/GET/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1usersidGET6CCC2BE6"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/users/{id}/PUT/ApiPermission.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.PUT..v1.users.{id}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1usersidPUTApiPermissionSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514PUTv1usersid560FF9B1"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/users/{id}/PUT/ApiPermission.Test.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.PUT..v1.users.{id}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1usersidPUTApiPermissionTestSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514PUTv1usersidF646F80E"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/users/{id}/PUT/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1usersidPUTA07523DC"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsA5F04352"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/OPTIONS/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsOPTIONSC3BAB8A0"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/GET/ApiPermission.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.GET..v1.clubs": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsGETApiPermissionSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514GETv1clubsECBA4FBC"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/GET/ApiPermission.Test.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.GET..v1.clubs": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsGETApiPermissionTestSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514GETv1clubs334662A4"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/GET/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsGET43D1B96B"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/POST/ApiPermission.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.POST..v1.clubs": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsPOSTApiPermissionSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514POSTv1clubsF694EE08"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/POST/ApiPermission.Test.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.POST..v1.clubs": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsPOSTApiPermissionTestSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514POSTv1clubsDC7B4895"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/POST/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsPOST5F76E841"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubId7FA55AF3"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/OPTIONS/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdOPTIONS3D70AB7D"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/GET/ApiPermission.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.GET..v1.clubs.{clubId}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdGETApiPermissionSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514GETv1clubsclubId8EC0A6E5"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/GET/ApiPermission.Test.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.GET..v1.clubs.{clubId}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdGETApiPermissionTestSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514GETv1clubsclubId9C922349"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/GET/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdGET214F33D6"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/PUT/ApiPermission.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.PUT..v1.clubs.{clubId}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdPUTApiPermissionSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514PUTv1clubsclubIdB607F1D6"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/PUT/ApiPermission.Test.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.PUT..v1.clubs.{clubId}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdPUTApiPermissionTestSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514PUTv1clubsclubId5C9ED789"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/PUT/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdPUTF0201566"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/members/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdmembersCBFAE5A6"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/members/OPTIONS/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdmembersOPTIONS36CA4A08"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/members/POST/ApiPermission.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.POST..v1.clubs.{clubId}.members": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdmembersPOSTApiPermissionSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514POSTv1clubsclubIdmembers34A4F1C7"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/members/POST/ApiPermission.Test.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.POST..v1.clubs.{clubId}.members": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdmembersPOSTApiPermissionTestSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514POSTv1clubsclubIdmembers140DB4F0"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/members/POST/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdmembersPOSTCB3A1E92"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/members/GET/ApiPermission.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.GET..v1.clubs.{clubId}.members": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdmembersGETApiPermissionSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514GETv1clubsclubIdmembersC23A545C"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/members/GET/ApiPermission.Test.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.GET..v1.clubs.{clubId}.members": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdmembersGETApiPermissionTestSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514GETv1clubsclubIdmembers9955A27F"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/members/GET/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdmembersGET0A4D9D6E"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/members/me/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdmembersmeED477F71"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/members/me/OPTIONS/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdmembersmeOPTIONS200231EA"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/members/me/DELETE/ApiPermission.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.DELETE..v1.clubs.{clubId}.members.me": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdmembersmeDELETEApiPermissionSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514DELETEv1clubsclubIdmembersmeB58BD2E5"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/members/me/DELETE/ApiPermission.Test.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.DELETE..v1.clubs.{clubId}.members.me": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdmembersmeDELETEApiPermissionTestSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514DELETEv1clubsclubIdmembersme86692627"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/members/me/DELETE/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdmembersmeDELETE7BECB186"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/member/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdmember6EF4FC5E"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/member/OPTIONS/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdmemberOPTIONS88D876E1"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/member/{userId}/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdmemberuserId6D9CCFA0"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/member/{userId}/OPTIONS/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdmemberuserIdOPTIONS0CB823F0"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/member/{userId}/PUT/ApiPermission.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.PUT..v1.clubs.{clubId}.member.{userId}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdmemberuserIdPUTApiPermissionSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514PUTv1clubsclubIdmemberuserId7095C4CF"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/member/{userId}/PUT/ApiPermission.Test.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.PUT..v1.clubs.{clubId}.member.{userId}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdmemberuserIdPUTApiPermissionTestSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514PUTv1clubsclubIdmemberuserIdA2A39C73"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/member/{userId}/PUT/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdmemberuserIdPUT7E870991"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/member/{userId}/DELETE/ApiPermission.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.DELETE..v1.clubs.{clubId}.member.{userId}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdmemberuserIdDELETEApiPermissionSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514DELETEv1clubsclubIdmemberuserIdD6E0AE2D"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/member/{userId}/DELETE/ApiPermission.Test.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.DELETE..v1.clubs.{clubId}.member.{userId}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdmemberuserIdDELETEApiPermissionTestSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514DELETEv1clubsclubIdmemberuserId354DE2F2"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/member/{userId}/DELETE/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdmemberuserIdDELETE2ABC3FAB"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/invitations/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdinvitations9F65F064"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/invitations/OPTIONS/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdinvitationsOPTIONS54544D72"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/invitations/POST/ApiPermission.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.POST..v1.clubs.{clubId}.invitations": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdinvitationsPOSTApiPermissionSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514POSTv1clubsclubIdinvitations3633FBD2"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/invitations/POST/ApiPermission.Test.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.POST..v1.clubs.{clubId}.invitations": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdinvitationsPOSTApiPermissionTestSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514POSTv1clubsclubIdinvitationsF4ECAE1D"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/invitations/POST/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdinvitationsPOST2D61CEA8"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/requests/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdrequests78AD799E"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/requests/OPTIONS/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdrequestsOPTIONS4D5D1B5F"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/requests/{membershipId}/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdrequestsmembershipId32CA053E"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/requests/{membershipId}/OPTIONS/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdrequestsmembershipIdOPTIONS353F2361"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/requests/{membershipId}/PUT/ApiPermission.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.PUT..v1.clubs.{clubId}.requests.{membershipId}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdrequestsmembershipIdPUTApiPermissionSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514PUTv1clubsclubIdrequestsmembershipIdBF9B2883"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/requests/{membershipId}/PUT/ApiPermission.Test.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.PUT..v1.clubs.{clubId}.requests.{membershipId}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdrequestsmembershipIdPUTApiPermissionTestSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514PUTv1clubsclubIdrequestsmembershipIdAD40F543"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/requests/{membershipId}/PUT/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdrequestsmembershipIdPUTE575210C"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/rides/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdrides96ABC095"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/rides/OPTIONS/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdridesOPTIONSDE5D7D36"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/rides/POST/ApiPermission.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.POST..v1.clubs.{clubId}.rides": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdridesPOSTApiPermissionSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514POSTv1clubsclubIdrides1ABCAD54"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/rides/POST/ApiPermission.Test.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.POST..v1.clubs.{clubId}.rides": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdridesPOSTApiPermissionTestSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514POSTv1clubsclubIdridesD1AA4B6F"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/rides/POST/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdridesPOSTFB065FC6"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/rides/GET/ApiPermission.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.GET..v1.clubs.{clubId}.rides": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdridesGETApiPermissionSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514GETv1clubsclubIdridesB17288E1"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/rides/GET/ApiPermission.Test.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.GET..v1.clubs.{clubId}.rides": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdridesGETApiPermissionTestSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514GETv1clubsclubIdridesBDCE2161"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/rides/GET/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdridesGET3DD1817B"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/rides/{rideId}/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdridesrideId137AEB35"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/rides/{rideId}/OPTIONS/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdridesrideIdOPTIONS328AA053"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/rides/{rideId}/GET/ApiPermission.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.GET..v1.clubs.{clubId}.rides.{rideId}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdridesrideIdGETApiPermissionSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514GETv1clubsclubIdridesrideId60EE6B82"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/rides/{rideId}/GET/ApiPermission.Test.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.GET..v1.clubs.{clubId}.rides.{rideId}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdridesrideIdGETApiPermissionTestSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514GETv1clubsclubIdridesrideId9EB9C1F1"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/rides/{rideId}/GET/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdridesrideIdGETAD30378F"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/rides/{rideId}/publish/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdridesrideIdpublishA6AEAA46"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/rides/{rideId}/publish/OPTIONS/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdridesrideIdpublishOPTIONSB73211EA"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/rides/{rideId}/publish/POST/ApiPermission.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.POST..v1.clubs.{clubId}.rides.{rideId}.publish": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdridesrideIdpublishPOSTApiPermissionSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514POSTv1clubsclubIdridesrideIdpublish2EE6E790"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/rides/{rideId}/publish/POST/ApiPermission.Test.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.POST..v1.clubs.{clubId}.rides.{rideId}.publish": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdridesrideIdpublishPOSTApiPermissionTestSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514POSTv1clubsclubIdridesrideIdpublish823EB1DD"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/rides/{rideId}/publish/POST/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdridesrideIdpublishPOST86CB404E"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/rides/{rideId}/participants/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdridesrideIdparticipantsDC8C56D8"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/rides/{rideId}/participants/OPTIONS/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdridesrideIdparticipantsOPTIONSA42575DB"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/rides/{rideId}/participants/POST/ApiPermission.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.POST..v1.clubs.{clubId}.rides.{rideId}.participants": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdridesrideIdparticipantsPOSTApiPermissionSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514POSTv1clubsclubIdridesrideIdparticipantsEE964E28"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/rides/{rideId}/participants/POST/ApiPermission.Test.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.POST..v1.clubs.{clubId}.rides.{rideId}.participants": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdridesrideIdparticipantsPOSTApiPermissionTestSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514POSTv1clubsclubIdridesrideIdparticipants65D5A5D9"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/rides/{rideId}/participants/POST/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdridesrideIdparticipantsPOST552A59BF"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/rides/{rideId}/participants/me/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdridesrideIdparticipantsmeA163A7C8"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/rides/{rideId}/participants/me/OPTIONS/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdridesrideIdparticipantsmeOPTIONSAE6326B9"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/rides/{rideId}/participants/me/DELETE/ApiPermission.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.DELETE..v1.clubs.{clubId}.rides.{rideId}.participants.me": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdridesrideIdparticipantsmeDELETEApiPermissionSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514DELETEv1clubsclubIdridesrideIdparticipantsmeFDC9673C"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/rides/{rideId}/participants/me/DELETE/ApiPermission.Test.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.DELETE..v1.clubs.{clubId}.rides.{rideId}.participants.me": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdridesrideIdparticipantsmeDELETEApiPermissionTestSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514DELETEv1clubsclubIdridesrideIdparticipantsme0EECA96A"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/rides/{rideId}/participants/me/DELETE/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdridesrideIdparticipantsmeDELETE0286F32F"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/rides/{rideId}/participants/{userId}/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdridesrideIdparticipantsuserId73172E02"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/rides/{rideId}/participants/{userId}/OPTIONS/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdridesrideIdparticipantsuserIdOPTIONSB3F74826"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/rides/{rideId}/participants/{userId}/attendance/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdridesrideIdparticipantsuserIdattendanceD2941B3F"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/rides/{rideId}/participants/{userId}/attendance/OPTIONS/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdridesrideIdparticipantsuserIdattendanceOPTIONS09C975B5"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/rides/{rideId}/participants/{userId}/attendance/PUT/ApiPermission.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.PUT..v1.clubs.{clubId}.rides.{rideId}.participants.{userId}.attendance": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdridesrideIdparticipantsuserIdattendancePUTApiPermissionSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514PUTv1clubsclubIdridesrideIdparticipantsuserIdattendance040E6241"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/rides/{rideId}/participants/{userId}/attendance/PUT/ApiPermission.Test.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.PUT..v1.clubs.{clubId}.rides.{rideId}.participants.{userId}.attendance": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdridesrideIdparticipantsuserIdattendancePUTApiPermissionTestSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514PUTv1clubsclubIdridesrideIdparticipantsuserIdattendanceADB4618F"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/rides/{rideId}/participants/{userId}/attendance/PUT/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdridesrideIdparticipantsuserIdattendancePUTB7676853"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/rides/{rideId}/participants/{userId}/evidence/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdridesrideIdparticipantsuserIdevidenceE4B6AFF3"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/rides/{rideId}/participants/{userId}/evidence/OPTIONS/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdridesrideIdparticipantsuserIdevidenceOPTIONS811F574B"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/rides/{rideId}/participants/{userId}/evidence/manual/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdridesrideIdparticipantsuserIdevidencemanualC41D0611"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/rides/{rideId}/participants/{userId}/evidence/manual/OPTIONS/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdridesrideIdparticipantsuserIdevidencemanualOPTIONS8B59F770"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/rides/{rideId}/participants/{userId}/evidence/manual/POST/ApiPermission.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.POST..v1.clubs.{clubId}.rides.{rideId}.participants.{userId}.evidence.manual": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdridesrideIdparticipantsuserIdevidencemanualPOSTApiPermissionSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514POSTv1clubsclubIdridesrideIdparticipantsuserIdevidencemanual1038D9D2"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/rides/{rideId}/participants/{userId}/evidence/manual/POST/ApiPermission.Test.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.POST..v1.clubs.{clubId}.rides.{rideId}.participants.{userId}.evidence.manual": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdridesrideIdparticipantsuserIdevidencemanualPOSTApiPermissionTestSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514POSTv1clubsclubIdridesrideIdparticipantsuserIdevidencemanualD5A34EA4"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/rides/{rideId}/participants/{userId}/evidence/manual/POST/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdridesrideIdparticipantsuserIdevidencemanualPOST7D81F2D3"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/rides/{rideId}/complete/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdridesrideIdcomplete3A8B3901"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/rides/{rideId}/complete/OPTIONS/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdridesrideIdcompleteOPTIONS6B8B7170"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/rides/{rideId}/complete/POST/ApiPermission.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.POST..v1.clubs.{clubId}.rides.{rideId}.complete": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdridesrideIdcompletePOSTApiPermissionSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514POSTv1clubsclubIdridesrideIdcompleteECDFBC61"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/rides/{rideId}/complete/POST/ApiPermission.Test.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.POST..v1.clubs.{clubId}.rides.{rideId}.complete": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdridesrideIdcompletePOSTApiPermissionTestSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514POSTv1clubsclubIdridesrideIdcompleteC06C22AE"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/rides/{rideId}/complete/POST/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdridesrideIdcompletePOST71C48072"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/rides/{rideId}/summary/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdridesrideIdsummary5D9CCDBB"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/rides/{rideId}/summary/OPTIONS/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdridesrideIdsummaryOPTIONS15CB30A5"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/rides/{rideId}/summary/GET/ApiPermission.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.GET..v1.clubs.{clubId}.rides.{rideId}.summary": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdridesrideIdsummaryGETApiPermissionSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514GETv1clubsclubIdridesrideIdsummary18D8BD3B"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/rides/{rideId}/summary/GET/ApiPermission.Test.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.GET..v1.clubs.{clubId}.rides.{rideId}.summary": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdridesrideIdsummaryGETApiPermissionTestSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514GETv1clubsclubIdridesrideIdsummary0BE058B6"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/rides/{rideId}/summary/GET/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdridesrideIdsummaryGETA23C9C16"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/routes/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdroutes3D2A53D9"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/routes/OPTIONS/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdroutesOPTIONS59C8556D"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/routes/{routeId}/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdroutesrouteId0383C8BA"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/routes/{routeId}/OPTIONS/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdroutesrouteIdOPTIONSE928752A"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/routes/{routeId}/files/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdroutesrouteIdfilesE887D413"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/routes/{routeId}/files/OPTIONS/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdroutesrouteIdfilesOPTIONS880E663F"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/routes/{routeId}/files/upload-url/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdroutesrouteIdfilesuploadurl2E6BD8D7"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/routes/{routeId}/files/upload-url/OPTIONS/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdroutesrouteIdfilesuploadurlOPTIONS75E350E0"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/routes/{routeId}/files/upload-url/POST/ApiPermission.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.POST..v1.clubs.{clubId}.routes.{routeId}.files.upload-url": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdroutesrouteIdfilesuploadurlPOSTApiPermissionSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514POSTv1clubsclubIdroutesrouteIdfilesuploadurlDFCEDD88"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/routes/{routeId}/files/upload-url/POST/ApiPermission.Test.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.POST..v1.clubs.{clubId}.routes.{routeId}.files.upload-url": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdroutesrouteIdfilesuploadurlPOSTApiPermissionTestSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514POSTv1clubsclubIdroutesrouteIdfilesuploadurlCF2069A5"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/routes/{routeId}/files/upload-url/POST/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdroutesrouteIdfilesuploadurlPOST4F0177AE"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/routes/{routeId}/files/{version}/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdroutesrouteIdfilesversion40F7CDCE"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/routes/{routeId}/files/{version}/OPTIONS/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdroutesrouteIdfilesversionOPTIONSFD477016"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/routes/{routeId}/files/{version}/confirm/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdroutesrouteIdfilesversionconfirmC87936A0"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/routes/{routeId}/files/{version}/confirm/OPTIONS/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdroutesrouteIdfilesversionconfirmOPTIONSC3B18498"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/routes/{routeId}/files/{version}/confirm/POST/ApiPermission.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.POST..v1.clubs.{clubId}.routes.{routeId}.files.{version}.confirm": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdroutesrouteIdfilesversionconfirmPOSTApiPermissionSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514POSTv1clubsclubIdroutesrouteIdfilesversionconfirmF6685437"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/routes/{routeId}/files/{version}/confirm/POST/ApiPermission.Test.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.POST..v1.clubs.{clubId}.routes.{routeId}.files.{version}.confirm": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdroutesrouteIdfilesversionconfirmPOSTApiPermissionTestSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514POSTv1clubsclubIdroutesrouteIdfilesversionconfirmDF5E5542"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/routes/{routeId}/files/{version}/confirm/POST/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdroutesrouteIdfilesversionconfirmPOSTD10177B5"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/routes/{routeId}/files/{version}/download/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdroutesrouteIdfilesversiondownloadDEE9C5F7"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/routes/{routeId}/files/{version}/download/OPTIONS/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdroutesrouteIdfilesversiondownloadOPTIONS9362812F"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/routes/{routeId}/files/{version}/download/GET/ApiPermission.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.GET..v1.clubs.{clubId}.routes.{routeId}.files.{version}.download": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdroutesrouteIdfilesversiondownloadGETApiPermissionSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514GETv1clubsclubIdroutesrouteIdfilesversiondownloadD85BD92A"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/routes/{routeId}/files/{version}/download/GET/ApiPermission.Test.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.GET..v1.clubs.{clubId}.routes.{routeId}.files.{version}.download": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdroutesrouteIdfilesversiondownloadGETApiPermissionTestSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514GETv1clubsclubIdroutesrouteIdfilesversiondownloadC6EFDBBE"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/routes/{routeId}/files/{version}/download/GET/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdroutesrouteIdfilesversiondownloadGET6E640152"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/routes/{routeId}/files/{version}/status/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdroutesrouteIdfilesversionstatus273AFABA"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/routes/{routeId}/files/{version}/status/OPTIONS/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdroutesrouteIdfilesversionstatusOPTIONSD0DA728E"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/routes/{routeId}/files/{version}/status/GET/ApiPermission.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.GET..v1.clubs.{clubId}.routes.{routeId}.files.{version}.status": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdroutesrouteIdfilesversionstatusGETApiPermissionSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514GETv1clubsclubIdroutesrouteIdfilesversionstatus9BD5A745"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/routes/{routeId}/files/{version}/status/GET/ApiPermission.Test.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.GET..v1.clubs.{clubId}.routes.{routeId}.files.{version}.status": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdroutesrouteIdfilesversionstatusGETApiPermissionTestSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514GETv1clubsclubIdroutesrouteIdfilesversionstatus50838A22"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/routes/{routeId}/files/{version}/status/GET/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdroutesrouteIdfilesversionstatusGET41121BD0"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/routes/{routeId}/analytics/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdroutesrouteIdanalytics1B5E1D8C"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/routes/{routeId}/analytics/OPTIONS/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdroutesrouteIdanalyticsOPTIONSB69C3984"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/routes/{routeId}/analytics/GET/ApiPermission.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.GET..v1.clubs.{clubId}.routes.{routeId}.analytics": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdroutesrouteIdanalyticsGETApiPermissionSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514GETv1clubsclubIdroutesrouteIdanalyticsC670D04A"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/routes/{routeId}/analytics/GET/ApiPermission.Test.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.GET..v1.clubs.{clubId}.routes.{routeId}.analytics": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdroutesrouteIdanalyticsGETApiPermissionTestSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514GETv1clubsclubIdroutesrouteIdanalyticsE29D0261"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/routes/{routeId}/analytics/GET/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdroutesrouteIdanalyticsGETD9EE5D8D"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/templates/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdtemplatesFE229FD1"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/templates/OPTIONS/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdtemplatesOPTIONSB09AAAFD"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/templates/POST/ApiPermission.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.POST..v1.clubs.{clubId}.templates": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdtemplatesPOSTApiPermissionSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514POSTv1clubsclubIdtemplates3AF925E0"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/templates/POST/ApiPermission.Test.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.POST..v1.clubs.{clubId}.templates": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdtemplatesPOSTApiPermissionTestSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514POSTv1clubsclubIdtemplates953116ED"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/templates/POST/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdtemplatesPOSTF7FF57D9"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/templates/GET/ApiPermission.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.GET..v1.clubs.{clubId}.templates": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdtemplatesGETApiPermissionSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514GETv1clubsclubIdtemplatesC4FDF933"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/templates/GET/ApiPermission.Test.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.GET..v1.clubs.{clubId}.templates": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdtemplatesGETApiPermissionTestSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514GETv1clubsclubIdtemplatesD68A9B0B"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/templates/GET/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1clubsclubIdtemplatesGET35C4E9E0"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/invitations/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1invitations0DE40C65"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/invitations/OPTIONS/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1invitationsOPTIONSA8E12708"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/invitations/{id}/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1invitationsid215970AC"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/invitations/{id}/OPTIONS/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1invitationsidOPTIONSBE7C5035"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/invitations/{id}/PUT/ApiPermission.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.PUT..v1.invitations.{id}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1invitationsidPUTApiPermissionSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514PUTv1invitationsid8E6C29D1"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/invitations/{id}/PUT/ApiPermission.Test.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.PUT..v1.invitations.{id}": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1invitationsidPUTApiPermissionTestSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514PUTv1invitationsidA7F23D3D"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/invitations/{id}/PUT/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1invitationsidPUTB57AC23E"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/integrations/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiintegrationsAF100B61"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/integrations/OPTIONS/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiintegrationsOPTIONSE4FF2A8D"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/integrations/strava/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiintegrationsstravaEADF3135"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/integrations/strava/OPTIONS/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiintegrationsstravaOPTIONS3890463B"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/integrations/strava/connect/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiintegrationsstravaconnect7D260756"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/integrations/strava/connect/OPTIONS/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiintegrationsstravaconnectOPTIONS2F45AC3E"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/integrations/strava/connect/GET/ApiPermission.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.GET..integrations.strava.connect": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiintegrationsstravaconnectGETApiPermissionSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514GETintegrationsstravaconnectD3A5C6EC"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/integrations/strava/connect/GET/ApiPermission.Test.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.GET..integrations.strava.connect": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiintegrationsstravaconnectGETApiPermissionTestSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514GETintegrationsstravaconnect5B95FCBA"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/integrations/strava/connect/GET/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiintegrationsstravaconnectGET88F4E67B"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/integrations/strava/callback/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiintegrationsstravacallbackB593DD27"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/integrations/strava/callback/OPTIONS/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiintegrationsstravacallbackOPTIONS700CE527"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/integrations/strava/callback/GET/ApiPermission.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.GET..integrations.strava.callback": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiintegrationsstravacallbackGETApiPermissionSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514GETintegrationsstravacallbackAFB6F78C"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/integrations/strava/callback/GET/ApiPermission.Test.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.GET..integrations.strava.callback": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiintegrationsstravacallbackGETApiPermissionTestSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514GETintegrationsstravacallbackF838F562"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/integrations/strava/callback/GET/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiintegrationsstravacallbackGET6EDDE374"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/integrations/strava/webhook/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiintegrationsstravawebhook6B97EA95"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/integrations/strava/webhook/OPTIONS/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiintegrationsstravawebhookOPTIONS04F70857"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/integrations/strava/webhook/GET/ApiPermission.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.GET..integrations.strava.webhook": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiintegrationsstravawebhookGETApiPermissionSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514GETintegrationsstravawebhook69571036"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/integrations/strava/webhook/GET/ApiPermission.Test.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.GET..integrations.strava.webhook": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiintegrationsstravawebhookGETApiPermissionTestSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514GETintegrationsstravawebhook9275C5D4"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/integrations/strava/webhook/GET/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiintegrationsstravawebhookGET2F99A2CE"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/integrations/strava/webhook/POST/ApiPermission.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.POST..integrations.strava.webhook": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiintegrationsstravawebhookPOSTApiPermissionSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514POSTintegrationsstravawebhookB9A814D6"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/integrations/strava/webhook/POST/ApiPermission.Test.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.POST..integrations.strava.webhook": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiintegrationsstravawebhookPOSTApiPermissionTestSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514POSTintegrationsstravawebhook8E2A92E2"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/integrations/strava/webhook/POST/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiintegrationsstravawebhookPOSTD0157C82"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/ErrorModel/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiErrorModel2B01E4A0"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/SuccessModel/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiSuccessModelA229996F"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/CognitoAuthorizer/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiCognitoAuthorizerD2BF1AF9"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/HealthCheckFunction/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiHealthCheckFunctionServiceRoleAD64852F"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/HealthCheckFunction/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiHealthCheckFunctionB43053A4"
+          }
+        ],
+        "/SydneyCyclesStack/UserProfileService/GetCurrentUserFunction/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "UserProfileServiceGetCurrentUserFunctionServiceRole3D35E663"
+          }
+        ],
+        "/SydneyCyclesStack/UserProfileService/GetCurrentUserFunction/ServiceRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "UserProfileServiceGetCurrentUserFunctionServiceRoleDefaultPolicyCD7B8669"
+          }
+        ],
+        "/SydneyCyclesStack/UserProfileService/GetCurrentUserFunction/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "UserProfileServiceGetCurrentUserFunction4B580C64"
+          }
+        ],
+        "/SydneyCyclesStack/UserProfileService/GetCurrentUserFunction/LogRetention/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "UserProfileServiceGetCurrentUserFunctionLogRetention1F586C19"
+          }
+        ],
+        "/SydneyCyclesStack/UserProfileService/GetUserByIdFunction/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "UserProfileServiceGetUserByIdFunctionServiceRoleE5104FD0"
+          }
+        ],
+        "/SydneyCyclesStack/UserProfileService/GetUserByIdFunction/ServiceRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "UserProfileServiceGetUserByIdFunctionServiceRoleDefaultPolicy72BDA098"
+          }
+        ],
+        "/SydneyCyclesStack/UserProfileService/GetUserByIdFunction/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "UserProfileServiceGetUserByIdFunctionCDCB03BA"
+          }
+        ],
+        "/SydneyCyclesStack/UserProfileService/GetUserByIdFunction/LogRetention/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "UserProfileServiceGetUserByIdFunctionLogRetention84A1CAE5"
+          }
+        ],
+        "/SydneyCyclesStack/UserProfileService/UpdateUserFunction/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "UserProfileServiceUpdateUserFunctionServiceRole4E5792B3"
+          }
+        ],
+        "/SydneyCyclesStack/UserProfileService/UpdateUserFunction/ServiceRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "UserProfileServiceUpdateUserFunctionServiceRoleDefaultPolicyB595A748"
+          }
+        ],
+        "/SydneyCyclesStack/UserProfileService/UpdateUserFunction/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "UserProfileServiceUpdateUserFunction6DAF8698"
+          }
+        ],
+        "/SydneyCyclesStack/UserProfileService/UpdateUserFunction/LogRetention/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "UserProfileServiceUpdateUserFunctionLogRetentionE808A98B"
+          }
+        ],
+        "/SydneyCyclesStack/LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRole9741ECFB"
+          }
+        ],
+        "/SydneyCyclesStack/LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a/ServiceRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aServiceRoleDefaultPolicyADDA7DEB"
+          }
+        ],
+        "/SydneyCyclesStack/LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8a/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aFD4BFC8A"
+          }
+        ],
+        "/SydneyCyclesStack/ClubService/ListClubsFunction/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClubServiceListClubsFunctionServiceRoleBF8F2593"
+          }
+        ],
+        "/SydneyCyclesStack/ClubService/ListClubsFunction/ServiceRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClubServiceListClubsFunctionServiceRoleDefaultPolicy25E8C595"
+          }
+        ],
+        "/SydneyCyclesStack/ClubService/ListClubsFunction/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClubServiceListClubsFunction63F834C0"
+          }
+        ],
+        "/SydneyCyclesStack/ClubService/ListClubsFunction/LogRetention/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClubServiceListClubsFunctionLogRetention3A6C1B68"
+          }
+        ],
+        "/SydneyCyclesStack/ClubService/GetClubFunction/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClubServiceGetClubFunctionServiceRole5271DF7D"
+          }
+        ],
+        "/SydneyCyclesStack/ClubService/GetClubFunction/ServiceRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClubServiceGetClubFunctionServiceRoleDefaultPolicyE0560054"
+          }
+        ],
+        "/SydneyCyclesStack/ClubService/GetClubFunction/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClubServiceGetClubFunctionA1AC042C"
+          }
+        ],
+        "/SydneyCyclesStack/ClubService/GetClubFunction/LogRetention/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClubServiceGetClubFunctionLogRetention9C4B4A97"
+          }
+        ],
+        "/SydneyCyclesStack/ClubService/CreateClubFunction/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClubServiceCreateClubFunctionServiceRoleE9715759"
+          }
+        ],
+        "/SydneyCyclesStack/ClubService/CreateClubFunction/ServiceRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClubServiceCreateClubFunctionServiceRoleDefaultPolicyD03C9670"
+          }
+        ],
+        "/SydneyCyclesStack/ClubService/CreateClubFunction/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClubServiceCreateClubFunction9485933C"
+          }
+        ],
+        "/SydneyCyclesStack/ClubService/CreateClubFunction/LogRetention/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClubServiceCreateClubFunctionLogRetention79E69717"
+          }
+        ],
+        "/SydneyCyclesStack/ClubService/UpdateClubFunction/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClubServiceUpdateClubFunctionServiceRoleD0D58BB0"
+          }
+        ],
+        "/SydneyCyclesStack/ClubService/UpdateClubFunction/ServiceRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClubServiceUpdateClubFunctionServiceRoleDefaultPolicy66F1C85A"
+          }
+        ],
+        "/SydneyCyclesStack/ClubService/UpdateClubFunction/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClubServiceUpdateClubFunction0A2D1091"
+          }
+        ],
+        "/SydneyCyclesStack/ClubService/UpdateClubFunction/LogRetention/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClubServiceUpdateClubFunctionLogRetentionFE026655"
+          }
+        ],
+        "/SydneyCyclesStack/ClubService/JoinClubFunction/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClubServiceJoinClubFunctionServiceRoleD03A23B0"
+          }
+        ],
+        "/SydneyCyclesStack/ClubService/JoinClubFunction/ServiceRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClubServiceJoinClubFunctionServiceRoleDefaultPolicy773D87C1"
+          }
+        ],
+        "/SydneyCyclesStack/ClubService/JoinClubFunction/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClubServiceJoinClubFunctionED48F36B"
+          }
+        ],
+        "/SydneyCyclesStack/ClubService/JoinClubFunction/LogRetention/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClubServiceJoinClubFunctionLogRetention8A797A51"
+          }
+        ],
+        "/SydneyCyclesStack/ClubService/LeaveClubFunction/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClubServiceLeaveClubFunctionServiceRole2746D263"
+          }
+        ],
+        "/SydneyCyclesStack/ClubService/LeaveClubFunction/ServiceRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClubServiceLeaveClubFunctionServiceRoleDefaultPolicy99212AA4"
+          }
+        ],
+        "/SydneyCyclesStack/ClubService/LeaveClubFunction/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClubServiceLeaveClubFunctionBA920A0A"
+          }
+        ],
+        "/SydneyCyclesStack/ClubService/LeaveClubFunction/LogRetention/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClubServiceLeaveClubFunctionLogRetentionE1F08DA8"
+          }
+        ],
+        "/SydneyCyclesStack/ClubService/ListMembersFunction/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClubServiceListMembersFunctionServiceRole4E62EC30"
+          }
+        ],
+        "/SydneyCyclesStack/ClubService/ListMembersFunction/ServiceRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClubServiceListMembersFunctionServiceRoleDefaultPolicy0079D3B7"
+          }
+        ],
+        "/SydneyCyclesStack/ClubService/ListMembersFunction/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClubServiceListMembersFunction448D3124"
+          }
+        ],
+        "/SydneyCyclesStack/ClubService/ListMembersFunction/LogRetention/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClubServiceListMembersFunctionLogRetention66F7E50B"
+          }
+        ],
+        "/SydneyCyclesStack/ClubService/UpdateMemberFunction/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClubServiceUpdateMemberFunctionServiceRoleF4C0A949"
+          }
+        ],
+        "/SydneyCyclesStack/ClubService/UpdateMemberFunction/ServiceRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClubServiceUpdateMemberFunctionServiceRoleDefaultPolicy69D4FEF4"
+          }
+        ],
+        "/SydneyCyclesStack/ClubService/UpdateMemberFunction/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClubServiceUpdateMemberFunction08BC355D"
+          }
+        ],
+        "/SydneyCyclesStack/ClubService/UpdateMemberFunction/LogRetention/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClubServiceUpdateMemberFunctionLogRetention7672998D"
+          }
+        ],
+        "/SydneyCyclesStack/ClubService/RemoveMemberFunction/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClubServiceRemoveMemberFunctionServiceRole309A310F"
+          }
+        ],
+        "/SydneyCyclesStack/ClubService/RemoveMemberFunction/ServiceRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClubServiceRemoveMemberFunctionServiceRoleDefaultPolicy59F42219"
+          }
+        ],
+        "/SydneyCyclesStack/ClubService/RemoveMemberFunction/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClubServiceRemoveMemberFunction479954CC"
+          }
+        ],
+        "/SydneyCyclesStack/ClubService/RemoveMemberFunction/LogRetention/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClubServiceRemoveMemberFunctionLogRetention62F04A2B"
+          }
+        ],
+        "/SydneyCyclesStack/ClubService/InviteUserFunction/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClubServiceInviteUserFunctionServiceRole7151B07B"
+          }
+        ],
+        "/SydneyCyclesStack/ClubService/InviteUserFunction/ServiceRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClubServiceInviteUserFunctionServiceRoleDefaultPolicy664D009F"
+          }
+        ],
+        "/SydneyCyclesStack/ClubService/InviteUserFunction/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClubServiceInviteUserFunction6E87E668"
+          }
+        ],
+        "/SydneyCyclesStack/ClubService/InviteUserFunction/LogRetention/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClubServiceInviteUserFunctionLogRetention4479AD45"
+          }
+        ],
+        "/SydneyCyclesStack/ClubService/AcceptInvitationFunction/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClubServiceAcceptInvitationFunctionServiceRole3D295639"
+          }
+        ],
+        "/SydneyCyclesStack/ClubService/AcceptInvitationFunction/ServiceRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClubServiceAcceptInvitationFunctionServiceRoleDefaultPolicy6EFAC961"
+          }
+        ],
+        "/SydneyCyclesStack/ClubService/AcceptInvitationFunction/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClubServiceAcceptInvitationFunction0DB83BB6"
+          }
+        ],
+        "/SydneyCyclesStack/ClubService/AcceptInvitationFunction/LogRetention/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClubServiceAcceptInvitationFunctionLogRetention871A5C0C"
+          }
+        ],
+        "/SydneyCyclesStack/ClubService/ListInvitationsFunction/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClubServiceListInvitationsFunctionServiceRole8AC936EA"
+          }
+        ],
+        "/SydneyCyclesStack/ClubService/ListInvitationsFunction/ServiceRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClubServiceListInvitationsFunctionServiceRoleDefaultPolicy65D66B46"
+          }
+        ],
+        "/SydneyCyclesStack/ClubService/ListInvitationsFunction/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClubServiceListInvitationsFunction1CBE5ED5"
+          }
+        ],
+        "/SydneyCyclesStack/ClubService/ListInvitationsFunction/LogRetention/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClubServiceListInvitationsFunctionLogRetentionA1515B85"
+          }
+        ],
+        "/SydneyCyclesStack/ClubService/GetMembershipsFunction/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClubServiceGetMembershipsFunctionServiceRoleDED10F6B"
+          }
+        ],
+        "/SydneyCyclesStack/ClubService/GetMembershipsFunction/ServiceRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClubServiceGetMembershipsFunctionServiceRoleDefaultPolicyCF3CF7A7"
+          }
+        ],
+        "/SydneyCyclesStack/ClubService/GetMembershipsFunction/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClubServiceGetMembershipsFunctionD03698AB"
+          }
+        ],
+        "/SydneyCyclesStack/ClubService/GetMembershipsFunction/LogRetention/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClubServiceGetMembershipsFunctionLogRetention48F1B4CA"
+          }
+        ],
+        "/SydneyCyclesStack/ClubService/ProcessJoinRequestFunction/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClubServiceProcessJoinRequestFunctionServiceRole927B59D1"
+          }
+        ],
+        "/SydneyCyclesStack/ClubService/ProcessJoinRequestFunction/ServiceRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClubServiceProcessJoinRequestFunctionServiceRoleDefaultPolicy4C771D98"
+          }
+        ],
+        "/SydneyCyclesStack/ClubService/ProcessJoinRequestFunction/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClubServiceProcessJoinRequestFunction3647D520"
+          }
+        ],
+        "/SydneyCyclesStack/ClubService/ProcessJoinRequestFunction/LogRetention/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClubServiceProcessJoinRequestFunctionLogRetention58B5B205"
+          }
+        ],
+        "/SydneyCyclesStack/RideService/CreateRideHandler/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RideServiceCreateRideHandlerServiceRoleB9575AA0"
+          }
+        ],
+        "/SydneyCyclesStack/RideService/CreateRideHandler/ServiceRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RideServiceCreateRideHandlerServiceRoleDefaultPolicyFF19C4E2"
+          }
+        ],
+        "/SydneyCyclesStack/RideService/CreateRideHandler/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RideServiceCreateRideHandler9D0E5658"
+          }
+        ],
+        "/SydneyCyclesStack/RideService/CreateRideHandler/LogRetention/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RideServiceCreateRideHandlerLogRetentionAD266CCD"
+          }
+        ],
+        "/SydneyCyclesStack/RideService/PublishRideHandler/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RideServicePublishRideHandlerServiceRole1FCF0907"
+          }
+        ],
+        "/SydneyCyclesStack/RideService/PublishRideHandler/ServiceRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RideServicePublishRideHandlerServiceRoleDefaultPolicyC0C4B2C1"
+          }
+        ],
+        "/SydneyCyclesStack/RideService/PublishRideHandler/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RideServicePublishRideHandler6FF07E4C"
+          }
+        ],
+        "/SydneyCyclesStack/RideService/PublishRideHandler/LogRetention/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RideServicePublishRideHandlerLogRetention66C063B4"
+          }
+        ],
+        "/SydneyCyclesStack/RideService/ListRidesHandler/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RideServiceListRidesHandlerServiceRoleA8D2E928"
+          }
+        ],
+        "/SydneyCyclesStack/RideService/ListRidesHandler/ServiceRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RideServiceListRidesHandlerServiceRoleDefaultPolicy2D172541"
+          }
+        ],
+        "/SydneyCyclesStack/RideService/ListRidesHandler/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RideServiceListRidesHandler9958CEB1"
+          }
+        ],
+        "/SydneyCyclesStack/RideService/ListRidesHandler/LogRetention/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RideServiceListRidesHandlerLogRetention6DA22C6A"
+          }
+        ],
+        "/SydneyCyclesStack/RideService/GetRideHandler/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RideServiceGetRideHandlerServiceRole04F22A22"
+          }
+        ],
+        "/SydneyCyclesStack/RideService/GetRideHandler/ServiceRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RideServiceGetRideHandlerServiceRoleDefaultPolicy8A453542"
+          }
+        ],
+        "/SydneyCyclesStack/RideService/GetRideHandler/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RideServiceGetRideHandler4E24A88D"
+          }
+        ],
+        "/SydneyCyclesStack/RideService/GetRideHandler/LogRetention/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RideServiceGetRideHandlerLogRetention824DDCA7"
+          }
+        ],
+        "/SydneyCyclesStack/RideService/JoinRideHandler/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RideServiceJoinRideHandlerServiceRoleEDB697F6"
+          }
+        ],
+        "/SydneyCyclesStack/RideService/JoinRideHandler/ServiceRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RideServiceJoinRideHandlerServiceRoleDefaultPolicy8847435D"
+          }
+        ],
+        "/SydneyCyclesStack/RideService/JoinRideHandler/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RideServiceJoinRideHandler5EAA6A72"
+          }
+        ],
+        "/SydneyCyclesStack/RideService/JoinRideHandler/LogRetention/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RideServiceJoinRideHandlerLogRetention12CB70A5"
+          }
+        ],
+        "/SydneyCyclesStack/RideService/LeaveRideHandler/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RideServiceLeaveRideHandlerServiceRoleB422C18E"
+          }
+        ],
+        "/SydneyCyclesStack/RideService/LeaveRideHandler/ServiceRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RideServiceLeaveRideHandlerServiceRoleDefaultPolicy32225A07"
+          }
+        ],
+        "/SydneyCyclesStack/RideService/LeaveRideHandler/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RideServiceLeaveRideHandler47843699"
+          }
+        ],
+        "/SydneyCyclesStack/RideService/LeaveRideHandler/LogRetention/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RideServiceLeaveRideHandlerLogRetention1B58D345"
+          }
+        ],
+        "/SydneyCyclesStack/RideService/GetUserRidesHandler/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RideServiceGetUserRidesHandlerServiceRole8932A5B0"
+          }
+        ],
+        "/SydneyCyclesStack/RideService/GetUserRidesHandler/ServiceRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RideServiceGetUserRidesHandlerServiceRoleDefaultPolicyA1315CD9"
+          }
+        ],
+        "/SydneyCyclesStack/RideService/GetUserRidesHandler/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RideServiceGetUserRidesHandler9C64897E"
+          }
+        ],
+        "/SydneyCyclesStack/RideService/GetUserRidesHandler/LogRetention/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RideServiceGetUserRidesHandlerLogRetentionEC620871"
+          }
+        ],
+        "/SydneyCyclesStack/RideService/CompleteRideHandler/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RideServiceCompleteRideHandlerServiceRole12161FA4"
+          }
+        ],
+        "/SydneyCyclesStack/RideService/CompleteRideHandler/ServiceRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RideServiceCompleteRideHandlerServiceRoleDefaultPolicyD8AB5147"
+          }
+        ],
+        "/SydneyCyclesStack/RideService/CompleteRideHandler/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RideServiceCompleteRideHandler985729DA"
+          }
+        ],
+        "/SydneyCyclesStack/RideService/CompleteRideHandler/LogRetention/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RideServiceCompleteRideHandlerLogRetention51C57259"
+          }
+        ],
+        "/SydneyCyclesStack/RideService/GetRideSummaryHandler/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RideServiceGetRideSummaryHandlerServiceRole7E1A77C9"
+          }
+        ],
+        "/SydneyCyclesStack/RideService/GetRideSummaryHandler/ServiceRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RideServiceGetRideSummaryHandlerServiceRoleDefaultPolicy336ACC7F"
+          }
+        ],
+        "/SydneyCyclesStack/RideService/GetRideSummaryHandler/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RideServiceGetRideSummaryHandler6DD78518"
+          }
+        ],
+        "/SydneyCyclesStack/RideService/GetRideSummaryHandler/LogRetention/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RideServiceGetRideSummaryHandlerLogRetention75FEE169"
+          }
+        ],
+        "/SydneyCyclesStack/RideService/UpdateAttendanceHandler/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RideServiceUpdateAttendanceHandlerServiceRoleD355586D"
+          }
+        ],
+        "/SydneyCyclesStack/RideService/UpdateAttendanceHandler/ServiceRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RideServiceUpdateAttendanceHandlerServiceRoleDefaultPolicy0F1FFADD"
+          }
+        ],
+        "/SydneyCyclesStack/RideService/UpdateAttendanceHandler/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RideServiceUpdateAttendanceHandler3B183677"
+          }
+        ],
+        "/SydneyCyclesStack/RideService/UpdateAttendanceHandler/LogRetention/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RideServiceUpdateAttendanceHandlerLogRetention127F25D2"
+          }
+        ],
+        "/SydneyCyclesStack/RideService/LinkManualEvidenceHandler/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RideServiceLinkManualEvidenceHandlerServiceRole87E1C09F"
+          }
+        ],
+        "/SydneyCyclesStack/RideService/LinkManualEvidenceHandler/ServiceRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RideServiceLinkManualEvidenceHandlerServiceRoleDefaultPolicy118690BA"
+          }
+        ],
+        "/SydneyCyclesStack/RideService/LinkManualEvidenceHandler/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RideServiceLinkManualEvidenceHandler7B1FEEC1"
+          }
+        ],
+        "/SydneyCyclesStack/RideService/LinkManualEvidenceHandler/LogRetention/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RideServiceLinkManualEvidenceHandlerLogRetention19EC89AF"
+          }
+        ],
+        "/SydneyCyclesStack/RouteFileService/RoutesBucket/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RouteFileServiceRoutesBucket850B021A"
+          }
+        ],
+        "/SydneyCyclesStack/RouteFileService/RoutesBucket/Policy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RouteFileServiceRoutesBucketPolicyEB436687"
+          }
+        ],
+        "/SydneyCyclesStack/RouteFileService/RoutesDistribution/Origin1/S3Origin/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RouteFileServiceRoutesDistributionOrigin1S3Origin15A877C3"
+          }
+        ],
+        "/SydneyCyclesStack/RouteFileService/RoutesDistribution/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RouteFileServiceRoutesDistribution1130A8B5"
+          }
+        ],
+        "/SydneyCyclesStack/RouteFileService/RouteFileRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RouteFileServiceRouteFileRole5F755234"
+          }
+        ],
+        "/SydneyCyclesStack/RouteFileService/RouteFileRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RouteFileServiceRouteFileRoleDefaultPolicy9F320A50"
+          }
+        ],
+        "/SydneyCyclesStack/RouteFileService/FileUploadHandler/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RouteFileServiceFileUploadHandlerA079C905"
+          }
+        ],
+        "/SydneyCyclesStack/RouteFileService/FileProcessingHandler/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RouteFileServiceFileProcessingHandlerF9180B3E"
+          }
+        ],
+        "/SydneyCyclesStack/RouteFileService/FileDownloadHandler/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RouteFileServiceFileDownloadHandler4885EFEF"
+          }
+        ],
+        "/SydneyCyclesStack/RouteFileService/AnalyticsHandler/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RouteFileServiceAnalyticsHandler06EF6248"
+          }
+        ],
+        "/SydneyCyclesStack/RouteFileService/S3UploadRule/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RouteFileServiceS3UploadRule6BC76F89"
+          }
+        ],
+        "/SydneyCyclesStack/RouteFileService/S3UploadRule/AllowEventRuleSydneyCyclesStackRouteFileServiceFileProcessingHandler7606C754": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RouteFileServiceS3UploadRuleAllowEventRuleSydneyCyclesStackRouteFileServiceFileProcessingHandler7606C754CD6FA946"
+          }
+        ],
+        "/SydneyCyclesStack/RouteFileService/RoutesBucketName": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RouteFileServiceRoutesBucketNameEA8816EA"
+          }
+        ],
+        "/SydneyCyclesStack/RouteFileService/RoutesDistributionDomain": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RouteFileServiceRoutesDistributionDomainD3789A1C"
+          }
+        ],
+        "/SydneyCyclesStack/RouteFileService/RoutesDistributionId": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RouteFileServiceRoutesDistributionId1FDAD890"
+          }
+        ],
+        "/SydneyCyclesStack/RouteTemplateService/TemplateRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RouteTemplateServiceTemplateRole542D8068"
+          }
+        ],
+        "/SydneyCyclesStack/RouteTemplateService/TemplateHandler/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RouteTemplateServiceTemplateHandler06ACCB7D"
+          }
+        ],
+        "/SydneyCyclesStack/RouteTemplateService/SearchHandler/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RouteTemplateServiceSearchHandler090A30A9"
+          }
+        ],
+        "/SydneyCyclesStack/StravaIntegrationService": [
+          {
+            "type": "aws:cdk:warning",
+            "data": "If you are relying on AWS SDK v2 to be present in the Lambda environment already, please explicitly configure a NodeJS runtime of Node 16 or lower. [ack: @aws-cdk/aws-lambda-nodejs:sdkV2NotInRuntime]",
+            "trace": [
+              "Annotations.addMessage (/Users/saminavarro/Downloads/collective-rides-project/backend/node_modules/aws-cdk-lib/core/lib/annotations.js:1:2066)",
+              "Annotations.addWarningV2 (/Users/saminavarro/Downloads/collective-rides-project/backend/node_modules/aws-cdk-lib/core/lib/annotations.js:1:984)",
+              "new Bundling (/Users/saminavarro/Downloads/collective-rides-project/backend/node_modules/aws-cdk-lib/aws-lambda-nodejs/lib/bundling.js:1:4190)",
+              "Function.bundle (/Users/saminavarro/Downloads/collective-rides-project/backend/node_modules/aws-cdk-lib/aws-lambda-nodejs/lib/bundling.js:1:1141)",
+              "new NodejsFunction (/Users/saminavarro/Downloads/collective-rides-project/backend/node_modules/aws-cdk-lib/aws-lambda-nodejs/lib/function.js:1:2443)",
+              "new StravaIntegrationService (/Users/saminavarro/Downloads/collective-rides-project/backend/infrastructure/lib/strava-integration-service.ts:42:33)",
+              "new SydneyCyclesStack (/Users/saminavarro/Downloads/collective-rides-project/backend/infrastructure/lib/sydney-cycles-stack.ts:94:38)",
+              "Object.<anonymous> (/Users/saminavarro/Downloads/collective-rides-project/backend/infrastructure/bin/app.ts:39:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1364:14)",
+              "Module.m._compile (/Users/saminavarro/.npm/_npx/1bf7c3c15bf47d04/node_modules/ts-node/src/index.ts:1618:23)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1422:10)",
+              "Object.require.extensions.<computed> [as .ts] (/Users/saminavarro/.npm/_npx/1bf7c3c15bf47d04/node_modules/ts-node/src/index.ts:1621:12)",
+              "Module.load (node:internal/modules/cjs/loader:1203:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:1019:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:128:12)",
+              "phase4 (/Users/saminavarro/.npm/_npx/1bf7c3c15bf47d04/node_modules/ts-node/src/bin.ts:649:14)",
+              "bootstrap (/Users/saminavarro/.npm/_npx/1bf7c3c15bf47d04/node_modules/ts-node/src/bin.ts:95:10)",
+              "main (/Users/saminavarro/.npm/_npx/1bf7c3c15bf47d04/node_modules/ts-node/src/bin.ts:55:10)",
+              "Object.<anonymous> (/Users/saminavarro/.npm/_npx/1bf7c3c15bf47d04/node_modules/ts-node/src/bin.ts:800:3)",
+              "Module._compile (node:internal/modules/cjs/loader:1364:14)",
+              "Object.Module._extensions..js (node:internal/modules/cjs/loader:1422:10)",
+              "Module.load (node:internal/modules/cjs/loader:1203:32)",
+              "Function.Module._load (node:internal/modules/cjs/loader:1019:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:128:12)",
+              "node:internal/main/run_main_module:28:49"
+            ]
+          }
+        ],
+        "/SydneyCyclesStack/StravaIntegrationService/StravaTokenEncryptionKey/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "StravaIntegrationServiceStravaTokenEncryptionKey8983C4DB"
+          }
+        ],
+        "/SydneyCyclesStack/StravaIntegrationService/OAuthConnectFunction/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "StravaIntegrationServiceOAuthConnectFunctionServiceRole654CC09B"
+          }
+        ],
+        "/SydneyCyclesStack/StravaIntegrationService/OAuthConnectFunction/ServiceRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "StravaIntegrationServiceOAuthConnectFunctionServiceRoleDefaultPolicy0D894370"
+          }
+        ],
+        "/SydneyCyclesStack/StravaIntegrationService/OAuthConnectFunction/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "StravaIntegrationServiceOAuthConnectFunction382D5397"
+          }
+        ],
+        "/SydneyCyclesStack/StravaIntegrationService/OAuthCallbackFunction/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "StravaIntegrationServiceOAuthCallbackFunctionServiceRoleB4D86C0F"
+          }
+        ],
+        "/SydneyCyclesStack/StravaIntegrationService/OAuthCallbackFunction/ServiceRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "StravaIntegrationServiceOAuthCallbackFunctionServiceRoleDefaultPolicyE2FACC29"
+          }
+        ],
+        "/SydneyCyclesStack/StravaIntegrationService/OAuthCallbackFunction/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "StravaIntegrationServiceOAuthCallbackFunctionFCB1451C"
+          }
+        ],
+        "/SydneyCyclesStack/StravaIntegrationService/WebhookFunction/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "StravaIntegrationServiceWebhookFunctionServiceRole8BF4CB92"
+          }
+        ],
+        "/SydneyCyclesStack/StravaIntegrationService/WebhookFunction/ServiceRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "StravaIntegrationServiceWebhookFunctionServiceRoleDefaultPolicyC6956245"
+          }
+        ],
+        "/SydneyCyclesStack/StravaIntegrationService/WebhookFunction/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "StravaIntegrationServiceWebhookFunction2EA6EB4F"
+          }
+        ],
+        "/SydneyCyclesStack/UserPoolId": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "UserPoolId"
+          }
+        ],
+        "/SydneyCyclesStack/UserPoolClientId": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "UserPoolClientId"
+          }
+        ],
+        "/SydneyCyclesStack/MainTableName": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MainTableName"
+          }
+        ],
+        "/SydneyCyclesStack/MainTableArn": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "MainTableArn"
+          }
+        ],
+        "/SydneyCyclesStack/RestApiId": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiId"
+          }
+        ],
+        "/SydneyCyclesStack/RestApiUrl": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiUrl"
+          }
+        ],
+        "/SydneyCyclesStack/GetCurrentUserFunctionName": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "GetCurrentUserFunctionName"
+          }
+        ],
+        "/SydneyCyclesStack/GetUserByIdFunctionName": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "GetUserByIdFunctionName"
+          }
+        ],
+        "/SydneyCyclesStack/UpdateUserFunctionName": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "UpdateUserFunctionName"
+          }
+        ],
+        "/SydneyCyclesStack/ListClubsFunctionName": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ListClubsFunctionName"
+          }
+        ],
+        "/SydneyCyclesStack/GetClubFunctionName": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "GetClubFunctionName"
+          }
+        ],
+        "/SydneyCyclesStack/CreateClubFunctionName": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CreateClubFunctionName"
+          }
+        ],
+        "/SydneyCyclesStack/UpdateClubFunctionName": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "UpdateClubFunctionName"
+          }
+        ],
+        "/SydneyCyclesStack/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/SydneyCyclesStack/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/SydneyCyclesStack/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "SydneyCyclesStack"
+    },
+    "Tree": {
+      "type": "cdk:tree",
+      "properties": {
+        "file": "tree.json"
+      }
+    },
+    "aws-cdk-lib/feature-flag-report": {
+      "type": "cdk:feature-flag-report",
+      "properties": {
+        "module": "aws-cdk-lib",
+        "flags": {
+          "@aws-cdk/aws-signer:signingProfileNamePassedToCfn": {
+            "recommendedValue": true,
+            "explanation": "Pass signingProfileName to CfnSigningProfile"
+          },
+          "@aws-cdk/core:newStyleStackSynthesis": {
+            "recommendedValue": true,
+            "explanation": "Switch to new stack synthesis method which enables CI/CD",
+            "unconfiguredBehavesLike": {
+              "v2": true
+            }
+          },
+          "@aws-cdk/core:stackRelativeExports": {
+            "recommendedValue": true,
+            "explanation": "Name exports based on the construct paths relative to the stack, rather than the global construct path",
+            "unconfiguredBehavesLike": {
+              "v2": true
+            }
+          },
+          "@aws-cdk/aws-ecs-patterns:secGroupsDisablesImplicitOpenListener": {
+            "recommendedValue": true,
+            "explanation": "Disable implicit openListener when custom security groups are provided"
+          },
+          "@aws-cdk/aws-rds:lowercaseDbIdentifier": {
+            "recommendedValue": true,
+            "explanation": "Force lowercasing of RDS Cluster names in CDK",
+            "unconfiguredBehavesLike": {
+              "v2": true
+            }
+          },
+          "@aws-cdk/aws-apigateway:usagePlanKeyOrderInsensitiveId": {
+            "recommendedValue": true,
+            "explanation": "Allow adding/removing multiple UsagePlanKeys independently",
+            "unconfiguredBehavesLike": {
+              "v2": true
+            }
+          },
+          "@aws-cdk/aws-lambda:recognizeVersionProps": {
+            "recommendedValue": true,
+            "explanation": "Enable this feature flag to opt in to the updated logical id calculation for Lambda Version created using the  `fn.currentVersion`.",
+            "unconfiguredBehavesLike": {
+              "v2": true
+            }
+          },
+          "@aws-cdk/aws-lambda:recognizeLayerVersion": {
+            "userValue": true,
+            "recommendedValue": true,
+            "explanation": "Enable this feature flag to opt in to the updated logical id calculation for Lambda Version created using the `fn.currentVersion`."
+          },
+          "@aws-cdk/aws-cloudfront:defaultSecurityPolicyTLSv1.2_2021": {
+            "recommendedValue": true,
+            "explanation": "Enable this feature flag to have cloudfront distributions use the security policy TLSv1.2_2021 by default.",
+            "unconfiguredBehavesLike": {
+              "v2": true
+            }
+          },
+          "@aws-cdk/core:checkSecretUsage": {
+            "userValue": true,
+            "recommendedValue": true,
+            "explanation": "Enable this flag to make it impossible to accidentally use SecretValues in unsafe locations"
+          },
+          "@aws-cdk/core:target-partitions": {
+            "userValue": [
+              "aws",
+              "aws-cn"
+            ],
+            "recommendedValue": [
+              "aws",
+              "aws-cn"
+            ],
+            "explanation": "What regions to include in lookup tables of environment agnostic stacks"
+          },
+          "@aws-cdk-containers/ecs-service-extensions:enableDefaultLogDriver": {
+            "userValue": true,
+            "recommendedValue": true,
+            "explanation": "ECS extensions will automatically add an `awslogs` driver if no logging is specified"
+          },
+          "@aws-cdk/aws-ec2:uniqueImdsv2TemplateName": {
+            "userValue": true,
+            "recommendedValue": true,
+            "explanation": "Enable this feature flag to have Launch Templates generated by the `InstanceRequireImdsv2Aspect` use unique names."
+          },
+          "@aws-cdk/aws-ecs:arnFormatIncludesClusterName": {
+            "userValue": true,
+            "recommendedValue": true,
+            "explanation": "ARN format used by ECS. In the new ARN format, the cluster name is part of the resource ID."
+          },
+          "@aws-cdk/aws-iam:minimizePolicies": {
+            "userValue": true,
+            "recommendedValue": true,
+            "explanation": "Minimize IAM policies by combining Statements"
+          },
+          "@aws-cdk/core:validateSnapshotRemovalPolicy": {
+            "userValue": true,
+            "recommendedValue": true,
+            "explanation": "Error on snapshot removal policies on resources that do not support it."
+          },
+          "@aws-cdk/aws-codepipeline:crossAccountKeyAliasStackSafeResourceName": {
+            "userValue": true,
+            "recommendedValue": true,
+            "explanation": "Generate key aliases that include the stack name"
+          },
+          "@aws-cdk/aws-s3:createDefaultLoggingPolicy": {
+            "userValue": true,
+            "recommendedValue": true,
+            "explanation": "Enable this feature flag to create an S3 bucket policy by default in cases where an AWS service would automatically create the Policy if one does not exist."
+          },
+          "@aws-cdk/aws-sns-subscriptions:restrictSqsDescryption": {
+            "userValue": true,
+            "recommendedValue": true,
+            "explanation": "Restrict KMS key policy for encrypted Queues a bit more"
+          },
+          "@aws-cdk/aws-apigateway:disableCloudWatchRole": {
+            "userValue": false,
+            "recommendedValue": true,
+            "explanation": "Make default CloudWatch Role behavior safe for multiple API Gateways in one environment"
+          },
+          "@aws-cdk/core:enablePartitionLiterals": {
+            "userValue": true,
+            "recommendedValue": true,
+            "explanation": "Make ARNs concrete if AWS partition is known"
+          },
+          "@aws-cdk/aws-events:eventsTargetQueueSameAccount": {
+            "userValue": true,
+            "recommendedValue": true,
+            "explanation": "Event Rules may only push to encrypted SQS queues in the same account"
+          },
+          "@aws-cdk/aws-ecs:disableExplicitDeploymentControllerForCircuitBreaker": {
+            "userValue": true,
+            "recommendedValue": true,
+            "explanation": "Avoid setting the \"ECS\" deployment controller when adding a circuit breaker"
+          },
+          "@aws-cdk/aws-iam:importedRoleStackSafeDefaultPolicyName": {
+            "userValue": true,
+            "recommendedValue": true,
+            "explanation": "Enable this feature to create default policy names for imported roles that depend on the stack the role is in."
+          },
+          "@aws-cdk/aws-s3:serverAccessLogsUseBucketPolicy": {
+            "userValue": true,
+            "recommendedValue": true,
+            "explanation": "Use S3 Bucket Policy instead of ACLs for Server Access Logging"
+          },
+          "@aws-cdk/aws-route53-patters:useCertificate": {
+            "userValue": true,
+            "recommendedValue": true,
+            "explanation": "Use the official `Certificate` resource instead of `DnsValidatedCertificate`"
+          },
+          "@aws-cdk/customresources:installLatestAwsSdkDefault": {
+            "userValue": false,
+            "recommendedValue": false,
+            "explanation": "Whether to install the latest SDK by default in AwsCustomResource"
+          },
+          "@aws-cdk/aws-rds:databaseProxyUniqueResourceName": {
+            "userValue": true,
+            "recommendedValue": true,
+            "explanation": "Use unique resource name for Database Proxy"
+          },
+          "@aws-cdk/aws-codedeploy:removeAlarmsFromDeploymentGroup": {
+            "userValue": true,
+            "recommendedValue": true,
+            "explanation": "Remove CloudWatch alarms from deployment group"
+          },
+          "@aws-cdk/aws-apigateway:authorizerChangeDeploymentLogicalId": {
+            "userValue": true,
+            "recommendedValue": true,
+            "explanation": "Include authorizer configuration in the calculation of the API deployment logical ID."
+          },
+          "@aws-cdk/aws-ec2:launchTemplateDefaultUserData": {
+            "userValue": true,
+            "recommendedValue": true,
+            "explanation": "Define user data for a launch template by default when a machine image is provided."
+          },
+          "@aws-cdk/aws-secretsmanager:useAttachedSecretResourcePolicyForSecretTargetAttachments": {
+            "userValue": true,
+            "recommendedValue": true,
+            "explanation": "SecretTargetAttachments uses the ResourcePolicy of the attached Secret."
+          },
+          "@aws-cdk/aws-redshift:columnId": {
+            "userValue": true,
+            "recommendedValue": true,
+            "explanation": "Whether to use an ID to track Redshift column changes"
+          },
+          "@aws-cdk/aws-stepfunctions-tasks:enableEmrServicePolicyV2": {
+            "recommendedValue": true,
+            "explanation": "Enable AmazonEMRServicePolicy_v2 managed policies"
+          },
+          "@aws-cdk/aws-ec2:restrictDefaultSecurityGroup": {
+            "userValue": true,
+            "recommendedValue": true,
+            "explanation": "Restrict access to the VPC default security group"
+          },
+          "@aws-cdk/aws-apigateway:requestValidatorUniqueId": {
+            "userValue": true,
+            "recommendedValue": true,
+            "explanation": "Generate a unique id for each RequestValidator added to a method"
+          },
+          "@aws-cdk/aws-kms:aliasNameRef": {
+            "userValue": true,
+            "recommendedValue": true,
+            "explanation": "KMS Alias name and keyArn will have implicit reference to KMS Key"
+          },
+          "@aws-cdk/aws-kms:applyImportedAliasPermissionsToPrincipal": {
+            "recommendedValue": true,
+            "explanation": "Enable grant methods on Aliases imported by name to use kms:ResourceAliases condition"
+          },
+          "@aws-cdk/aws-autoscaling:generateLaunchTemplateInsteadOfLaunchConfig": {
+            "userValue": true,
+            "recommendedValue": true,
+            "explanation": "Generate a launch template when creating an AutoScalingGroup"
+          },
+          "@aws-cdk/core:includePrefixInUniqueNameGeneration": {
+            "userValue": true,
+            "recommendedValue": true,
+            "explanation": "Include the stack prefix in the stack name generation process"
+          },
+          "@aws-cdk/aws-efs:denyAnonymousAccess": {
+            "userValue": true,
+            "recommendedValue": true,
+            "explanation": "EFS denies anonymous clients accesses"
+          },
+          "@aws-cdk/aws-opensearchservice:enableOpensearchMultiAzWithStandby": {
+            "recommendedValue": true,
+            "explanation": "Enables support for Multi-AZ with Standby deployment for opensearch domains"
+          },
+          "@aws-cdk/aws-lambda-nodejs:useLatestRuntimeVersion": {
+            "recommendedValue": true,
+            "explanation": "Enables aws-lambda-nodejs.Function to use the latest available NodeJs runtime as the default"
+          },
+          "@aws-cdk/aws-efs:mountTargetOrderInsensitiveLogicalId": {
+            "recommendedValue": true,
+            "explanation": "When enabled, mount targets will have a stable logicalId that is linked to the associated subnet."
+          },
+          "@aws-cdk/aws-rds:auroraClusterChangeScopeOfInstanceParameterGroupWithEachParameters": {
+            "recommendedValue": true,
+            "explanation": "When enabled, a scope of InstanceParameterGroup for AuroraClusterInstance with each parameters will change."
+          },
+          "@aws-cdk/aws-appsync:useArnForSourceApiAssociationIdentifier": {
+            "recommendedValue": true,
+            "explanation": "When enabled, will always use the arn for identifiers for CfnSourceApiAssociation in the GraphqlApi construct rather than id."
+          },
+          "@aws-cdk/aws-rds:preventRenderingDeprecatedCredentials": {
+            "recommendedValue": true,
+            "explanation": "When enabled, creating an RDS database cluster from a snapshot will only render credentials for snapshot credentials."
+          },
+          "@aws-cdk/aws-codepipeline-actions:useNewDefaultBranchForCodeCommitSource": {
+            "recommendedValue": true,
+            "explanation": "When enabled, the CodeCommit source action is using the default branch name 'main'."
+          },
+          "@aws-cdk/aws-cloudwatch-actions:changeLambdaPermissionLogicalIdForLambdaAction": {
+            "recommendedValue": true,
+            "explanation": "When enabled, the logical ID of a Lambda permission for a Lambda action includes an alarm ID."
+          },
+          "@aws-cdk/aws-codepipeline:crossAccountKeysDefaultValueToFalse": {
+            "recommendedValue": true,
+            "explanation": "Enables Pipeline to set the default value for crossAccountKeys to false."
+          },
+          "@aws-cdk/aws-codepipeline:defaultPipelineTypeToV2": {
+            "recommendedValue": true,
+            "explanation": "Enables Pipeline to set the default pipeline type to V2."
+          },
+          "@aws-cdk/aws-kms:reduceCrossAccountRegionPolicyScope": {
+            "userValue": true,
+            "recommendedValue": true,
+            "explanation": "When enabled, IAM Policy created from KMS key grant will reduce the resource scope to this key only."
+          },
+          "@aws-cdk/pipelines:reduceAssetRoleTrustScope": {
+            "recommendedValue": true,
+            "explanation": "Remove the root account principal from PipelineAssetsFileRole trust policy",
+            "unconfiguredBehavesLike": {
+              "v2": true
+            }
+          },
+          "@aws-cdk/aws-eks:nodegroupNameAttribute": {
+            "recommendedValue": true,
+            "explanation": "When enabled, nodegroupName attribute of the provisioned EKS NodeGroup will not have the cluster name prefix."
+          },
+          "@aws-cdk/aws-ec2:ebsDefaultGp3Volume": {
+            "recommendedValue": true,
+            "explanation": "When enabled, the default volume type of the EBS volume will be GP3"
+          },
+          "@aws-cdk/aws-ecs:removeDefaultDeploymentAlarm": {
+            "recommendedValue": true,
+            "explanation": "When enabled, remove default deployment alarm settings"
+          },
+          "@aws-cdk/custom-resources:logApiResponseDataPropertyTrueDefault": {
+            "recommendedValue": false,
+            "explanation": "When enabled, the custom resource used for `AwsCustomResource` will configure the `logApiResponseData` property as true by default"
+          },
+          "@aws-cdk/aws-s3:keepNotificationInImportedBucket": {
+            "recommendedValue": false,
+            "explanation": "When enabled, Adding notifications to a bucket in the current stack will not remove notification from imported stack."
+          },
+          "@aws-cdk/aws-stepfunctions-tasks:useNewS3UriParametersForBedrockInvokeModelTask": {
+            "recommendedValue": true,
+            "explanation": "When enabled, use new props for S3 URI field in task definition of state machine for bedrock invoke model.",
+            "unconfiguredBehavesLike": {
+              "v2": true
+            }
+          },
+          "@aws-cdk/core:explicitStackTags": {
+            "recommendedValue": true,
+            "explanation": "When enabled, stack tags need to be assigned explicitly on a Stack."
+          },
+          "@aws-cdk/aws-ecs:enableImdsBlockingDeprecatedFeature": {
+            "recommendedValue": false,
+            "explanation": "When set to true along with canContainersAccessInstanceRole=false in ECS cluster, new updated commands will be added to UserData to block container accessing IMDS. **Applicable to Linux only. IMPORTANT: See [details.](#aws-cdkaws-ecsenableImdsBlockingDeprecatedFeature)**"
+          },
+          "@aws-cdk/aws-ecs:disableEcsImdsBlocking": {
+            "recommendedValue": true,
+            "explanation": "When set to true, CDK synth will throw exception if canContainersAccessInstanceRole is false. **IMPORTANT: See [details.](#aws-cdkaws-ecsdisableEcsImdsBlocking)**"
+          },
+          "@aws-cdk/aws-ecs:reduceEc2FargateCloudWatchPermissions": {
+            "recommendedValue": true,
+            "explanation": "When enabled, we will only grant the necessary permissions when users specify cloudwatch log group through logConfiguration"
+          },
+          "@aws-cdk/aws-dynamodb:resourcePolicyPerReplica": {
+            "recommendedValue": true,
+            "explanation": "When enabled will allow you to specify a resource policy per replica, and not copy the source table policy to all replicas"
+          },
+          "@aws-cdk/aws-ec2:ec2SumTImeoutEnabled": {
+            "recommendedValue": true,
+            "explanation": "When enabled, initOptions.timeout and resourceSignalTimeout values will be summed together."
+          },
+          "@aws-cdk/aws-appsync:appSyncGraphQLAPIScopeLambdaPermission": {
+            "recommendedValue": true,
+            "explanation": "When enabled, a Lambda authorizer Permission created when using GraphqlApi will be properly scoped with a SourceArn."
+          },
+          "@aws-cdk/aws-rds:setCorrectValueForDatabaseInstanceReadReplicaInstanceResourceId": {
+            "recommendedValue": true,
+            "explanation": "When enabled, the value of property `instanceResourceId` in construct `DatabaseInstanceReadReplica` will be set to the correct value which is `DbiResourceId` instead of currently `DbInstanceArn`"
+          },
+          "@aws-cdk/core:cfnIncludeRejectComplexResourceUpdateCreatePolicyIntrinsics": {
+            "recommendedValue": true,
+            "explanation": "When enabled, CFN templates added with `cfn-include` will error if the template contains Resource Update or Create policies with CFN Intrinsics that include non-primitive values."
+          },
+          "@aws-cdk/aws-lambda-nodejs:sdkV3ExcludeSmithyPackages": {
+            "recommendedValue": true,
+            "explanation": "When enabled, both `@aws-sdk` and `@smithy` packages will be excluded from the Lambda Node.js 18.x runtime to prevent version mismatches in bundled applications."
+          },
+          "@aws-cdk/aws-stepfunctions-tasks:fixRunEcsTaskPolicy": {
+            "recommendedValue": true,
+            "explanation": "When enabled, the resource of IAM Run Ecs policy generated by SFN EcsRunTask will reference the definition, instead of constructing ARN."
+          },
+          "@aws-cdk/aws-ec2:bastionHostUseAmazonLinux2023ByDefault": {
+            "recommendedValue": true,
+            "explanation": "When enabled, the BastionHost construct will use the latest Amazon Linux 2023 AMI, instead of Amazon Linux 2."
+          },
+          "@aws-cdk/core:aspectStabilization": {
+            "recommendedValue": true,
+            "explanation": "When enabled, a stabilization loop will be run when invoking Aspects during synthesis.",
+            "unconfiguredBehavesLike": {
+              "v2": true
+            }
+          },
+          "@aws-cdk/aws-route53-targets:userPoolDomainNameMethodWithoutCustomResource": {
+            "recommendedValue": true,
+            "explanation": "When enabled, use a new method for DNS Name of user pool domain target without creating a custom resource."
+          },
+          "@aws-cdk/aws-elasticloadbalancingV2:albDualstackWithoutPublicIpv4SecurityGroupRulesDefault": {
+            "recommendedValue": true,
+            "explanation": "When enabled, the default security group ingress rules will allow IPv6 ingress from anywhere"
+          },
+          "@aws-cdk/aws-iam:oidcRejectUnauthorizedConnections": {
+            "recommendedValue": true,
+            "explanation": "When enabled, the default behaviour of OIDC provider will reject unauthorized connections"
+          },
+          "@aws-cdk/core:enableAdditionalMetadataCollection": {
+            "recommendedValue": true,
+            "explanation": "When enabled, CDK will expand the scope of usage data collected to better inform CDK development and improve communication for security concerns and emerging issues."
+          },
+          "@aws-cdk/aws-lambda:createNewPoliciesWithAddToRolePolicy": {
+            "recommendedValue": false,
+            "explanation": "[Deprecated] When enabled, Lambda will create new inline policies with AddToRolePolicy instead of adding to the Default Policy Statement"
+          },
+          "@aws-cdk/aws-s3:setUniqueReplicationRoleName": {
+            "recommendedValue": true,
+            "explanation": "When enabled, CDK will automatically generate a unique role name that is used for s3 object replication."
+          },
+          "@aws-cdk/pipelines:reduceStageRoleTrustScope": {
+            "recommendedValue": true,
+            "explanation": "Remove the root account principal from Stage addActions trust policy",
+            "unconfiguredBehavesLike": {
+              "v2": true
+            }
+          },
+          "@aws-cdk/aws-events:requireEventBusPolicySid": {
+            "recommendedValue": true,
+            "explanation": "When enabled, grantPutEventsTo() will use resource policies with Statement IDs for service principals."
+          },
+          "@aws-cdk/core:aspectPrioritiesMutating": {
+            "recommendedValue": true,
+            "explanation": "When set to true, Aspects added by the construct library on your behalf will be given a priority of MUTATING."
+          },
+          "@aws-cdk/aws-dynamodb:retainTableReplica": {
+            "recommendedValue": true,
+            "explanation": "When enabled, table replica will be default to the removal policy of source table unless specified otherwise."
+          },
+          "@aws-cdk/cognito:logUserPoolClientSecretValue": {
+            "recommendedValue": false,
+            "explanation": "When disabled, the value of the user pool client secret will not be logged in the custom resource lambda function logs."
+          },
+          "@aws-cdk/pipelines:reduceCrossAccountActionRoleTrustScope": {
+            "recommendedValue": true,
+            "explanation": "When enabled, scopes down the trust policy for the cross-account action role",
+            "unconfiguredBehavesLike": {
+              "v2": true
+            }
+          },
+          "@aws-cdk/aws-stepfunctions:useDistributedMapResultWriterV2": {
+            "recommendedValue": true,
+            "explanation": "When enabled, the resultWriterV2 property of DistributedMap will be used insted of resultWriter"
+          },
+          "@aws-cdk/s3-notifications:addS3TrustKeyPolicyForSnsSubscriptions": {
+            "recommendedValue": true,
+            "explanation": "Add an S3 trust policy to a KMS key resource policy for SNS subscriptions."
+          },
+          "@aws-cdk/aws-ec2:requirePrivateSubnetsForEgressOnlyInternetGateway": {
+            "recommendedValue": true,
+            "explanation": "When enabled, the EgressOnlyGateway resource is only created if private subnets are defined in the dual-stack VPC."
+          },
+          "@aws-cdk/aws-ec2-alpha:useResourceIdForVpcV2Migration": {
+            "recommendedValue": false,
+            "explanation": "When enabled, use resource IDs for VPC V2 migration"
+          },
+          "@aws-cdk/aws-s3:publicAccessBlockedByDefault": {
+            "recommendedValue": true,
+            "explanation": "When enabled, setting any combination of options for BlockPublicAccess will automatically set true for any options not defined."
+          },
+          "@aws-cdk/aws-lambda:useCdkManagedLogGroup": {
+            "recommendedValue": true,
+            "explanation": "When enabled, CDK creates and manages loggroup for the lambda function"
+          },
+          "@aws-cdk/aws-elasticloadbalancingv2:networkLoadBalancerWithSecurityGroupByDefault": {
+            "recommendedValue": true,
+            "explanation": "When enabled, Network Load Balancer will be created with a security group by default."
+          },
+          "@aws-cdk/aws-stepfunctions-tasks:httpInvokeDynamicJsonPathEndpoint": {
+            "recommendedValue": true,
+            "explanation": "When enabled, allows using a dynamic apiEndpoint with JSONPath format in HttpInvoke tasks.",
+            "unconfiguredBehavesLike": {
+              "v2": true
+            }
+          },
+          "@aws-cdk/aws-ecs-patterns:uniqueTargetGroupId": {
+            "recommendedValue": true,
+            "explanation": "When enabled, ECS patterns will generate unique target group IDs to prevent conflicts during load balancer replacement"
+          }
+        }
+      }
+    }
+  },
+  "minimumCliVersion": "2.1033.0"
+}

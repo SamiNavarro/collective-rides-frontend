@@ -1,0 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.generateId = void 0;
+const crypto_1 = require("crypto");
+function generateId(prefix) {
+    const timestamp = Date.now().toString(36);
+    const random = (0, crypto_1.randomBytes)(6).toString('hex');
+    return `${prefix}_${timestamp}_${random}`;
+}
+exports.generateId = generateId;
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaWQtZ2VuZXJhdG9yLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiaWQtZ2VuZXJhdG9yLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7OztBQUFBLG1DQUFxQztBQUVyQyxTQUFnQixVQUFVLENBQUMsTUFBYztJQUN2QyxNQUFNLFNBQVMsR0FBRyxJQUFJLENBQUMsR0FBRyxFQUFFLENBQUMsUUFBUSxDQUFDLEVBQUUsQ0FBQyxDQUFDO0lBQzFDLE1BQU0sTUFBTSxHQUFHLElBQUEsb0JBQVcsRUFBQyxDQUFDLENBQUMsQ0FBQyxRQUFRLENBQUMsS0FBSyxDQUFDLENBQUM7SUFDOUMsT0FBTyxHQUFHLE1BQU0sSUFBSSxTQUFTLElBQUksTUFBTSxFQUFFLENBQUM7QUFDNUMsQ0FBQztBQUpELGdDQUlDIiwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHsgcmFuZG9tQnl0ZXMgfSBmcm9tICdjcnlwdG8nO1xuXG5leHBvcnQgZnVuY3Rpb24gZ2VuZXJhdGVJZChwcmVmaXg6IHN0cmluZyk6IHN0cmluZyB7XG4gIGNvbnN0IHRpbWVzdGFtcCA9IERhdGUubm93KCkudG9TdHJpbmcoMzYpO1xuICBjb25zdCByYW5kb20gPSByYW5kb21CeXRlcyg2KS50b1N0cmluZygnaGV4Jyk7XG4gIHJldHVybiBgJHtwcmVmaXh9XyR7dGltZXN0YW1wfV8ke3JhbmRvbX1gO1xufSJdfQ==

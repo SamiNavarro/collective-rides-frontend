@@ -1,0 +1,119 @@
+"use strict";
+/**
+ * Authorization Errors - Phase 1.3
+ *
+ * Error definitions and handling for authorization operations.
+ * Provides structured error types with appropriate HTTP status codes.
+ *
+ * Compliance:
+ * - Phase 1.3 Spec: .kiro/specs/phase-1.3.authorization.foundation.v1.md
+ */
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.isAuthorizationError = exports.createAuthorizationErrorResponse = exports.UserDataUnavailableError = exports.AuthorizationServiceError = exports.CapabilityNotFoundError = exports.InsufficientPrivilegesError = exports.AuthorizationError = exports.AuthorizationErrorType = void 0;
+/**
+ * Authorization error types
+ */
+var AuthorizationErrorType;
+(function (AuthorizationErrorType) {
+    AuthorizationErrorType["INSUFFICIENT_PRIVILEGES"] = "INSUFFICIENT_PRIVILEGES";
+    AuthorizationErrorType["CAPABILITY_NOT_FOUND"] = "CAPABILITY_NOT_FOUND";
+    AuthorizationErrorType["AUTHORIZATION_SERVICE_ERROR"] = "AUTHORIZATION_SERVICE_ERROR";
+    AuthorizationErrorType["USER_DATA_UNAVAILABLE"] = "USER_DATA_UNAVAILABLE";
+})(AuthorizationErrorType = exports.AuthorizationErrorType || (exports.AuthorizationErrorType = {}));
+/**
+ * Base authorization error class
+ */
+class AuthorizationError extends Error {
+    constructor(message, errorType, statusCode = 403, options) {
+        super(message);
+        this.name = 'AuthorizationError';
+        this.errorType = errorType;
+        this.statusCode = statusCode;
+        this.capability = options?.capability;
+        this.userId = options?.userId;
+        this.resource = options?.resource;
+        if (options?.cause) {
+            this.cause = options.cause;
+        }
+        // Maintain proper stack trace
+        if (Error.captureStackTrace) {
+            Error.captureStackTrace(this, AuthorizationError);
+        }
+    }
+}
+exports.AuthorizationError = AuthorizationError;
+/**
+ * Insufficient privileges error
+ */
+class InsufficientPrivilegesError extends AuthorizationError {
+    constructor(capability, userId, resource) {
+        const message = `Insufficient privileges: ${capability} required`;
+        super(message, AuthorizationErrorType.INSUFFICIENT_PRIVILEGES, 403, {
+            capability: capability,
+            userId,
+            resource,
+        });
+    }
+}
+exports.InsufficientPrivilegesError = InsufficientPrivilegesError;
+/**
+ * Capability not found error
+ */
+class CapabilityNotFoundError extends AuthorizationError {
+    constructor(capability) {
+        const message = `Unknown capability: ${capability}`;
+        super(message, AuthorizationErrorType.CAPABILITY_NOT_FOUND, 400, {
+            capability: capability,
+        });
+    }
+}
+exports.CapabilityNotFoundError = CapabilityNotFoundError;
+/**
+ * Authorization service error
+ */
+class AuthorizationServiceError extends AuthorizationError {
+    constructor(message, cause) {
+        super(message, AuthorizationErrorType.AUTHORIZATION_SERVICE_ERROR, 500, {
+            cause,
+        });
+    }
+}
+exports.AuthorizationServiceError = AuthorizationServiceError;
+/**
+ * User data unavailable error
+ */
+class UserDataUnavailableError extends AuthorizationError {
+    constructor(userId, cause) {
+        const message = `User data unavailable for authorization: ${userId}`;
+        super(message, AuthorizationErrorType.USER_DATA_UNAVAILABLE, 500, {
+            userId,
+            cause,
+        });
+    }
+}
+exports.UserDataUnavailableError = UserDataUnavailableError;
+/**
+ * Create authorization error response object
+ */
+function createAuthorizationErrorResponse(error, requestId) {
+    return {
+        error: error.errorType,
+        message: error.message,
+        details: {
+            requiredCapability: error.capability,
+            userId: error.userId,
+            resource: error.resource,
+        },
+        timestamp: new Date().toISOString(),
+        requestId,
+    };
+}
+exports.createAuthorizationErrorResponse = createAuthorizationErrorResponse;
+/**
+ * Check if error is an authorization error
+ */
+function isAuthorizationError(error) {
+    return error instanceof AuthorizationError;
+}
+exports.isAuthorizationError = isAuthorizationError;
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiYXV0aG9yaXphdGlvbi1lcnJvcnMuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyJhdXRob3JpemF0aW9uLWVycm9ycy50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiO0FBQUE7Ozs7Ozs7O0dBUUc7OztBQUlIOztHQUVHO0FBQ0gsSUFBWSxzQkFLWDtBQUxELFdBQVksc0JBQXNCO0lBQ2hDLDZFQUFtRCxDQUFBO0lBQ25ELHVFQUE2QyxDQUFBO0lBQzdDLHFGQUEyRCxDQUFBO0lBQzNELHlFQUErQyxDQUFBO0FBQ2pELENBQUMsRUFMVyxzQkFBc0IsR0FBdEIsOEJBQXNCLEtBQXRCLDhCQUFzQixRQUtqQztBQUVEOztHQUVHO0FBQ0gsTUFBYSxrQkFBbUIsU0FBUSxLQUFLO0lBUTNDLFlBQ0UsT0FBZSxFQUNmLFNBQWlDLEVBQ2pDLGFBQXFCLEdBQUcsRUFDeEIsT0FLQztRQUVELEtBQUssQ0FBQyxPQUFPLENBQUMsQ0FBQztRQUNmLElBQUksQ0FBQyxJQUFJLEdBQUcsb0JBQW9CLENBQUM7UUFDakMsSUFBSSxDQUFDLFNBQVMsR0FBRyxTQUFTLENBQUM7UUFDM0IsSUFBSSxDQUFDLFVBQVUsR0FBRyxVQUFVLENBQUM7UUFDN0IsSUFBSSxDQUFDLFVBQVUsR0FBRyxPQUFPLEVBQUUsVUFBVSxDQUFDO1FBQ3RDLElBQUksQ0FBQyxNQUFNLEdBQUcsT0FBTyxFQUFFLE1BQU0sQ0FBQztRQUM5QixJQUFJLENBQUMsUUFBUSxHQUFHLE9BQU8sRUFBRSxRQUFRLENBQUM7UUFFbEMsSUFBSSxPQUFPLEVBQUUsS0FBSyxFQUFFO1lBQ2xCLElBQUksQ0FBQyxLQUFLLEdBQUcsT0FBTyxDQUFDLEtBQUssQ0FBQztTQUM1QjtRQUVELDhCQUE4QjtRQUM5QixJQUFJLEtBQUssQ0FBQyxpQkFBaUIsRUFBRTtZQUMzQixLQUFLLENBQUMsaUJBQWlCLENBQUMsSUFBSSxFQUFFLGtCQUFrQixDQUFDLENBQUM7U0FDbkQ7SUFDSCxDQUFDO0NBQ0Y7QUFwQ0QsZ0RBb0NDO0FBRUQ7O0dBRUc7QUFDSCxNQUFhLDJCQUE0QixTQUFRLGtCQUFrQjtJQUNqRSxZQUNFLFVBQXFDLEVBQ3JDLE1BQWUsRUFDZixRQUFpQjtRQUVqQixNQUFNLE9BQU8sR0FBRyw0QkFBNEIsVUFBVSxXQUFXLENBQUM7UUFDbEUsS0FBSyxDQUFDLE9BQU8sRUFBRSxzQkFBc0IsQ0FBQyx1QkFBdUIsRUFBRSxHQUFHLEVBQUU7WUFDbEUsVUFBVSxFQUFFLFVBQThCO1lBQzFDLE1BQU07WUFDTixRQUFRO1NBQ1QsQ0FBQyxDQUFDO0lBQ0wsQ0FBQztDQUNGO0FBYkQsa0VBYUM7QUFFRDs7R0FFRztBQUNILE1BQWEsdUJBQXdCLFNBQVEsa0JBQWtCO0lBQzdELFlBQVksVUFBa0I7UUFDNUIsTUFBTSxPQUFPLEdBQUcsdUJBQXVCLFVBQVUsRUFBRSxDQUFDO1FBQ3BELEtBQUssQ0FBQyxPQUFPLEVBQUUsc0JBQXNCLENBQUMsb0JBQW9CLEVBQUUsR0FBRyxFQUFFO1lBQy9ELFVBQVUsRUFBRSxVQUE4QjtTQUMzQyxDQUFDLENBQUM7SUFDTCxDQUFDO0NBQ0Y7QUFQRCwwREFPQztBQUVEOztHQUVHO0FBQ0gsTUFBYSx5QkFBMEIsU0FBUSxrQkFBa0I7SUFDL0QsWUFBWSxPQUFlLEVBQUUsS0FBYTtRQUN4QyxLQUFLLENBQUMsT0FBTyxFQUFFLHNCQUFzQixDQUFDLDJCQUEyQixFQUFFLEdBQUcsRUFBRTtZQUN0RSxLQUFLO1NBQ04sQ0FBQyxDQUFDO0lBQ0wsQ0FBQztDQUNGO0FBTkQsOERBTUM7QUFFRDs7R0FFRztBQUNILE1BQWEsd0JBQXlCLFNBQVEsa0JBQWtCO0lBQzlELFlBQVksTUFBYyxFQUFFLEtBQWE7UUFDdkMsTUFBTSxPQUFPLEdBQUcsNENBQTRDLE1BQU0sRUFBRSxDQUFDO1FBQ3JFLEtBQUssQ0FBQyxPQUFPLEVBQUUsc0JBQXNCLENBQUMscUJBQXFCLEVBQUUsR0FBRyxFQUFFO1lBQ2hFLE1BQU07WUFDTixLQUFLO1NBQ04sQ0FBQyxDQUFDO0lBQ0wsQ0FBQztDQUNGO0FBUkQsNERBUUM7QUFFRDs7R0FFRztBQUNILFNBQWdCLGdDQUFnQyxDQUFDLEtBQXlCLEVBQUUsU0FBaUI7SUFDM0YsT0FBTztRQUNMLEtBQUssRUFBRSxLQUFLLENBQUMsU0FBUztRQUN0QixPQUFPLEVBQUUsS0FBSyxDQUFDLE9BQU87UUFDdEIsT0FBTyxFQUFFO1lBQ1Asa0JBQWtCLEVBQUUsS0FBSyxDQUFDLFVBQVU7WUFDcEMsTUFBTSxFQUFFLEtBQUssQ0FBQyxNQUFNO1lBQ3BCLFFBQVEsRUFBRSxLQUFLLENBQUMsUUFBUTtTQUN6QjtRQUNELFNBQVMsRUFBRSxJQUFJLElBQUksRUFBRSxDQUFDLFdBQVcsRUFBRTtRQUNuQyxTQUFTO0tBQ1YsQ0FBQztBQUNKLENBQUM7QUFaRCw0RUFZQztBQUVEOztHQUVHO0FBQ0gsU0FBZ0Isb0JBQW9CLENBQUMsS0FBYztJQUNqRCxPQUFPLEtBQUssWUFBWSxrQkFBa0IsQ0FBQztBQUM3QyxDQUFDO0FBRkQsb0RBRUMiLCJzb3VyY2VzQ29udGVudCI6WyIvKipcbiAqIEF1dGhvcml6YXRpb24gRXJyb3JzIC0gUGhhc2UgMS4zXG4gKiBcbiAqIEVycm9yIGRlZmluaXRpb25zIGFuZCBoYW5kbGluZyBmb3IgYXV0aG9yaXphdGlvbiBvcGVyYXRpb25zLlxuICogUHJvdmlkZXMgc3RydWN0dXJlZCBlcnJvciB0eXBlcyB3aXRoIGFwcHJvcHJpYXRlIEhUVFAgc3RhdHVzIGNvZGVzLlxuICogXG4gKiBDb21wbGlhbmNlOlxuICogLSBQaGFzZSAxLjMgU3BlYzogLmtpcm8vc3BlY3MvcGhhc2UtMS4zLmF1dGhvcml6YXRpb24uZm91bmRhdGlvbi52MS5tZFxuICovXG5cbmltcG9ydCB7IFN5c3RlbUNhcGFiaWxpdHkgfSBmcm9tICcuL3R5cGVzJztcblxuLyoqXG4gKiBBdXRob3JpemF0aW9uIGVycm9yIHR5cGVzXG4gKi9cbmV4cG9ydCBlbnVtIEF1dGhvcml6YXRpb25FcnJvclR5cGUge1xuICBJTlNVRkZJQ0lFTlRfUFJJVklMRUdFUyA9ICdJTlNVRkZJQ0lFTlRfUFJJVklMRUdFUycsXG4gIENBUEFCSUxJVFlfTk9UX0ZPVU5EID0gJ0NBUEFCSUxJVFlfTk9UX0ZPVU5EJyxcbiAgQVVUSE9SSVpBVElPTl9TRVJWSUNFX0VSUk9SID0gJ0FVVEhPUklaQVRJT05fU0VSVklDRV9FUlJPUicsXG4gIFVTRVJfREFUQV9VTkFWQUlMQUJMRSA9ICdVU0VSX0RBVEFfVU5BVkFJTEFCTEUnLFxufVxuXG4vKipcbiAqIEJhc2UgYXV0aG9yaXphdGlvbiBlcnJvciBjbGFzc1xuICovXG5leHBvcnQgY2xhc3MgQXV0aG9yaXphdGlvbkVycm9yIGV4dGVuZHMgRXJyb3Ige1xuICBwdWJsaWMgcmVhZG9ubHkgZXJyb3JUeXBlOiBBdXRob3JpemF0aW9uRXJyb3JUeXBlO1xuICBwdWJsaWMgcmVhZG9ubHkgc3RhdHVzQ29kZTogbnVtYmVyO1xuICBwdWJsaWMgcmVhZG9ubHkgY2FwYWJpbGl0eT86IFN5c3RlbUNhcGFiaWxpdHk7XG4gIHB1YmxpYyByZWFkb25seSB1c2VySWQ/OiBzdHJpbmc7XG4gIHB1YmxpYyByZWFkb25seSByZXNvdXJjZT86IHN0cmluZztcbiAgcHVibGljIHJlYWRvbmx5IGNhdXNlPzogRXJyb3I7XG5cbiAgY29uc3RydWN0b3IoXG4gICAgbWVzc2FnZTogc3RyaW5nLFxuICAgIGVycm9yVHlwZTogQXV0aG9yaXphdGlvbkVycm9yVHlwZSxcbiAgICBzdGF0dXNDb2RlOiBudW1iZXIgPSA0MDMsXG4gICAgb3B0aW9ucz86IHtcbiAgICAgIGNhcGFiaWxpdHk/OiBTeXN0ZW1DYXBhYmlsaXR5O1xuICAgICAgdXNlcklkPzogc3RyaW5nO1xuICAgICAgcmVzb3VyY2U/OiBzdHJpbmc7XG4gICAgICBjYXVzZT86IEVycm9yO1xuICAgIH1cbiAgKSB7XG4gICAgc3VwZXIobWVzc2FnZSk7XG4gICAgdGhpcy5uYW1lID0gJ0F1dGhvcml6YXRpb25FcnJvcic7XG4gICAgdGhpcy5lcnJvclR5cGUgPSBlcnJvclR5cGU7XG4gICAgdGhpcy5zdGF0dXNDb2RlID0gc3RhdHVzQ29kZTtcbiAgICB0aGlzLmNhcGFiaWxpdHkgPSBvcHRpb25zPy5jYXBhYmlsaXR5O1xuICAgIHRoaXMudXNlcklkID0gb3B0aW9ucz8udXNlcklkO1xuICAgIHRoaXMucmVzb3VyY2UgPSBvcHRpb25zPy5yZXNvdXJjZTtcbiAgICBcbiAgICBpZiAob3B0aW9ucz8uY2F1c2UpIHtcbiAgICAgIHRoaXMuY2F1c2UgPSBvcHRpb25zLmNhdXNlO1xuICAgIH1cbiAgICBcbiAgICAvLyBNYWludGFpbiBwcm9wZXIgc3RhY2sgdHJhY2VcbiAgICBpZiAoRXJyb3IuY2FwdHVyZVN0YWNrVHJhY2UpIHtcbiAgICAgIEVycm9yLmNhcHR1cmVTdGFja1RyYWNlKHRoaXMsIEF1dGhvcml6YXRpb25FcnJvcik7XG4gICAgfVxuICB9XG59XG5cbi8qKlxuICogSW5zdWZmaWNpZW50IHByaXZpbGVnZXMgZXJyb3JcbiAqL1xuZXhwb3J0IGNsYXNzIEluc3VmZmljaWVudFByaXZpbGVnZXNFcnJvciBleHRlbmRzIEF1dGhvcml6YXRpb25FcnJvciB7XG4gIGNvbnN0cnVjdG9yKFxuICAgIGNhcGFiaWxpdHk6IFN5c3RlbUNhcGFiaWxpdHkgfCBzdHJpbmcsXG4gICAgdXNlcklkPzogc3RyaW5nLFxuICAgIHJlc291cmNlPzogc3RyaW5nXG4gICkge1xuICAgIGNvbnN0IG1lc3NhZ2UgPSBgSW5zdWZmaWNpZW50IHByaXZpbGVnZXM6ICR7Y2FwYWJpbGl0eX0gcmVxdWlyZWRgO1xuICAgIHN1cGVyKG1lc3NhZ2UsIEF1dGhvcml6YXRpb25FcnJvclR5cGUuSU5TVUZGSUNJRU5UX1BSSVZJTEVHRVMsIDQwMywge1xuICAgICAgY2FwYWJpbGl0eTogY2FwYWJpbGl0eSBhcyBTeXN0ZW1DYXBhYmlsaXR5LFxuICAgICAgdXNlcklkLFxuICAgICAgcmVzb3VyY2UsXG4gICAgfSk7XG4gIH1cbn1cblxuLyoqXG4gKiBDYXBhYmlsaXR5IG5vdCBmb3VuZCBlcnJvclxuICovXG5leHBvcnQgY2xhc3MgQ2FwYWJpbGl0eU5vdEZvdW5kRXJyb3IgZXh0ZW5kcyBBdXRob3JpemF0aW9uRXJyb3Ige1xuICBjb25zdHJ1Y3RvcihjYXBhYmlsaXR5OiBzdHJpbmcpIHtcbiAgICBjb25zdCBtZXNzYWdlID0gYFVua25vd24gY2FwYWJpbGl0eTogJHtjYXBhYmlsaXR5fWA7XG4gICAgc3VwZXIobWVzc2FnZSwgQXV0aG9yaXphdGlvbkVycm9yVHlwZS5DQVBBQklMSVRZX05PVF9GT1VORCwgNDAwLCB7XG4gICAgICBjYXBhYmlsaXR5OiBjYXBhYmlsaXR5IGFzIFN5c3RlbUNhcGFiaWxpdHksXG4gICAgfSk7XG4gIH1cbn1cblxuLyoqXG4gKiBBdXRob3JpemF0aW9uIHNlcnZpY2UgZXJyb3JcbiAqL1xuZXhwb3J0IGNsYXNzIEF1dGhvcml6YXRpb25TZXJ2aWNlRXJyb3IgZXh0ZW5kcyBBdXRob3JpemF0aW9uRXJyb3Ige1xuICBjb25zdHJ1Y3RvcihtZXNzYWdlOiBzdHJpbmcsIGNhdXNlPzogRXJyb3IpIHtcbiAgICBzdXBlcihtZXNzYWdlLCBBdXRob3JpemF0aW9uRXJyb3JUeXBlLkFVVEhPUklaQVRJT05fU0VSVklDRV9FUlJPUiwgNTAwLCB7XG4gICAgICBjYXVzZSxcbiAgICB9KTtcbiAgfVxufVxuXG4vKipcbiAqIFVzZXIgZGF0YSB1bmF2YWlsYWJsZSBlcnJvclxuICovXG5leHBvcnQgY2xhc3MgVXNlckRhdGFVbmF2YWlsYWJsZUVycm9yIGV4dGVuZHMgQXV0aG9yaXphdGlvbkVycm9yIHtcbiAgY29uc3RydWN0b3IodXNlcklkOiBzdHJpbmcsIGNhdXNlPzogRXJyb3IpIHtcbiAgICBjb25zdCBtZXNzYWdlID0gYFVzZXIgZGF0YSB1bmF2YWlsYWJsZSBmb3IgYXV0aG9yaXphdGlvbjogJHt1c2VySWR9YDtcbiAgICBzdXBlcihtZXNzYWdlLCBBdXRob3JpemF0aW9uRXJyb3JUeXBlLlVTRVJfREFUQV9VTkFWQUlMQUJMRSwgNTAwLCB7XG4gICAgICB1c2VySWQsXG4gICAgICBjYXVzZSxcbiAgICB9KTtcbiAgfVxufVxuXG4vKipcbiAqIENyZWF0ZSBhdXRob3JpemF0aW9uIGVycm9yIHJlc3BvbnNlIG9iamVjdFxuICovXG5leHBvcnQgZnVuY3Rpb24gY3JlYXRlQXV0aG9yaXphdGlvbkVycm9yUmVzcG9uc2UoZXJyb3I6IEF1dGhvcml6YXRpb25FcnJvciwgcmVxdWVzdElkOiBzdHJpbmcpIHtcbiAgcmV0dXJuIHtcbiAgICBlcnJvcjogZXJyb3IuZXJyb3JUeXBlLFxuICAgIG1lc3NhZ2U6IGVycm9yLm1lc3NhZ2UsXG4gICAgZGV0YWlsczoge1xuICAgICAgcmVxdWlyZWRDYXBhYmlsaXR5OiBlcnJvci5jYXBhYmlsaXR5LFxuICAgICAgdXNlcklkOiBlcnJvci51c2VySWQsXG4gICAgICByZXNvdXJjZTogZXJyb3IucmVzb3VyY2UsXG4gICAgfSxcbiAgICB0aW1lc3RhbXA6IG5ldyBEYXRlKCkudG9JU09TdHJpbmcoKSxcbiAgICByZXF1ZXN0SWQsXG4gIH07XG59XG5cbi8qKlxuICogQ2hlY2sgaWYgZXJyb3IgaXMgYW4gYXV0aG9yaXphdGlvbiBlcnJvclxuICovXG5leHBvcnQgZnVuY3Rpb24gaXNBdXRob3JpemF0aW9uRXJyb3IoZXJyb3I6IHVua25vd24pOiBlcnJvciBpcyBBdXRob3JpemF0aW9uRXJyb3Ige1xuICByZXR1cm4gZXJyb3IgaW5zdGFuY2VvZiBBdXRob3JpemF0aW9uRXJyb3I7XG59Il19

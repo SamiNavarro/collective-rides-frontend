@@ -1,0 +1,34 @@
+import { Ride, RideStatus, RideScope, RideAudience, CreateRideRequest, UpdateRideRequest } from '../../../../shared/types/ride';
+export declare class RideEntity {
+    private ride;
+    constructor(ride: Ride);
+    static create(request: CreateRideRequest, createdBy: string, clubId: string): RideEntity;
+    get rideId(): string;
+    get clubId(): string;
+    get title(): string;
+    get status(): RideStatus;
+    get scope(): RideScope;
+    get audience(): RideAudience;
+    get createdBy(): string;
+    get startDateTime(): string;
+    get currentParticipants(): number;
+    get maxParticipants(): number | undefined;
+    toJSON(): Ride;
+    canBePublished(): boolean;
+    canBeUpdated(): boolean;
+    canBeCancelled(): boolean;
+    canAcceptParticipants(): boolean;
+    isWaitlistAvailable(): boolean;
+    publish(publishedBy: string, audience?: RideAudience, isPublic?: boolean): void;
+    update(request: UpdateRideRequest): void;
+    cancel(reason?: string): void;
+    activate(): void;
+    complete(completedBy: string, completionNotes?: string): void;
+    start(startedBy: string): void;
+    canBeCompleted(): boolean;
+    canBeStarted(): boolean;
+    incrementParticipants(): void;
+    decrementParticipants(): void;
+    incrementWaitlist(): void;
+    decrementWaitlist(): void;
+}
