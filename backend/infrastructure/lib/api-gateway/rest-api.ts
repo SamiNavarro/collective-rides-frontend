@@ -87,8 +87,16 @@ export class RestApiConstruct extends Construct {
       // CORS configuration for frontend integration
       defaultCorsPreflightOptions: {
         allowOrigins: props.environment === 'production' 
-          ? ['https://sydneycycles.com'] // Production domain
-          : ['http://localhost:3000', 'http://127.0.0.1:3000'], // Development
+          ? [
+              'https://sydneycycles.com', // Production domain
+              'https://collective-rides-frontend.vercel.app', // Vercel deployment
+              'https://collectiverides.com' // Custom domain (if configured)
+            ]
+          : [
+              'http://localhost:3000', 
+              'http://127.0.0.1:3000',
+              'https://collective-rides-frontend.vercel.app' // Allow Vercel in development too
+            ], // Development
         allowMethods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
         allowHeaders: [
           'Content-Type',
