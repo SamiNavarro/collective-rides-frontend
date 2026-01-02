@@ -32,10 +32,10 @@ export class StravaIntegrationService extends Construct {
     const commonEnvironment = {
       MAIN_TABLE_NAME: props.mainTable.tableName,
       KMS_KEY_ID: this.tokenEncryptionKey.keyId,
-      STRAVA_CLIENT_ID: process.env.STRAVA_CLIENT_ID || '',
-      STRAVA_CLIENT_SECRET: process.env.STRAVA_CLIENT_SECRET || '',
-      STRAVA_REDIRECT_URI: process.env.STRAVA_REDIRECT_URI || '',
-      STRAVA_WEBHOOK_VERIFY_TOKEN: process.env.STRAVA_WEBHOOK_VERIFY_TOKEN || '',
+      STRAVA_CLIENT_ID: process.env.STRAVA_CLIENT_ID || '193122',
+      STRAVA_CLIENT_SECRET: process.env.STRAVA_CLIENT_SECRET || 'c27a5702e86a313def68600b239cfe51b5187fc6',
+      STRAVA_REDIRECT_URI: process.env.STRAVA_REDIRECT_URI || 'https://collective-rides-frontend.vercel.app/auth/strava/callback',
+      STRAVA_WEBHOOK_VERIFY_TOKEN: process.env.STRAVA_WEBHOOK_VERIFY_TOKEN || 'b532706503d7188cb8c00047fb60ae0930d84fc9',
     };
 
     // OAuth Connect Function

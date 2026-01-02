@@ -24,7 +24,7 @@
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::924748161040:role/cdk-hnb659fds-deploy-role-924748161040-us-east-2",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::924748161040:role/cdk-hnb659fds-cfn-exec-role-924748161040-us-east-2",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-924748161040-us-east-2/6ab0210ea74c331896b32f033ebd476c74cd6827330b601710a2876b2b79bebc.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-924748161040-us-east-2/23113ab33d43afbd520aed71342fb1ff8ea88173f26e69bae992b12a5d07bbec.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -116,7 +116,7 @@
         "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Deployment/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "RestApiSydneyCyclesRestApiDeployment050DCABA50807319bac1bd7004a50b9b6d8a9d20"
+            "data": "RestApiSydneyCyclesRestApiDeployment050DCABA3fe4136531c597b20aa1178fd43e959f"
           }
         ],
         "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/DeploymentStage.development/Resource": [
