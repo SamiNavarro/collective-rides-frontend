@@ -55,15 +55,15 @@ export class ApiClient {
 
       // Add authentication if required
       if (requireAuth) {
-        const accessToken = await cognitoAuth.getAccessToken();
-        if (!accessToken) {
+        const idToken = await cognitoAuth.getIdToken();
+        if (!idToken) {
           return {
             success: false,
             error: 'Authentication required',
             statusCode: 401,
           };
         }
-        requestHeaders.Authorization = `Bearer ${accessToken}`;
+        requestHeaders.Authorization = `Bearer ${idToken}`;
       }
 
       // Make request

@@ -114,7 +114,7 @@ const getLocalContent = (suburb: string) => ({
 })
 
 export default function HubPage() {
-  const { user, isSiteAdmin, getUserRole } = useAuth()
+  const { user, isLoading, isAuthenticated, isSiteAdmin, getUserRole } = useAuth()
   const [selectedSuburb, setSelectedSuburb] = useState(user?.suburb || "Bondi Beach")
   const [localContent, setLocalContent] = useState(getLocalContent(selectedSuburb))
 
@@ -122,13 +122,92 @@ export default function HubPage() {
     setLocalContent(getLocalContent(selectedSuburb))
   }, [selectedSuburb])
 
-  if (!user) {
+  // Show loading state while authentication is being checked
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-background">
+        <Header />
+        <div className="container mx-auto px-4 py-16 text-center">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-4"></div>
+          <h1 className="text-2xl font-semibold mb-2">Loading your hub...</h1>
+          <p className="text-muted-foreground">Please wait while we prepare your personalized content</p>
+        </div>
+        <Footer />
+      </div>
+    )
+  }
+
+  // Show sign in message if not authenticated
+  if (!isAuthenticated || !user) {
     return (
       <div className="min-h-screen bg-background">
         <Header />
         <div className="container mx-auto px-4 py-16 text-center">
           <h1 className="text-3xl font-bold mb-4">Please sign in to access your local hub</h1>
-          <p className="text-muted-foreground">Sign in to get personalized local cycling content</p>
+          <p className="text-muted-foreground mb-6">Sign in to get personalized local cycling content</p>
+          
+          <div className="max-w-md mx-auto space-y-4 mb-6">
+            <div className="p-4 border rounded-lg bg-muted/50">
+              <h3 className="font-semibold mb-3">Authentication Status</h3>
+              <div className="space-y-2 text-sm">
+                <div className="flex justify-between">
+                  <span>Cognito Auth:</span>
+                  <span className={isAuthenticated ? 'text-green-600' : 'text-red-600'}>
+                    {isAuthenticated ? '✅ Authenticated' : '❌ Not Authenticated'}
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span>User Profile:</span>
+                  <span className={user ? 'text-green-600' : 'text-red-600'}>
+                    {user ? '✅ Loaded' : '❌ Not Loaded'}
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span>Loading State:</span>
+                  <span className={isLoading ? 'text-yellow-600' : 'text-green-600'}>
+                    {isLoading ? '⏳ Loading...' : '✅ Complete'}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {isAuthenticated && !user && !isLoading && (
+              <div className="p-4 border border-orange-200 rounded-lg bg-orange-50">
+                <h3 className="font-semibold text-orange-800 mb-2">Profile Issue Detected</h3>
+                <p className="text-sm text-orange-700 mb-3">
+                  You're authenticated with Cognito but your user profile couldn't be loaded from the backend.
+                </p>
+                <div className="space-y-2">
+                  <a 
+                    href="/debug-auth" 
+                    className="inline-block px-4 py-2 bg-orange-600 text-white rounded hover:bg-orange-700 text-sm"
+                  >
+                    Debug Authentication
+                  </a>
+                  <p className="text-xs text-orange-600">
+                    This diagnostic page will help identify the issue
+                  </p>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {!isAuthenticated && (
+            <div className="space-y-2">
+              <a 
+                href="/auth/login" 
+                className="inline-block px-6 py-3 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90"
+              >
+                Sign In
+              </a>
+              <p className="text-sm text-muted-foreground">
+                Don't have an account? <a href="/auth/signup" className="text-primary hover:underline">Sign up</a>
+              </p>
+              <div className="text-xs text-muted-foreground">
+                Or try: <a href="/test-cognito" className="text-primary hover:underline">Test Cognito</a> | <a href="/debug-auth" className="text-primary hover:underline">Debug Auth</a>
+              </div>
+            </div>
+          )}
         </div>
         <Footer />
       </div>

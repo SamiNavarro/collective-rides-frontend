@@ -122,14 +122,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           const userResponse = await api.user.getCurrent()
           
           if (userResponse.success && userResponse.data) {
-            // Convert backend user data to frontend format
-            const backendUser = userResponse.data
+            // Handle nested response structure from backend
+            const backendUser = userResponse.data.data || userResponse.data
             const frontendUser: User = {
               id: backendUser.id || cognitoUser.sub,
-              name: backendUser.name || cognitoUser.name || cognitoUser.given_name || 'User',
+              name: backendUser.displayName || backendUser.name || cognitoUser.name || cognitoUser.given_name || 'User',
               email: backendUser.email || cognitoUser.email,
               suburb: backendUser.suburb,
-              avatar: backendUser.avatar,
+              avatar: backendUser.avatarUrl || backendUser.avatar,
               siteRole: backendUser.systemRole === 'SiteAdmin' ? 'site_admin' : 'user',
               joinedClubs: [], // Will be populated from memberships API
               clubApplications: [],
@@ -140,13 +140,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
             // Fetch user memberships
             const membershipsResponse = await api.user.getMemberships()
             if (membershipsResponse.success && membershipsResponse.data) {
-              frontendUser.joinedClubs = membershipsResponse.data.map((membership: any) => ({
-                clubId: membership.clubId,
-                clubName: membership.clubName,
-                joinedDate: membership.joinedDate,
-                membershipType: membership.status,
-                role: membership.role,
-              }))
+              // Handle nested response structure for memberships
+              const membershipsData = membershipsResponse.data.data?.data || membershipsResponse.data.data || membershipsResponse.data
+              if (Array.isArray(membershipsData)) {
+                frontendUser.joinedClubs = membershipsData.map((membership: any) => ({
+                  clubId: membership.clubId,
+                  clubName: membership.clubName,
+                  joinedDate: membership.joinedAt || membership.joinedDate,
+                  membershipType: membership.status,
+                  role: membership.role,
+                }))
+              }
             }
             
             setUser(frontendUser)

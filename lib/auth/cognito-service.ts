@@ -305,11 +305,37 @@ export class CognitoAuthService {
   }
 
   /**
+   * Get ID token for API calls (required for Cognito User Pool Authorizer)
+   */
+  async getIdToken(): Promise<string | null> {
+    try {
+      let tokens = this.getStoredTokens();
+      if (!tokens?.idToken) {
+        return null;
+      }
+
+      // Check if token is expired
+      if (this.isTokenExpired(tokens.idToken)) {
+        // Try to refresh
+        tokens = await this.refreshTokens();
+        if (!tokens) {
+          return null;
+        }
+      }
+
+      return tokens.idToken;
+    } catch (error) {
+      console.error('Get ID token error:', error);
+      return null;
+    }
+  }
+
+  /**
    * Check if user is authenticated
    */
   isAuthenticated(): boolean {
     const tokens = this.getStoredTokens();
-    return !!(tokens?.accessToken && !this.isTokenExpired(tokens.accessToken));
+    return !!(tokens?.idToken && !this.isTokenExpired(tokens.idToken));
   }
 
   /**
