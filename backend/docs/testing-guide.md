@@ -20,7 +20,7 @@ aws cloudformation describe-stacks --stack-name SydneyCyclesStack --query 'Stack
 
 # Create test user (replace USER_POOL_ID)
 aws cognito-idp admin-create-user \
-  --user-pool-id us-east-2_taARRQ6vu \
+  --user-pool-id us-east-2_t5UUpOmPL \
   --username testuser+1@example.com \
   --user-attributes Name=email,Value=testuser+1@example.com Name=email_verified,Value=true \
   --temporary-password TempPass123! \
@@ -28,7 +28,7 @@ aws cognito-idp admin-create-user \
 
 # Set permanent password
 aws cognito-idp admin-set-user-password \
-  --user-pool-id us-east-2_taARRQ6vu \
+  --user-pool-id us-east-2_t5UUpOmPL \
   --username testuser+1@example.com \
   --password 'TestPassw0rd!123' \
   --permanent

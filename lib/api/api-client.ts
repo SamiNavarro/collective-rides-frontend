@@ -1,0 +1,236 @@
+/**
+ * API Client with Cognito JWT Authentication
+ * 
+ * Provides a centralized API client that automatically handles:
+ * - JWT token attachment
+ * - Token refresh
+ * - Error handling
+ * - Request/response transformation
+ */
+
+import { cognitoAuth } from '../auth/cognito-service';
+
+interface ApiResponse<T = any> {
+  success: boolean;
+  data?: T;
+  error?: string;
+  statusCode: number;
+}
+
+interface RequestOptions {
+  method?: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
+  body?: any;
+  headers?: Record<string, string>;
+  requireAuth?: boolean;
+}
+
+export class ApiClient {
+  private baseUrl: string;
+
+  constructor() {
+    this.baseUrl = process.env.NEXT_PUBLIC_API_URL!;
+    
+    if (!this.baseUrl) {
+      throw new Error('NEXT_PUBLIC_API_URL environment variable is required');
+    }
+  }
+
+  /**
+   * Make authenticated API request
+   */
+  async request<T = any>(endpoint: string, options: RequestOptions = {}): Promise<ApiResponse<T>> {
+    const {
+      method = 'GET',
+      body,
+      headers = {},
+      requireAuth = true,
+    } = options;
+
+    try {
+      // Prepare headers
+      const requestHeaders: Record<string, string> = {
+        'Content-Type': 'application/json',
+        ...headers,
+      };
+
+      // Add authentication if required
+      if (requireAuth) {
+        const accessToken = await cognitoAuth.getAccessToken();
+        if (!accessToken) {
+          return {
+            success: false,
+            error: 'Authentication required',
+            statusCode: 401,
+          };
+        }
+        requestHeaders.Authorization = `Bearer ${accessToken}`;
+      }
+
+      // Make request
+      const response = await fetch(`${this.baseUrl}${endpoint}`, {
+        method,
+        headers: requestHeaders,
+        body: body ? JSON.stringify(body) : undefined,
+      });
+
+      // Parse response
+      let responseData;
+      const contentType = response.headers.get('content-type');
+      
+      if (contentType && contentType.includes('application/json')) {
+        responseData = await response.json();
+      } else {
+        responseData = await response.text();
+      }
+
+      // Handle response
+      if (response.ok) {
+        return {
+          success: true,
+          data: responseData,
+          statusCode: response.status,
+        };
+      } else {
+        // Handle authentication errors
+        if (response.status === 401) {
+          // Token might be expired, try to refresh
+          if (requireAuth) {
+            const refreshed = await cognitoAuth.refreshTokens();
+            if (refreshed) {
+              // Retry request with new token
+              return this.request(endpoint, options);
+            } else {
+              // Refresh failed, user needs to login again
+              await cognitoAuth.signOut();
+            }
+          }
+        }
+
+        return {
+          success: false,
+          error: this.getErrorMessage(responseData, response.status),
+          statusCode: response.status,
+        };
+      }
+    } catch (error) {
+      console.error('API request error:', error);
+      return {
+        success: false,
+        error: 'Network error. Please check your connection.',
+        statusCode: 0,
+      };
+    }
+  }
+
+  /**
+   * GET request
+   */
+  async get<T = any>(endpoint: string, requireAuth = true): Promise<ApiResponse<T>> {
+    return this.request<T>(endpoint, { method: 'GET', requireAuth });
+  }
+
+  /**
+   * POST request
+   */
+  async post<T = any>(endpoint: string, body?: any, requireAuth = true): Promise<ApiResponse<T>> {
+    return this.request<T>(endpoint, { method: 'POST', body, requireAuth });
+  }
+
+  /**
+   * PUT request
+   */
+  async put<T = any>(endpoint: string, body?: any, requireAuth = true): Promise<ApiResponse<T>> {
+    return this.request<T>(endpoint, { method: 'PUT', body, requireAuth });
+  }
+
+  /**
+   * DELETE request
+   */
+  async delete<T = any>(endpoint: string, requireAuth = true): Promise<ApiResponse<T>> {
+    return this.request<T>(endpoint, { method: 'DELETE', requireAuth });
+  }
+
+  /**
+   * Health check (no auth required)
+   */
+  async healthCheck(): Promise<ApiResponse> {
+    return this.get('/health', false);
+  }
+
+  /**
+   * Get user-friendly error message
+   */
+  private getErrorMessage(responseData: any, statusCode: number): string {
+    // Try to extract error message from response
+    if (typeof responseData === 'object') {
+      if (responseData.error) {
+        return responseData.error;
+      }
+      if (responseData.message) {
+        return responseData.message;
+      }
+    }
+
+    // Fallback to status code messages
+    switch (statusCode) {
+      case 400:
+        return 'Bad request. Please check your input.';
+      case 401:
+        return 'Authentication required. Please sign in.';
+      case 403:
+        return 'Access denied. You do not have permission.';
+      case 404:
+        return 'Resource not found.';
+      case 409:
+        return 'Conflict. The resource already exists.';
+      case 429:
+        return 'Too many requests. Please try again later.';
+      case 500:
+        return 'Server error. Please try again later.';
+      default:
+        return `Request failed with status ${statusCode}`;
+    }
+  }
+}
+
+// Export singleton instance
+export const apiClient = new ApiClient();
+
+// Convenience methods for common API calls
+export const api = {
+  // User endpoints
+  user: {
+    getCurrent: () => apiClient.get('/v1/users/me'),
+    update: (data: any) => apiClient.put('/v1/users/me', data),
+    getMemberships: () => apiClient.get('/v1/users/me/memberships'),
+  },
+
+  // Club endpoints
+  clubs: {
+    list: () => apiClient.get('/v1/clubs', false), // Public endpoint
+    get: (id: string) => apiClient.get(`/v1/clubs/${id}`, false),
+    create: (data: any) => apiClient.post('/v1/clubs', data),
+    update: (id: string, data: any) => apiClient.put(`/v1/clubs/${id}`, data),
+    join: (id: string, data: any) => apiClient.post(`/v1/clubs/${id}/members`, data),
+    leave: (id: string) => apiClient.delete(`/v1/clubs/${id}/members/me`),
+    getMembers: (id: string) => apiClient.get(`/v1/clubs/${id}/members`),
+  },
+
+  // Ride endpoints
+  rides: {
+    list: () => apiClient.get('/v1/rides'),
+    get: (id: string) => apiClient.get(`/v1/rides/${id}`),
+    create: (data: any) => apiClient.post('/v1/rides', data),
+    join: (id: string) => apiClient.post(`/v1/rides/${id}/participants`),
+    leave: (id: string) => apiClient.delete(`/v1/rides/${id}/participants/me`),
+  },
+
+  // Strava endpoints
+  strava: {
+    connect: () => apiClient.get('/integrations/strava/connect'),
+    disconnect: () => apiClient.delete('/integrations/strava/disconnect'),
+  },
+
+  // Health check
+  health: () => apiClient.healthCheck(),
+};

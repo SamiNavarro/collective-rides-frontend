@@ -92,6 +92,9 @@ export class UserPoolConstruct extends Construct {
         emailBody: 'Hello {username}, your temporary password is {####}',
       },
       
+      // Self sign-up configuration
+      selfSignUpEnabled: props.environment !== 'production', // Allow self-registration in development only
+      
       // User verification settings
       userVerification: {
         emailSubject: 'Verify your Sydney Cycles account',

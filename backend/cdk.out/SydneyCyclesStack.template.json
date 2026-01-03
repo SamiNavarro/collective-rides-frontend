@@ -13,7 +13,7 @@
      ]
     },
     "AdminCreateUserConfig": {
-     "AllowAdminCreateUserOnly": true,
+     "AllowAdminCreateUserOnly": false,
      "InviteMessageTemplate": {
       "EmailMessage": "Hello {username}, your temporary password is {####}",
       "EmailSubject": "Welcome to Sydney Cycles!"

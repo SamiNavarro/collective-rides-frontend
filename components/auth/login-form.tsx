@@ -25,9 +25,15 @@ export function LoginForm({ onToggleMode, onClose }: LoginFormProps) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     try {
-      await login(email, password)
-      onClose()
-      router.push("/hub")
+      const result = await login(email, password)
+      if (result.success) {
+        onClose()
+        router.push("/hub")
+      } else {
+        // Show error message to user
+        console.error("Login failed:", result.error)
+        // You can add a state for error display here
+      }
     } catch (error) {
       console.error("Login failed:", error)
     }

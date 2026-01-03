@@ -28,9 +28,22 @@ export function SignupForm({ onToggleMode, onClose }: SignupFormProps) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     try {
-      await signup(name, email, password)
-      onClose()
-      router.push("/hub")
+      const result = await signup(name, email, password)
+      if (result.success) {
+        if (result.needsVerification) {
+          // Redirect to email verification page
+          onClose()
+          router.push(`/auth/verify-email?email=${encodeURIComponent(email)}`)
+        } else {
+          // User is already verified, go to hub
+          onClose()
+          router.push("/hub")
+        }
+      } else {
+        // Show error message to user
+        console.error("Signup failed:", result.error)
+        // You can add a state for error display here
+      }
     } catch (error) {
       console.error("Signup failed:", error)
     }

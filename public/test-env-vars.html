@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Environment Variables</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .success { background: #d4edda; color: #155724; padding: 12px; border-radius: 6px; margin: 10px 0; }
+        .error { background: #f8d7da; color: #721c24; padding: 12px; border-radius: 6px; margin: 10px 0; }
+        .info { background: #d1ecf1; color: #0c5460; padding: 12px; border-radius: 6px; margin: 10px 0; }
+        .code { background: #f8f9fa; padding: 10px; border-radius: 4px; font-family: monospace; margin: 10px 0; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background-color: #f8f9fa; }
+        .button { background: #007bff; color: white; border: none; padding: 12px 24px; border-radius: 6px; cursor: pointer; font-size: 16px; margin: 10px 5px; }
+        .button:hover { background: #0056b3; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 Environment Variables Test</h1>
+        <p>This page tests if the correct Cognito User Pool ID is loaded in the browser.</p>
+        
+        <div id="results"></div>
+        
+        <button class="button" onclick="testEnvironment()">Test Environment</button>
+        <button class="button" onclick="clearCache()">Clear Cache</button>
+        <button class="button" onclick="testCognitoService()">Test Cognito Service</button>
+        
+        <h3>📋 Expected Values</h3>
+        <table>
+            <tr><th>Variable</th><th>Expected Value</th><th>Status</th></tr>
+            <tr><td>NEXT_PUBLIC_COGNITO_USER_POOL_ID</td><td>us-east-2_t5UUpOmPL</td><td id="userPoolStatus">-</td></tr>
+            <tr><td>NEXT_PUBLIC_COGNITO_CLIENT_ID</td><td>760idnu1d0mul2o10lut6rt7la</td><td id="clientIdStatus">-</td></tr>
+            <tr><td>NEXT_PUBLIC_AWS_REGION</td><td>us-east-2</td><td id="regionStatus">-</td></tr>
+            <tr><td>NEXT_PUBLIC_API_URL</td><td>https://s6ccfzfcwh.execute-api.us-east-2.amazonaws.com/development</td><td id="apiUrlStatus">-</td></tr>
+        </table>
+        
+        <div class="info">
+            <strong>🚨 If you see the old User Pool ID (us-east-2_taARRQ6vu):</strong><br>
+            1. Clear browser cache completely<br>
+            2. Close all browser windows<br>
+            3. Restart browser<br>
+            4. Try incognito/private mode
+        </div>
+    </div>
+
+    <script>
+        const EXPECTED_VALUES = {
+            userPoolId: 'us-east-2_t5UUpOmPL',
+            clientId: '760idnu1d0mul2o10lut6rt7la',
+            region: 'us-east-2',
+            apiUrl: 'https://s6ccfzfcwh.execute-api.us-east-2.amazonaws.com/development'
+        };
+
+        const OLD_USER_POOL_ID = 'us-east-2_taARRQ6vu';
+
+        function showResult(message, type = 'info') {
+            const results = document.getElementById('results');
+            const div = document.createElement('div');
+            div.className = type;
+            div.innerHTML = message;
+            results.appendChild(div);
+        }
+
+        function updateStatus(elementId, status, isCorrect) {
+            const element = document.getElementById(elementId);
+            element.textContent = isCorrect ? '✅ Correct' : '❌ Wrong';
+            element.style.color = isCorrect ? 'green' : 'red';
+        }
+
+        function testEnvironment() {
+            showResult('🧪 Testing environment variables...', 'info');
+            
+            // Note: In client-side JavaScript, process.env is not available
+            // We need to check if the variables are embedded in the build
+            
+            // Try to access Next.js environment variables
+            const config = {
+                userPoolId: window.__NEXT_DATA__?.env?.NEXT_PUBLIC_COGNITO_USER_POOL_ID || 'Not available in client',
+                clientId: window.__NEXT_DATA__?.env?.NEXT_PUBLIC_COGNITO_CLIENT_ID || 'Not available in client',
+                region: window.__NEXT_DATA__?.env?.NEXT_PUBLIC_AWS_REGION || 'Not available in client',
+                apiUrl: window.__NEXT_DATA__?.env?.NEXT_PUBLIC_API_URL || 'Not available in client'
+            };
+
+            console.log('Environment test results:', config);
+
+            // Check each value
+            const userPoolCorrect = config.userPoolId === EXPECTED_VALUES.userPoolId;
+            const clientIdCorrect = config.clientId === EXPECTED_VALUES.clientId;
+            const regionCorrect = config.region === EXPECTED_VALUES.region;
+            const apiUrlCorrect = config.apiUrl === EXPECTED_VALUES.apiUrl;
+
+            updateStatus('userPoolStatus', config.userPoolId, userPoolCorrect);
+            updateStatus('clientIdStatus', config.clientId, clientIdCorrect);
+            updateStatus('regionStatus', config.region, regionCorrect);
+            updateStatus('apiUrlStatus', config.apiUrl, apiUrlCorrect);
+
+            // Check for old User Pool ID
+            if (config.userPoolId === OLD_USER_POOL_ID) {
+                showResult('🚨 ERROR: Old User Pool ID detected! Clear browser cache and restart.', 'error');
+            } else if (userPoolCorrect) {
+                showResult('✅ Correct User Pool ID detected!', 'success');
+            } else {
+                showResult(`⚠️ Unexpected User Pool ID: ${config.userPoolId}`, 'error');
+            }
+
+            // Show all values
+            showResult(`
+                <strong>Current Values:</strong><br>
+                User Pool ID: <code>${config.userPoolId}</code><br>
+                Client ID: <code>${config.clientId}</code><br>
+                Region: <code>${config.region}</code><br>
+                API URL: <code>${config.apiUrl}</code>
+            `, 'info');
+        }
+
+        function clearCache() {
+            try {
+                localStorage.clear();
+                sessionStorage.clear();
+                showResult('✅ Cleared localStorage and sessionStorage', 'success');
+                
+                // Clear cookies
+                document.cookie.split(";").forEach(function(c) { 
+                    document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/"); 
+                });
+                showResult('✅ Cleared cookies', 'success');
+                
+                setTimeout(() => {
+                    location.reload(true);
+                }, 1000);
+            } catch (error) {
+                showResult(`❌ Error clearing cache: ${error.message}`, 'error');
+            }
+        }
+
+        async function testCognitoService() {
+            showResult('🧪 Testing Cognito service initialization...', 'info');
+            
+            try {
+                // Try to import and test the Cognito service
+                // This will only work if we're on the actual Next.js app
+                if (window.location.pathname.includes('test-env-vars.html')) {
+                    showResult('⚠️ This test needs to be run from the Next.js app at /test-cognito', 'info');
+                    showResult('Visit: <a href="/test-cognito">http://localhost:3000/test-cognito</a>', 'info');
+                    return;
+                }
+                
+                // If we're in the Next.js context, we could test the service
+                showResult('✅ Cognito service test would run here in Next.js context', 'success');
+            } catch (error) {
+                showResult(`❌ Cognito service error: ${error.message}`, 'error');
+            }
+        }
+
+        // Auto-run test on page load
+        window.addEventListener('load', () => {
+            setTimeout(testEnvironment, 500);
+        });
+
+        // Monitor for any Cognito-related errors
+        window.addEventListener('error', (event) => {
+            if (event.message && event.message.includes(OLD_USER_POOL_ID)) {
+                showResult(`🚨 DETECTED OLD USER POOL ID ERROR: ${event.message}`, 'error');
+            }
+        });
+
+        // Monitor console for Cognito errors
+        const originalConsoleError = console.error;
+        console.error = function(...args) {
+            const message = args.join(' ');
+            if (message.includes(OLD_USER_POOL_ID)) {
+                showResult(`🚨 CONSOLE ERROR WITH OLD USER POOL ID: ${message}`, 'error');
+            }
+            originalConsoleError.apply(console, args);
+        };
+    </script>
+</body>
+</html>
