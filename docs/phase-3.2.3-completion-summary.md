@@ -308,3 +308,65 @@ Phase 3.2.3 core functionality is complete. Users can now see their pending club
 The implementation uses the existing hydrated backend endpoint efficiently and integrates seamlessly with the existing UI that was already built in anticipation of this feature.
 
 **Status**: ✅ Ready for testing and deployment
+
+
+---
+
+## CORS Fix Updates (January 19, 2026)
+
+### Issue Discovered on Vercel
+When testing on Vercel production, CORS errors occurred:
+```
+The 'Access-Control-Allow-Origin' header has a value 'http://localhost:3000' 
+that is not equal to the supplied origin 'https://collective-rides-frontend.vercel.app'
+```
+
+### Root Cause
+The `getCorsHeaders()` function was:
+1. Only checking exact origin matches
+2. Defaulting to localhost when origin didn't match
+3. Not supporting Vercel preview deployments (`*.vercel.app`)
+
+### Solution Implemented
+
+**File**: `backend/shared/utils/lambda-utils.ts`
+
+Updated CORS logic to:
+1. Check exact matches first (localhost, production domains)
+2. Support any Vercel deployment with pattern matching (`*.vercel.app`)
+3. Only default to localhost if no origin provided
+
+```typescript
+function getCorsHeaders(origin?: string): Record<string, string> {
+  let allowOrigin = 'http://localhost:3000'; // Default fallback
+  
+  if (origin) {
+    // Check exact match first
+    if (allowedOrigins.includes(origin)) {
+      allowOrigin = origin;
+    }
+    // Check for Vercel preview deployments (*.vercel.app)
+    else if (origin.endsWith('.vercel.app') && origin.startsWith('https://')) {
+      allowOrigin = origin;
+    }
+  }
+  // ... rest of CORS headers
+}
+```
+
+### Deployment
+- ✅ Backend redeployed via CDK
+- ✅ All 40 Lambda functions updated
+- ✅ Deployment time: 132.3s
+- ✅ No errors
+
+### Testing Status
+⏳ **Awaiting user verification on Vercel**
+- User needs to refresh Vercel page
+- Sign in with testuser2@test.com
+- Should see NO CORS errors now
+- Should see pending application to Pastries.cc
+
+### Related Documentation
+- `docs/phase-3.2.3-cors-vercel-fix.md` - Detailed fix documentation
+- `docs/phase-3.2.3-vercel-test-guide.md` - Testing instructions

@@ -16,7 +16,7 @@ import { ApiResponse, ErrorResponse, HttpStatusCode, ApiErrorType } from '../typ
  * Supports both localhost and Vercel deployments
  */
 function getCorsHeaders(origin?: string): Record<string, string> {
-  // List of allowed origins
+  // List of allowed origins (exact matches)
   const allowedOrigins = [
     'http://localhost:3000',
     'http://127.0.0.1:3000',
@@ -25,10 +25,19 @@ function getCorsHeaders(origin?: string): Record<string, string> {
     'https://collectiverides.com',
   ];
   
-  // Check if the origin is allowed
-  const allowOrigin = origin && allowedOrigins.includes(origin) 
-    ? origin 
-    : allowedOrigins[0]; // Default to localhost
+  // Check if origin is allowed
+  let allowOrigin = 'http://localhost:3000'; // Default fallback
+  
+  if (origin) {
+    // Check exact match first
+    if (allowedOrigins.includes(origin)) {
+      allowOrigin = origin;
+    }
+    // Check for Vercel preview deployments (*.vercel.app)
+    else if (origin.endsWith('.vercel.app') && origin.startsWith('https://')) {
+      allowOrigin = origin;
+    }
+  }
   
   return {
     'Content-Type': 'application/json',
