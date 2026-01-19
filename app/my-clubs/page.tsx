@@ -1,9 +1,20 @@
 "use client"
 
+import { useState } from "react"
 import { useAuth } from "@/contexts/auth-context"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog"
 import {
   Users,
   MapPin,
@@ -21,6 +32,8 @@ export default function MyClubsPage() {
   const { user } = useAuth()
   const { data: clubs, isLoading, error, refetch } = useMyClubs()
   const leaveClubMutation = useLeaveClub()
+  const [leaveDialogOpen, setLeaveDialogOpen] = useState(false)
+  const [clubToLeave, setClubToLeave] = useState<{ id: string; name: string } | null>(null)
 
   // Handle unauthenticated users
   if (!user) {
@@ -171,14 +184,21 @@ export default function MyClubsPage() {
   }
 
   // Handle leave club action
-  const handleLeaveClub = async (clubId: string, clubName: string) => {
-    if (confirm(`Are you sure you want to leave ${clubName}?`)) {
-      try {
-        await leaveClubMutation.mutateAsync(clubId)
-      } catch (error) {
-        console.error('Failed to leave club:', error)
-        // Error handling is managed by the mutation hook
-      }
+  const handleLeaveClub = (clubId: string, clubName: string) => {
+    setClubToLeave({ id: clubId, name: clubName })
+    setLeaveDialogOpen(true)
+  }
+
+  const confirmLeaveClub = async () => {
+    if (!clubToLeave) return
+    
+    try {
+      await leaveClubMutation.mutateAsync(clubToLeave.id)
+      setLeaveDialogOpen(false)
+      setClubToLeave(null)
+    } catch (error) {
+      console.error('Failed to leave club:', error)
+      // Error handling is managed by the mutation hook
     }
   }
 
@@ -322,6 +342,37 @@ export default function MyClubsPage() {
           </Card>
         </div>
       </div>
+
+      {/* Leave Club Confirmation Dialog */}
+      <AlertDialog open={leaveDialogOpen} onOpenChange={setLeaveDialogOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Leave {clubToLeave?.name}?</AlertDialogTitle>
+            <AlertDialogDescription>
+              Are you sure you want to leave this club? You'll need to reapply if you want to rejoin later.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel disabled={leaveClubMutation.isPending}>
+              Cancel
+            </AlertDialogCancel>
+            <AlertDialogAction
+              onClick={confirmLeaveClub}
+              disabled={leaveClubMutation.isPending}
+              className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+            >
+              {leaveClubMutation.isPending ? (
+                <>
+                  <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                  Leaving...
+                </>
+              ) : (
+                'Leave Club'
+              )}
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
 
       <Footer />
     </div>
