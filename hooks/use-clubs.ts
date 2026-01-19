@@ -56,31 +56,11 @@ export const useMyClubs = () => {
   return useQuery({
     queryKey: ['users', 'me', 'clubs'],
     queryFn: async (): Promise<MyClubMembership[]> => {
-      // Development mode: Use mock data if API fails
-      if (process.env.NODE_ENV === 'development') {
-        try {
-          const response = await api.user.getClubs();
-          if (!response.success) {
-            console.warn('API call failed, using mock data for development:', response.error);
-            // Simulate network delay
-            await new Promise(resolve => setTimeout(resolve, 500));
-            return mockClubData;
-          }
-          return response.data.data; // Unwrap the API response
-        } catch (error) {
-          console.warn('Network error, using mock data for development:', error);
-          // Simulate network delay
-          await new Promise(resolve => setTimeout(resolve, 500));
-          return mockClubData;
-        }
-      } else {
-        // Production mode: Fail if API doesn't work
-        const response = await api.user.getClubs();
-        if (!response.success) {
-          throw new Error(response.error || 'Failed to fetch clubs');
-        }
-        return response.data.data; // Unwrap the API response
+      const response = await api.user.getClubs();
+      if (!response.success) {
+        throw new Error(response.error || 'Failed to fetch clubs');
       }
+      return response.data.data; // Unwrap the API response
     },
     staleTime: 2 * 60 * 1000, // 2 minutes cache (more dynamic than discovery)
     retry: 2,
