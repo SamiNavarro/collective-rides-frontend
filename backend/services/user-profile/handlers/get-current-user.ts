@@ -29,11 +29,13 @@ const userService = new UserService(userRepository);
  */
 export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> {
   const requestId = event.requestContext.requestId;
+  const origin = event.headers.origin || event.headers.Origin;
   
   logStructured('INFO', 'Processing get current user request', {
     requestId,
     httpMethod: event.httpMethod,
     path: event.path,
+    origin,
   });
   
   try {
@@ -56,7 +58,7 @@ export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayPr
       systemRole: user.systemRole,
     });
     
-    return createSuccessResponse(user);
+    return createSuccessResponse(user, undefined, origin);
   } catch (error) {
     logStructured('ERROR', 'Error processing get current user request', {
       requestId,

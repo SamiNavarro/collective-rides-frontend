@@ -30,12 +30,14 @@ const clubService = new ClubService(clubRepository);
  */
 export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> {
   const requestId = event.requestContext.requestId;
+  const origin = event.headers.origin || event.headers.Origin;
   
   logStructured('INFO', 'Processing list clubs request', {
     requestId,
     httpMethod: event.httpMethod,
     path: event.path,
     queryParams: event.queryStringParameters,
+    origin,
   });
   
   try {
@@ -76,7 +78,7 @@ export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayPr
       hasNextCursor: !!result.nextCursor,
     });
 
-    return createSuccessResponse(response);
+    return createSuccessResponse(response, undefined, origin);
   } catch (error) {
     logStructured('ERROR', 'Error processing list clubs request', {
       requestId,
