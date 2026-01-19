@@ -113,44 +113,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setIsLoading(true)
     
     try {
-      // Development mode: Create a mock user for testing
-      if (process.env.NODE_ENV === 'development' && process.env.NEXT_PUBLIC_DEV_MODE === 'true') {
-        console.log('🔧 Development mode: Using mock authenticated user');
-        const mockUser: User = {
-          id: 'dev-user-123',
-          name: 'Dev User',
-          email: 'dev@example.com',
-          suburb: 'Sydney CBD',
-          avatar: '/placeholder-avatar.png',
-          siteRole: 'user',
-          joinedClubs: [
-            {
-              clubId: 'sydney-cycling-club',
-              clubName: 'Sydney Cycling Club',
-              joinedDate: '2024-01-15T00:00:00Z',
-              membershipType: 'active',
-              role: 'member',
-            },
-            {
-              clubId: 'eastern-suburbs-cycling',
-              clubName: 'Eastern Suburbs Cycling Club',
-              joinedDate: '2024-02-20T00:00:00Z',
-              membershipType: 'active',
-              role: 'admin',
-            },
-          ],
-          clubApplications: [],
-          rideAssignments: [],
-          preferences: getDefaultPreferences(),
-        };
-        
-        setUser(mockUser);
-        setIsAuthenticated(true);
-        setIsLoading(false);
-        return;
-      }
-      
-      // Production mode: Use real Cognito authentication
+      // Use real Cognito authentication
       // Check if user is authenticated with Cognito
       if (cognitoAuth.isAuthenticated()) {
         const cognitoUser = await cognitoAuth.getCurrentUser()
@@ -175,18 +138,33 @@ export function AuthProvider({ children }: { children: ReactNode }) {
               preferences: backendUser.preferences || getDefaultPreferences(),
             }
             
-            // Fetch user memberships
-            const membershipsResponse = await api.user.getMemberships()
-            if (membershipsResponse.success && membershipsResponse.data) {
-              // Handle nested response structure for memberships
-              const membershipsData = membershipsResponse.data.data?.data || membershipsResponse.data.data || membershipsResponse.data
-              if (Array.isArray(membershipsData)) {
-                frontendUser.joinedClubs = membershipsData.map((membership: any) => ({
-                  clubId: membership.clubId,
-                  clubName: membership.clubName,
-                  joinedDate: membership.joinedAt || membership.joinedDate,
-                  membershipType: membership.status,
-                  role: membership.role,
+            // Fetch user's clubs (all statuses) and separate them client-side
+            const allClubsResponse = await api.user.getClubs()
+            if (allClubsResponse.success && allClubsResponse.data) {
+              const allClubsData = allClubsResponse.data.data || allClubsResponse.data
+              if (Array.isArray(allClubsData)) {
+                // Separate active memberships from pending applications
+                const activeClubs = allClubsData.filter((club: any) => club.membershipStatus === 'active')
+                const pendingClubs = allClubsData.filter((club: any) => club.membershipStatus === 'pending')
+                
+                frontendUser.joinedClubs = activeClubs.map((club: any) => ({
+                  clubId: club.clubId,
+                  clubName: club.clubName,
+                  joinedDate: club.joinedAt,
+                  membershipType: club.membershipStatus,
+                  role: club.membershipRole,
+                }))
+                
+                frontendUser.clubApplications = pendingClubs.map((club: any) => ({
+                  id: club.clubId, // Use clubId as application ID for now
+                  clubId: club.clubId,
+                  clubName: club.clubName,
+                  applicationDate: club.joinedAt,
+                  status: 'pending' as const,
+                  message: '',
+                  experience: '',
+                  motivation: '',
+                  availability: [],
                 }))
               }
             }

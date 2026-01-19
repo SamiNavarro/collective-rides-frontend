@@ -10,6 +10,7 @@ import {
   ChevronRight,
   Loader2,
   AlertCircle,
+  Clock,
 } from "lucide-react"
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
@@ -90,6 +91,9 @@ export default function MyClubsPage() {
 
   // Handle empty state
   if (!clubs || clubs.length === 0) {
+    // Check if user has pending applications
+    const hasPendingApplications = user.clubApplications && user.clubApplications.length > 0
+
     return (
       <div className="min-h-screen bg-background">
         <Header />
@@ -100,14 +104,59 @@ export default function MyClubsPage() {
               Manage your club memberships and stay connected with your cycling community
             </p>
           </div>
+
+          {/* Pending Applications Section */}
+          {hasPendingApplications && (
+            <div className="max-w-4xl mx-auto mb-6">
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Clock className="w-5 h-5 text-orange-500" />
+                    Pending Applications ({user.clubApplications.length})
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  {user.clubApplications.map((application) => (
+                    <div
+                      key={application.id}
+                      className="p-4 rounded-lg border border-orange-200 bg-orange-50"
+                    >
+                      <div className="flex items-center justify-between">
+                        <div className="flex-1">
+                          <h3 className="font-semibold text-lg">{application.clubName}</h3>
+                          <p className="text-sm text-muted-foreground mt-1">
+                            Applied {new Date(application.applicationDate).toLocaleDateString()}
+                          </p>
+                          <Badge variant="outline" className="mt-2 bg-orange-100 text-orange-700 border-orange-300">
+                            <Clock className="w-3 h-3 mr-1" />
+                            Pending Approval
+                          </Badge>
+                        </div>
+                        <Link href={`/clubs/${application.clubId}`}>
+                          <Button variant="outline" size="sm">
+                            View Club
+                            <ChevronRight className="w-4 h-4 ml-1" />
+                          </Button>
+                        </Link>
+                      </div>
+                    </div>
+                  ))}
+                </CardContent>
+              </Card>
+            </div>
+          )}
+
+          {/* Empty State for Active Clubs */}
           <Card className="text-center py-12">
             <CardContent className="px-6 pb-6 pt-12">
               <Users className="w-16 h-16 mx-auto text-muted-foreground mb-4" />
               <h3 className="text-xl font-semibold mb-2">No clubs joined yet</h3>
               <p className="text-muted-foreground mb-6">
-                Join cycling clubs to connect with other riders and discover new routes
+                {hasPendingApplications 
+                  ? "Your applications are being reviewed. Browse more clubs while you wait!"
+                  : "Join cycling clubs to connect with other riders and discover new routes"}
               </p>
-              <Link href="/directory">
+              <Link href="/clubs/directory">
                 <Button>
                   <Users className="w-4 h-4 mr-2" />
                   Browse Clubs
@@ -147,7 +196,47 @@ export default function MyClubsPage() {
         </div>
 
         {/* Club List */}
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-4xl mx-auto space-y-6">
+          {/* Pending Applications Section */}
+          {user.clubApplications && user.clubApplications.length > 0 && (
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Clock className="w-5 h-5 text-orange-500" />
+                  Pending Applications ({user.clubApplications.length})
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                {user.clubApplications.map((application) => (
+                  <div
+                    key={application.id}
+                    className="p-4 rounded-lg border border-orange-200 bg-orange-50"
+                  >
+                    <div className="flex items-center justify-between">
+                      <div className="flex-1">
+                        <h3 className="font-semibold text-lg">{application.clubName}</h3>
+                        <p className="text-sm text-muted-foreground mt-1">
+                          Applied {new Date(application.applicationDate).toLocaleDateString()}
+                        </p>
+                        <Badge variant="outline" className="mt-2 bg-orange-100 text-orange-700 border-orange-300">
+                          <Clock className="w-3 h-3 mr-1" />
+                          Pending Approval
+                        </Badge>
+                      </div>
+                      <Link href={`/clubs/${application.clubId}`}>
+                        <Button variant="outline" size="sm">
+                          View Club
+                          <ChevronRight className="w-4 h-4 ml-1" />
+                        </Button>
+                      </Link>
+                    </div>
+                  </div>
+                ))}
+              </CardContent>
+            </Card>
+          )}
+
+          {/* Active Clubs Section */}
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">

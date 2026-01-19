@@ -74,8 +74,10 @@ export const useClubsDiscovery = (filters: ClubDiscoveryFilters = {}) => {
       }
 
       // Extract data from API response
-      const clubs = response.data.data || [];
-      const pagination = response.data.pagination || { limit: 20 };
+      // Backend returns: { success: true, data: { success: true, data: [...], pagination: {...} } }
+      const innerData = response.data?.data || response.data;
+      const clubs = innerData?.data || innerData || [];
+      const pagination = innerData?.pagination || { limit: 20 };
 
       // Client-side filtering (backend doesn't support these filters yet)
       let filteredClubs = clubs;

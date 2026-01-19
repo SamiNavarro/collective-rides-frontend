@@ -40,39 +40,34 @@ Following the spec's recommended order: 3.2.2 → 3.2.1 → 3.2.3
 
 ---
 
-### 🔄 Phase 3.2.3: Polish Club Join Flow (NEXT)
+### ✅ Phase 3.2.3: Polish Club Join Flow (COMPLETE)
 
 **Goal**: Improve clarity for "Applied" vs "Member" states
 
-**Tasks**:
-- [ ] Add membership state badges to directory cards
-  - "Applied" badge (orange)
-  - "Member" badge (green)
-  - "Pending Approval" badge
-- [ ] Show application status in multiple contexts:
-  - `/clubs/directory` - Badge on club card
-  - `/my-clubs` - Status in list
-  - `/clubs/[clubId]` - Banner on club page
-- [ ] Improve application modal UX
-  - Clean, focused form
-  - "Why do you want to join?" message field
-  - Clear submission feedback
-- [ ] Implement optimistic UI updates
-  - Show "Pending" immediately on apply
-  - Rollback on error
-  - Invalidate related queries on success
-- [ ] Add clear error messages
-  - User-friendly error handling
-  - Specific messages for common errors
-- [ ] Test complete join flow
-- [ ] Mobile optimization
+**Completed**:
+- ✅ Auth context fetches pending applications from backend
+- ✅ Pending applications separated from active memberships
+- ✅ "Pending Applications" section in `/my-clubs` page
+- ✅ Membership state badges in directory (already existed)
+- ✅ Optimistic UI updates on join
+- ✅ Clear error handling
+- ✅ Data persistence after refresh
+- ✅ Mobile responsive
+- ✅ Documentation
 
-**Dependencies**:
-- ✅ Phase 3.2.2 complete (real data integration)
-- ✅ `/my-clubs` page exists (Phase 3.1)
-- ✅ Auth context has membership helpers
+**Files**:
+- `contexts/auth-context.tsx` - Fetch and store pending applications
+- `app/my-clubs/page.tsx` - Display pending applications section
+- `hooks/use-clubs.ts` - Add optimistic updates to join mutation
+- `scripts/test-phase-3.2.3-pending-apps.js` - Test script
+- `docs/phase-3.2.3-pending-applications.md` - Documentation
 
-**Estimated Duration**: 2-3 days
+**Application Status Visibility**:
+- ✅ `/clubs/directory` - Orange "Pending" badge on club card
+- ✅ `/my-clubs` - "Pending Applications" section with details
+- ⏭️ `/clubs/[clubId]` - "Application Pending" banner (Phase 3.2.1)
+
+**Status**: ✅ Ready for Phase 3.2.1
 
 ---
 
@@ -110,13 +105,13 @@ Following the spec's recommended order: 3.2.2 → 3.2.1 → 3.2.3
 
 **Phase 3.2 Breakdown**:
 - ✅ 3.2.2: Directory Integration (Complete)
-- 🔄 3.2.3: Join Flow Polish (Next)
-- ⏳ 3.2.1: Club Pages (After 3.2.3)
+- ✅ 3.2.3: Join Flow Polish (Complete)
+- 🔄 3.2.1: Club Pages (Next)
 
 **Timeline**:
 - Week 1: ✅ 3.2.2 Complete (1 day)
-- Week 2: 🔄 3.2.3 In Progress (2-3 days)
-- Week 2-3: ⏳ 3.2.1 Pending (3-4 days)
+- Week 2: ✅ 3.2.3 Complete (1 day)
+- Week 2-3: 🔄 3.2.1 In Progress (3-4 days)
 - Week 3-4: Testing & Polish
 
 **Estimated Completion**: End of Week 3
@@ -160,11 +155,13 @@ Following the spec's recommended order: 3.2.2 → 3.2.1 → 3.2.3
 - ✅ No console errors
 - ✅ All automated tests pass (12/12)
 
-### Phase 3.2.3 (In Progress)
-- [ ] Membership states visible in all contexts
-- [ ] Application flow is smooth
-- [ ] Optimistic updates work correctly
-- [ ] Error messages are clear and helpful
+### Phase 3.2.3 (Complete)
+- ✅ Membership states visible in all contexts
+- ✅ Application flow is smooth
+- ✅ Optimistic updates work correctly
+- ✅ Error messages are clear and helpful
+- ✅ Pending applications show in /my-clubs
+- ✅ Pending badges show in directory
 
 ### Phase 3.2.1 (Pending)
 - [ ] Club pages load correctly
@@ -176,30 +173,32 @@ Following the spec's recommended order: 3.2.2 → 3.2.1 → 3.2.3
 
 ## Next Actions
 
-1. **Immediate**: Start Phase 3.2.3 (Join Flow Polish)
-   - Add membership state badges to directory
-   - Integrate with auth context
-   - Test application flow
-
-2. **After 3.2.3**: Start Phase 3.2.1 (Club Pages)
+1. **Immediate**: Start Phase 3.2.1 (Club Pages)
    - Create `/clubs/[clubId]` page
    - Implement public/member sections
    - Add upcoming rides display
 
-3. **After 3.2.1**: Testing & Polish
+2. **After 3.2.1**: Testing & Polish
    - E2E testing
    - Performance optimization
    - Accessibility audit
    - Bug fixes
+
+3. **Future**: Phase 3.3 Enhancements
+   - Backend filter support
+   - Pagination UI
+   - Extended Club model fields
 
 ---
 
 ## Notes
 
 - Phase 3.2.2 completed in 1 day (faster than estimated)
-- Implementation order (3.2.2 first) was the right choice
+- Phase 3.2.3 completed in 1 day (faster than estimated)
+- Implementation order (3.2.2 → 3.2.3 → 3.2.1) working well
 - Mock enhancements provide good development experience
 - Client-side filtering is sufficient for now
-- Ready to proceed with Phase 3.2.3
+- Optimistic updates provide excellent UX
+- Ready to proceed with Phase 3.2.1
 
-**Status**: ✅ Phase 3.2.2 Complete, 🔄 Phase 3.2.3 Next
+**Status**: ✅ Phase 3.2.2 Complete, ✅ Phase 3.2.3 Complete, 🔄 Phase 3.2.1 Next

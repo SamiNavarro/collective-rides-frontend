@@ -144,7 +144,7 @@ export const useClubMembers = (clubId: string) => {
 };
 
 /**
- * Join club mutation
+ * Join club mutation with optimistic updates
  */
 export const useJoinClub = () => {
   const queryClient = useQueryClient();
@@ -157,15 +157,64 @@ export const useJoinClub = () => {
       }
       return response.data;
     },
+    onMutate: async ({ clubId }) => {
+      // Cancel outgoing refetches to avoid overwriting optimistic update
+      await queryClient.cancelQueries({ queryKey: ['clubs', clubId] });
+      await queryClient.cancelQueries({ queryKey: ['clubs', 'discovery'] });
+      
+      // Snapshot previous values
+      const previousClub = queryClient.getQueryData(['clubs', clubId]);
+      const previousDiscovery = queryClient.getQueryData(['clubs', 'discovery']);
+      
+      // Optimistically update club detail to show pending status
+      queryClient.setQueryData(['clubs', clubId], (old: any) => {
+        if (!old) return old;
+        return {
+          ...old,
+          userMembership: {
+            role: 'member',
+            status: 'pending',
+          }
+        };
+      });
+      
+      // Optimistically update discovery list to show pending badge
+      queryClient.setQueryData(['clubs', 'discovery'], (old: any) => {
+        if (!old?.clubs) return old;
+        return {
+          ...old,
+          clubs: old.clubs.map((club: any) => 
+            club.id === clubId 
+              ? { 
+                  ...club, 
+                  userMembership: { 
+                    role: 'member', 
+                    status: 'pending' 
+                  } 
+                }
+              : club
+          )
+        };
+      });
+      
+      return { previousClub, previousDiscovery };
+    },
+    onError: (error, variables, context) => {
+      // Rollback optimistic updates on error
+      if (context?.previousClub) {
+        queryClient.setQueryData(['clubs', variables.clubId], context.previousClub);
+      }
+      if (context?.previousDiscovery) {
+        queryClient.setQueryData(['clubs', 'discovery'], context.previousDiscovery);
+      }
+      console.error('Failed to join club:', error);
+    },
     onSuccess: (data, variables) => {
-      // Invalidate affected queries to trigger refetch
+      // Invalidate affected queries to trigger refetch with real data
       queryClient.invalidateQueries({ queryKey: ['users', 'me', 'clubs'] }); // My clubs
       queryClient.invalidateQueries({ queryKey: ['clubs', variables.clubId] }); // Club detail
       queryClient.invalidateQueries({ queryKey: ['clubs', 'discovery'] }); // Discovery list
       queryClient.invalidateQueries({ queryKey: ['clubs', variables.clubId, 'members'] }); // Club members
-    },
-    onError: (error) => {
-      console.error('Failed to join club:', error);
     },
   });
 };

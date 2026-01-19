@@ -203,7 +203,10 @@ export const api = {
     getCurrent: () => apiClient.get('/v1/users/me'),
     update: (data: any) => apiClient.put('/v1/users/me', data),
     getMemberships: () => apiClient.get('/v1/users/me/memberships'),
-    getClubs: () => apiClient.get('/v1/users/me/clubs'), // Phase 3.1: Hydrated clubs
+    getClubs: (status?: 'active' | 'pending' | 'suspended') => {
+      const params = status ? `?status=${status}` : '';
+      return apiClient.get(`/v1/users/me/clubs${params}`);
+    }, // Phase 3.1: Hydrated clubs with optional status filter
   },
 
   // Club endpoints

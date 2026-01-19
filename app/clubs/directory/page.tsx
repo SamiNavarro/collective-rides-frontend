@@ -48,6 +48,14 @@ export default function ClubDirectoryPage() {
     limit: 50,
   })
 
+  // Debug: Log the response structure
+  useEffect(() => {
+    if (discoveryData) {
+      console.log('Discovery data:', discoveryData)
+      console.log('Clubs array:', discoveryData.clubs)
+    }
+  }, [discoveryData])
+
   const filtersRef = useRef<HTMLDivElement>(null)
   const resizeObserverRef = useRef<ResizeObserver | null>(null)
 
@@ -189,7 +197,8 @@ export default function ClubDirectoryPage() {
 
   // Merge real backend data with mock enhancements
   const clubs = useMemo(() => {
-    if (!discoveryData?.clubs) return []
+    // discoveryData is the ClubDiscoveryResponse: { clubs: [...], pagination: {...} }
+    if (!discoveryData?.clubs || !Array.isArray(discoveryData.clubs)) return []
 
     return discoveryData.clubs.map((club) => {
       const enhancement = mockEnhancements[club.id] || {}
