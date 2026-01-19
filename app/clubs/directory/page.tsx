@@ -69,12 +69,6 @@ export default function ClubDirectoryPage() {
   }, [])
 
   useEffect(() => {
-    if (!user) {
-      router.push("/clubs")
-    }
-  }, [user, router])
-
-  useEffect(() => {
     const debouncedCheck = debounce(checkFiltersLayout, 50)
 
     checkFiltersLayout()
@@ -240,6 +234,12 @@ export default function ClubDirectoryPage() {
     return filtered
   }, [clubs, paceValue, beginnerFriendlyValue])
   const handleClubAction = (club: any) => {
+    // Check if user is logged in
+    if (!user) {
+      router.push("/auth/login")
+      return
+    }
+
     if (isMemberOfClub(club.id)) {
       alert("You are already a member of this club")
       return
@@ -254,18 +254,21 @@ export default function ClubDirectoryPage() {
   }
 
   const getClubButtonText = (clubId: string) => {
+    if (!user) return "Sign in to Join"
     if (isMemberOfClub(clubId)) return "Joined"
     if (hasAppliedToClub(clubId)) return "Application Pending"
     return "Apply to Join"
   }
 
   const getClubButtonVariant = (clubId: string) => {
+    if (!user) return "default"
     if (isMemberOfClub(clubId)) return "default"
     if (hasAppliedToClub(clubId)) return "outline"
     return "default"
   }
 
   const getClubButtonIcon = (clubId: string) => {
+    if (!user) return null
     if (isMemberOfClub(clubId)) return <CheckCircle className="h-4 w-4 mr-1" />
     if (hasAppliedToClub(clubId)) return <Clock className="h-4 w-4 mr-1" />
     return null
@@ -496,13 +499,13 @@ export default function ClubDirectoryPage() {
                     fill
                     className="object-cover"
                   />
-                  {isMemberOfClub(club.id) && (
+                  {user && isMemberOfClub(club.id) && (
                     <div className="absolute top-3 right-3 bg-green-500 text-white px-2 py-1 rounded-full text-xs font-medium flex items-center gap-1">
                       <CheckCircle className="h-3 w-3" />
                       Joined
                     </div>
                   )}
-                  {hasAppliedToClub(club.id) && (
+                  {user && hasAppliedToClub(club.id) && (
                     <div className="absolute top-3 right-3 bg-orange-500 text-white px-2 py-1 rounded-full text-xs font-medium flex items-center gap-1">
                       <Clock className="h-3 w-3" />
                       Pending
@@ -607,9 +610,9 @@ export default function ClubDirectoryPage() {
                             size="sm"
                             variant={getClubButtonVariant(club.id)}
                             onClick={() => handleClubAction(club)}
-                            disabled={isMemberOfClub(club.id) || hasAppliedToClub(club.id)}
+                            disabled={user && (isMemberOfClub(club.id) || hasAppliedToClub(club.id))}
                             className={
-                              hasAppliedToClub(club.id) ? "bg-orange-100 text-orange-700 border-orange-300" : ""
+                              user && hasAppliedToClub(club.id) ? "bg-orange-100 text-orange-700 border-orange-300" : ""
                             }
                           >
                             {getClubButtonIcon(club.id)}
