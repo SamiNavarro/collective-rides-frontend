@@ -159,8 +159,10 @@ Development: [
 | **Club Management** | `/v1/clubs/*` | ✅ Ready |
 | **Ride Management** | `/v1/rides/*` | ✅ Ready |
 | **Route Files** | `/v1/routes/*` | ✅ Ready |
-| **Strava Integration** | `/v1/integrations/strava/*` | ✅ Ready |
+| **Strava Integration** | `/integrations/strava/*` | ✅ Ready |
 | **Health Check** | `/health` | ✅ Ready |
+
+**Note**: Core business services use `/v1` versioning, while integration services use `/integrations` for external service connections.
 
 #### Authentication Flow
 1. **User Registration/Login** → Cognito User Pool
@@ -227,7 +229,7 @@ Development: [
 - **VPC configuration** for network isolation
 
 ### Data Protection
-- **JWT token encryption** with secure algorithms
+- **Secure token storage strategy** (short-lived tokens, refresh flow, no secrets in client)
 - **Personal data anonymization** where possible
 - **GDPR compliance** features ready
 - **Audit logging** for sensitive operations

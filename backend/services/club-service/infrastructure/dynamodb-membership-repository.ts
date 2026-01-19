@@ -478,6 +478,13 @@ export class DynamoDBMembershipRepository implements IMembershipRepository {
   }
 
   /**
+   * Get club member count (active members only)
+   */
+  async getClubMemberCount(clubId: string): Promise<number> {
+    return this.countClubMembers(clubId, MembershipStatus.ACTIVE);
+  }
+
+  /**
    * Convert DynamoDB canonical item to Membership
    */
   private dynamoItemToMembership(item: MembershipDynamoItem): ClubMembership {

@@ -7,7 +7,7 @@ import { api } from "@/lib/api/api-client"
 type SiteRole = "site_admin" | "user"
 type ClubRole = "club_admin" | "ride_captain" | "ride_leader" | "member"
 
-interface ClubMembership {
+export interface ClubMembership {
   clubId: string
   clubName: string
   joinedDate: string
@@ -15,7 +15,7 @@ interface ClubMembership {
   role: ClubRole
 }
 
-interface RideAssignment {
+export interface RideAssignment {
   rideId: string
   rideName: string
   clubId: string
@@ -25,7 +25,7 @@ interface RideAssignment {
   status: "upcoming" | "completed" | "cancelled"
 }
 
-interface ClubApplication {
+export interface ClubApplication {
   id: string
   clubId: string
   clubName: string
@@ -37,7 +37,7 @@ interface ClubApplication {
   availability: string[]
 }
 
-interface User {
+export interface User {
   id: string
   name: string
   email: string
@@ -113,6 +113,44 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setIsLoading(true)
     
     try {
+      // Development mode: Create a mock user for testing
+      if (process.env.NODE_ENV === 'development' && process.env.NEXT_PUBLIC_DEV_MODE === 'true') {
+        console.log('🔧 Development mode: Using mock authenticated user');
+        const mockUser: User = {
+          id: 'dev-user-123',
+          name: 'Dev User',
+          email: 'dev@example.com',
+          suburb: 'Sydney CBD',
+          avatar: '/placeholder-avatar.png',
+          siteRole: 'user',
+          joinedClubs: [
+            {
+              clubId: 'sydney-cycling-club',
+              clubName: 'Sydney Cycling Club',
+              joinedDate: '2024-01-15T00:00:00Z',
+              membershipType: 'active',
+              role: 'member',
+            },
+            {
+              clubId: 'eastern-suburbs-cycling',
+              clubName: 'Eastern Suburbs Cycling Club',
+              joinedDate: '2024-02-20T00:00:00Z',
+              membershipType: 'active',
+              role: 'admin',
+            },
+          ],
+          clubApplications: [],
+          rideAssignments: [],
+          preferences: getDefaultPreferences(),
+        };
+        
+        setUser(mockUser);
+        setIsAuthenticated(true);
+        setIsLoading(false);
+        return;
+      }
+      
+      // Production mode: Use real Cognito authentication
       // Check if user is authenticated with Cognito
       if (cognitoAuth.isAuthenticated()) {
         const cognitoUser = await cognitoAuth.getCurrentUser()

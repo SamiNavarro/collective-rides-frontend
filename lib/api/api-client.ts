@@ -203,11 +203,20 @@ export const api = {
     getCurrent: () => apiClient.get('/v1/users/me'),
     update: (data: any) => apiClient.put('/v1/users/me', data),
     getMemberships: () => apiClient.get('/v1/users/me/memberships'),
+    getClubs: () => apiClient.get('/v1/users/me/clubs'), // Phase 3.1: Hydrated clubs
   },
 
   // Club endpoints
   clubs: {
     list: () => apiClient.get('/v1/clubs', false), // Public endpoint
+    discovery: (params?: { limit?: number; cursor?: string; status?: string }) => {
+      const queryParams = new URLSearchParams();
+      if (params?.limit) queryParams.append('limit', params.limit.toString());
+      if (params?.cursor) queryParams.append('cursor', params.cursor);
+      if (params?.status) queryParams.append('status', params.status);
+      const queryString = queryParams.toString();
+      return apiClient.get(`/v1/clubs${queryString ? `?${queryString}` : ''}`, false);
+    },
     get: (id: string) => apiClient.get(`/v1/clubs/${id}`, false),
     create: (data: any) => apiClient.post('/v1/clubs', data),
     update: (id: string, data: any) => apiClient.put(`/v1/clubs/${id}`, data),

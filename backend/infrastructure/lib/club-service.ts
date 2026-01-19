@@ -58,6 +58,9 @@ export class ClubServiceConstruct extends Construct {
   public readonly getMembershipsFunction: lambdaNodejs.NodejsFunction;
   public readonly processJoinRequestFunction: lambdaNodejs.NodejsFunction;
 
+  // Phase 3.1 hydrated functions (NEW - Deploy with Phase 3.1)
+  public readonly getUserClubsFunction: lambdaNodejs.NodejsFunction;
+
   constructor(scope: Construct, id: string, props: ClubServiceProps) {
     super(scope, id);
 
@@ -212,6 +215,17 @@ export class ClubServiceConstruct extends Construct {
       handler: 'handler',
     });
 
+    // Phase 3.1 Hydrated Functions
+
+    // Lambda function for GET /users/me/clubs (hydrated)
+    this.getUserClubsFunction = new lambdaNodejs.NodejsFunction(this, 'GetUserClubsFunction', {
+      ...commonLambdaProps,
+      functionName: `sydney-cycles-get-user-clubs-${props.environment}`,
+      description: 'Get user clubs with hydrated data (authenticated users)',
+      entry: 'services/club-service/handlers/user/get-user-clubs.ts',
+      handler: 'handler',
+    });
+
     // Grant DynamoDB permissions to Lambda functions
     const allFunctions = [
       // Phase 2.1 functions
@@ -232,6 +246,8 @@ export class ClubServiceConstruct extends Construct {
       // Phase 2.2 user functions
       this.getMembershipsFunction,
       this.processJoinRequestFunction,
+      // Phase 3.1 hydrated functions
+      this.getUserClubsFunction,
     ];
 
     allFunctions.forEach(func => {
@@ -269,6 +285,8 @@ export class ClubServiceConstruct extends Construct {
       // Phase 2.2 user functions
       { func: this.getMembershipsFunction, phase: '2.2-ClubMembership' },
       { func: this.processJoinRequestFunction, phase: '2.2-ClubMembership' },
+      // Phase 3.1 hydrated functions
+      { func: this.getUserClubsFunction, phase: '3.1-ClubNavigation' },
     ];
 
     allFunctions.forEach(({ func, phase }) => {
@@ -684,6 +702,24 @@ export class ClubServiceConstruct extends Construct {
       requestParameters: {
         'method.request.querystring.limit': false,
         'method.request.querystring.cursor': false,
+        'method.request.querystring.status': false,
+      },
+      methodResponses: [
+        { statusCode: '200' },
+        { statusCode: '400' },
+        { statusCode: '401' },
+        { statusCode: '500' },
+      ],
+    });
+
+    // Phase 3.1 Hydrated Endpoints
+
+    // GET /users/me/clubs - Get user's clubs with hydrated data
+    const usersClubs = usersMe.addResource('clubs');
+    usersClubs.addMethod('GET', new apigateway.LambdaIntegration(this.getUserClubsFunction), {
+      authorizer: props.authorizer,
+      authorizationType: apigateway.AuthorizationType.COGNITO,
+      requestParameters: {
         'method.request.querystring.status': false,
       },
       methodResponses: [

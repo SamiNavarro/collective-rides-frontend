@@ -82,7 +82,7 @@ export function Header() {
                 <span>Coffee</span>
               </Link>
               <Link
-                href="/clubs"
+                href="/clubs/directory"
                 className="flex items-center space-x-2 text-muted-foreground hover:text-foreground transition-colors"
               >
                 <Users className="w-4 h-4" />
@@ -312,7 +312,7 @@ export function Header() {
                       <span>Coffee</span>
                     </Link>
                     <Link
-                      href="/clubs"
+                      href="/clubs/directory"
                       className="flex items-center space-x-3 px-3 py-3 rounded-lg text-base font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-all duration-200"
                       onClick={closeMobileMenu}
                     >

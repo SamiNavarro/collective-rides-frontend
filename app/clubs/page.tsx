@@ -169,7 +169,7 @@ export default function ClubsInfoPage() {
                 </CardHeader>
                 <CardContent className="px-6 pb-6 pt-0 space-y-4">
                   <p className="text-sm text-gray-600">{club.description}</p>
-
+                  
                   <div className="grid grid-cols-2 gap-4 text-sm">
                     <div>
                       <span className="font-medium">Focus:</span> {club.focus}

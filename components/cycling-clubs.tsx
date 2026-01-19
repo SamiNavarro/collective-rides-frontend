@@ -146,15 +146,15 @@ export function CyclingClubs() {
 
         <div className="text-center mt-12">
           <div className="space-y-4">
-            <Link href={user ? "/clubs/directory" : "/clubs"} className="inline-block">
+            <Link href="/clubs/directory" className="inline-block">
               <Button
                 size="lg"
                 className="bg-orange-600 hover:bg-orange-700 text-white px-10 py-4 text-lg font-bold shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105"
                 onClick={() =>
-                  console.log("[v0] Browse Clubs button clicked - navigating to", user ? "/clubs/directory" : "/clubs")
+                  console.log("[v0] Browse Clubs button clicked - navigating to /clubs/directory")
                 }
               >
-                🚴‍♂️ {user ? "Browse & Join Clubs" : "Browse All Clubs"}
+                🚴‍♂️ Browse & Join Clubs
               </Button>
             </Link>
             <p className="text-sm text-muted-foreground max-w-md mx-auto">

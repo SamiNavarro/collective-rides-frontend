@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useRef, useEffect, useCallback } from "react"
+import { useState, useRef, useEffect, useCallback, useMemo } from "react"
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -22,11 +22,14 @@ import {
   Heart,
   CheckCircle,
   Clock,
+  Loader2,
+  AlertCircle,
 } from "lucide-react"
 import Image from "next/image"
 import { useAuth } from "@/contexts/auth-context"
 import { ClubApplicationForm } from "@/components/club-application-form"
 import { useRouter } from "next/navigation"
+import { useClubsDiscovery } from "@/hooks/use-clubs-discovery"
 
 export default function ClubDirectoryPage() {
   const { user, hasAppliedToClub, isMemberOfClub } = useAuth()
@@ -37,6 +40,13 @@ export default function ClubDirectoryPage() {
   const [paceValue, setPaceValue] = useState("")
   const [beginnerFriendlyValue, setBeginnerFriendlyValue] = useState("")
   const [showApplicationForm, setShowApplicationForm] = useState<{ clubId: string; clubName: string } | null>(null)
+
+  // Fetch real club data from backend
+  const { data: discoveryData, isLoading, isError, error } = useClubsDiscovery({
+    search: searchValue,
+    area: areaValue,
+    limit: 50,
+  })
 
   const filtersRef = useRef<HTMLDivElement>(null)
   const resizeObserverRef = useRef<ResizeObserver | null>(null)
@@ -128,10 +138,9 @@ export default function ClubDirectoryPage() {
     return badges
   }
 
-  const cyclingClubs = [
-    {
-      id: "sydney-cycling-club",
-      name: "Sydney Cycling Club",
+  // Enhanced mock data for development (maps to real club IDs when available)
+  const mockEnhancements: Record<string, any> = {
+    "sydney-cycling-club": {
       area: "City & Inner West",
       members: 450,
       established: "1985",
@@ -142,17 +151,13 @@ export default function ClubDirectoryPage() {
       contact: "info@sydneycycling.com.au",
       phone: "(02) 9555 0123",
       website: "sydneycycling.com.au",
-      description:
-        "Sydney's premier competitive cycling club with a strong focus on road racing and performance training.",
       rideTypes: ["Road Racing", "Time Trials", "Training Rides", "Hill Climbs"],
       beginnerFriendly: false,
       membershipFee: "$120/year",
       kitColors: ["Navy", "White", "Red"],
       image: "/sydney-cycling-club-racing-team.png",
     },
-    {
-      id: "manly-warringah-cycling-club",
-      name: "Manly Warringah Cycling Club",
+    "manly-warringah-cycling-club": {
       area: "Northern Beaches",
       members: 320,
       established: "1978",
@@ -163,16 +168,13 @@ export default function ClubDirectoryPage() {
       contact: "secretary@mwcc.org.au",
       phone: "(02) 9977 4567",
       website: "mwcc.org.au",
-      description: "Friendly club welcoming all levels with beautiful Northern Beaches routes and strong social focus.",
       rideTypes: ["Social Rides", "Beach Routes", "Coffee Rides", "Weekend Tours"],
       beginnerFriendly: true,
       membershipFee: "$80/year",
       kitColors: ["Blue", "Yellow", "White"],
       image: "/manly-warringah-cycling-club-beach.png",
     },
-    {
-      id: "eastern-suburbs-cycling-club",
-      name: "Eastern Suburbs Cycling Club",
+    "eastern-suburbs-cycling-club": {
       area: "Eastern Suburbs",
       members: 280,
       established: "1992",
@@ -183,75 +185,60 @@ export default function ClubDirectoryPage() {
       contact: "rides@escc.com.au",
       phone: "(02) 9387 8901",
       website: "escc.com.au",
-      description: "Perfect balance of fitness and fun with scenic coastal routes and welcoming atmosphere.",
       rideTypes: ["Coastal Rides", "Park Loops", "Café Stops", "Skills Sessions"],
       beginnerFriendly: true,
       membershipFee: "$90/year",
       kitColors: ["Green", "White", "Black"],
       image: "/eastern-suburbs-cycling-club-coastal.png",
     },
-    {
-      id: "inner-west-cycling-collective",
-      name: "Inner West Cycling Collective",
-      area: "Inner West",
-      members: 180,
-      established: "2010",
-      focus: "Community & Advocacy",
-      pace: "Relaxed",
-      weeklyRides: 2,
-      meetingDay: "Thursday 7:00 PM",
-      contact: "hello@iwcc.org",
-      phone: "(02) 9560 2345",
-      website: "iwcc.org",
-      description: "Community-focused club promoting cycling advocacy and inclusive group rides for all abilities.",
-      rideTypes: ["Community Rides", "Family Rides", "Advocacy Events", "Skills Workshops"],
-      beginnerFriendly: true,
-      membershipFee: "$60/year",
-      kitColors: ["Orange", "Black", "White"],
-      image: "/inner-west-cycling-collective-community.png",
-    },
-    {
-      id: "sydney-mountain-bike-club",
-      name: "Sydney Mountain Bike Club",
-      area: "Various Trails",
-      members: 220,
-      established: "1995",
-      focus: "Mountain Biking",
-      pace: "Mixed",
-      weeklyRides: 2,
-      meetingDay: "Saturday 8:00 AM",
-      contact: "trails@smbc.com.au",
-      phone: "(02) 9876 5432",
-      website: "smbc.com.au",
-      description: "Dedicated mountain biking club exploring Sydney's best trails with rides for all skill levels.",
-      rideTypes: ["Trail Rides", "Downhill", "Cross Country", "Skills Clinics"],
-      beginnerFriendly: true,
-      membershipFee: "$100/year",
-      kitColors: ["Forest Green", "Orange", "Black"],
-      image: "/sydney-mountain-bike-club-trails.png",
-    },
-    {
-      id: "womens-cycling-network-sydney",
-      name: "Women's Cycling Network Sydney",
-      area: "City-wide",
-      members: 150,
-      established: "2015",
-      focus: "Women's Cycling",
-      pace: "Mixed",
-      weeklyRides: 3,
-      meetingDay: "Sunday 9:00 AM",
-      contact: "connect@wcns.org.au",
-      phone: "(02) 9123 4567",
-      website: "wcns.org.au",
-      description: "Empowering women through cycling with supportive group rides and skills development programs.",
-      rideTypes: ["Women's Only", "Skills Sessions", "Social Rides", "Confidence Building"],
-      beginnerFriendly: true,
-      membershipFee: "$70/year",
-      kitColors: ["Purple", "Pink", "White"],
-      image: "/womens-cycling-network-sydney-group.png",
-    },
-  ]
+  }
 
+  // Merge real backend data with mock enhancements
+  const clubs = useMemo(() => {
+    if (!discoveryData?.clubs) return []
+
+    return discoveryData.clubs.map((club) => {
+      const enhancement = mockEnhancements[club.id] || {}
+      return {
+        id: club.id,
+        name: club.name,
+        description: club.description || enhancement.description || "A cycling club in Sydney",
+        area: club.city || enhancement.area || "Sydney",
+        members: enhancement.members || 50,
+        established: enhancement.established || "2020",
+        focus: enhancement.focus || "Cycling",
+        pace: enhancement.pace || "Mixed",
+        weeklyRides: enhancement.weeklyRides || 2,
+        meetingDay: enhancement.meetingDay || "TBD",
+        contact: enhancement.contact || "contact@club.com",
+        phone: enhancement.phone || "(02) 0000 0000",
+        website: enhancement.website || "club.com",
+        rideTypes: enhancement.rideTypes || ["Group Rides", "Social Rides"],
+        beginnerFriendly: enhancement.beginnerFriendly !== undefined ? enhancement.beginnerFriendly : true,
+        membershipFee: enhancement.membershipFee || "$80/year",
+        kitColors: enhancement.kitColors || ["Blue", "White"],
+        image: club.logoUrl || enhancement.image || "/placeholder.svg",
+      }
+    })
+  }, [discoveryData])
+
+  // Apply client-side filters (pace and beginner-friendly)
+  const filteredClubs = useMemo(() => {
+    let filtered = clubs
+
+    // Pace filter
+    if (paceValue && paceValue !== "all") {
+      filtered = filtered.filter((club) => club.pace.toLowerCase() === paceValue.toLowerCase())
+    }
+
+    // Beginner friendly filter
+    if (beginnerFriendlyValue && beginnerFriendlyValue !== "all") {
+      const showBeginnerFriendly = beginnerFriendlyValue === "yes"
+      filtered = filtered.filter((club) => club.beginnerFriendly === showBeginnerFriendly)
+    }
+
+    return filtered
+  }, [clubs, paceValue, beginnerFriendlyValue])
   const handleClubAction = (club: any) => {
     if (isMemberOfClub(club.id)) {
       alert("You are already a member of this club")
@@ -458,7 +445,47 @@ export default function ClubDirectoryPage() {
 
         {/* Clubs Grid */}
         <div className="space-y-6">
-          {cyclingClubs.map((club, index) => (
+          {/* Loading State */}
+          {isLoading && (
+            <div className="flex flex-col items-center justify-center py-12">
+              <Loader2 className="h-8 w-8 animate-spin text-blue-600 mb-4" />
+              <p className="text-gray-600">Loading clubs...</p>
+            </div>
+          )}
+
+          {/* Error State */}
+          {isError && (
+            <Card className="border-red-200 bg-red-50">
+              <CardContent className="flex items-center gap-3 py-6">
+                <AlertCircle className="h-5 w-5 text-red-600" />
+                <div>
+                  <p className="font-medium text-red-900">Failed to load clubs</p>
+                  <p className="text-sm text-red-700">{error instanceof Error ? error.message : 'Please try again later'}</p>
+                </div>
+              </CardContent>
+            </Card>
+          )}
+
+          {/* Empty State */}
+          {!isLoading && !isError && filteredClubs.length === 0 && (
+            <Card className="border-gray-200">
+              <CardContent className="flex flex-col items-center justify-center py-12">
+                <Users className="h-12 w-12 text-gray-400 mb-4" />
+                <p className="text-lg font-medium text-gray-900 mb-2">No clubs found</p>
+                <p className="text-gray-600 text-center max-w-md">
+                  Try adjusting your filters or search terms to find clubs that match your interests.
+                </p>
+                {getActiveFiltersCount() > 0 && (
+                  <Button variant="outline" onClick={clearAllFilters} className="mt-4">
+                    Clear All Filters
+                  </Button>
+                )}
+              </CardContent>
+            </Card>
+          )}
+
+          {/* Clubs List */}
+          {!isLoading && !isError && filteredClubs.map((club, index) => (
             <Card key={index} className="hover:shadow-lg transition-shadow overflow-hidden p-0">
               <div className="flex flex-col md:flex-row">
                 {/* Image Section */}
