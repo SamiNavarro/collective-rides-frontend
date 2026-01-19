@@ -131,4 +131,11 @@ export interface IMembershipRepository {
      * @returns True if user has pending membership request
      */
     hasPendingMembershipRequest(clubId: string, userId: string): Promise<boolean>;
+    /**
+     * Get club member count (active members only)
+     *
+     * @param clubId - Club ID
+     * @returns Number of active members
+     */
+    getClubMemberCount(clubId: string): Promise<number>;
 }

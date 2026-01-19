@@ -130,9 +130,10 @@ export class MembershipService {
       );
     }
 
-    // Remove membership
-    const updatedMembership = await this.membershipRepository.removeMembership(
-      membership.membershipId,
+    // Remove membership (use clubId and userId for efficiency)
+    const updatedMembership = await this.membershipRepository.removeMembershipByClubAndUser(
+      clubId,
+      authContext.userId,
       authContext.userId,
       'Voluntary departure'
     );

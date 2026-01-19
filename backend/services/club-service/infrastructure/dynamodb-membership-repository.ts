@@ -408,9 +408,122 @@ export class DynamoDBMembershipRepository implements IMembershipRepository {
     processedBy?: string,
     reason?: string
   ): Promise<ClubMembership> {
-    // This would require implementing membership lookup by ID and update logic
-    // For Phase 2.2 MVP, we'll implement a simplified version
-    throw new Error('updateMembershipStatus not fully implemented');
+    const startTime = Date.now();
+
+    try {
+      // First, we need to find the membership by scanning for the membershipId
+      // This is inefficient but works for MVP - in production, add a GSI on membershipId
+      const scanCommand = new QueryCommand({
+        TableName: this.tableName,
+        IndexName: 'GSI1',
+        FilterExpression: 'membershipId = :membershipId',
+        ExpressionAttributeValues: {
+          ':membershipId': membershipId,
+        },
+        Limit: 1,
+      });
+
+      // Try to find membership across all users
+      // This is a workaround - ideally we'd have a GSI on membershipId
+      // For now, we'll need the clubId and userId to be passed or stored differently
+      throw new MembershipNotFoundError(`Cannot update membership ${membershipId} - requires clubId and userId`);
+    } catch (error) {
+      const duration = Date.now() - startTime;
+      logStructured('ERROR', 'Failed to update membership status', {
+        membershipId,
+        status,
+        error: error instanceof Error ? error.message : 'Unknown error',
+        duration,
+        operation: 'update_membership_status',
+      });
+      throw error;
+    }
+  }
+
+  /**
+   * Update membership status by club and user (more efficient)
+   */
+  async updateMembershipStatusByClubAndUser(
+    clubId: string,
+    userId: string,
+    status: MembershipStatus,
+    processedBy?: string,
+    reason?: string
+  ): Promise<ClubMembership> {
+    const startTime = Date.now();
+
+    try {
+      // Get existing membership
+      const membership = await this.getMembershipByClubAndUser(clubId, userId);
+      if (!membership) {
+        throw new MembershipNotFoundError(`Membership not found for club ${clubId} and user ${userId}`);
+      }
+
+      const now = new Date().toISOString();
+      const updatedMembership: ClubMembership = {
+        ...membership,
+        status,
+        updatedAt: now,
+        processedBy,
+        processedAt: processedBy ? now : membership.processedAt,
+        reason: reason || membership.reason,
+      };
+
+      // Update all three items atomically
+      const canonicalItem = this.membershipToCanonicalItem(updatedMembership);
+      const userIndexItem = this.membershipToUserIndexItem(updatedMembership);
+      const clubMemberIndexItem = this.membershipToClubMemberIndexItem(updatedMembership);
+
+      const command = new TransactWriteCommand({
+        TransactItems: [
+          {
+            Put: {
+              TableName: this.tableName,
+              Item: canonicalItem,
+            },
+          },
+          {
+            Put: {
+              TableName: this.tableName,
+              Item: userIndexItem,
+            },
+          },
+          {
+            Put: {
+              TableName: this.tableName,
+              Item: clubMemberIndexItem,
+            },
+          },
+        ],
+      });
+
+      await this.dynamoClient.send(command);
+      const duration = Date.now() - startTime;
+
+      logStructured('INFO', 'Membership status updated in DynamoDB', {
+        clubId,
+        userId,
+        membershipId: membership.membershipId,
+        oldStatus: membership.status,
+        newStatus: status,
+        processedBy,
+        duration,
+        operation: 'update_membership_status_by_club_and_user',
+      });
+
+      return updatedMembership;
+    } catch (error) {
+      const duration = Date.now() - startTime;
+      logStructured('ERROR', 'Failed to update membership status by club and user', {
+        clubId,
+        userId,
+        status,
+        error: error instanceof Error ? error.message : 'Unknown error',
+        duration,
+        operation: 'update_membership_status_by_club_and_user',
+      });
+      throw error;
+    }
   }
 
   /**
@@ -418,6 +531,13 @@ export class DynamoDBMembershipRepository implements IMembershipRepository {
    */
   async removeMembership(membershipId: string, removedBy: string, reason?: string): Promise<ClubMembership> {
     return this.updateMembershipStatus(membershipId, MembershipStatus.REMOVED, removedBy, reason);
+  }
+
+  /**
+   * Remove membership by club and user (more efficient)
+   */
+  async removeMembershipByClubAndUser(clubId: string, userId: string, removedBy: string, reason?: string): Promise<ClubMembership> {
+    return this.updateMembershipStatusByClubAndUser(clubId, userId, MembershipStatus.REMOVED, removedBy, reason);
   }
 
   /**

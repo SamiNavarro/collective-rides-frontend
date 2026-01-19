@@ -158,17 +158,20 @@ export function createErrorResponse(
  * 
  * @param message - Validation error message
  * @param requestId - Optional request ID
+ * @param origin - Request origin for CORS
  * @returns API Gateway proxy result
  */
 export function createValidationErrorResponse(
   message: string,
-  requestId?: string
+  requestId?: string,
+  origin?: string
 ): APIGatewayProxyResult {
   return createErrorResponse(
     ApiErrorType.VALIDATION_ERROR,
     message,
     HttpStatusCode.BAD_REQUEST,
-    requestId
+    requestId,
+    origin
   );
 }
 
@@ -177,17 +180,20 @@ export function createValidationErrorResponse(
  * 
  * @param message - Error message (default: 'Unauthorized')
  * @param requestId - Optional request ID
+ * @param origin - Request origin for CORS
  * @returns API Gateway proxy result
  */
 export function createUnauthorizedResponse(
   message: string = 'Unauthorized',
-  requestId?: string
+  requestId?: string,
+  origin?: string
 ): APIGatewayProxyResult {
   return createErrorResponse(
     ApiErrorType.UNAUTHORIZED,
     message,
     HttpStatusCode.UNAUTHORIZED,
-    requestId
+    requestId,
+    origin
   );
 }
 
@@ -196,17 +202,20 @@ export function createUnauthorizedResponse(
  * 
  * @param message - Error message (default: 'Forbidden')
  * @param requestId - Optional request ID
+ * @param origin - Request origin for CORS
  * @returns API Gateway proxy result
  */
 export function createForbiddenResponse(
   message: string = 'Forbidden',
-  requestId?: string
+  requestId?: string,
+  origin?: string
 ): APIGatewayProxyResult {
   return createErrorResponse(
     ApiErrorType.FORBIDDEN,
     message,
     HttpStatusCode.FORBIDDEN,
-    requestId
+    requestId,
+    origin
   );
 }
 
@@ -215,17 +224,20 @@ export function createForbiddenResponse(
  * 
  * @param message - Error message (default: 'Not found')
  * @param requestId - Optional request ID
+ * @param origin - Request origin for CORS
  * @returns API Gateway proxy result
  */
 export function createNotFoundResponse(
   message: string = 'Not found',
-  requestId?: string
+  requestId?: string,
+  origin?: string
 ): APIGatewayProxyResult {
   return createErrorResponse(
     ApiErrorType.NOT_FOUND,
     message,
     HttpStatusCode.NOT_FOUND,
-    requestId
+    requestId,
+    origin
   );
 }
 
@@ -234,17 +246,20 @@ export function createNotFoundResponse(
  * 
  * @param message - Error message (default: 'Internal server error')
  * @param requestId - Optional request ID
+ * @param origin - Request origin for CORS
  * @returns API Gateway proxy result
  */
 export function createInternalErrorResponse(
   message: string = 'Internal server error',
-  requestId?: string
+  requestId?: string,
+  origin?: string
 ): APIGatewayProxyResult {
   return createErrorResponse(
     ApiErrorType.INTERNAL_ERROR,
     message,
     HttpStatusCode.INTERNAL_SERVER_ERROR,
-    requestId
+    requestId,
+    origin
   );
 }
 
@@ -253,9 +268,10 @@ export function createInternalErrorResponse(
  * 
  * @param error - Error object
  * @param requestId - Request ID for logging
+ * @param origin - Request origin for CORS
  * @returns API Gateway proxy result
  */
-export function handleLambdaError(error: unknown, requestId?: string): APIGatewayProxyResult {
+export function handleLambdaError(error: unknown, requestId?: string, origin?: string): APIGatewayProxyResult {
   console.error('Lambda error:', error, { requestId });
   
   if (error instanceof Error) {
@@ -263,24 +279,24 @@ export function handleLambdaError(error: unknown, requestId?: string): APIGatewa
     
     // Map specific error messages to HTTP status codes
     if (message.includes('Authentication required') || message.includes('JWT')) {
-      return createUnauthorizedResponse(message, requestId);
+      return createUnauthorizedResponse(message, requestId, origin);
     }
     
     if (message.includes('privileges required') || message.includes('Forbidden')) {
-      return createForbiddenResponse(message, requestId);
+      return createForbiddenResponse(message, requestId, origin);
     }
     
     if (message.includes('not found') || message.includes('Not found')) {
-      return createNotFoundResponse(message, requestId);
+      return createNotFoundResponse(message, requestId, origin);
     }
     
     if (message.includes('validation') || message.includes('Invalid')) {
-      return createValidationErrorResponse(message, requestId);
+      return createValidationErrorResponse(message, requestId, origin);
     }
   }
   
   // Default to internal server error
-  return createInternalErrorResponse('An unexpected error occurred', requestId);
+  return createInternalErrorResponse('An unexpected error occurred', requestId, origin);
 }
 
 /**

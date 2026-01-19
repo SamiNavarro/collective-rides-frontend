@@ -42,6 +42,7 @@ export declare class ClubServiceConstruct extends Construct {
     readonly listInvitationsFunction: lambdaNodejs.NodejsFunction;
     readonly getMembershipsFunction: lambdaNodejs.NodejsFunction;
     readonly processJoinRequestFunction: lambdaNodejs.NodejsFunction;
+    readonly getUserClubsFunction: lambdaNodejs.NodejsFunction;
     constructor(scope: Construct, id: string, props: ClubServiceProps);
     /**
      * Tag all functions for resource management

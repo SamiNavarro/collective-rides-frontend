@@ -36,11 +36,13 @@ const membershipService = new MembershipService(membershipRepository, clubReposi
  */
 export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> {
   const requestId = event.requestContext.requestId;
+  const origin = event.headers.origin || event.headers.Origin;
   
   logStructured('INFO', 'Processing join club request', {
     requestId,
     httpMethod: event.httpMethod,
     path: event.path,
+    origin,
   });
   
   try {
@@ -95,14 +97,7 @@ export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayPr
       timestamp: new Date().toISOString(),
     };
 
-    return {
-      statusCode: membership.status === 'active' ? 201 : 202, // 201 for immediate join, 202 for pending
-      headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*',
-      },
-      body: JSON.stringify(response),
-    };
+    return createSuccessResponse(response.data, membership.status === 'active' ? 201 : 202, origin);
   } catch (error) {
     logStructured('ERROR', 'Error processing join club request', {
       requestId,
@@ -110,6 +105,6 @@ export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayPr
       error: error instanceof Error ? error.message : 'Unknown error',
     });
 
-    return handleLambdaError(error, requestId);
+    return handleLambdaError(error, requestId, origin);
   }
 }

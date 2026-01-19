@@ -76,6 +76,10 @@ export declare class DynamoDBMembershipRepository implements IMembershipReposito
      */
     hasPendingMembershipRequest(clubId: string, userId: string): Promise<boolean>;
     /**
+     * Get club member count (active members only)
+     */
+    getClubMemberCount(clubId: string): Promise<number>;
+    /**
      * Convert DynamoDB canonical item to Membership
      */
     private dynamoItemToMembership;

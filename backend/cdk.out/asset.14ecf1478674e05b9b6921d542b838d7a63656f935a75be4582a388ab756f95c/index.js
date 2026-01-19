@@ -1,0 +1,220 @@
+"use strict";
+var __defProp = Object.defineProperty;
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __getOwnPropNames = Object.getOwnPropertyNames;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
+};
+var __copyProps = (to, from, except, desc) => {
+  if (from && typeof from === "object" || typeof from === "function") {
+    for (let key of __getOwnPropNames(from))
+      if (!__hasOwnProp.call(to, key) && key !== except)
+        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
+  }
+  return to;
+};
+var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
+
+// services/ride-service/handlers/evidence/link-manual-evidence.ts
+var link_manual_evidence_exports = {};
+__export(link_manual_evidence_exports, {
+  handler: () => handler
+});
+module.exports = __toCommonJS(link_manual_evidence_exports);
+
+// shared/utils/lambda-utils.ts
+function getCorsHeaders(origin) {
+  const allowedOrigins = [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+    "https://collective-rides-frontend.vercel.app",
+    "https://sydneycycles.com",
+    "https://collectiverides.com"
+  ];
+  let allowOrigin = "http://localhost:3000";
+  if (origin) {
+    if (allowedOrigins.includes(origin)) {
+      allowOrigin = origin;
+    } else if (origin.endsWith(".vercel.app") && origin.startsWith("https://")) {
+      allowOrigin = origin;
+    }
+  }
+  return {
+    "Content-Type": "application/json",
+    "Access-Control-Allow-Origin": allowOrigin,
+    "Access-Control-Allow-Credentials": "true",
+    "Access-Control-Allow-Headers": "Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent",
+    "Access-Control-Allow-Methods": "GET,POST,PUT,DELETE,OPTIONS"
+  };
+}
+function createResponse(statusCode, body, origin) {
+  return {
+    statusCode,
+    headers: getCorsHeaders(origin),
+    body: JSON.stringify(body)
+  };
+}
+function parseJSON(body) {
+  if (!body) {
+    throw new Error("Request body is required");
+  }
+  try {
+    return JSON.parse(body);
+  } catch (error) {
+    throw new Error("Invalid JSON in request body");
+  }
+}
+
+// shared/auth/jwt-utils.ts
+function extractJwtClaims(authorizerContext) {
+  const { claims } = authorizerContext;
+  if (!claims) {
+    throw new Error("No JWT claims found in authorizer context");
+  }
+  if (!claims.sub) {
+    throw new Error("Missing required claim: sub");
+  }
+  if (!claims.email) {
+    throw new Error("Missing required claim: email");
+  }
+  if (!claims.iat) {
+    throw new Error("Missing required claim: iat");
+  }
+  if (!claims.exp) {
+    throw new Error("Missing required claim: exp");
+  }
+  let iat;
+  let exp;
+  if (typeof claims.iat === "string") {
+    if (/^\d+$/.test(claims.iat)) {
+      iat = parseInt(claims.iat, 10);
+    } else {
+      iat = Math.floor(new Date(claims.iat).getTime() / 1e3);
+    }
+  } else {
+    iat = Number(claims.iat);
+  }
+  if (typeof claims.exp === "string") {
+    if (/^\d+$/.test(claims.exp)) {
+      exp = parseInt(claims.exp, 10);
+    } else {
+      exp = Math.floor(new Date(claims.exp).getTime() / 1e3);
+    }
+  } else {
+    exp = Number(claims.exp);
+  }
+  if (isNaN(iat) || isNaN(exp)) {
+    throw new Error("Invalid timestamp claims");
+  }
+  const now = Math.floor(Date.now() / 1e3);
+  if (exp < now) {
+    throw new Error("JWT token has expired");
+  }
+  return {
+    sub: claims.sub,
+    email: claims.email,
+    iat,
+    exp,
+    iss: claims.iss || "",
+    aud: claims.aud || "",
+    "custom:system_role": claims["custom:system_role"]
+  };
+}
+function getUserIdFromClaims(claims) {
+  return claims.sub;
+}
+function getEmailFromClaims(claims) {
+  return claims.email;
+}
+
+// shared/auth/auth-context.ts
+async function getAuthContext(event) {
+  return createAuthContext(event.requestContext);
+}
+function createAuthContext(requestContext) {
+  if (!requestContext.authorizer) {
+    return {
+      userId: "",
+      email: "",
+      systemRole: "User" /* USER */,
+      isAuthenticated: false,
+      isSiteAdmin: false
+    };
+  }
+  try {
+    const claims = extractJwtClaims(requestContext.authorizer);
+    const userId = getUserIdFromClaims(claims);
+    const email = getEmailFromClaims(claims);
+    const systemRole = "User" /* USER */;
+    return {
+      userId,
+      email,
+      systemRole,
+      isAuthenticated: true,
+      isSiteAdmin: false
+      // Will be updated by service layer
+    };
+  } catch (error) {
+    throw new Error(`Failed to create auth context: ${error instanceof Error ? error.message : "Unknown error"}`);
+  }
+}
+
+// shared/utils/id-generator.ts
+var import_crypto = require("crypto");
+function generateId(prefix) {
+  const timestamp = Date.now().toString(36);
+  const random = (0, import_crypto.randomBytes)(6).toString("hex");
+  return `${prefix}_${timestamp}_${random}`;
+}
+
+// services/ride-service/handlers/evidence/link-manual-evidence.ts
+var handler = async (event) => {
+  try {
+    const authContext = await getAuthContext(event);
+    const clubId = event.pathParameters?.clubId;
+    const rideId = event.pathParameters?.rideId;
+    const userId = event.pathParameters?.userId;
+    if (!clubId || !rideId || !userId) {
+      return createResponse(400, {
+        success: false,
+        error: "Club ID, Ride ID, and User ID are required"
+      });
+    }
+    const request = parseJSON(event.body);
+    const evidenceId = generateId("evidence");
+    return createResponse(200, {
+      success: true,
+      data: {
+        participationId: `part_${rideId}_${userId}`,
+        userId,
+        attendanceStatus: "attended",
+        evidence: {
+          type: "manual",
+          refId: evidenceId,
+          matchType: "manual",
+          linkedAt: (/* @__PURE__ */ new Date()).toISOString()
+        },
+        confirmedBy: authContext.userId,
+        confirmedAt: (/* @__PURE__ */ new Date()).toISOString()
+      }
+    });
+  } catch (error) {
+    console.error("Link manual evidence error:", error);
+    if (error instanceof Error) {
+      return createResponse(400, {
+        success: false,
+        error: error.message
+      });
+    }
+    return createResponse(500, {
+      success: false,
+      error: "Internal server error"
+    });
+  }
+};
+// Annotate the CommonJS export names for ESM import in node:
+0 && (module.exports = {
+  handler
+});

@@ -107,8 +107,19 @@ export default function MyClubsPage() {
     !clubs?.some(club => club.clubId === app.clubId && club.membershipStatus === 'active')
   ) || [];
 
+  // Filter out removed clubs (only show active, pending, or suspended)
+  const activeClubs = clubs?.filter(club => 
+    club.membershipStatus !== 'removed'
+  ) || [];
+
+  console.log('📊 Filtered clubs:', {
+    total: clubs?.length || 0,
+    active: activeClubs.length,
+    removed: (clubs?.length || 0) - activeClubs.length,
+  });
+
   // Handle empty state
-  if (!clubs || clubs.length === 0) {
+  if (!activeClubs || activeClubs.length === 0) {
     // Check if user has pending applications
     const hasPendingApplications = activePendingApplications.length > 0
 
@@ -277,11 +288,11 @@ export default function MyClubsPage() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Users className="w-5 h-5" />
-                Your Clubs ({clubs.length})
+                Your Clubs ({activeClubs.length})
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              {clubs.map((membership) => (
+              {activeClubs.map((membership) => (
                 <div
                   key={membership.clubId}
                   className="p-4 rounded-lg border border-border hover:border-primary/50 transition-colors group"

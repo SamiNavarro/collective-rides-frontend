@@ -92,6 +92,6 @@ export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayPr
       error: error instanceof Error ? error.message : 'Unknown error',
     });
 
-    return handleLambdaError(error, requestId);
+    return handleLambdaError(error, requestId, origin);
   }
 }

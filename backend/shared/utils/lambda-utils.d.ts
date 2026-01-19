@@ -14,9 +14,10 @@ import { HttpStatusCode, ApiErrorType } from '../types/api';
  *
  * @param statusCode - HTTP status code
  * @param body - Response body
+ * @param origin - Request origin for CORS
  * @returns API Gateway proxy result
  */
-export declare function createResponse(statusCode: number, body: any): APIGatewayProxyResult;
+export declare function createResponse(statusCode: number, body: any, origin?: string): APIGatewayProxyResult;
 /**
  * Parse JSON from request body with error handling
  *
@@ -38,9 +39,10 @@ export declare function parseJsonBody<T>(event: {
  *
  * @param data - Response data
  * @param statusCode - HTTP status code (default: 200)
+ * @param origin - Request origin for CORS
  * @returns API Gateway proxy result
  */
-export declare function createSuccessResponse<T>(data: T, statusCode?: HttpStatusCode): APIGatewayProxyResult;
+export declare function createSuccessResponse<T>(data: T, statusCode?: HttpStatusCode, origin?: string): APIGatewayProxyResult;
 /**
  * Create an error API response
  *
@@ -48,9 +50,10 @@ export declare function createSuccessResponse<T>(data: T, statusCode?: HttpStatu
  * @param message - Error message
  * @param statusCode - HTTP status code
  * @param requestId - Optional request ID
+ * @param origin - Request origin for CORS
  * @returns API Gateway proxy result
  */
-export declare function createErrorResponse(error: ApiErrorType | string, message: string, statusCode: HttpStatusCode, requestId?: string): APIGatewayProxyResult;
+export declare function createErrorResponse(error: ApiErrorType | string, message: string, statusCode: HttpStatusCode, requestId?: string, origin?: string): APIGatewayProxyResult;
 /**
  * Create a validation error response
  *

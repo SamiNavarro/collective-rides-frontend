@@ -24,7 +24,7 @@
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::924748161040:role/cdk-hnb659fds-deploy-role-924748161040-us-east-2",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::924748161040:role/cdk-hnb659fds-cfn-exec-role-924748161040-us-east-2",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-924748161040-us-east-2/1000a9f1eccf8cca4053f86f7c211ce725e554e00af630ff8f022af3a474c142.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-924748161040-us-east-2/14b053b84c9932cfe18e3432279866e2cb4f90373af87f929f6786a87326c1a6.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -116,7 +116,7 @@
         "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Deployment/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "RestApiSydneyCyclesRestApiDeployment050DCABA3fe4136531c597b20aa1178fd43e959f"
+            "data": "RestApiSydneyCyclesRestApiDeployment050DCABA412cc9197a87b02c1982073176eb863b"
           }
         ],
         "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/DeploymentStage.development/Resource": [
@@ -279,6 +279,36 @@
           {
             "type": "aws:cdk:logicalId",
             "data": "RestApiSydneyCyclesRestApiv1usersmeinvitationsGETB7F4E668"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/users/me/clubs/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1usersmeclubs23E1CD31"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/users/me/clubs/OPTIONS/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1usersmeclubsOPTIONSA880120F"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/users/me/clubs/GET/ApiPermission.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.GET..v1.users.me.clubs": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1usersmeclubsGETApiPermissionSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514GETv1usersmeclubs289758DB"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/users/me/clubs/GET/ApiPermission.Test.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.GET..v1.users.me.clubs": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1usersmeclubsGETApiPermissionTestSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514GETv1usersmeclubs24108183"
+          }
+        ],
+        "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/users/me/clubs/GET/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "RestApiSydneyCyclesRestApiv1usersmeclubsGETC3F9AA20"
           }
         ],
         "/SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/users/me/rides/Resource": [
@@ -1851,6 +1881,30 @@
           {
             "type": "aws:cdk:logicalId",
             "data": "ClubServiceProcessJoinRequestFunctionLogRetention58B5B205"
+          }
+        ],
+        "/SydneyCyclesStack/ClubService/GetUserClubsFunction/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClubServiceGetUserClubsFunctionServiceRole431CAD93"
+          }
+        ],
+        "/SydneyCyclesStack/ClubService/GetUserClubsFunction/ServiceRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClubServiceGetUserClubsFunctionServiceRoleDefaultPolicyC57D6FE9"
+          }
+        ],
+        "/SydneyCyclesStack/ClubService/GetUserClubsFunction/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClubServiceGetUserClubsFunction922EC1DD"
+          }
+        ],
+        "/SydneyCyclesStack/ClubService/GetUserClubsFunction/LogRetention/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "ClubServiceGetUserClubsFunctionLogRetention61F07216"
           }
         ],
         "/SydneyCyclesStack/RideService/CreateRideHandler/ServiceRole/Resource": [

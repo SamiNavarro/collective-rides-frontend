@@ -454,7 +454,7 @@
     "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Account"
    }
   },
-  "RestApiSydneyCyclesRestApiDeployment050DCABA3fe4136531c597b20aa1178fd43e959f": {
+  "RestApiSydneyCyclesRestApiDeployment050DCABA412cc9197a87b02c1982073176eb863b": {
    "Type": "AWS::ApiGateway::Deployment",
    "Properties": {
     "Description": "Sydney Cycling Platform v1 REST API - development",
@@ -581,6 +581,9 @@
     "RestApiSydneyCyclesRestApiv1usersidOPTIONSAE932062",
     "RestApiSydneyCyclesRestApiv1usersidPUTA07523DC",
     "RestApiSydneyCyclesRestApiv1usersidC1A3F27A",
+    "RestApiSydneyCyclesRestApiv1usersmeclubsGETC3F9AA20",
+    "RestApiSydneyCyclesRestApiv1usersmeclubsOPTIONSA880120F",
+    "RestApiSydneyCyclesRestApiv1usersmeclubs23E1CD31",
     "RestApiSydneyCyclesRestApiv1usersmeGET2E340FE5",
     "RestApiSydneyCyclesRestApiv1usersmeinvitationsGETB7F4E668",
     "RestApiSydneyCyclesRestApiv1usersmeinvitationsOPTIONSBC0CECD4",
@@ -616,7 +619,7 @@
      "Format": "{\"requestId\":\"$context.requestId\",\"ip\":\"$context.identity.sourceIp\",\"user\":\"$context.identity.user\",\"caller\":\"$context.identity.caller\",\"requestTime\":\"$context.requestTime\",\"httpMethod\":\"$context.httpMethod\",\"resourcePath\":\"$context.resourcePath\",\"status\":\"$context.status\",\"protocol\":\"$context.protocol\",\"responseLength\":\"$context.responseLength\"}"
     },
     "DeploymentId": {
-     "Ref": "RestApiSydneyCyclesRestApiDeployment050DCABA3fe4136531c597b20aa1178fd43e959f"
+     "Ref": "RestApiSydneyCyclesRestApiDeployment050DCABA412cc9197a87b02c1982073176eb863b"
     },
     "MethodSettings": [
      {
@@ -1575,6 +1578,188 @@
    },
    "Metadata": {
     "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/users/me/invitations/GET/Resource"
+   }
+  },
+  "RestApiSydneyCyclesRestApiv1usersmeclubs23E1CD31": {
+   "Type": "AWS::ApiGateway::Resource",
+   "Properties": {
+    "ParentId": {
+     "Ref": "RestApiSydneyCyclesRestApiv1usersme4315889D"
+    },
+    "PathPart": "clubs",
+    "RestApiId": {
+     "Ref": "RestApiSydneyCyclesRestApiC3FBF1D6"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/users/me/clubs/Resource"
+   }
+  },
+  "RestApiSydneyCyclesRestApiv1usersmeclubsOPTIONSA880120F": {
+   "Type": "AWS::ApiGateway::Method",
+   "Properties": {
+    "ApiKeyRequired": false,
+    "AuthorizationType": "NONE",
+    "HttpMethod": "OPTIONS",
+    "Integration": {
+     "IntegrationResponses": [
+      {
+       "ResponseParameters": {
+        "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
+        "method.response.header.Access-Control-Allow-Origin": "'http://localhost:3000'",
+        "method.response.header.Vary": "'Origin'",
+        "method.response.header.Access-Control-Allow-Methods": "'GET,POST,PUT,DELETE,OPTIONS'",
+        "method.response.header.Access-Control-Allow-Credentials": "'true'",
+        "method.response.header.Access-Control-Max-Age": "'3600'"
+       },
+       "ResponseTemplates": {
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+       },
+       "StatusCode": "204"
+      }
+     ],
+     "RequestTemplates": {
+      "application/json": "{ statusCode: 200 }"
+     },
+     "Type": "MOCK"
+    },
+    "MethodResponses": [
+     {
+      "ResponseParameters": {
+       "method.response.header.Access-Control-Allow-Headers": true,
+       "method.response.header.Access-Control-Allow-Origin": true,
+       "method.response.header.Vary": true,
+       "method.response.header.Access-Control-Allow-Methods": true,
+       "method.response.header.Access-Control-Allow-Credentials": true,
+       "method.response.header.Access-Control-Max-Age": true
+      },
+      "StatusCode": "204"
+     }
+    ],
+    "ResourceId": {
+     "Ref": "RestApiSydneyCyclesRestApiv1usersmeclubs23E1CD31"
+    },
+    "RestApiId": {
+     "Ref": "RestApiSydneyCyclesRestApiC3FBF1D6"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/users/me/clubs/OPTIONS/Resource"
+   }
+  },
+  "RestApiSydneyCyclesRestApiv1usersmeclubsGETApiPermissionSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514GETv1usersmeclubs289758DB": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "ClubServiceGetUserClubsFunction922EC1DD",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:aws:execute-api:us-east-2:924748161040:",
+       {
+        "Ref": "RestApiSydneyCyclesRestApiC3FBF1D6"
+       },
+       "/",
+       {
+        "Ref": "RestApiSydneyCyclesRestApiDeploymentStagedevelopmentDF98341E"
+       },
+       "/GET/v1/users/me/clubs"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/users/me/clubs/GET/ApiPermission.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.GET..v1.users.me.clubs"
+   }
+  },
+  "RestApiSydneyCyclesRestApiv1usersmeclubsGETApiPermissionTestSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514GETv1usersmeclubs24108183": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "ClubServiceGetUserClubsFunction922EC1DD",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:aws:execute-api:us-east-2:924748161040:",
+       {
+        "Ref": "RestApiSydneyCyclesRestApiC3FBF1D6"
+       },
+       "/test-invoke-stage/GET/v1/users/me/clubs"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/users/me/clubs/GET/ApiPermission.Test.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.GET..v1.users.me.clubs"
+   }
+  },
+  "RestApiSydneyCyclesRestApiv1usersmeclubsGETC3F9AA20": {
+   "Type": "AWS::ApiGateway::Method",
+   "Properties": {
+    "AuthorizationType": "COGNITO_USER_POOLS",
+    "AuthorizerId": {
+     "Ref": "RestApiCognitoAuthorizerD2BF1AF9"
+    },
+    "HttpMethod": "GET",
+    "Integration": {
+     "IntegrationHttpMethod": "POST",
+     "Type": "AWS_PROXY",
+     "Uri": {
+      "Fn::Join": [
+       "",
+       [
+        "arn:aws:apigateway:us-east-2:lambda:path/2015-03-31/functions/",
+        {
+         "Fn::GetAtt": [
+          "ClubServiceGetUserClubsFunction922EC1DD",
+          "Arn"
+         ]
+        },
+        "/invocations"
+       ]
+      ]
+     }
+    },
+    "MethodResponses": [
+     {
+      "StatusCode": "200"
+     },
+     {
+      "StatusCode": "400"
+     },
+     {
+      "StatusCode": "401"
+     },
+     {
+      "StatusCode": "500"
+     }
+    ],
+    "RequestParameters": {
+     "method.request.querystring.status": false
+    },
+    "ResourceId": {
+     "Ref": "RestApiSydneyCyclesRestApiv1usersmeclubs23E1CD31"
+    },
+    "RestApiId": {
+     "Ref": "RestApiSydneyCyclesRestApiC3FBF1D6"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/users/me/clubs/GET/Resource"
    }
   },
   "RestApiSydneyCyclesRestApiv1usersmerides677B8058": {
@@ -8431,7 +8616,7 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-924748161040-us-east-2",
-     "S3Key": "b812dc0db6a7e43a9b6a75a4e9191146a2f3967c8136c18a74af387574831da4.zip"
+     "S3Key": "6ba09cdd87d2267468d94cbbc8e96934b7d4d335114ebf8559b95f4d9877828e.zip"
     },
     "Description": "Get current user profile with lazy creation",
     "Environment": {
@@ -8482,7 +8667,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "SydneyCyclesStack/UserProfileService/GetCurrentUserFunction/Resource",
-    "aws:asset:path": "asset.b812dc0db6a7e43a9b6a75a4e9191146a2f3967c8136c18a74af387574831da4",
+    "aws:asset:path": "asset.6ba09cdd87d2267468d94cbbc8e96934b7d4d335114ebf8559b95f4d9877828e",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -8632,7 +8817,7 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-924748161040-us-east-2",
-     "S3Key": "487d78312cb6c3302c9225a68d0d0c9c77b6d26de40c72dda5afccc54e2087a6.zip"
+     "S3Key": "ebed610a331fece5026eed23793241ac115173906e32e4229132dd69866e6681.zip"
     },
     "Description": "Get user profile by ID (SiteAdmin only)",
     "Environment": {
@@ -8683,7 +8868,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "SydneyCyclesStack/UserProfileService/GetUserByIdFunction/Resource",
-    "aws:asset:path": "asset.487d78312cb6c3302c9225a68d0d0c9c77b6d26de40c72dda5afccc54e2087a6",
+    "aws:asset:path": "asset.ebed610a331fece5026eed23793241ac115173906e32e4229132dd69866e6681",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -8833,7 +9018,7 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-924748161040-us-east-2",
-     "S3Key": "da3eff6bcd37fb66894c3851a2570b492c7a16ad77d3017b55680d9a29fe0576.zip"
+     "S3Key": "e177363d7cee2e13fa10d5ff8a0dc8e2c21924c2e8d904ab4711567f66da178a.zip"
     },
     "Description": "Update user profile with authorization",
     "Environment": {
@@ -8884,7 +9069,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "SydneyCyclesStack/UserProfileService/UpdateUserFunction/Resource",
-    "aws:asset:path": "asset.da3eff6bcd37fb66894c3851a2570b492c7a16ad77d3017b55680d9a29fe0576",
+    "aws:asset:path": "asset.e177363d7cee2e13fa10d5ff8a0dc8e2c21924c2e8d904ab4711567f66da178a",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -9159,7 +9344,7 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-924748161040-us-east-2",
-     "S3Key": "e93d2ee0d387c0d793404d5bacc8642035f2e4bc694b6138353a5bb801dc9b27.zip"
+     "S3Key": "b718c9fd3c9214e9e85f63302f0c91f59b64cae035c81900631b4124f8a53081.zip"
     },
     "Description": "List clubs with pagination and filtering (public endpoint)",
     "Environment": {
@@ -9210,7 +9395,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "SydneyCyclesStack/ClubService/ListClubsFunction/Resource",
-    "aws:asset:path": "asset.e93d2ee0d387c0d793404d5bacc8642035f2e4bc694b6138353a5bb801dc9b27",
+    "aws:asset:path": "asset.b718c9fd3c9214e9e85f63302f0c91f59b64cae035c81900631b4124f8a53081",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -9360,7 +9545,7 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-924748161040-us-east-2",
-     "S3Key": "ca8e1847eab0e4f1df090310d06e5f88581da9da838cfafbd28e6f8f97e41684.zip"
+     "S3Key": "fe12ca6e8e5cb87a1a2fe9a6eb310bc32d4503d3648755566f2f12fe77979a98.zip"
     },
     "Description": "Get club details by ID (public endpoint)",
     "Environment": {
@@ -9411,7 +9596,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "SydneyCyclesStack/ClubService/GetClubFunction/Resource",
-    "aws:asset:path": "asset.ca8e1847eab0e4f1df090310d06e5f88581da9da838cfafbd28e6f8f97e41684",
+    "aws:asset:path": "asset.fe12ca6e8e5cb87a1a2fe9a6eb310bc32d4503d3648755566f2f12fe77979a98",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -9561,7 +9746,7 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-924748161040-us-east-2",
-     "S3Key": "8ee8b1600adabe9ca3634fe486b009263d3e1d1c67a54c3e6d8cc69360014a2d.zip"
+     "S3Key": "7d08d0dc124e1d78fca001efaa8cc70ecdf7531acd242ac96217780cd2f42573.zip"
     },
     "Description": "Create new club (SiteAdmin only)",
     "Environment": {
@@ -9612,7 +9797,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "SydneyCyclesStack/ClubService/CreateClubFunction/Resource",
-    "aws:asset:path": "asset.8ee8b1600adabe9ca3634fe486b009263d3e1d1c67a54c3e6d8cc69360014a2d",
+    "aws:asset:path": "asset.7d08d0dc124e1d78fca001efaa8cc70ecdf7531acd242ac96217780cd2f42573",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -9762,7 +9947,7 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-924748161040-us-east-2",
-     "S3Key": "6673f93dbd216fbc54352180503604de2fa85ebbeaf8673fde83c3e23c25fa14.zip"
+     "S3Key": "c4cf53631a9bc50092a56d26149e1a3cdf27b649ec472b33e6d5e590c5fb03c4.zip"
     },
     "Description": "Update existing club (SiteAdmin only)",
     "Environment": {
@@ -9813,7 +9998,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "SydneyCyclesStack/ClubService/UpdateClubFunction/Resource",
-    "aws:asset:path": "asset.6673f93dbd216fbc54352180503604de2fa85ebbeaf8673fde83c3e23c25fa14",
+    "aws:asset:path": "asset.c4cf53631a9bc50092a56d26149e1a3cdf27b649ec472b33e6d5e590c5fb03c4",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -9963,7 +10148,7 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-924748161040-us-east-2",
-     "S3Key": "49a8c83caf91a0264c1c3642c2931c13123c1b30a891b238c61dcc647a725eab.zip"
+     "S3Key": "b51ca46969d85c5e4449180ce55b8a988b6912dbc55120ba1c67f6bba444aa8d.zip"
     },
     "Description": "Join club (authenticated users)",
     "Environment": {
@@ -10014,7 +10199,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "SydneyCyclesStack/ClubService/JoinClubFunction/Resource",
-    "aws:asset:path": "asset.49a8c83caf91a0264c1c3642c2931c13123c1b30a891b238c61dcc647a725eab",
+    "aws:asset:path": "asset.b51ca46969d85c5e4449180ce55b8a988b6912dbc55120ba1c67f6bba444aa8d",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -10164,7 +10349,7 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-924748161040-us-east-2",
-     "S3Key": "47f57981c16a49c091ac13f4c57dfd7cd2157b1478f67792c06ce602939a6b1b.zip"
+     "S3Key": "60986885e2884f422eb3a5091d4cdfdf9e2d51112804017d5a11d56eae01dcb9.zip"
     },
     "Description": "Leave club (authenticated users)",
     "Environment": {
@@ -10215,7 +10400,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "SydneyCyclesStack/ClubService/LeaveClubFunction/Resource",
-    "aws:asset:path": "asset.47f57981c16a49c091ac13f4c57dfd7cd2157b1478f67792c06ce602939a6b1b",
+    "aws:asset:path": "asset.60986885e2884f422eb3a5091d4cdfdf9e2d51112804017d5a11d56eae01dcb9",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -10365,7 +10550,7 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-924748161040-us-east-2",
-     "S3Key": "00c3a00f51b7f81b8b672abd96bd4a54cbc70cd09e518217e6f9cad879357314.zip"
+     "S3Key": "c4d7ce2f2c794d79963bdd7816468f3dd3af0e8d8520c0d90bd99eb98a16ca33.zip"
     },
     "Description": "List club members (club members)",
     "Environment": {
@@ -10416,7 +10601,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "SydneyCyclesStack/ClubService/ListMembersFunction/Resource",
-    "aws:asset:path": "asset.00c3a00f51b7f81b8b672abd96bd4a54cbc70cd09e518217e6f9cad879357314",
+    "aws:asset:path": "asset.c4d7ce2f2c794d79963bdd7816468f3dd3af0e8d8520c0d90bd99eb98a16ca33",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -10566,7 +10751,7 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-924748161040-us-east-2",
-     "S3Key": "4d57dd2615a9aaae7da0417cc8817ec60115045de80d591bc7519b77e2a8a245.zip"
+     "S3Key": "c41a75bdc3b6db4aa5b851204d5e9c567d00424ee9afc3367497bae42089b21b.zip"
     },
     "Description": "Update member role (club admins)",
     "Environment": {
@@ -10617,7 +10802,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "SydneyCyclesStack/ClubService/UpdateMemberFunction/Resource",
-    "aws:asset:path": "asset.4d57dd2615a9aaae7da0417cc8817ec60115045de80d591bc7519b77e2a8a245",
+    "aws:asset:path": "asset.c41a75bdc3b6db4aa5b851204d5e9c567d00424ee9afc3367497bae42089b21b",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -10767,7 +10952,7 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-924748161040-us-east-2",
-     "S3Key": "de5d21264b72f7cfeac8524b700362d9520936d9705b5801ab51a787bfc8ae25.zip"
+     "S3Key": "9d256957baeb8fdf00bb130622d8cf52a025802aa2e851a317e4241f91abb1af.zip"
     },
     "Description": "Remove member from club (club admins)",
     "Environment": {
@@ -10818,7 +11003,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "SydneyCyclesStack/ClubService/RemoveMemberFunction/Resource",
-    "aws:asset:path": "asset.de5d21264b72f7cfeac8524b700362d9520936d9705b5801ab51a787bfc8ae25",
+    "aws:asset:path": "asset.9d256957baeb8fdf00bb130622d8cf52a025802aa2e851a317e4241f91abb1af",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -10968,7 +11153,7 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-924748161040-us-east-2",
-     "S3Key": "4ac290b69d201acabe8eca207ceaa7a2f9c476281bca4977d5cca30e29cb35d6.zip"
+     "S3Key": "fbdf4428de91db44da853873ee3313a62ac61e019e58f2398853d29fba3bcd9d.zip"
     },
     "Description": "Invite user to club (club admins)",
     "Environment": {
@@ -11019,7 +11204,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "SydneyCyclesStack/ClubService/InviteUserFunction/Resource",
-    "aws:asset:path": "asset.4ac290b69d201acabe8eca207ceaa7a2f9c476281bca4977d5cca30e29cb35d6",
+    "aws:asset:path": "asset.fbdf4428de91db44da853873ee3313a62ac61e019e58f2398853d29fba3bcd9d",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -11169,7 +11354,7 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-924748161040-us-east-2",
-     "S3Key": "b08994ff223bab8bfba01ba79ffaea1de3ac694bb7aeae8ba19ef2596c002cc8.zip"
+     "S3Key": "014768985a81cbc27c3ab82f9db2f6cefa4639d9727842f7e855acb5a5ab729d.zip"
     },
     "Description": "Accept or decline invitation (authenticated users)",
     "Environment": {
@@ -11220,7 +11405,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "SydneyCyclesStack/ClubService/AcceptInvitationFunction/Resource",
-    "aws:asset:path": "asset.b08994ff223bab8bfba01ba79ffaea1de3ac694bb7aeae8ba19ef2596c002cc8",
+    "aws:asset:path": "asset.014768985a81cbc27c3ab82f9db2f6cefa4639d9727842f7e855acb5a5ab729d",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -11370,7 +11555,7 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-924748161040-us-east-2",
-     "S3Key": "64ecacff45aad2ba170aa20b67f813be5589b42aaec6422109c05a3d671d880a.zip"
+     "S3Key": "ca81edb38efbb5f5417e8a04603150333ec75648482964e22d6b3db04d4aef9e.zip"
     },
     "Description": "List user invitations (authenticated users)",
     "Environment": {
@@ -11421,7 +11606,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "SydneyCyclesStack/ClubService/ListInvitationsFunction/Resource",
-    "aws:asset:path": "asset.64ecacff45aad2ba170aa20b67f813be5589b42aaec6422109c05a3d671d880a",
+    "aws:asset:path": "asset.ca81edb38efbb5f5417e8a04603150333ec75648482964e22d6b3db04d4aef9e",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -11571,7 +11756,7 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-924748161040-us-east-2",
-     "S3Key": "302e8780dbd2e09d4ceb7c7cefece9628b2abe2456acad83f90f88583c903e8d.zip"
+     "S3Key": "758dce928c22b6ebcf8a192de2bda5473409bc05e551cb5a60d08a4cf681dd0d.zip"
     },
     "Description": "Get user memberships (authenticated users)",
     "Environment": {
@@ -11622,7 +11807,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "SydneyCyclesStack/ClubService/GetMembershipsFunction/Resource",
-    "aws:asset:path": "asset.302e8780dbd2e09d4ceb7c7cefece9628b2abe2456acad83f90f88583c903e8d",
+    "aws:asset:path": "asset.758dce928c22b6ebcf8a192de2bda5473409bc05e551cb5a60d08a4cf681dd0d",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -11772,7 +11957,7 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-924748161040-us-east-2",
-     "S3Key": "f6e35e6ca5ba11e9df7c7497142235086d5d7c68db2467304bd811a4bd84eaf5.zip"
+     "S3Key": "e056ddbda36757e7f23292ecc82ce3e89fbe3f229b5a3b0713c7eb789dfa916f.zip"
     },
     "Description": "Process join request (club admins)",
     "Environment": {
@@ -11823,7 +12008,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "SydneyCyclesStack/ClubService/ProcessJoinRequestFunction/Resource",
-    "aws:asset:path": "asset.f6e35e6ca5ba11e9df7c7497142235086d5d7c68db2467304bd811a4bd84eaf5",
+    "aws:asset:path": "asset.e056ddbda36757e7f23292ecc82ce3e89fbe3f229b5a3b0713c7eb789dfa916f",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -11852,6 +12037,207 @@
    },
    "Metadata": {
     "aws:cdk:path": "SydneyCyclesStack/ClubService/ProcessJoinRequestFunction/LogRetention/Resource"
+   }
+  },
+  "ClubServiceGetUserClubsFunctionServiceRole431CAD93": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "ClubService"
+     },
+     {
+      "Key": "Environment",
+      "Value": "development"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Phase",
+      "Value": "3.1-ClubNavigation"
+     },
+     {
+      "Key": "Project",
+      "Value": "SydneyCycles"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/ClubService/GetUserClubsFunction/ServiceRole/Resource"
+   }
+  },
+  "ClubServiceGetUserClubsFunctionServiceRoleDefaultPolicyC57D6FE9": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "dynamodb:BatchGetItem",
+        "dynamodb:BatchWriteItem",
+        "dynamodb:ConditionCheckItem",
+        "dynamodb:DeleteItem",
+        "dynamodb:DescribeTable",
+        "dynamodb:GetItem",
+        "dynamodb:GetRecords",
+        "dynamodb:GetShardIterator",
+        "dynamodb:PutItem",
+        "dynamodb:Query",
+        "dynamodb:Scan",
+        "dynamodb:UpdateItem"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "MainTableSydneyCyclesMainTable4AA7164E",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "MainTableSydneyCyclesMainTable4AA7164E",
+             "Arn"
+            ]
+           },
+           "/index/*"
+          ]
+         ]
+        }
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "ClubServiceGetUserClubsFunctionServiceRoleDefaultPolicyC57D6FE9",
+    "Roles": [
+     {
+      "Ref": "ClubServiceGetUserClubsFunctionServiceRole431CAD93"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/ClubService/GetUserClubsFunction/ServiceRole/DefaultPolicy/Resource"
+   }
+  },
+  "ClubServiceGetUserClubsFunction922EC1DD": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-924748161040-us-east-2",
+     "S3Key": "f9a98653c1cc287292dbd77313e56a4593b116ff7cfe981314b6a3185a1d9e78.zip"
+    },
+    "Description": "Get user clubs with hydrated data (authenticated users)",
+    "Environment": {
+     "Variables": {
+      "TABLE_NAME": {
+       "Ref": "MainTableSydneyCyclesMainTable4AA7164E"
+      },
+      "ENVIRONMENT": "development"
+     }
+    },
+    "FunctionName": "sydney-cycles-get-user-clubs-development",
+    "Handler": "index.handler",
+    "MemorySize": 256,
+    "Role": {
+     "Fn::GetAtt": [
+      "ClubServiceGetUserClubsFunctionServiceRole431CAD93",
+      "Arn"
+     ]
+    },
+    "Runtime": "nodejs24.x",
+    "Tags": [
+     {
+      "Key": "Component",
+      "Value": "ClubService"
+     },
+     {
+      "Key": "Environment",
+      "Value": "development"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Phase",
+      "Value": "3.1-ClubNavigation"
+     },
+     {
+      "Key": "Project",
+      "Value": "SydneyCycles"
+     }
+    ],
+    "Timeout": 30
+   },
+   "DependsOn": [
+    "ClubServiceGetUserClubsFunctionServiceRoleDefaultPolicyC57D6FE9",
+    "ClubServiceGetUserClubsFunctionServiceRole431CAD93"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/ClubService/GetUserClubsFunction/Resource",
+    "aws:asset:path": "asset.f9a98653c1cc287292dbd77313e56a4593b116ff7cfe981314b6a3185a1d9e78",
+    "aws:asset:is-bundled": true,
+    "aws:asset:property": "Code"
+   }
+  },
+  "ClubServiceGetUserClubsFunctionLogRetention61F07216": {
+   "Type": "Custom::LogRetention",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aFD4BFC8A",
+      "Arn"
+     ]
+    },
+    "LogGroupName": {
+     "Fn::Join": [
+      "",
+      [
+       "/aws/lambda/",
+       {
+        "Ref": "ClubServiceGetUserClubsFunction922EC1DD"
+       }
+      ]
+     ]
+    },
+    "RetentionInDays": 7
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/ClubService/GetUserClubsFunction/LogRetention/Resource"
    }
   },
   "RideServiceCreateRideHandlerServiceRoleB9575AA0": {
@@ -11967,7 +12353,7 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-924748161040-us-east-2",
-     "S3Key": "a5cece05da4da139ff91a25685dd076c0e5d1cfc412598ec915ccac7df41e251.zip"
+     "S3Key": "000c0d3c63499e04e35b9c7ab618d5ae38fa8eb0c78452c7a17e76227c210cdf.zip"
     },
     "Description": "Create new ride (draft or published)",
     "Environment": {
@@ -12015,7 +12401,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "SydneyCyclesStack/RideService/CreateRideHandler/Resource",
-    "aws:asset:path": "asset.a5cece05da4da139ff91a25685dd076c0e5d1cfc412598ec915ccac7df41e251",
+    "aws:asset:path": "asset.000c0d3c63499e04e35b9c7ab618d5ae38fa8eb0c78452c7a17e76227c210cdf",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -12159,7 +12545,7 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-924748161040-us-east-2",
-     "S3Key": "ad73b65a476bfa8a9fbfff5d60de2f0749515deed32143681bac87abcde8d5ab.zip"
+     "S3Key": "0c405d1a37b16cc67b26a209c7c0f1381df07d9b96e0b694cda78e14051ef11d.zip"
     },
     "Description": "Publish a draft ride",
     "Environment": {
@@ -12207,7 +12593,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "SydneyCyclesStack/RideService/PublishRideHandler/Resource",
-    "aws:asset:path": "asset.ad73b65a476bfa8a9fbfff5d60de2f0749515deed32143681bac87abcde8d5ab",
+    "aws:asset:path": "asset.0c405d1a37b16cc67b26a209c7c0f1381df07d9b96e0b694cda78e14051ef11d",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -12351,7 +12737,7 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-924748161040-us-east-2",
-     "S3Key": "3da9eb1d120e50390573d4b9797d21985e55337bf52891b7920fa5795160a0af.zip"
+     "S3Key": "ce3565d23ea300f49e549266faf7210592d73b2e825180a9ed58d83ff819bd32.zip"
     },
     "Description": "List rides with filtering and pagination",
     "Environment": {
@@ -12399,7 +12785,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "SydneyCyclesStack/RideService/ListRidesHandler/Resource",
-    "aws:asset:path": "asset.3da9eb1d120e50390573d4b9797d21985e55337bf52891b7920fa5795160a0af",
+    "aws:asset:path": "asset.ce3565d23ea300f49e549266faf7210592d73b2e825180a9ed58d83ff819bd32",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -12543,7 +12929,7 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-924748161040-us-east-2",
-     "S3Key": "258c6c1cb2ac30b15567df90d6f6de1c626e1384f35a2618c68ecfbd20a5d479.zip"
+     "S3Key": "2b91d4389401c9e7f654d3c9f88e4ed4bf4fcb8a3e055a46e3d3aec01495c8e6.zip"
     },
     "Description": "Get ride details by ID",
     "Environment": {
@@ -12591,7 +12977,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "SydneyCyclesStack/RideService/GetRideHandler/Resource",
-    "aws:asset:path": "asset.258c6c1cb2ac30b15567df90d6f6de1c626e1384f35a2618c68ecfbd20a5d479",
+    "aws:asset:path": "asset.2b91d4389401c9e7f654d3c9f88e4ed4bf4fcb8a3e055a46e3d3aec01495c8e6",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -12735,7 +13121,7 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-924748161040-us-east-2",
-     "S3Key": "582fb5fbe07a71beae197333603d697d3f83aee4a03d114e07773019205d38a5.zip"
+     "S3Key": "629da5a0336745ebdb1f63584e0bbd7648120a80ce90cb2fd57a0a483cb079e0.zip"
     },
     "Description": "Join a published ride",
     "Environment": {
@@ -12783,7 +13169,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "SydneyCyclesStack/RideService/JoinRideHandler/Resource",
-    "aws:asset:path": "asset.582fb5fbe07a71beae197333603d697d3f83aee4a03d114e07773019205d38a5",
+    "aws:asset:path": "asset.629da5a0336745ebdb1f63584e0bbd7648120a80ce90cb2fd57a0a483cb079e0",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -12927,7 +13313,7 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-924748161040-us-east-2",
-     "S3Key": "7ada0e5fc69009a4cfe04bf4a132200ff95cb526bec5ae61881b660ab3f3871d.zip"
+     "S3Key": "fec2560fab788f9c811aa163ff11f084967947c4fa6eb12aefdef719c1bd4337.zip"
     },
     "Description": "Leave a ride",
     "Environment": {
@@ -12975,7 +13361,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "SydneyCyclesStack/RideService/LeaveRideHandler/Resource",
-    "aws:asset:path": "asset.7ada0e5fc69009a4cfe04bf4a132200ff95cb526bec5ae61881b660ab3f3871d",
+    "aws:asset:path": "asset.fec2560fab788f9c811aa163ff11f084967947c4fa6eb12aefdef719c1bd4337",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -13119,7 +13505,7 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-924748161040-us-east-2",
-     "S3Key": "07440d5535a2687da8f986ff8285dce1474eb1af6f3fa4923dff82191746fecd.zip"
+     "S3Key": "1b01349c948f9b0e0e715863fc3ce00602b9c3e29c1094f5800a8115b0b77f8c.zip"
     },
     "Description": "Get user ride history and participation",
     "Environment": {
@@ -13167,7 +13553,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "SydneyCyclesStack/RideService/GetUserRidesHandler/Resource",
-    "aws:asset:path": "asset.07440d5535a2687da8f986ff8285dce1474eb1af6f3fa4923dff82191746fecd",
+    "aws:asset:path": "asset.1b01349c948f9b0e0e715863fc3ce00602b9c3e29c1094f5800a8115b0b77f8c",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -13311,7 +13697,7 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-924748161040-us-east-2",
-     "S3Key": "1d2df5a5f3c79997d3fc99729d2f5cd81fbe2c85914c61c17f6efe7793475642.zip"
+     "S3Key": "feb9f00b7e40ed12822393c22cd421e8b5c96ed32af703f0b2208d30e991ea29.zip"
     },
     "Description": "Complete a ride",
     "Environment": {
@@ -13359,7 +13745,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "SydneyCyclesStack/RideService/CompleteRideHandler/Resource",
-    "aws:asset:path": "asset.1d2df5a5f3c79997d3fc99729d2f5cd81fbe2c85914c61c17f6efe7793475642",
+    "aws:asset:path": "asset.feb9f00b7e40ed12822393c22cd421e8b5c96ed32af703f0b2208d30e991ea29",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -13503,7 +13889,7 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-924748161040-us-east-2",
-     "S3Key": "886827085a4e8b6cc6a8dfc3970102d2ab3c9a89cec05150f2e1591ac795f6b3.zip"
+     "S3Key": "54e0488b03f6787574d072f3d6b58951a2e2d100733af27569980b0f2db4c79f.zip"
     },
     "Description": "Get ride completion summary",
     "Environment": {
@@ -13551,7 +13937,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "SydneyCyclesStack/RideService/GetRideSummaryHandler/Resource",
-    "aws:asset:path": "asset.886827085a4e8b6cc6a8dfc3970102d2ab3c9a89cec05150f2e1591ac795f6b3",
+    "aws:asset:path": "asset.54e0488b03f6787574d072f3d6b58951a2e2d100733af27569980b0f2db4c79f",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -13695,7 +14081,7 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-924748161040-us-east-2",
-     "S3Key": "6ca5936814359dc7927cd3cfbd55dec75423cc03142f948ca4171750fed00ee0.zip"
+     "S3Key": "8d2335221c505a58d8fe6d9c1722b00e74aed27baeeca4cd308cf41f22ab28bd.zip"
     },
     "Description": "Update participant attendance",
     "Environment": {
@@ -13743,7 +14129,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "SydneyCyclesStack/RideService/UpdateAttendanceHandler/Resource",
-    "aws:asset:path": "asset.6ca5936814359dc7927cd3cfbd55dec75423cc03142f948ca4171750fed00ee0",
+    "aws:asset:path": "asset.8d2335221c505a58d8fe6d9c1722b00e74aed27baeeca4cd308cf41f22ab28bd",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -13887,7 +14273,7 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-924748161040-us-east-2",
-     "S3Key": "3a1a4e82424d4c8e6f2bcdbae8d3159bd21205986cbddbb715988837a6086148.zip"
+     "S3Key": "14ecf1478674e05b9b6921d542b838d7a63656f935a75be4582a388ab756f95c.zip"
     },
     "Description": "Link manual evidence for attendance",
     "Environment": {
@@ -13935,7 +14321,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "SydneyCyclesStack/RideService/LinkManualEvidenceHandler/Resource",
-    "aws:asset:path": "asset.3a1a4e82424d4c8e6f2bcdbae8d3159bd21205986cbddbb715988837a6086148",
+    "aws:asset:path": "asset.14ecf1478674e05b9b6921d542b838d7a63656f935a75be4582a388ab756f95c",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -14386,7 +14772,7 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-924748161040-us-east-2",
-     "S3Key": "bd3c320378f43762c02a7ea29d34221d73b72053a5254bb5f28bcaacdc952c42.zip"
+     "S3Key": "98b6fb4e3146ce08cf90da2ceb08166c38ab6cd23b545200946556b5cd76a765.zip"
     },
     "Environment": {
      "Variables": {
@@ -14433,7 +14819,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "SydneyCyclesStack/RouteFileService/FileUploadHandler/Resource",
-    "aws:asset:path": "asset.bd3c320378f43762c02a7ea29d34221d73b72053a5254bb5f28bcaacdc952c42",
+    "aws:asset:path": "asset.98b6fb4e3146ce08cf90da2ceb08166c38ab6cd23b545200946556b5cd76a765",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -14443,7 +14829,7 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-924748161040-us-east-2",
-     "S3Key": "d9916d131c125cf2c7589dc80b5461e48c71dc730f4e1f0009282a45ea0bd96e.zip"
+     "S3Key": "f6fab087a0f4f0fad76f2ee730d11cb52a0ec76d2656bf7c213659835cc78adf.zip"
     },
     "Environment": {
      "Variables": {
@@ -14491,7 +14877,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "SydneyCyclesStack/RouteFileService/FileProcessingHandler/Resource",
-    "aws:asset:path": "asset.d9916d131c125cf2c7589dc80b5461e48c71dc730f4e1f0009282a45ea0bd96e",
+    "aws:asset:path": "asset.f6fab087a0f4f0fad76f2ee730d11cb52a0ec76d2656bf7c213659835cc78adf",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -14501,7 +14887,7 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-924748161040-us-east-2",
-     "S3Key": "0c1ff8e42bf5fcb225864c8868771d8ad8957cea77f012104add617518991b64.zip"
+     "S3Key": "3bd4e4c167cc1ed686d8c78bb8edab41c8cebd559f4c01024113251c1592c991.zip"
     },
     "Environment": {
      "Variables": {
@@ -14554,7 +14940,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "SydneyCyclesStack/RouteFileService/FileDownloadHandler/Resource",
-    "aws:asset:path": "asset.0c1ff8e42bf5fcb225864c8868771d8ad8957cea77f012104add617518991b64",
+    "aws:asset:path": "asset.3bd4e4c167cc1ed686d8c78bb8edab41c8cebd559f4c01024113251c1592c991",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -14564,7 +14950,7 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-924748161040-us-east-2",
-     "S3Key": "fbe74f0ccd6c90d2198a094e9d65c332115a218c2b28c7ac8a6f7c05b6a63a7b.zip"
+     "S3Key": "6da1b74e6883e40e6868708882e96f087ddf0ecb0d386fba17c3ed364461ca43.zip"
     },
     "Environment": {
      "Variables": {
@@ -14617,7 +15003,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "SydneyCyclesStack/RouteFileService/AnalyticsHandler/Resource",
-    "aws:asset:path": "asset.fbe74f0ccd6c90d2198a094e9d65c332115a218c2b28c7ac8a6f7c05b6a63a7b",
+    "aws:asset:path": "asset.6da1b74e6883e40e6868708882e96f087ddf0ecb0d386fba17c3ed364461ca43",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -14806,7 +15192,7 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-924748161040-us-east-2",
-     "S3Key": "6377487551226b4b9add280cfffdb35e8babcafd6d2cd1e59f423e7a66b73d3a.zip"
+     "S3Key": "2e6d7f99245a8235c0310600a500e4134562623a36a14aebabf1895f49fe1914.zip"
     },
     "Environment": {
      "Variables": {
@@ -14850,7 +15236,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "SydneyCyclesStack/RouteTemplateService/TemplateHandler/Resource",
-    "aws:asset:path": "asset.6377487551226b4b9add280cfffdb35e8babcafd6d2cd1e59f423e7a66b73d3a",
+    "aws:asset:path": "asset.2e6d7f99245a8235c0310600a500e4134562623a36a14aebabf1895f49fe1914",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -14860,7 +15246,7 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-924748161040-us-east-2",
-     "S3Key": "ddd0d18a21078c9b2ea117cbb2e58506cd42ef07b06dda051f2ce1f285561b9c.zip"
+     "S3Key": "044414e2405d31425c8c7d94f939445111048aaf30576a337526361a449a9fd5.zip"
     },
     "Environment": {
      "Variables": {
@@ -14904,7 +15290,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "SydneyCyclesStack/RouteTemplateService/SearchHandler/Resource",
-    "aws:asset:path": "asset.ddd0d18a21078c9b2ea117cbb2e58506cd42ef07b06dda051f2ce1f285561b9c",
+    "aws:asset:path": "asset.044414e2405d31425c8c7d94f939445111048aaf30576a337526361a449a9fd5",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -15067,7 +15453,7 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-924748161040-us-east-2",
-     "S3Key": "14289e680192101a34dc164ed3dd0f5a9a1ce1720dc27bd03ad2333dde785c69.zip"
+     "S3Key": "3ebc6311fcd18245668bec58a72a1ebcabad65cd6bf4058500316fcd8393d4c8.zip"
     },
     "Environment": {
      "Variables": {
@@ -15117,7 +15503,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "SydneyCyclesStack/StravaIntegrationService/OAuthConnectFunction/Resource",
-    "aws:asset:path": "asset.14289e680192101a34dc164ed3dd0f5a9a1ce1720dc27bd03ad2333dde785c69",
+    "aws:asset:path": "asset.3ebc6311fcd18245668bec58a72a1ebcabad65cd6bf4058500316fcd8393d4c8",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -15252,7 +15638,7 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-924748161040-us-east-2",
-     "S3Key": "87e33f3cc0e42689359b6b69c8428a70a2972b7b5bf1dc4a9efab28b5d9ad351.zip"
+     "S3Key": "7dcf6e1d8c4cbaefe817ac4e8358756310c214b0794e7dec1837b1eadc204c83.zip"
     },
     "Environment": {
      "Variables": {
@@ -15302,7 +15688,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "SydneyCyclesStack/StravaIntegrationService/OAuthCallbackFunction/Resource",
-    "aws:asset:path": "asset.87e33f3cc0e42689359b6b69c8428a70a2972b7b5bf1dc4a9efab28b5d9ad351",
+    "aws:asset:path": "asset.7dcf6e1d8c4cbaefe817ac4e8358756310c214b0794e7dec1837b1eadc204c83",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
