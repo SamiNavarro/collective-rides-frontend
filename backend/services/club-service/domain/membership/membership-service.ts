@@ -79,9 +79,8 @@ export class MembershipService {
     }
 
     // Determine initial status based on club settings
-    // For Phase 2.2, assume all clubs are public (auto-approve)
-    // Future phases can add private club logic
-    const initialStatus = MembershipStatus.ACTIVE;
+    // All new memberships start as pending and require admin approval
+    const initialStatus = MembershipStatus.PENDING;
 
     // Create membership
     const membership = await this.membershipRepository.createMembership(
