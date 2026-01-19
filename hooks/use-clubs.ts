@@ -58,7 +58,7 @@ export const useMyClubs = () => {
     queryFn: async (): Promise<MyClubMembership[]> => {
       console.log('🔍 useMyClubs: Fetching clubs...');
       const response = await api.user.getClubs();
-      console.log('📦 useMyClubs: Raw response:', response);
+      console.log('📦 useMyClubs: Full response:', JSON.stringify(response, null, 2));
       
       if (!response.success) {
         console.error('❌ useMyClubs: API returned error:', response.error);
@@ -67,20 +67,38 @@ export const useMyClubs = () => {
       
       console.log('📊 useMyClubs: response.data type:', typeof response.data);
       console.log('📊 useMyClubs: response.data is array?', Array.isArray(response.data));
-      console.log('📊 useMyClubs: response.data:', response.data);
+      console.log('📊 useMyClubs: response.data keys:', response.data ? Object.keys(response.data) : 'null');
       
-      // Ensure we return an array
-      if (!Array.isArray(response.data)) {
-        console.error('❌ useMyClubs: response.data is not an array!', response.data);
-        // If data is wrapped in another object, try to unwrap it
-        if (response.data && typeof response.data === 'object' && 'data' in response.data) {
-          console.log('🔄 useMyClubs: Found nested data, unwrapping...');
-          return response.data.data as MyClubMembership[];
-        }
-        return [];
+      // Handle array response (correct format)
+      if (Array.isArray(response.data)) {
+        console.log('✅ useMyClubs: Got array with', response.data.length, 'clubs');
+        return response.data;
       }
       
-      return response.data; // Single unwrap (response.data is the array)
+      // Handle empty object (user has no clubs)
+      if (response.data && typeof response.data === 'object') {
+        const keys = Object.keys(response.data);
+        console.log('📊 useMyClubs: response.data has keys:', keys);
+        
+        // Check for nested data (double-wrapping)
+        if ('data' in response.data) {
+          console.log('🔄 useMyClubs: Found nested data, unwrapping...');
+          const nested = response.data.data;
+          if (Array.isArray(nested)) {
+            console.log('✅ useMyClubs: Nested data is array with', nested.length, 'clubs');
+            return nested as MyClubMembership[];
+          }
+        }
+        
+        // Empty object means no clubs
+        if (keys.length === 0) {
+          console.log('ℹ️ useMyClubs: Empty object, user has no clubs');
+          return [];
+        }
+      }
+      
+      console.warn('⚠️ useMyClubs: Unexpected response format, returning empty array');
+      return [];
     },
     staleTime: 2 * 60 * 1000, // 2 minutes cache (more dynamic than discovery)
     retry: 2,
