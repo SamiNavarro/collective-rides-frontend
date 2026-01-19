@@ -56,10 +56,30 @@ export const useMyClubs = () => {
   return useQuery({
     queryKey: ['users', 'me', 'clubs'],
     queryFn: async (): Promise<MyClubMembership[]> => {
+      console.log('🔍 useMyClubs: Fetching clubs...');
       const response = await api.user.getClubs();
+      console.log('📦 useMyClubs: Raw response:', response);
+      
       if (!response.success) {
+        console.error('❌ useMyClubs: API returned error:', response.error);
         throw new Error(response.error || 'Failed to fetch clubs');
       }
+      
+      console.log('📊 useMyClubs: response.data type:', typeof response.data);
+      console.log('📊 useMyClubs: response.data is array?', Array.isArray(response.data));
+      console.log('📊 useMyClubs: response.data:', response.data);
+      
+      // Ensure we return an array
+      if (!Array.isArray(response.data)) {
+        console.error('❌ useMyClubs: response.data is not an array!', response.data);
+        // If data is wrapped in another object, try to unwrap it
+        if (response.data && typeof response.data === 'object' && 'data' in response.data) {
+          console.log('🔄 useMyClubs: Found nested data, unwrapping...');
+          return response.data.data as MyClubMembership[];
+        }
+        return [];
+      }
+      
       return response.data; // Single unwrap (response.data is the array)
     },
     staleTime: 2 * 60 * 1000, // 2 minutes cache (more dynamic than discovery)
