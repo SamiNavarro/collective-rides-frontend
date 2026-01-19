@@ -192,12 +192,23 @@ export default function MyClubsPage() {
   const confirmLeaveClub = async () => {
     if (!clubToLeave) return
     
+    console.log('🚪 Leaving club:', clubToLeave)
+    console.log('📊 Current clubs count:', clubs?.length)
+    
     try {
-      await leaveClubMutation.mutateAsync(clubToLeave.id)
+      const result = await leaveClubMutation.mutateAsync(clubToLeave.id)
+      console.log('✅ Leave club result:', result)
+      console.log('🔄 Mutation completed, React Query should invalidate queries now')
       setLeaveDialogOpen(false)
       setClubToLeave(null)
+      
+      // Force refetch after a short delay to ensure backend has processed
+      setTimeout(() => {
+        console.log('🔄 Manually triggering refetch...')
+        refetch()
+      }, 500)
     } catch (error) {
-      console.error('Failed to leave club:', error)
+      console.error('❌ Failed to leave club:', error)
       // Error handling is managed by the mutation hook
     }
   }

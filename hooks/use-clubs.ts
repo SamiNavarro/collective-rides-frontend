@@ -60,7 +60,7 @@ export const useMyClubs = () => {
       if (!response.success) {
         throw new Error(response.error || 'Failed to fetch clubs');
       }
-      return response.data.data; // Unwrap the API response
+      return response.data; // Single unwrap (response.data is the array)
     },
     staleTime: 2 * 60 * 1000, // 2 minutes cache (more dynamic than discovery)
     retry: 2,
@@ -78,7 +78,7 @@ export const useClubDiscovery = (params?: { status?: string; city?: string }) =>
       if (!response.success) {
         throw new Error(response.error || 'Failed to fetch clubs');
       }
-      return response.data.data; // Unwrap the API response
+      return response.data; // Single unwrap (response.data is the array)
     },
     staleTime: 5 * 60 * 1000, // 5 minutes cache (less dynamic)
     retry: 2,
@@ -96,7 +96,7 @@ export const useClub = (clubId: string) => {
       if (!response.success) {
         throw new Error(response.error || 'Failed to fetch club');
       }
-      return response.data.data; // Unwrap the API response
+      return response.data; // Single unwrap (response.data is the club object)
     },
     enabled: !!clubId,
     staleTime: 5 * 60 * 1000, // 5 minutes cache
@@ -115,7 +115,7 @@ export const useClubMembers = (clubId: string) => {
       if (!response.success) {
         throw new Error(response.error || 'Failed to fetch club members');
       }
-      return response.data.data; // Unwrap the API response
+      return response.data; // Single unwrap (response.data is the array)
     },
     enabled: !!clubId,
     staleTime: 2 * 60 * 1000, // 2 minutes cache (member data changes more frequently)
@@ -238,7 +238,7 @@ export const useMyMemberships = () => {
       if (!response.success) {
         throw new Error(response.error || 'Failed to fetch memberships');
       }
-      return response.data.data;
+      return response.data; // Single unwrap (response.data is the array)
     },
     staleTime: 2 * 60 * 1000,
     retry: 2,
