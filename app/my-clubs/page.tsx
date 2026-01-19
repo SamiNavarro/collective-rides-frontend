@@ -359,7 +359,6 @@ export default function MyClubsPage() {
             <AlertDialogAction
               onClick={confirmLeaveClub}
               disabled={leaveClubMutation.isPending}
-              className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
             >
               {leaveClubMutation.isPending ? (
                 <>

@@ -35,11 +35,13 @@ const membershipService = new MembershipService(membershipRepository, clubReposi
  */
 export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> {
   const requestId = event.requestContext.requestId;
+  const origin = event.headers.origin || event.headers.Origin;
   
   logStructured('INFO', 'Processing leave club request', {
     requestId,
     httpMethod: event.httpMethod,
     path: event.path,
+    origin,
   });
   
   try {
@@ -82,7 +84,7 @@ export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayPr
       timestamp: new Date().toISOString(),
     };
 
-    return createSuccessResponse(response);
+    return createSuccessResponse(response, undefined, origin);
   } catch (error) {
     logStructured('ERROR', 'Error processing leave club request', {
       requestId,
