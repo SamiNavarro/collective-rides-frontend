@@ -51,11 +51,13 @@ export interface MyClubMembership {
  */
 export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> {
   const requestId = event.requestContext.requestId;
+  const origin = event.headers.origin || event.headers.Origin;
   
   logStructured('INFO', 'Processing get user clubs request (hydrated)', {
     requestId,
     httpMethod: event.httpMethod,
     path: event.path,
+    origin,
   });
   
   try {
@@ -149,7 +151,7 @@ export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayPr
       timestamp: new Date().toISOString(),
     };
 
-    return createSuccessResponse(response);
+    return createSuccessResponse(response, undefined, origin);
   } catch (error) {
     logStructured('ERROR', 'Error processing get user clubs request', {
       requestId,

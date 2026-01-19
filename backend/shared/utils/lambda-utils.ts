@@ -12,24 +12,49 @@ import { APIGatewayProxyResult } from 'aws-lambda';
 import { ApiResponse, ErrorResponse, HttpStatusCode, ApiErrorType } from '../types/api';
 
 /**
+ * Get CORS headers based on the request origin
+ * Supports both localhost and Vercel deployments
+ */
+function getCorsHeaders(origin?: string): Record<string, string> {
+  // List of allowed origins
+  const allowedOrigins = [
+    'http://localhost:3000',
+    'http://127.0.0.1:3000',
+    'https://collective-rides-frontend.vercel.app',
+    'https://sydneycycles.com',
+    'https://collectiverides.com',
+  ];
+  
+  // Check if the origin is allowed
+  const allowOrigin = origin && allowedOrigins.includes(origin) 
+    ? origin 
+    : allowedOrigins[0]; // Default to localhost
+  
+  return {
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': allowOrigin,
+    'Access-Control-Allow-Credentials': 'true',
+    'Access-Control-Allow-Headers': 'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent',
+    'Access-Control-Allow-Methods': 'GET,POST,PUT,DELETE,OPTIONS',
+  };
+}
+
+/**
  * Create a generic API response
  * 
  * @param statusCode - HTTP status code
  * @param body - Response body
+ * @param origin - Request origin for CORS
  * @returns API Gateway proxy result
  */
 export function createResponse(
   statusCode: number,
-  body: any
+  body: any,
+  origin?: string
 ): APIGatewayProxyResult {
   return {
     statusCode,
-    headers: {
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Headers': 'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token',
-      'Access-Control-Allow-Methods': 'GET,POST,PUT,DELETE,OPTIONS',
-    },
+    headers: getCorsHeaders(origin),
     body: JSON.stringify(body),
   };
 }
@@ -67,11 +92,13 @@ export function parseJsonBody<T>(event: { body: string | null }): T {
  * 
  * @param data - Response data
  * @param statusCode - HTTP status code (default: 200)
+ * @param origin - Request origin for CORS
  * @returns API Gateway proxy result
  */
 export function createSuccessResponse<T>(
   data: T,
-  statusCode: HttpStatusCode = HttpStatusCode.OK
+  statusCode: HttpStatusCode = HttpStatusCode.OK,
+  origin?: string
 ): APIGatewayProxyResult {
   const response: ApiResponse<T> = {
     success: true,
@@ -81,12 +108,7 @@ export function createSuccessResponse<T>(
   
   return {
     statusCode,
-    headers: {
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Headers': 'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token',
-      'Access-Control-Allow-Methods': 'GET,POST,PUT,DELETE,OPTIONS',
-    },
+    headers: getCorsHeaders(origin),
     body: JSON.stringify(response),
   };
 }
@@ -98,13 +120,15 @@ export function createSuccessResponse<T>(
  * @param message - Error message
  * @param statusCode - HTTP status code
  * @param requestId - Optional request ID
+ * @param origin - Request origin for CORS
  * @returns API Gateway proxy result
  */
 export function createErrorResponse(
   error: ApiErrorType | string,
   message: string,
   statusCode: HttpStatusCode,
-  requestId?: string
+  requestId?: string,
+  origin?: string
 ): APIGatewayProxyResult {
   const response: ErrorResponse = {
     error,
@@ -115,12 +139,7 @@ export function createErrorResponse(
   
   return {
     statusCode,
-    headers: {
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Headers': 'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token',
-      'Access-Control-Allow-Methods': 'GET,POST,PUT,DELETE,OPTIONS',
-    },
+    headers: getCorsHeaders(origin),
     body: JSON.stringify(response),
   };
 }
