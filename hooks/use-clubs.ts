@@ -245,13 +245,20 @@ export const useLeaveClub = () => {
   
   return useMutation({
     mutationFn: async (clubId: string) => {
+      console.log('🚪 useLeaveClub: Leaving club:', clubId);
       const response = await api.clubs.leave(clubId);
+      console.log('📦 useLeaveClub: Response:', response);
+      
       if (!response.success) {
+        console.error('❌ useLeaveClub: API error:', response.error, 'Status:', response.statusCode);
         throw new Error(response.error || 'Failed to leave club');
       }
+      
+      console.log('✅ useLeaveClub: Successfully left club');
       return response.data;
     },
     onSuccess: (data, clubId) => {
+      console.log('🔄 useLeaveClub: Invalidating queries...');
       // Invalidate affected queries to trigger refetch
       queryClient.invalidateQueries({ queryKey: ['users', 'me', 'clubs'] }); // My clubs
       queryClient.invalidateQueries({ queryKey: ['clubs', clubId] }); // Club detail
@@ -259,7 +266,7 @@ export const useLeaveClub = () => {
       queryClient.invalidateQueries({ queryKey: ['clubs', clubId, 'members'] }); // Club members
     },
     onError: (error) => {
-      console.error('Failed to leave club:', error);
+      console.error('❌ useLeaveClub: Mutation error:', error);
     },
   });
 };
