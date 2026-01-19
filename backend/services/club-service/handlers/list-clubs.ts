@@ -61,24 +61,14 @@ export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayPr
       status,
     });
 
-    // Format response
-    const response = {
-      success: true,
-      data: result.clubs,
-      pagination: {
-        limit,
-        ...(result.nextCursor && { nextCursor: result.nextCursor }),
-      },
-      timestamp: new Date().toISOString(),
-    };
-
     logStructured('INFO', 'Clubs listed successfully', {
       requestId,
       count: result.clubs.length,
       hasNextCursor: !!result.nextCursor,
     });
 
-    return createSuccessResponse(response, undefined, origin);
+    // Return clubs array directly (createSuccessResponse will wrap it)
+    return createSuccessResponse(result.clubs, undefined, origin);
   } catch (error) {
     logStructured('ERROR', 'Error processing list clubs request', {
       requestId,

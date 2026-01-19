@@ -144,14 +144,8 @@ export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayPr
       status,
     });
 
-    // Format response
-    const response = {
-      success: true,
-      data: hydratedClubs,
-      timestamp: new Date().toISOString(),
-    };
-
-    return createSuccessResponse(response, undefined, origin);
+    // Return clubs array directly (createSuccessResponse will wrap it)
+    return createSuccessResponse(hydratedClubs, undefined, origin);
   } catch (error) {
     logStructured('ERROR', 'Error processing get user clubs request', {
       requestId,
