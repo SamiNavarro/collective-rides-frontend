@@ -102,10 +102,15 @@ export default function MyClubsPage() {
     )
   }
 
+  // Filter out pending applications that are already in the clubs list (they're now active)
+  const activePendingApplications = user.clubApplications?.filter(app => 
+    !clubs?.some(club => club.clubId === app.clubId && club.membershipStatus === 'active')
+  ) || [];
+
   // Handle empty state
   if (!clubs || clubs.length === 0) {
     // Check if user has pending applications
-    const hasPendingApplications = user.clubApplications && user.clubApplications.length > 0
+    const hasPendingApplications = activePendingApplications.length > 0
 
     return (
       <div className="min-h-screen bg-background">
@@ -125,11 +130,11 @@ export default function MyClubsPage() {
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <Clock className="w-5 h-5 text-orange-500" />
-                    Pending Applications ({user.clubApplications.length})
+                    Pending Applications ({activePendingApplications.length})
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  {user.clubApplications.map((application) => (
+                  {activePendingApplications.map((application) => (
                     <div
                       key={application.id}
                       className="p-4 rounded-lg border border-orange-200 bg-orange-50"
@@ -229,16 +234,16 @@ export default function MyClubsPage() {
         {/* Club List */}
         <div className="max-w-4xl mx-auto space-y-6">
           {/* Pending Applications Section */}
-          {user.clubApplications && user.clubApplications.length > 0 && (
+          {activePendingApplications.length > 0 && (
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Clock className="w-5 h-5 text-orange-500" />
-                  Pending Applications ({user.clubApplications.length})
+                  Pending Applications ({activePendingApplications.length})
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                {user.clubApplications.map((application) => (
+                {activePendingApplications.map((application) => (
                   <div
                     key={application.id}
                     className="p-4 rounded-lg border border-orange-200 bg-orange-50"
