@@ -1,7 +1,8 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { Dialog, DialogContent } from "@/components/ui/dialog"
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog"
+import { VisuallyHidden } from "@radix-ui/react-visually-hidden"
 import { LoginForm } from "./login-form"
 import { SignupForm } from "./signup-form"
 
@@ -25,6 +26,9 @@ export function AuthDialog({ isOpen, onClose, initialMode = "login" }: AuthDialo
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-md">
+        <VisuallyHidden>
+          <DialogTitle>{mode === "login" ? "Sign In" : "Sign Up"}</DialogTitle>
+        </VisuallyHidden>
         {mode === "login" ? (
           <LoginForm onToggleMode={toggleMode} onClose={onClose} />
         ) : (
