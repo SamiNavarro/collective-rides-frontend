@@ -86,6 +86,29 @@ export interface IMembershipRepository {
      */
     removeMembership(membershipId: string, removedBy: string, reason?: string): Promise<ClubMembership>;
     /**
+     * Remove membership by club and user (more efficient than by membershipId)
+     *
+     * @param clubId - Club ID
+     * @param userId - User ID
+     * @param removedBy - User ID of who is removing the member
+     * @param reason - Optional reason for removal
+     * @returns Updated membership
+     * @throws MembershipNotFoundError if membership doesn't exist
+     */
+    removeMembershipByClubAndUser(clubId: string, userId: string, removedBy: string, reason?: string): Promise<ClubMembership>;
+    /**
+     * Update membership status by club and user (more efficient than by membershipId)
+     *
+     * @param clubId - Club ID
+     * @param userId - User ID
+     * @param status - New membership status
+     * @param processedBy - Optional user ID of who processed the status change
+     * @param reason - Optional reason for status change
+     * @returns Updated membership
+     * @throws MembershipNotFoundError if membership doesn't exist
+     */
+    updateMembershipStatusByClubAndUser(clubId: string, userId: string, status: MembershipStatus, processedBy?: string, reason?: string): Promise<ClubMembership>;
+    /**
      * Check if user is a member of club
      *
      * @param clubId - Club ID

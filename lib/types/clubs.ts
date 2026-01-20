@@ -21,7 +21,7 @@ export interface MyClubMembership {
   clubAvatarUrl?: string;
   memberCount?: number;
   membershipRole: 'member' | 'admin' | 'owner';
-  membershipStatus: 'active' | 'pending' | 'suspended';
+  membershipStatus: 'active' | 'pending' | 'suspended' | 'removed';
   joinedAt: string;
 }
 
@@ -41,7 +41,7 @@ export interface ClubDiscovery {
   // User's membership status (if logged in)
   userMembership?: {
     role: 'member' | 'admin' | 'owner';
-    status: 'active' | 'pending' | 'suspended';
+    status: 'active' | 'pending' | 'suspended' | 'removed';
   };
 }
 
@@ -62,7 +62,7 @@ export interface ClubDetail {
   userMembership?: {
     membershipId: string;
     role: 'member' | 'admin' | 'owner';
-    status: 'active' | 'pending' | 'suspended';
+    status: 'active' | 'pending' | 'suspended' | 'removed';
     joinedAt: string;
   };
 }
@@ -77,7 +77,7 @@ export interface ClubMember {
   email: string;
   avatarUrl?: string;
   role: 'member' | 'admin' | 'owner';
-  status: 'active' | 'pending' | 'suspended';
+  status: 'active' | 'pending' | 'suspended' | 'removed';
   joinedAt: string;
   updatedAt?: string;
 }

@@ -74,15 +74,42 @@ export class MembershipService {
 
     // Check if user is already a member
     const existingMembership = await this.membershipRepository.getMembershipByClubAndUser(clubId, authContext.userId);
+    
+    // If user has an active membership, they can't join again
     if (existingMembership && existingMembership.status !== MembershipStatus.REMOVED) {
       throw new AlreadyMemberError(clubId, authContext.userId);
+    }
+
+    // If user has a removed membership, reactivate it instead of creating new one
+    if (existingMembership && existingMembership.status === MembershipStatus.REMOVED) {
+      logStructured('INFO', 'Reactivating removed membership', {
+        clubId,
+        userId: authContext.userId,
+        membershipId: existingMembership.membershipId,
+      });
+
+      const membership = await this.membershipRepository.updateMembershipStatusByClubAndUser(
+        clubId,
+        authContext.userId,
+        MembershipStatus.ACTIVE,
+        authContext.userId
+      );
+
+      logStructured('INFO', 'Removed membership reactivated successfully', {
+        clubId,
+        userId: authContext.userId,
+        membershipId: membership.membershipId,
+        status: membership.status,
+      });
+
+      return membership;
     }
 
     // Determine initial status based on club settings
     // For MVP, all new memberships are active immediately (no approval needed)
     const initialStatus = MembershipStatus.ACTIVE;
 
-    // Create membership
+    // Create new membership
     const membership = await this.membershipRepository.createMembership(
       clubId,
       authContext.userId,

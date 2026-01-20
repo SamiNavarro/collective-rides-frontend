@@ -48,9 +48,17 @@ export declare class DynamoDBMembershipRepository implements IMembershipReposito
      */
     updateMembershipStatus(membershipId: string, status: MembershipStatus, processedBy?: string, reason?: string): Promise<ClubMembership>;
     /**
+     * Update membership status by club and user (more efficient)
+     */
+    updateMembershipStatusByClubAndUser(clubId: string, userId: string, status: MembershipStatus, processedBy?: string, reason?: string): Promise<ClubMembership>;
+    /**
      * Remove membership
      */
     removeMembership(membershipId: string, removedBy: string, reason?: string): Promise<ClubMembership>;
+    /**
+     * Remove membership by club and user (more efficient)
+     */
+    removeMembershipByClubAndUser(clubId: string, userId: string, removedBy: string, reason?: string): Promise<ClubMembership>;
     /**
      * Check if user is a member of club
      */

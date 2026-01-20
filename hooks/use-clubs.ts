@@ -100,7 +100,7 @@ export const useMyClubs = () => {
       console.warn('⚠️ useMyClubs: Unexpected response format, returning empty array');
       return [];
     },
-    staleTime: 2 * 60 * 1000, // 2 minutes cache (more dynamic than discovery)
+    staleTime: 0, // Always refetch on invalidation (important for leave/join actions)
     retry: 2,
   });
 };

@@ -59,49 +59,55 @@ export declare function createErrorResponse(error: ApiErrorType | string, messag
  *
  * @param message - Validation error message
  * @param requestId - Optional request ID
+ * @param origin - Request origin for CORS
  * @returns API Gateway proxy result
  */
-export declare function createValidationErrorResponse(message: string, requestId?: string): APIGatewayProxyResult;
+export declare function createValidationErrorResponse(message: string, requestId?: string, origin?: string): APIGatewayProxyResult;
 /**
  * Create an unauthorized error response
  *
  * @param message - Error message (default: 'Unauthorized')
  * @param requestId - Optional request ID
+ * @param origin - Request origin for CORS
  * @returns API Gateway proxy result
  */
-export declare function createUnauthorizedResponse(message?: string, requestId?: string): APIGatewayProxyResult;
+export declare function createUnauthorizedResponse(message?: string, requestId?: string, origin?: string): APIGatewayProxyResult;
 /**
  * Create a forbidden error response
  *
  * @param message - Error message (default: 'Forbidden')
  * @param requestId - Optional request ID
+ * @param origin - Request origin for CORS
  * @returns API Gateway proxy result
  */
-export declare function createForbiddenResponse(message?: string, requestId?: string): APIGatewayProxyResult;
+export declare function createForbiddenResponse(message?: string, requestId?: string, origin?: string): APIGatewayProxyResult;
 /**
  * Create a not found error response
  *
  * @param message - Error message (default: 'Not found')
  * @param requestId - Optional request ID
+ * @param origin - Request origin for CORS
  * @returns API Gateway proxy result
  */
-export declare function createNotFoundResponse(message?: string, requestId?: string): APIGatewayProxyResult;
+export declare function createNotFoundResponse(message?: string, requestId?: string, origin?: string): APIGatewayProxyResult;
 /**
  * Create an internal server error response
  *
  * @param message - Error message (default: 'Internal server error')
  * @param requestId - Optional request ID
+ * @param origin - Request origin for CORS
  * @returns API Gateway proxy result
  */
-export declare function createInternalErrorResponse(message?: string, requestId?: string): APIGatewayProxyResult;
+export declare function createInternalErrorResponse(message?: string, requestId?: string, origin?: string): APIGatewayProxyResult;
 /**
  * Handle Lambda function errors and convert to appropriate HTTP responses
  *
  * @param error - Error object
  * @param requestId - Request ID for logging
+ * @param origin - Request origin for CORS
  * @returns API Gateway proxy result
  */
-export declare function handleLambdaError(error: unknown, requestId?: string): APIGatewayProxyResult;
+export declare function handleLambdaError(error: unknown, requestId?: string, origin?: string): APIGatewayProxyResult;
 /**
  * Log structured information for CloudWatch
  *

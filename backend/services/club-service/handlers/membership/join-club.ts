@@ -10,6 +10,7 @@
 
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
 import { JoinClubInput } from '../../../../shared/types/membership';
+import { HttpStatusCode } from '../../../../shared/types/api';
 import { createEnhancedAuthContext } from '../../../../shared/auth/auth-context';
 import { createSuccessResponse, handleLambdaError, logStructured, parseJsonBody } from '../../../../shared/utils/lambda-utils';
 import { ValidationError } from '../../../../shared/utils/errors';
@@ -97,7 +98,7 @@ export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayPr
       timestamp: new Date().toISOString(),
     };
 
-    return createSuccessResponse(response.data, membership.status === 'active' ? 201 : 202, origin);
+    return createSuccessResponse(response.data, HttpStatusCode.CREATED, origin);
   } catch (error) {
     logStructured('ERROR', 'Error processing join club request', {
       requestId,
