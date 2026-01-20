@@ -169,10 +169,13 @@ export const useJoinClub = () => {
   
   return useMutation({
     mutationFn: async ({ clubId, data }: { clubId: string; data: JoinClubRequest }) => {
+      console.log('🚀 useJoinClub: Joining club:', clubId);
       const response = await api.clubs.join(clubId, data);
+      console.log('📦 useJoinClub: Response:', response);
       if (!response.success) {
         throw new Error(response.error || 'Failed to join club');
       }
+      console.log('✅ useJoinClub: Successfully joined, status:', response.data.status);
       return response.data;
     },
     onMutate: async ({ clubId }) => {
@@ -184,19 +187,19 @@ export const useJoinClub = () => {
       const previousClub = queryClient.getQueryData(['clubs', clubId]);
       const previousDiscovery = queryClient.getQueryData(['clubs', 'discovery']);
       
-      // Optimistically update club detail to show pending status
+      // Optimistically update club detail to show active status (instant activation)
       queryClient.setQueryData(['clubs', clubId], (old: any) => {
         if (!old) return old;
         return {
           ...old,
           userMembership: {
             role: 'member',
-            status: 'pending',
+            status: 'active',
           }
         };
       });
       
-      // Optimistically update discovery list to show pending badge
+      // Optimistically update discovery list to show active badge
       queryClient.setQueryData(['clubs', 'discovery'], (old: any) => {
         if (!old?.clubs) return old;
         return {
@@ -207,7 +210,7 @@ export const useJoinClub = () => {
                   ...club, 
                   userMembership: { 
                     role: 'member', 
-                    status: 'pending' 
+                    status: 'active' 
                   } 
                 }
               : club
@@ -228,11 +231,14 @@ export const useJoinClub = () => {
       console.error('Failed to join club:', error);
     },
     onSuccess: (data, variables) => {
+      console.log('🔄 useJoinClub: Invalidating queries after successful join...');
+      console.log('   Membership status:', data.status);
       // Invalidate affected queries to trigger refetch with real data
       queryClient.invalidateQueries({ queryKey: ['users', 'me', 'clubs'] }); // My clubs
       queryClient.invalidateQueries({ queryKey: ['clubs', variables.clubId] }); // Club detail
       queryClient.invalidateQueries({ queryKey: ['clubs', 'discovery'] }); // Discovery list
       queryClient.invalidateQueries({ queryKey: ['clubs', variables.clubId, 'members'] }); // Club members
+      console.log('✅ useJoinClub: Queries invalidated');
     },
   });
 };
