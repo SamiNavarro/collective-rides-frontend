@@ -118,7 +118,8 @@ export const useClubDiscovery = (params?: { status?: string; city?: string }) =>
       }
       return response.data; // Single unwrap (response.data is the array)
     },
-    staleTime: 5 * 60 * 1000, // 5 minutes cache (less dynamic)
+    staleTime: 0, // Always refetch on invalidation (important for join/leave badge updates)
+    refetchOnMount: 'always', // Always refetch when component mounts (ensures fresh data on navigation)
     retry: 2,
   });
 };
