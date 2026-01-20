@@ -79,8 +79,8 @@ export class MembershipService {
     }
 
     // Determine initial status based on club settings
-    // All new memberships start as pending and require admin approval
-    const initialStatus = MembershipStatus.PENDING;
+    // For MVP, all new memberships are active immediately (no approval needed)
+    const initialStatus = MembershipStatus.ACTIVE;
 
     // Create membership
     const membership = await this.membershipRepository.createMembership(
