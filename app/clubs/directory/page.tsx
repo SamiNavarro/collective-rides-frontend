@@ -596,9 +596,9 @@ export default function ClubDirectoryPage() {
                         <span>Meetings: {club.meetingDay}</span>
                       </div>
 
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-4">
-                          <div className="flex gap-1">
+                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                        <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 min-w-0">
+                          <div className="flex gap-1 flex-shrink-0">
                             {club.kitColors.map((color, idx) => (
                               <div
                                 key={idx}
@@ -608,13 +608,13 @@ export default function ClubDirectoryPage() {
                               />
                             ))}
                           </div>
-                          <div className="flex items-center gap-2 text-sm text-gray-600">
-                            <Mail className="h-4 w-4" />
-                            {club.contact}
+                          <div className="flex items-center gap-2 text-sm text-gray-600 min-w-0">
+                            <Mail className="h-4 w-4 flex-shrink-0" />
+                            <span className="truncate">{club.contact}</span>
                           </div>
                         </div>
 
-                        <div className="flex gap-2">
+                        <div className="flex gap-2 flex-shrink-0">
                           <Button
                             size="sm"
                             variant={getClubButtonVariant(club.id)}
