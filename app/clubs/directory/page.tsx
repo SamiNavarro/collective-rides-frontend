@@ -200,14 +200,15 @@ export default function ClubDirectoryPage() {
     // discoveryData is the ClubDiscoveryResponse: { clubs: [...], pagination: {...} }
     if (!discoveryData?.clubs || !Array.isArray(discoveryData.clubs)) return []
 
-    return discoveryData.clubs.map((club) => {
+    return discoveryData.clubs.map((club: any) => {
       const enhancement = mockEnhancements[club.id] || {}
       return {
         id: club.id,
         name: club.name,
         description: club.description || enhancement.description || "A cycling club in Sydney",
         area: club.city || enhancement.area || "Sydney",
-        members: enhancement.members || 50,
+        // Use backend memberCount if available, otherwise use mock data
+        members: club.memberCount !== undefined ? club.memberCount : (enhancement.members || 50),
         established: enhancement.established || "2020",
         focus: enhancement.focus || "Cycling",
         pace: enhancement.pace || "Mixed",

@@ -13,13 +13,17 @@ import { createSuccessResponse, handleLambdaError, logStructured } from '../../.
 import { ValidationError } from '../../../shared/utils/errors';
 import { ClubStatus, CLUB_CONSTRAINTS } from '../../../shared/types/club';
 import { DynamoDBClubRepository } from '../infrastructure/dynamodb-club-repository';
+import { DynamoDBMembershipRepository } from '../infrastructure/dynamodb-membership-repository';
+import { DynamoDBUserRepository } from '../../user-profile/infrastructure/dynamodb-user-repository';
 import { ClubService } from '../domain/club-service';
 
 // Environment variables
 const TABLE_NAME = process.env.TABLE_NAME!;
 
-// Initialize repository and service
+// Initialize repositories and services
 const clubRepository = new DynamoDBClubRepository(TABLE_NAME);
+const userRepository = new DynamoDBUserRepository(TABLE_NAME);
+const membershipRepository = new DynamoDBMembershipRepository(TABLE_NAME, userRepository);
 const clubService = new ClubService(clubRepository);
 
 /**
@@ -61,14 +65,25 @@ export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayPr
       status,
     });
 
+    // Enrich clubs with member counts
+    const enrichedClubs = await Promise.all(
+      result.clubs.map(async (club) => {
+        const memberCount = await membershipRepository.getClubMemberCount(club.id);
+        return {
+          ...club,
+          memberCount,
+        };
+      })
+    );
+
     logStructured('INFO', 'Clubs listed successfully', {
       requestId,
-      count: result.clubs.length,
+      count: enrichedClubs.length,
       hasNextCursor: !!result.nextCursor,
     });
 
-    // Return clubs array directly (createSuccessResponse will wrap it)
-    return createSuccessResponse(result.clubs, undefined, origin);
+    // Return enriched clubs array
+    return createSuccessResponse(enrichedClubs, undefined, origin);
   } catch (error) {
     logStructured('ERROR', 'Error processing list clubs request', {
       requestId,
