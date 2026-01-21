@@ -71,33 +71,36 @@ Following the spec's recommended order: 3.2.2 → 3.2.1 → 3.2.3
 
 ---
 
-### ⏳ Phase 3.2.1: Individual Club Pages (AFTER 3.2.3)
+### ✅ Phase 3.2.1: Individual Club Pages (COMPLETE)
 
 **Goal**: Create club home pages with upcoming rides
 
-**Tasks**:
-- [ ] Create `/clubs/[clubId]` page structure
-- [ ] Implement public section (no auth required)
+**Completed**:
+- ✅ `/clubs/[clubId]` page structure
+- ✅ Public section (no auth required)
   - Club header (name, area, description)
-  - Pace + focus tags
-  - Member count (privacy-aware)
-  - Join/leave button
-- [ ] Implement member section (auth + membership required)
+  - Privacy-aware member count
+  - State-aware join/leave CTA
+- ✅ Member section (auth + membership required)
   - Next 5 upcoming rides
-  - Ride detail links
+  - Ride cards with date/time/participants
   - "Create ride" button (captain+ only)
-- [ ] Add `useClubRides` hook for upcoming rides
-- [ ] Add member count display (privacy-aware)
-  - Public clubs: Exact count ("42 members")
-  - Private clubs: Approximate ("10+ members")
-- [ ] Mobile optimization
-- [ ] Test authorization logic
+- ✅ `useClubRides` hook (already existed)
+- ✅ Privacy-aware member count helper
+- ✅ Mobile optimization
+- ✅ Authorization logic tested
 
-**API Endpoints**:
-- ✅ `GET /v1/clubs/{clubId}` - Exists
-- 🔧 `GET /v1/rides/club/{clubId}?status=upcoming&limit=5` - Add query params
+**Files**:
+- `app/clubs/[clubId]/page.tsx` - Club detail page (refined)
+- `hooks/use-clubs.ts` - Data fetching hooks (already existed)
+- `docs/phase-3.2.1-club-pages-complete.md` - Documentation
 
-**Estimated Duration**: 3-4 days
+**Deferred**:
+- Pace/focus tags (backend doesn't have these fields yet)
+- Ride detail links (Phase 3.3)
+- Create ride navigation (Phase 3.3)
+
+**Status**: ✅ Complete
 
 ---
 
@@ -106,15 +109,16 @@ Following the spec's recommended order: 3.2.2 → 3.2.1 → 3.2.3
 **Phase 3.2 Breakdown**:
 - ✅ 3.2.2: Directory Integration (Complete)
 - ✅ 3.2.3: Join Flow Polish (Complete)
-- 🔄 3.2.1: Club Pages (Next)
+- ✅ 3.2.1: Club Pages (Complete)
+- ✅ 3.2.4: CORS Fix (Complete)
 
 **Timeline**:
 - Week 1: ✅ 3.2.2 Complete (1 day)
 - Week 2: ✅ 3.2.3 Complete (1 day)
-- Week 2-3: 🔄 3.2.1 In Progress (3-4 days)
-- Week 3-4: Testing & Polish
+- Week 2: ✅ 3.2.1 Complete (refinements, <1 day)
+- Week 2: ✅ 3.2.4 CORS Fix (1 day)
 
-**Estimated Completion**: End of Week 3
+**Status**: ✅ **Phase 3.2 Complete!**
 
 ---
 
@@ -163,42 +167,40 @@ Following the spec's recommended order: 3.2.2 → 3.2.1 → 3.2.3
 - ✅ Pending applications show in /my-clubs
 - ✅ Pending badges show in directory
 
-### Phase 3.2.1 (Pending)
-- [ ] Club pages load correctly
-- [ ] Public/member sections show appropriately
-- [ ] Upcoming rides display for members
-- [ ] Authorization works correctly
+### Phase 3.2.1 (Complete)
+- ✅ Club pages load correctly
+- ✅ Public/member sections show appropriately
+- ✅ Upcoming rides display for members
+- ✅ Authorization works correctly
+- ✅ CTA always matches state
+- ✅ Mobile experience is usable
 
 ---
 
 ## Next Actions
 
-1. **Immediate**: Start Phase 3.2.1 (Club Pages)
-   - Create `/clubs/[clubId]` page
-   - Implement public/member sections
-   - Add upcoming rides display
+**Phase 3.2 is complete!** ✅
 
-2. **After 3.2.1**: Testing & Polish
-   - E2E testing
-   - Performance optimization
-   - Accessibility audit
-   - Bug fixes
+Ready to move to **Phase 3.3: Ride Discovery & Participation**
 
-3. **Future**: Phase 3.3 Enhancements
-   - Backend filter support
-   - Pagination UI
-   - Extended Club model fields
+### Phase 3.3 Goals:
+1. Create `/rides` page with ride listing
+2. Add ride filters (date, type, difficulty)
+3. Create `/rides/[rideId]` detail page
+4. Implement join/leave ride functionality
+5. Add participant list display
+6. Wire up "Create Ride" button to ride creation flow
 
 ---
 
 ## Notes
 
-- Phase 3.2.2 completed in 1 day (faster than estimated)
-- Phase 3.2.3 completed in 1 day (faster than estimated)
-- Implementation order (3.2.2 → 3.2.3 → 3.2.1) working well
-- Mock enhancements provide good development experience
-- Client-side filtering is sufficient for now
-- Optimistic updates provide excellent UX
-- Ready to proceed with Phase 3.2.1
+- Phase 3.2 completed ahead of schedule (4 days vs estimated 1-2 weeks)
+- All sub-phases (3.2.2, 3.2.3, 3.2.1, 3.2.4) delivered successfully
+- Implementation order (3.2.2 → 3.2.3 → 3.2.1 → 3.2.4) worked perfectly
+- Club pages already had solid foundation from earlier work
+- Refinements focused on CTA logic and privacy-aware member count
+- Mobile responsive layout working well
+- Ready for Phase 3.3
 
-**Status**: ✅ Phase 3.2.2 Complete, ✅ Phase 3.2.3 Complete, 🔄 Phase 3.2.1 Next
+**Status**: ✅ **Phase 3.2 Complete - Ready for Phase 3.3**
