@@ -9545,7 +9545,7 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-924748161040-us-east-2",
-     "S3Key": "fe12ca6e8e5cb87a1a2fe9a6eb310bc32d4503d3648755566f2f12fe77979a98.zip"
+     "S3Key": "12afca0db9641f2e813bb4de3b404830c63709b64de830a934911a26e9910ce6.zip"
     },
     "Description": "Get club details by ID (public endpoint)",
     "Environment": {
@@ -9596,7 +9596,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "SydneyCyclesStack/ClubService/GetClubFunction/Resource",
-    "aws:asset:path": "asset.fe12ca6e8e5cb87a1a2fe9a6eb310bc32d4503d3648755566f2f12fe77979a98",
+    "aws:asset:path": "asset.12afca0db9641f2e813bb4de3b404830c63709b64de830a934911a26e9910ce6",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }

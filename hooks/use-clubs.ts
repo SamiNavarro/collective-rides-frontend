@@ -129,13 +129,20 @@ export const useClubDiscovery = (params?: { status?: string; city?: string }) =>
  */
 export const useClub = (clubId: string) => {
   return useQuery({
-    queryKey: ['clubs', clubId],
+    queryKey: ['clubs', clubId, 'v3'], // Bust cache again
     queryFn: async (): Promise<ClubDetail> => {
       const response = await api.clubs.get(clubId);
       if (!response.success) {
         throw new Error(response.error || 'Failed to fetch club');
       }
-      return response.data; // Single unwrap (response.data is the club object)
+      
+      // Unwrap if needed (backend might still have cached Lambda)
+      let clubData = response.data;
+      if (clubData && typeof clubData === 'object' && 'data' in clubData && 'success' in clubData) {
+        clubData = clubData.data;
+      }
+      
+      return clubData as ClubDetail;
     },
     enabled: !!clubId,
     staleTime: 5 * 60 * 1000, // 5 minutes cache
@@ -158,6 +165,35 @@ export const useClubMembers = (clubId: string) => {
     },
     enabled: !!clubId,
     staleTime: 2 * 60 * 1000, // 2 minutes cache (member data changes more frequently)
+    retry: 2,
+  });
+};
+
+/**
+ * Get club rides (for club detail page)
+ * Fetches upcoming published rides for a specific club
+ */
+export const useClubRides = (clubId: string, options?: { enabled?: boolean }) => {
+  return useQuery({
+    queryKey: ['clubs', clubId, 'rides'],
+    queryFn: async () => {
+      const response = await api.rides.list();
+      if (!response.success) {
+        throw new Error(response.error || 'Failed to fetch club rides');
+      }
+      
+      // Filter rides for this club and only published/upcoming rides
+      const allRides = Array.isArray(response.data) ? response.data : [];
+      const clubRides = allRides
+        .filter((ride: any) => ride.clubId === clubId && ride.status === 'published')
+        .filter((ride: any) => new Date(ride.startTime) > new Date()) // Only future rides
+        .sort((a: any, b: any) => new Date(a.startTime).getTime() - new Date(b.startTime).getTime()) // Sort by date
+        .slice(0, 5); // Limit to 5 rides
+      
+      return clubRides;
+    },
+    enabled: !!clubId && (options?.enabled !== false),
+    staleTime: 1 * 60 * 1000, // 1 minute cache (ride data changes frequently)
     retry: 2,
   });
 };
