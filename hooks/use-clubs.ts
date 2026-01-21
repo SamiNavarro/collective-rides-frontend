@@ -273,7 +273,7 @@ export const useJoinClub = () => {
       // Invalidate affected queries to trigger refetch with real data
       queryClient.invalidateQueries({ queryKey: ['users', 'me', 'clubs'] }); // My clubs
       queryClient.invalidateQueries({ queryKey: ['clubs', variables.clubId] }); // Club detail
-      queryClient.invalidateQueries({ queryKey: ['clubs', 'discovery'] }); // Discovery list
+      queryClient.invalidateQueries({ queryKey: ['clubs', 'discovery'], exact: false }); // Discovery list (all filter variations)
       queryClient.invalidateQueries({ queryKey: ['clubs', variables.clubId, 'members'] }); // Club members
       console.log('✅ useJoinClub: Queries invalidated');
     },
@@ -305,7 +305,7 @@ export const useLeaveClub = () => {
       // Invalidate affected queries to trigger refetch
       queryClient.invalidateQueries({ queryKey: ['users', 'me', 'clubs'] }); // My clubs
       queryClient.invalidateQueries({ queryKey: ['clubs', clubId] }); // Club detail
-      queryClient.invalidateQueries({ queryKey: ['clubs', 'discovery'] }); // Discovery list
+      queryClient.invalidateQueries({ queryKey: ['clubs', 'discovery'], exact: false }); // Discovery list (all filter variations)
       queryClient.invalidateQueries({ queryKey: ['clubs', clubId, 'members'] }); // Club members
     },
     onError: (error) => {
