@@ -95,7 +95,8 @@ export class RestApiConstruct extends Construct {
           : [
               'http://localhost:3000', 
               'http://127.0.0.1:3000',
-              'https://collective-rides-frontend.vercel.app' // Allow Vercel in development too
+              'https://collective-rides-frontend.vercel.app', // Allow Vercel in development
+              'https://collective-rides-frontend-*.vercel.app' // Allow Vercel preview deployments
             ], // Development
         allowMethods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
         allowHeaders: [

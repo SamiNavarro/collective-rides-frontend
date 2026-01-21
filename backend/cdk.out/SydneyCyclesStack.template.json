@@ -454,7 +454,7 @@
     "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Account"
    }
   },
-  "RestApiSydneyCyclesRestApiDeployment050DCABA412cc9197a87b02c1982073176eb863b": {
+  "RestApiSydneyCyclesRestApiDeployment050DCABA6657102c1d12c7b5b1bcbaaeca815fac": {
    "Type": "AWS::ApiGateway::Deployment",
    "Properties": {
     "Description": "Sydney Cycling Platform v1 REST API - development",
@@ -619,7 +619,7 @@
      "Format": "{\"requestId\":\"$context.requestId\",\"ip\":\"$context.identity.sourceIp\",\"user\":\"$context.identity.user\",\"caller\":\"$context.identity.caller\",\"requestTime\":\"$context.requestTime\",\"httpMethod\":\"$context.httpMethod\",\"resourcePath\":\"$context.resourcePath\",\"status\":\"$context.status\",\"protocol\":\"$context.protocol\",\"responseLength\":\"$context.responseLength\"}"
     },
     "DeploymentId": {
-     "Ref": "RestApiSydneyCyclesRestApiDeployment050DCABA412cc9197a87b02c1982073176eb863b"
+     "Ref": "RestApiSydneyCyclesRestApiDeployment050DCABA6657102c1d12c7b5b1bcbaaeca815fac"
     },
     "MethodSettings": [
      {
@@ -682,7 +682,7 @@
         "method.response.header.Access-Control-Max-Age": "'3600'"
        },
        "ResponseTemplates": {
-        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\" || $origin == \"https://collective-rides-frontend-*.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
        },
        "StatusCode": "204"
       }
@@ -755,7 +755,7 @@
         "method.response.header.Access-Control-Max-Age": "'3600'"
        },
        "ResponseTemplates": {
-        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\" || $origin == \"https://collective-rides-frontend-*.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
        },
        "StatusCode": "204"
       }
@@ -928,7 +928,7 @@
         "method.response.header.Access-Control-Max-Age": "'3600'"
        },
        "ResponseTemplates": {
-        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\" || $origin == \"https://collective-rides-frontend-*.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
        },
        "StatusCode": "204"
       }
@@ -995,7 +995,7 @@
         "method.response.header.Access-Control-Max-Age": "'3600'"
        },
        "ResponseTemplates": {
-        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\" || $origin == \"https://collective-rides-frontend-*.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
        },
        "StatusCode": "204"
       }
@@ -1062,7 +1062,7 @@
         "method.response.header.Access-Control-Max-Age": "'3600'"
        },
        "ResponseTemplates": {
-        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\" || $origin == \"https://collective-rides-frontend-*.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
        },
        "StatusCode": "204"
       }
@@ -1247,7 +1247,7 @@
         "method.response.header.Access-Control-Max-Age": "'3600'"
        },
        "ResponseTemplates": {
-        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\" || $origin == \"https://collective-rides-frontend-*.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
        },
        "StatusCode": "204"
       }
@@ -1429,7 +1429,7 @@
         "method.response.header.Access-Control-Max-Age": "'3600'"
        },
        "ResponseTemplates": {
-        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\" || $origin == \"https://collective-rides-frontend-*.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
        },
        "StatusCode": "204"
       }
@@ -1613,7 +1613,7 @@
         "method.response.header.Access-Control-Max-Age": "'3600'"
        },
        "ResponseTemplates": {
-        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\" || $origin == \"https://collective-rides-frontend-*.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
        },
        "StatusCode": "204"
       }
@@ -1795,7 +1795,7 @@
         "method.response.header.Access-Control-Max-Age": "'3600'"
        },
        "ResponseTemplates": {
-        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\" || $origin == \"https://collective-rides-frontend-*.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
        },
        "StatusCode": "204"
       }
@@ -1960,7 +1960,7 @@
         "method.response.header.Access-Control-Max-Age": "'3600'"
        },
        "ResponseTemplates": {
-        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\" || $origin == \"https://collective-rides-frontend-*.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
        },
        "StatusCode": "204"
       }
@@ -2302,7 +2302,7 @@
         "method.response.header.Access-Control-Max-Age": "'3600'"
        },
        "ResponseTemplates": {
-        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\" || $origin == \"https://collective-rides-frontend-*.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
        },
        "StatusCode": "204"
       }
@@ -2623,7 +2623,7 @@
         "method.response.header.Access-Control-Max-Age": "'3600'"
        },
        "ResponseTemplates": {
-        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\" || $origin == \"https://collective-rides-frontend-*.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
        },
        "StatusCode": "204"
       }
@@ -2962,7 +2962,7 @@
         "method.response.header.Access-Control-Max-Age": "'3600'"
        },
        "ResponseTemplates": {
-        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\" || $origin == \"https://collective-rides-frontend-*.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
        },
        "StatusCode": "204"
       }
@@ -3278,7 +3278,7 @@
         "method.response.header.Access-Control-Max-Age": "'3600'"
        },
        "ResponseTemplates": {
-        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\" || $origin == \"https://collective-rides-frontend-*.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
        },
        "StatusCode": "204"
       }
@@ -3466,7 +3466,7 @@
         "method.response.header.Access-Control-Max-Age": "'3600'"
        },
        "ResponseTemplates": {
-        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\" || $origin == \"https://collective-rides-frontend-*.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
        },
        "StatusCode": "204"
       }
@@ -3533,7 +3533,7 @@
         "method.response.header.Access-Control-Max-Age": "'3600'"
        },
        "ResponseTemplates": {
-        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\" || $origin == \"https://collective-rides-frontend-*.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
        },
        "StatusCode": "204"
       }
@@ -3844,7 +3844,7 @@
         "method.response.header.Access-Control-Max-Age": "'3600'"
        },
        "ResponseTemplates": {
-        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\" || $origin == \"https://collective-rides-frontend-*.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
        },
        "StatusCode": "204"
       }
@@ -4035,7 +4035,7 @@
         "method.response.header.Access-Control-Max-Age": "'3600'"
        },
        "ResponseTemplates": {
-        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\" || $origin == \"https://collective-rides-frontend-*.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
        },
        "StatusCode": "204"
       }
@@ -4102,7 +4102,7 @@
         "method.response.header.Access-Control-Max-Age": "'3600'"
        },
        "ResponseTemplates": {
-        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\" || $origin == \"https://collective-rides-frontend-*.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
        },
        "StatusCode": "204"
       }
@@ -4291,7 +4291,7 @@
         "method.response.header.Access-Control-Max-Age": "'3600'"
        },
        "ResponseTemplates": {
-        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\" || $origin == \"https://collective-rides-frontend-*.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
        },
        "StatusCode": "204"
       }
@@ -4554,7 +4554,7 @@
         "method.response.header.Access-Control-Max-Age": "'3600'"
        },
        "ResponseTemplates": {
-        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\" || $origin == \"https://collective-rides-frontend-*.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
        },
        "StatusCode": "204"
       }
@@ -4719,7 +4719,7 @@
         "method.response.header.Access-Control-Max-Age": "'3600'"
        },
        "ResponseTemplates": {
-        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\" || $origin == \"https://collective-rides-frontend-*.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
        },
        "StatusCode": "204"
       }
@@ -4884,7 +4884,7 @@
         "method.response.header.Access-Control-Max-Age": "'3600'"
        },
        "ResponseTemplates": {
-        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\" || $origin == \"https://collective-rides-frontend-*.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
        },
        "StatusCode": "204"
       }
@@ -5049,7 +5049,7 @@
         "method.response.header.Access-Control-Max-Age": "'3600'"
        },
        "ResponseTemplates": {
-        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\" || $origin == \"https://collective-rides-frontend-*.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
        },
        "StatusCode": "204"
       }
@@ -5214,7 +5214,7 @@
         "method.response.header.Access-Control-Max-Age": "'3600'"
        },
        "ResponseTemplates": {
-        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\" || $origin == \"https://collective-rides-frontend-*.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
        },
        "StatusCode": "204"
       }
@@ -5281,7 +5281,7 @@
         "method.response.header.Access-Control-Max-Age": "'3600'"
        },
        "ResponseTemplates": {
-        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\" || $origin == \"https://collective-rides-frontend-*.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
        },
        "StatusCode": "204"
       }
@@ -5446,7 +5446,7 @@
         "method.response.header.Access-Control-Max-Age": "'3600'"
        },
        "ResponseTemplates": {
-        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\" || $origin == \"https://collective-rides-frontend-*.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
        },
        "StatusCode": "204"
       }
@@ -5513,7 +5513,7 @@
         "method.response.header.Access-Control-Max-Age": "'3600'"
        },
        "ResponseTemplates": {
-        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\" || $origin == \"https://collective-rides-frontend-*.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
        },
        "StatusCode": "204"
       }
@@ -5678,7 +5678,7 @@
         "method.response.header.Access-Control-Max-Age": "'3600'"
        },
        "ResponseTemplates": {
-        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\" || $origin == \"https://collective-rides-frontend-*.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
        },
        "StatusCode": "204"
       }
@@ -5843,7 +5843,7 @@
         "method.response.header.Access-Control-Max-Age": "'3600'"
        },
        "ResponseTemplates": {
-        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\" || $origin == \"https://collective-rides-frontend-*.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
        },
        "StatusCode": "204"
       }
@@ -6008,7 +6008,7 @@
         "method.response.header.Access-Control-Max-Age": "'3600'"
        },
        "ResponseTemplates": {
-        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\" || $origin == \"https://collective-rides-frontend-*.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
        },
        "StatusCode": "204"
       }
@@ -6075,7 +6075,7 @@
         "method.response.header.Access-Control-Max-Age": "'3600'"
        },
        "ResponseTemplates": {
-        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\" || $origin == \"https://collective-rides-frontend-*.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
        },
        "StatusCode": "204"
       }
@@ -6142,7 +6142,7 @@
         "method.response.header.Access-Control-Max-Age": "'3600'"
        },
        "ResponseTemplates": {
-        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\" || $origin == \"https://collective-rides-frontend-*.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
        },
        "StatusCode": "204"
       }
@@ -6209,7 +6209,7 @@
         "method.response.header.Access-Control-Max-Age": "'3600'"
        },
        "ResponseTemplates": {
-        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\" || $origin == \"https://collective-rides-frontend-*.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
        },
        "StatusCode": "204"
       }
@@ -6374,7 +6374,7 @@
         "method.response.header.Access-Control-Max-Age": "'3600'"
        },
        "ResponseTemplates": {
-        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\" || $origin == \"https://collective-rides-frontend-*.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
        },
        "StatusCode": "204"
       }
@@ -6441,7 +6441,7 @@
         "method.response.header.Access-Control-Max-Age": "'3600'"
        },
        "ResponseTemplates": {
-        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\" || $origin == \"https://collective-rides-frontend-*.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
        },
        "StatusCode": "204"
       }
@@ -6606,7 +6606,7 @@
         "method.response.header.Access-Control-Max-Age": "'3600'"
        },
        "ResponseTemplates": {
-        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\" || $origin == \"https://collective-rides-frontend-*.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
        },
        "StatusCode": "204"
       }
@@ -6771,7 +6771,7 @@
         "method.response.header.Access-Control-Max-Age": "'3600'"
        },
        "ResponseTemplates": {
-        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\" || $origin == \"https://collective-rides-frontend-*.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
        },
        "StatusCode": "204"
       }
@@ -6936,7 +6936,7 @@
         "method.response.header.Access-Control-Max-Age": "'3600'"
        },
        "ResponseTemplates": {
-        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\" || $origin == \"https://collective-rides-frontend-*.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
        },
        "StatusCode": "204"
       }
@@ -7101,7 +7101,7 @@
         "method.response.header.Access-Control-Max-Age": "'3600'"
        },
        "ResponseTemplates": {
-        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\" || $origin == \"https://collective-rides-frontend-*.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
        },
        "StatusCode": "204"
       }
@@ -7364,7 +7364,7 @@
         "method.response.header.Access-Control-Max-Age": "'3600'"
        },
        "ResponseTemplates": {
-        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\" || $origin == \"https://collective-rides-frontend-*.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
        },
        "StatusCode": "204"
       }
@@ -7431,7 +7431,7 @@
         "method.response.header.Access-Control-Max-Age": "'3600'"
        },
        "ResponseTemplates": {
-        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\" || $origin == \"https://collective-rides-frontend-*.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
        },
        "StatusCode": "204"
       }
@@ -7622,7 +7622,7 @@
         "method.response.header.Access-Control-Max-Age": "'3600'"
        },
        "ResponseTemplates": {
-        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\" || $origin == \"https://collective-rides-frontend-*.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
        },
        "StatusCode": "204"
       }
@@ -7689,7 +7689,7 @@
         "method.response.header.Access-Control-Max-Age": "'3600'"
        },
        "ResponseTemplates": {
-        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\" || $origin == \"https://collective-rides-frontend-*.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
        },
        "StatusCode": "204"
       }
@@ -7756,7 +7756,7 @@
         "method.response.header.Access-Control-Max-Age": "'3600'"
        },
        "ResponseTemplates": {
-        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\" || $origin == \"https://collective-rides-frontend-*.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
        },
        "StatusCode": "204"
       }
@@ -7918,7 +7918,7 @@
         "method.response.header.Access-Control-Max-Age": "'3600'"
        },
        "ResponseTemplates": {
-        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\" || $origin == \"https://collective-rides-frontend-*.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
        },
        "StatusCode": "204"
       }
@@ -8080,7 +8080,7 @@
         "method.response.header.Access-Control-Max-Age": "'3600'"
        },
        "ResponseTemplates": {
-        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\" || $origin == \"https://collective-rides-frontend-*.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
        },
        "StatusCode": "204"
       }
@@ -9545,7 +9545,7 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-924748161040-us-east-2",
-     "S3Key": "12afca0db9641f2e813bb4de3b404830c63709b64de830a934911a26e9910ce6.zip"
+     "S3Key": "85d9af4433f46235b2f5568252d025df39b59abf8bd67918cc9bccbcbcb9cd1e.zip"
     },
     "Description": "Get club details by ID (public endpoint)",
     "Environment": {
@@ -9596,7 +9596,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "SydneyCyclesStack/ClubService/GetClubFunction/Resource",
-    "aws:asset:path": "asset.12afca0db9641f2e813bb4de3b404830c63709b64de830a934911a26e9910ce6",
+    "aws:asset:path": "asset.85d9af4433f46235b2f5568252d025df39b59abf8bd67918cc9bccbcbcb9cd1e",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }

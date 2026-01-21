@@ -60,7 +60,8 @@ export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayPr
     });
 
     // Return club directly - createSuccessResponse will wrap it
-    return createSuccessResponse(club);
+    const origin = event.headers?.origin || event.headers?.Origin;
+    return createSuccessResponse(club, 200, origin);
   } catch (error) {
     logStructured('ERROR', 'Error processing get club request', {
       requestId,
@@ -68,6 +69,7 @@ export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayPr
       error: error instanceof Error ? error.message : 'Unknown error',
     });
 
-    return handleLambdaError(error, requestId);
+    const origin = event.headers?.origin || event.headers?.Origin;
+    return handleLambdaError(error, requestId, origin);
   }
 }
