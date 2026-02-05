@@ -89,14 +89,13 @@ export class RestApiConstruct extends Construct {
         allowOrigins: props.environment === 'production' 
           ? [
               'https://sydneycycles.com', // Production domain
-              'https://collective-rides-frontend.vercel.app', // Vercel deployment
+              'https://collective-rides-frontend.vercel.app', // Vercel production
               'https://collectiverides.com' // Custom domain (if configured)
             ]
           : [
               'http://localhost:3000', 
               'http://127.0.0.1:3000',
-              'https://collective-rides-frontend.vercel.app', // Allow Vercel in development
-              'https://collective-rides-frontend-*.vercel.app' // Allow Vercel preview deployments
+              'https://collective-rides-frontend.vercel.app', // Vercel production for development testing
             ], // Development
         allowMethods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
         allowHeaders: [

@@ -1,0 +1,592 @@
+
+> sydney-cycles-backend@1.0.0 deploy
+> cdk deploy
+
+[WARNING] aws-cdk-lib.aws_cognito.UserPoolProps#advancedSecurityMode is deprecated.
+  Advanced Security Mode is deprecated due to user pool feature plans. Use StandardThreatProtectionMode and CustomThreatProtectionMode to set Thread Protection level.
+  This API will be removed in the next major release.
+[WARNING] aws-cdk-lib.aws_cognito.AdvancedSecurityMode is deprecated.
+  Advanced Security Mode is deprecated due to user pool feature plans. Use StandardThreatProtectionMode and CustomThreatProtectionMode to set Thread Protection level.
+  This API will be removed in the next major release.
+[WARNING] aws-cdk-lib.aws_cognito.AdvancedSecurityMode#AUDIT is deprecated.
+  
+  This API will be removed in the next major release.
+[WARNING] aws-cdk-lib.aws_dynamodb.TableOptions#pointInTimeRecovery is deprecated.
+  use `pointInTimeRecoverySpecification` instead
+  This API will be removed in the next major release.
+[WARNING] aws-cdk-lib.aws_apigateway.RestApiProps#minimumCompressionSize is deprecated.
+  - superseded by `minCompressionSize`
+  This API will be removed in the next major release.
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+Bundling asset SydneyCyclesStack/UserProfileService/GetCurrentUserFunction/Code/Stage...
+
+  ...a430f5e411e8143bb8219e0fb85b392a2050f8c33b672a4-building/index.js  37.5kb
+
+⚡ Done in 30ms
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+Bundling asset SydneyCyclesStack/UserProfileService/GetUserByIdFunction/Code/Stage...
+
+  ...374ad2a19d88eae83bc09c9efada67cc085036277cd4088-building/index.js  39.0kb
+
+⚡ Done in 13ms
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+Bundling asset SydneyCyclesStack/UserProfileService/UpdateUserFunction/Code/Stage...
+
+  ...47da7aee316f2e6a9627bd89039779c9b800ff270876429-building/index.js  39.3kb
+
+⚡ Done in 14ms
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+Bundling asset SydneyCyclesStack/ClubService/ListClubsFunction/Code/Stage...
+
+  ...a59a0d4c84734364dbc0ed472cb4f376de455d9379b9fb3-building/index.js  65.0kb
+
+⚡ Done in 21ms
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+Bundling asset SydneyCyclesStack/ClubService/GetClubFunction/Code/Stage...
+
+  ...8ace7ce90e7373d4e875ef4cdcb1b971f99e05c9e07f821-building/index.js  65.8kb
+
+⚡ Done in 16ms
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+Bundling asset SydneyCyclesStack/ClubService/CreateClubFunction/Code/Stage...
+
+  ...8abf7a31bcc97d1c0cb24868f41439963438f183cbceddd-building/index.js  56.2kb
+
+⚡ Done in 12ms
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+Bundling asset SydneyCyclesStack/ClubService/UpdateClubFunction/Code/Stage...
+
+  ...2eca2cf36ade73dd86bc4fe67599cf7d6b1c867ba196b79-building/index.js  56.7kb
+
+⚡ Done in 25ms
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+Bundling asset SydneyCyclesStack/ClubService/JoinClubFunction/Code/Stage...
+
+  ...5040e7d02c6bc08feeca787f85843402e4c658a24a7e1db-building/index.js  97.1kb
+
+⚡ Done in 20ms
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+Bundling asset SydneyCyclesStack/ClubService/LeaveClubFunction/Code/Stage...
+
+  ...8ddd9cc249a538f3d49e2db56899474e71b23fc1e7c95d3-building/index.js  96.5kb
+
+⚡ Done in 15ms
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+Bundling asset SydneyCyclesStack/ClubService/ListMembersFunction/Code/Stage...
+
+  ...d910f0e84a539df7d889838ef4acebf03f137f8e4dbcddc-building/index.js  97.9kb
+
+⚡ Done in 14ms
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+Bundling asset SydneyCyclesStack/ClubService/UpdateMemberFunction/Code/Stage...
+
+  ...0b630d84a75fb2a4ede3260542ca8ef97c289749a5d5658-building/index.js  97.7kb
+
+⚡ Done in 13ms
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+Bundling asset SydneyCyclesStack/ClubService/RemoveMemberFunction/Code/Stage...
+
+  ...942cb9bf4f08302b86d0e1d2a56bb5ca13452da138dd9f9-building/index.js  97.3kb
+
+⚡ Done in 17ms
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+Bundling asset SydneyCyclesStack/ClubService/InviteUserFunction/Code/Stage...
+
+  ...a375d4a17fc4793528a00eef329fdd0e007e05424c027d-building/index.js  123.3kb
+
+⚡ Done in 19ms
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+Bundling asset SydneyCyclesStack/ClubService/AcceptInvitationFunction/Code/Stage...
+
+  ...650c09bc14089c42e50a5e1df9db79dca0e16d1c7df978-building/index.js  124.0kb
+
+⚡ Done in 19ms
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+Bundling asset SydneyCyclesStack/ClubService/ListInvitationsFunction/Code/Stage...
+
+  ...e39bd2ce00542666f10438f82f440a85b724b3f6d985c1-building/index.js  123.0kb
+
+⚡ Done in 17ms
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+Bundling asset SydneyCyclesStack/ClubService/GetMembershipsFunction/Code/Stage...
+
+  ...647ceff5c30af2394e5f922502328125544828e864413b7-building/index.js  96.6kb
+
+⚡ Done in 18ms
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+Bundling asset SydneyCyclesStack/ClubService/ProcessJoinRequestFunction/Code/Stage...
+
+  ...c00a6c3c921b9914d2e9e3c6fd44458e31a5253e3167e6-building/index.js  123.7kb
+
+⚡ Done in 19ms
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+Bundling asset SydneyCyclesStack/ClubService/GetUserClubsFunction/Code/Stage...
+
+  ...34ebda68aeeed89f4f3d958c9e428ea07ecbea52e80bfb0-building/index.js  97.8kb
+
+⚡ Done in 15ms
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+Bundling asset SydneyCyclesStack/RideService/CreateRideHandler/Code/Stage...
+
+  ...9849fc493e0dae980c8709740840a762606d90f686bd1c1-building/index.js  63.2kb
+
+⚡ Done in 17ms
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+Bundling asset SydneyCyclesStack/RideService/PublishRideHandler/Code/Stage...
+
+  ...b2c79be50e56bbefaa9d80a8bedc1fbf6aafa0ab3415950-building/index.js  40.5kb
+
+⚡ Done in 19ms
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+Bundling asset SydneyCyclesStack/RideService/ListRidesHandler/Code/Stage...
+
+  ...f7dba0ab35912b887d2cc56790f3db8f9f1bdc09d7edef8-building/index.js  42.3kb
+
+⚡ Done in 18ms
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+Bundling asset SydneyCyclesStack/RideService/GetRideHandler/Code/Stage...
+
+  ...aeb10b924bc8d97732c7f6d8fc5b18d0b5c2aa152461d85-building/index.js  63.4kb
+
+⚡ Done in 16ms
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+Bundling asset SydneyCyclesStack/RideService/UpdateRideHandler/Code/Stage...
+
+  ...98f70b647020805f6946e2291a2670bfc385067350b534c-building/index.js  40.6kb
+
+⚡ Done in 18ms
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+Bundling asset SydneyCyclesStack/RideService/CancelRideHandler/Code/Stage...
+
+  ...2286b25d96e126da2ea025f46ec5796012996708123d3e8-building/index.js  40.6kb
+
+⚡ Done in 15ms
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+Bundling asset SydneyCyclesStack/RideService/JoinRideHandler/Code/Stage...
+
+  ...a870691d4373f83a37a79d7c4c0d5fa7fd3a6dd6bc04d06-building/index.js  55.5kb
+
+⚡ Done in 12ms
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+Bundling asset SydneyCyclesStack/RideService/LeaveRideHandler/Code/Stage...
+
+  ...c767f36c6b241d7f6eaae67fd99e5b783490bbfbc057ea7-building/index.js  43.7kb
+
+⚡ Done in 15ms
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+Bundling asset SydneyCyclesStack/RideService/GetUserRidesHandler/Code/Stage...
+
+  ...00492a1d2e6f93277c57cedeefef83351cc4e01187a81fa-building/index.js  43.8kb
+
+⚡ Done in 13ms
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+Bundling asset SydneyCyclesStack/RideService/CompleteRideHandler/Code/Stage...
+
+  ...2e2c124381ffea9be2341d6797f3c058a3a1de8c456bbc01-building/index.js  5.7kb
+
+⚡ Done in 11ms
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+Bundling asset SydneyCyclesStack/RideService/GetRideSummaryHandler/Code/Stage...
+
+  ...83beba22c734c691f538c64e6cdd96c4f3723b3abd9ddade-building/index.js  5.6kb
+
+⚡ Done in 12ms
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+Bundling asset SydneyCyclesStack/RideService/UpdateAttendanceHandler/Code/Stage...
+
+  ...06602e783ba9841ff444466ed1fad8070ec511e7266dac35-building/index.js  5.8kb
+
+⚡ Done in 9ms
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+Bundling asset SydneyCyclesStack/RideService/LinkManualEvidenceHandler/Code/Stage...
+
+  ...db4b4c4cd70d8f7643a66bf1e2bacd5d4d2231ffb4bbdc69-building/index.js  6.3kb
+
+⚡ Done in 11ms
+[WARNING] aws-cdk-lib.aws_cloudfront_origins.S3Origin is deprecated.
+  Use `S3BucketOrigin` or `S3StaticWebsiteOrigin` instead.
+  This API will be removed in the next major release.
+[WARNING] aws-cdk-lib.aws_cloudfront_origins.S3Origin#bind is deprecated.
+  Use `S3BucketOrigin` or `S3StaticWebsiteOrigin` instead.
+  This API will be removed in the next major release.
+Bundling asset SydneyCyclesStack/RouteFileService/FileUploadHandler/Code/Stage...
+
+  ...9281f62af8b592024e218227358a22d6fae7c0b8c4d9045-building/index.js  41.0kb
+
+⚡ Done in 20ms
+Bundling asset SydneyCyclesStack/RouteFileService/FileProcessingHandler/Code/Stage...
+
+  ...5ec00f154fb5f67a7002074511d2cf31e87ac278322205-building/index.js  236.8kb
+
+⚡ Done in 29ms
+Bundling asset SydneyCyclesStack/RouteFileService/FileDownloadHandler/Code/Stage...
+
+  ...d8c9ae2b7fb517fb7d0a9a013e1b67fedce4cbea6a7ab9d-building/index.js  27.4kb
+
+⚡ Done in 12ms
+Bundling asset SydneyCyclesStack/RouteFileService/AnalyticsHandler/Code/Stage...
+
+  ...8a4c85ab6bc6cd8db3d010653c68b4846f2c23a2d282418-building/index.js  26.5kb
+
+⚡ Done in 13ms
+Bundling asset SydneyCyclesStack/RouteTemplateService/TemplateHandler/Code/Stage...
+
+  ...fc851df975b02e335ac878a5859cb12314f1fba5f0325d2-building/index.js  42.2kb
+
+⚡ Done in 12ms
+Bundling asset SydneyCyclesStack/RouteTemplateService/SearchHandler/Code/Stage...
+
+  ...c81115630c516b1c815384b307a60abb6143f1beff863b0-building/index.js  27.8kb
+
+⚡ Done in 10ms
+Bundling asset SydneyCyclesStack/StravaIntegrationService/OAuthConnectFunction/Code/Stage...
+
+  ...82216e28fcca4282b8402f0c80823fd4e61eea98c63f111-building/index.js   3.2kb
+  ...6e28fcca4282b8402f0c80823fd4e61eea98c63f111-building/index.js.map  23.3kb
+
+⚡ Done in 15ms
+Bundling asset SydneyCyclesStack/StravaIntegrationService/OAuthCallbackFunction/Code/Stage...
+
+  ...86dd8369f29f07277da3ded35787d0f1767477628b09e0c-building/index.js   3.4kb
+  ...8369f29f07277da3ded35787d0f1767477628b09e0c-building/index.js.map  23.7kb
+
+⚡ Done in 8ms
+Bundling asset SydneyCyclesStack/StravaIntegrationService/WebhookFunction/Code/Stage...
+
+  ...cd6f2b0a852393331573bef4635afa9f99668983b531fc21-building/index.js  2.1kb
+  ...2b0a852393331573bef4635afa9f99668983b531fc21-building/index.js.map  6.8kb
+
+⚡ Done in 10ms
+[Warning at /SydneyCyclesStack/StravaIntegrationService] If you are relying on AWS SDK v2 to be present in the Lambda environment already, please explicitly configure a NodeJS runtime of Node 16 or lower. [ack: @aws-cdk/aws-lambda-nodejs:sdkV2NotInRuntime]
+
+✨  Synthesis time: 45.77s
+
+(node:30350) Warning: NodeDeprecationWarning: The AWS SDK for JavaScript (v3) will
+no longer support Node.js v18.20.8 in January 2026.
+
+To continue receiving updates to AWS services, bug fixes, and security
+updates please upgrade to a supported Node.js LTS version.
+
+More information can be found at: https://a.co/c895JFp
+(Use `node --trace-warnings ...` to show where the warning was created)
+SydneyCyclesStack: deploying... [1/1]
+SydneyCyclesStack: creating CloudFormation changeset...
+SydneyCyclesStack |  0/53 | 10:48:14 PM | UPDATE_IN_PROGRESS   | AWS::CloudFormation::Stack                      | SydneyCyclesStack User Initiated
+SydneyCyclesStack |  0/53 | 10:48:24 PM | UPDATE_IN_PROGRESS   | AWS::ApiGateway::Method                         | RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/routes/{routeId}/OPTIONS (RestApiSydneyCyclesRestApiv1clubsclubIdroutesrouteIdOPTIONSE928752A) 
+SydneyCyclesStack |  0/53 | 10:48:24 PM | UPDATE_IN_PROGRESS   | AWS::ApiGateway::Method                         | RestApi/SydneyCyclesRestApi/Default/v1/invitations/OPTIONS (RestApiSydneyCyclesRestApiv1invitationsOPTIONSA8E12708) 
+SydneyCyclesStack |  0/53 | 10:48:24 PM | UPDATE_IN_PROGRESS   | AWS::ApiGateway::Method                         | RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/requests/OPTIONS (RestApiSydneyCyclesRestApiv1clubsclubIdrequestsOPTIONS4D5D1B5F) 
+SydneyCyclesStack |  0/53 | 10:48:24 PM | UPDATE_IN_PROGRESS   | AWS::ApiGateway::Method                         | RestApi/SydneyCyclesRestApi/Default/v1/users/me/memberships/OPTIONS (RestApiSydneyCyclesRestApiv1usersmemembershipsOPTIONS0309E7A4) 
+SydneyCyclesStack |  0/53 | 10:48:24 PM | UPDATE_IN_PROGRESS   | AWS::ApiGateway::Method                         | RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/rides/{rideId}/publish/OPTIONS (RestApiSydneyCyclesRestApiv1clubsclubIdridesrideIdpublishOPTIONSB73211EA) 
+SydneyCyclesStack |  0/53 | 10:48:24 PM | UPDATE_IN_PROGRESS   | AWS::ApiGateway::Method                         | RestApi/SydneyCyclesRestApi/Default/v1/users/OPTIONS (RestApiSydneyCyclesRestApiv1usersOPTIONSBEB4FD60) 
+SydneyCyclesStack |  0/53 | 10:48:24 PM | UPDATE_IN_PROGRESS   | AWS::ApiGateway::Method                         | RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/rides/{rideId}/participants/{userId}/OPTIONS (RestApiSydneyCyclesRestApiv1clubsclubIdridesrideIdparticipantsuserIdOPTIONSB3F74826) 
+SydneyCyclesStack |  0/53 | 10:48:24 PM | UPDATE_IN_PROGRESS   | AWS::ApiGateway::Method                         | RestApi/SydneyCyclesRestApi/Default/integrations/strava/OPTIONS (RestApiSydneyCyclesRestApiintegrationsstravaOPTIONS3890463B) 
+SydneyCyclesStack |  0/53 | 10:48:24 PM | UPDATE_IN_PROGRESS   | AWS::ApiGateway::Method                         | RestApi/SydneyCyclesRestApi/Default/v1/invitations/{id}/OPTIONS (RestApiSydneyCyclesRestApiv1invitationsidOPTIONSBE7C5035) 
+SydneyCyclesStack |  0/53 | 10:48:24 PM | UPDATE_IN_PROGRESS   | AWS::ApiGateway::Method                         | RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/rides/{rideId}/participants/OPTIONS (RestApiSydneyCyclesRestApiv1clubsclubIdridesrideIdparticipantsOPTIONSA42575DB) 
+SydneyCyclesStack |  0/53 | 10:48:24 PM | UPDATE_IN_PROGRESS   | AWS::ApiGateway::Method                         | RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/routes/{routeId}/files/upload-url/OPTIONS (RestApiSydneyCyclesRestApiv1clubsclubIdroutesrouteIdfilesuploadurlOPTIONS75E350E0) 
+SydneyCyclesStack |  0/53 | 10:48:24 PM | UPDATE_IN_PROGRESS   | AWS::ApiGateway::Method                         | RestApi/SydneyCyclesRestApi/Default/v1/users/me/clubs/OPTIONS (RestApiSydneyCyclesRestApiv1usersmeclubsOPTIONSA880120F) 
+SydneyCyclesStack |  0/53 | 10:48:24 PM | UPDATE_IN_PROGRESS   | AWS::ApiGateway::Method                         | RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/rides/{rideId}/join/OPTIONS (RestApiSydneyCyclesRestApiv1clubsclubIdridesrideIdjoinOPTIONS6F59756F) 
+SydneyCyclesStack |  0/53 | 10:48:24 PM | UPDATE_IN_PROGRESS   | AWS::ApiGateway::Method                         | RestApi/SydneyCyclesRestApi/Default/v1/clubs/OPTIONS (RestApiSydneyCyclesRestApiv1clubsOPTIONSC3BAB8A0) 
+SydneyCyclesStack |  0/53 | 10:48:24 PM | UPDATE_IN_PROGRESS   | AWS::ApiGateway::Method                         | RestApi/SydneyCyclesRestApi/Default/integrations/OPTIONS (RestApiSydneyCyclesRestApiintegrationsOPTIONSE4FF2A8D) 
+SydneyCyclesStack |  0/53 | 10:48:24 PM | UPDATE_IN_PROGRESS   | AWS::ApiGateway::Method                         | RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/rides/{rideId}/summary/OPTIONS (RestApiSydneyCyclesRestApiv1clubsclubIdridesrideIdsummaryOPTIONS15CB30A5) 
+SydneyCyclesStack |  0/53 | 10:48:24 PM | UPDATE_IN_PROGRESS   | AWS::ApiGateway::Method                         | RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/rides/{rideId}/participants/me/OPTIONS (RestApiSydneyCyclesRestApiv1clubsclubIdridesrideIdparticipantsmeOPTIONSAE6326B9) 
+SydneyCyclesStack |  0/53 | 10:48:24 PM | UPDATE_IN_PROGRESS   | AWS::ApiGateway::Method                         | RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/member/OPTIONS (RestApiSydneyCyclesRestApiv1clubsclubIdmemberOPTIONS88D876E1) 
+SydneyCyclesStack |  0/53 | 10:48:24 PM | UPDATE_IN_PROGRESS   | AWS::ApiGateway::Method                         | RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/rides/{rideId}/complete/OPTIONS (RestApiSydneyCyclesRestApiv1clubsclubIdridesrideIdcompleteOPTIONS6B8B7170) 
+SydneyCyclesStack |  0/53 | 10:48:24 PM | UPDATE_IN_PROGRESS   | AWS::ApiGateway::Method                         | RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/members/OPTIONS (RestApiSydneyCyclesRestApiv1clubsclubIdmembersOPTIONS36CA4A08) 
+SydneyCyclesStack |  0/53 | 10:48:24 PM | UPDATE_IN_PROGRESS   | AWS::ApiGateway::Method                         | RestApi/SydneyCyclesRestApi/Default/v1/users/me/rides/OPTIONS (RestApiSydneyCyclesRestApiv1usersmeridesOPTIONSB48052BA) 
+SydneyCyclesStack |  0/53 | 10:48:24 PM | UPDATE_IN_PROGRESS   | AWS::ApiGateway::Method                         | RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/requests/{membershipId}/OPTIONS (RestApiSydneyCyclesRestApiv1clubsclubIdrequestsmembershipIdOPTIONS353F2361) 
+SydneyCyclesStack |  0/53 | 10:48:24 PM | UPDATE_IN_PROGRESS   | AWS::ApiGateway::Method                         | RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/routes/{routeId}/files/{version}/status/OPTIONS (RestApiSydneyCyclesRestApiv1clubsclubIdroutesrouteIdfilesversionstatusOPTIONSD0DA728E) 
+SydneyCyclesStack |  0/53 | 10:48:24 PM | UPDATE_IN_PROGRESS   | AWS::ApiGateway::Method                         | RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/routes/{routeId}/files/{version}/OPTIONS (RestApiSydneyCyclesRestApiv1clubsclubIdroutesrouteIdfilesversionOPTIONSFD477016) 
+SydneyCyclesStack |  0/53 | 10:48:24 PM | UPDATE_IN_PROGRESS   | AWS::ApiGateway::Method                         | RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/rides/{rideId}/participants/{userId}/evidence/OPTIONS (RestApiSydneyCyclesRestApiv1clubsclubIdridesrideIdparticipantsuserIdevidenceOPTIONS811F574B) 
+SydneyCyclesStack |  0/53 | 10:48:24 PM | UPDATE_IN_PROGRESS   | AWS::ApiGateway::Method                         | RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/rides/{rideId}/OPTIONS (RestApiSydneyCyclesRestApiv1clubsclubIdridesrideIdOPTIONS328AA053) 
+SydneyCyclesStack |  0/53 | 10:48:24 PM | UPDATE_IN_PROGRESS   | AWS::ApiGateway::Method                         | RestApi/SydneyCyclesRestApi/Default/integrations/strava/connect/OPTIONS (RestApiSydneyCyclesRestApiintegrationsstravaconnectOPTIONS2F45AC3E) 
+SydneyCyclesStack |  0/53 | 10:48:24 PM | UPDATE_IN_PROGRESS   | AWS::ApiGateway::Method                         | RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/OPTIONS (RestApiSydneyCyclesRestApiv1clubsclubIdOPTIONS3D70AB7D) 
+SydneyCyclesStack |  0/53 | 10:48:24 PM | UPDATE_IN_PROGRESS   | AWS::ApiGateway::Method                         | RestApi/SydneyCyclesRestApi/Default/integrations/strava/webhook/OPTIONS (RestApiSydneyCyclesRestApiintegrationsstravawebhookOPTIONS04F70857) 
+SydneyCyclesStack |  0/53 | 10:48:24 PM | UPDATE_IN_PROGRESS   | AWS::ApiGateway::Method                         | RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/routes/{routeId}/files/OPTIONS (RestApiSydneyCyclesRestApiv1clubsclubIdroutesrouteIdfilesOPTIONS880E663F) 
+SydneyCyclesStack |  0/53 | 10:48:24 PM | UPDATE_IN_PROGRESS   | AWS::ApiGateway::Method                         | RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/invitations/OPTIONS (RestApiSydneyCyclesRestApiv1clubsclubIdinvitationsOPTIONS54544D72) 
+SydneyCyclesStack |  0/53 | 10:48:24 PM | UPDATE_IN_PROGRESS   | AWS::ApiGateway::Method                         | RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/routes/{routeId}/analytics/OPTIONS (RestApiSydneyCyclesRestApiv1clubsclubIdroutesrouteIdanalyticsOPTIONSB69C3984) 
+SydneyCyclesStack |  0/53 | 10:48:24 PM | UPDATE_IN_PROGRESS   | AWS::ApiGateway::Method                         | RestApi/SydneyCyclesRestApi/Default/integrations/strava/callback/OPTIONS (RestApiSydneyCyclesRestApiintegrationsstravacallbackOPTIONS700CE527) 
+SydneyCyclesStack |  0/53 | 10:48:24 PM | UPDATE_IN_PROGRESS   | AWS::ApiGateway::Method                         | RestApi/SydneyCyclesRestApi/Default/v1/users/{id}/OPTIONS (RestApiSydneyCyclesRestApiv1usersidOPTIONSAE932062) 
+SydneyCyclesStack |  0/53 | 10:48:24 PM | UPDATE_IN_PROGRESS   | AWS::ApiGateway::Method                         | RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/routes/{routeId}/files/{version}/download/OPTIONS (RestApiSydneyCyclesRestApiv1clubsclubIdroutesrouteIdfilesversiondownloadOPTIONS9362812F) 
+SydneyCyclesStack |  0/53 | 10:48:24 PM | UPDATE_IN_PROGRESS   | AWS::ApiGateway::Method                         | RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/templates/OPTIONS (RestApiSydneyCyclesRestApiv1clubsclubIdtemplatesOPTIONSB09AAAFD) 
+SydneyCyclesStack |  0/53 | 10:48:24 PM | UPDATE_IN_PROGRESS   | AWS::ApiGateway::Method                         | RestApi/SydneyCyclesRestApi/Default/v1/users/me/OPTIONS (RestApiSydneyCyclesRestApiv1usersmeOPTIONS1DC5F0B5) 
+SydneyCyclesStack |  0/53 | 10:48:24 PM | UPDATE_IN_PROGRESS   | AWS::ApiGateway::Method                         | RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/rides/{rideId}/participants/{userId}/evidence/manual/OPTIONS (RestApiSydneyCyclesRestApiv1clubsclubIdridesrideIdparticipantsuserIdevidencemanualOPTIONS8B59F770) 
+SydneyCyclesStack |  0/53 | 10:48:24 PM | UPDATE_IN_PROGRESS   | AWS::ApiGateway::Method                         | RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/members/me/OPTIONS (RestApiSydneyCyclesRestApiv1clubsclubIdmembersmeOPTIONS200231EA) 
+SydneyCyclesStack |  0/53 | 10:48:24 PM | UPDATE_IN_PROGRESS   | AWS::ApiGateway::Method                         | RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/routes/OPTIONS (RestApiSydneyCyclesRestApiv1clubsclubIdroutesOPTIONS59C8556D) 
+SydneyCyclesStack |  0/53 | 10:48:24 PM | UPDATE_IN_PROGRESS   | AWS::ApiGateway::Method                         | RestApi/SydneyCyclesRestApi/Default/v1/OPTIONS (RestApiSydneyCyclesRestApiv1OPTIONS4AC74D5B) 
+SydneyCyclesStack |  0/53 | 10:48:24 PM | UPDATE_IN_PROGRESS   | AWS::ApiGateway::Method                         | RestApi/SydneyCyclesRestApi/Default/health/OPTIONS (RestApiSydneyCyclesRestApihealthOPTIONS497D08D8) 
+SydneyCyclesStack |  0/53 | 10:48:24 PM | UPDATE_IN_PROGRESS   | AWS::ApiGateway::Method                         | RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/routes/{routeId}/files/{version}/confirm/OPTIONS (RestApiSydneyCyclesRestApiv1clubsclubIdroutesrouteIdfilesversionconfirmOPTIONSC3B18498) 
+SydneyCyclesStack |  0/53 | 10:48:24 PM | UPDATE_IN_PROGRESS   | AWS::ApiGateway::Method                         | RestApi/SydneyCyclesRestApi/Default/v1/users/me/invitations/OPTIONS (RestApiSydneyCyclesRestApiv1usersmeinvitationsOPTIONSBC0CECD4) 
+SydneyCyclesStack |  0/53 | 10:48:24 PM | UPDATE_IN_PROGRESS   | AWS::ApiGateway::Method                         | RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/rides/{rideId}/participants/{userId}/attendance/OPTIONS (RestApiSydneyCyclesRestApiv1clubsclubIdridesrideIdparticipantsuserIdattendanceOPTIONS09C975B5) 
+SydneyCyclesStack |  0/53 | 10:48:24 PM | UPDATE_IN_PROGRESS   | AWS::ApiGateway::Method                         | RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/member/{userId}/OPTIONS (RestApiSydneyCyclesRestApiv1clubsclubIdmemberuserIdOPTIONS0CB823F0) 
+SydneyCyclesStack |  0/53 | 10:48:24 PM | UPDATE_IN_PROGRESS   | AWS::ApiGateway::Method                         | RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/rides/OPTIONS (RestApiSydneyCyclesRestApiv1clubsclubIdridesOPTIONSDE5D7D36) 
+SydneyCyclesStack |  0/53 | 10:48:24 PM | UPDATE_IN_PROGRESS   | AWS::ApiGateway::Method                         | RestApi/SydneyCyclesRestApi/Default/OPTIONS (RestApiSydneyCyclesRestApiOPTIONS22E7A9FA) 
+SydneyCyclesStack |  1/53 | 10:48:44 PM | UPDATE_COMPLETE      | AWS::ApiGateway::Method                         | RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/rides/OPTIONS (RestApiSydneyCyclesRestApiv1clubsclubIdridesOPTIONSDE5D7D36) 
+SydneyCyclesStack |  2/53 | 10:48:45 PM | UPDATE_COMPLETE      | AWS::ApiGateway::Method                         | RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/rides/{rideId}/publish/OPTIONS (RestApiSydneyCyclesRestApiv1clubsclubIdridesrideIdpublishOPTIONSB73211EA) 
+SydneyCyclesStack |  3/53 | 10:48:46 PM | UPDATE_COMPLETE      | AWS::ApiGateway::Method                         | RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/rides/{rideId}/participants/{userId}/evidence/OPTIONS (RestApiSydneyCyclesRestApiv1clubsclubIdridesrideIdparticipantsuserIdevidenceOPTIONS811F574B) 
+SydneyCyclesStack |  4/53 | 10:48:46 PM | UPDATE_COMPLETE      | AWS::ApiGateway::Method                         | RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/routes/{routeId}/OPTIONS (RestApiSydneyCyclesRestApiv1clubsclubIdroutesrouteIdOPTIONSE928752A) 
+SydneyCyclesStack |  5/53 | 10:48:48 PM | UPDATE_COMPLETE      | AWS::ApiGateway::Method                         | RestApi/SydneyCyclesRestApi/Default/v1/users/{id}/OPTIONS (RestApiSydneyCyclesRestApiv1usersidOPTIONSAE932062) 
+SydneyCyclesStack |  6/53 | 10:48:48 PM | UPDATE_COMPLETE      | AWS::ApiGateway::Method                         | RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/rides/{rideId}/participants/{userId}/OPTIONS (RestApiSydneyCyclesRestApiv1clubsclubIdridesrideIdparticipantsuserIdOPTIONSB3F74826) 
+SydneyCyclesStack |  7/53 | 10:48:48 PM | UPDATE_COMPLETE      | AWS::ApiGateway::Method                         | RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/rides/{rideId}/participants/OPTIONS (RestApiSydneyCyclesRestApiv1clubsclubIdridesrideIdparticipantsOPTIONSA42575DB) 
+SydneyCyclesStack |  8/53 | 10:48:49 PM | UPDATE_COMPLETE      | AWS::ApiGateway::Method                         | RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/rides/{rideId}/participants/me/OPTIONS (RestApiSydneyCyclesRestApiv1clubsclubIdridesrideIdparticipantsmeOPTIONSAE6326B9) 
+SydneyCyclesStack |  9/53 | 10:48:49 PM | UPDATE_COMPLETE      | AWS::ApiGateway::Method                         | RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/requests/{membershipId}/OPTIONS (RestApiSydneyCyclesRestApiv1clubsclubIdrequestsmembershipIdOPTIONS353F2361) 
+SydneyCyclesStack | 10/53 | 10:48:50 PM | UPDATE_COMPLETE      | AWS::ApiGateway::Method                         | RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/routes/{routeId}/files/OPTIONS (RestApiSydneyCyclesRestApiv1clubsclubIdroutesrouteIdfilesOPTIONS880E663F) 
+SydneyCyclesStack | 11/53 | 10:48:52 PM | UPDATE_COMPLETE      | AWS::ApiGateway::Method                         | RestApi/SydneyCyclesRestApi/Default/v1/invitations/OPTIONS (RestApiSydneyCyclesRestApiv1invitationsOPTIONSA8E12708) 
+SydneyCyclesStack | 12/53 | 10:48:52 PM | UPDATE_COMPLETE      | AWS::ApiGateway::Method                         | RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/members/OPTIONS (RestApiSydneyCyclesRestApiv1clubsclubIdmembersOPTIONS36CA4A08) 
+SydneyCyclesStack | 13/53 | 10:48:52 PM | UPDATE_COMPLETE      | AWS::ApiGateway::Method                         | RestApi/SydneyCyclesRestApi/Default/v1/users/me/clubs/OPTIONS (RestApiSydneyCyclesRestApiv1usersmeclubsOPTIONSA880120F) 
+SydneyCyclesStack | 14/53 | 10:48:53 PM | UPDATE_COMPLETE      | AWS::ApiGateway::Method                         | RestApi/SydneyCyclesRestApi/Default/v1/users/OPTIONS (RestApiSydneyCyclesRestApiv1usersOPTIONSBEB4FD60) 
+SydneyCyclesStack | 15/53 | 10:48:54 PM | UPDATE_COMPLETE      | AWS::ApiGateway::Method                         | RestApi/SydneyCyclesRestApi/Default/v1/OPTIONS (RestApiSydneyCyclesRestApiv1OPTIONS4AC74D5B) 
+SydneyCyclesStack | 16/53 | 10:48:55 PM | UPDATE_COMPLETE      | AWS::ApiGateway::Method                         | RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/rides/{rideId}/complete/OPTIONS (RestApiSydneyCyclesRestApiv1clubsclubIdridesrideIdcompleteOPTIONS6B8B7170) 
+SydneyCyclesStack | 17/53 | 10:48:57 PM | UPDATE_COMPLETE      | AWS::ApiGateway::Method                         | RestApi/SydneyCyclesRestApi/Default/v1/invitations/{id}/OPTIONS (RestApiSydneyCyclesRestApiv1invitationsidOPTIONSBE7C5035) 
+SydneyCyclesStack | 18/53 | 10:48:57 PM | UPDATE_COMPLETE      | AWS::ApiGateway::Method                         | RestApi/SydneyCyclesRestApi/Default/v1/users/me/OPTIONS (RestApiSydneyCyclesRestApiv1usersmeOPTIONS1DC5F0B5) 
+SydneyCyclesStack | 19/53 | 10:48:57 PM | UPDATE_COMPLETE      | AWS::ApiGateway::Method                         | RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/routes/{routeId}/files/{version}/confirm/OPTIONS (RestApiSydneyCyclesRestApiv1clubsclubIdroutesrouteIdfilesversionconfirmOPTIONSC3B18498) 
+SydneyCyclesStack | 20/53 | 10:48:58 PM | UPDATE_COMPLETE      | AWS::ApiGateway::Method                         | RestApi/SydneyCyclesRestApi/Default/integrations/strava/OPTIONS (RestApiSydneyCyclesRestApiintegrationsstravaOPTIONS3890463B) 
+SydneyCyclesStack | 21/53 | 10:49:00 PM | UPDATE_COMPLETE      | AWS::ApiGateway::Method                         | RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/member/{userId}/OPTIONS (RestApiSydneyCyclesRestApiv1clubsclubIdmemberuserIdOPTIONS0CB823F0) 
+SydneyCyclesStack | 22/53 | 10:49:01 PM | UPDATE_COMPLETE      | AWS::ApiGateway::Method                         | RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/rides/{rideId}/join/OPTIONS (RestApiSydneyCyclesRestApiv1clubsclubIdridesrideIdjoinOPTIONS6F59756F) 
+SydneyCyclesStack | 23/53 | 10:49:02 PM | UPDATE_COMPLETE      | AWS::ApiGateway::Method                         | RestApi/SydneyCyclesRestApi/Default/v1/clubs/OPTIONS (RestApiSydneyCyclesRestApiv1clubsOPTIONSC3BAB8A0) 
+SydneyCyclesStack | 24/53 | 10:49:02 PM | UPDATE_COMPLETE      | AWS::ApiGateway::Method                         | RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/routes/{routeId}/files/{version}/OPTIONS (RestApiSydneyCyclesRestApiv1clubsclubIdroutesrouteIdfilesversionOPTIONSFD477016) 
+SydneyCyclesStack | 25/53 | 10:49:03 PM | UPDATE_COMPLETE      | AWS::ApiGateway::Method                         | RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/requests/OPTIONS (RestApiSydneyCyclesRestApiv1clubsclubIdrequestsOPTIONS4D5D1B5F) 
+SydneyCyclesStack | 26/53 | 10:49:04 PM | UPDATE_COMPLETE      | AWS::ApiGateway::Method                         | RestApi/SydneyCyclesRestApi/Default/OPTIONS (RestApiSydneyCyclesRestApiOPTIONS22E7A9FA) 
+SydneyCyclesStack | 27/53 | 10:49:04 PM | UPDATE_COMPLETE      | AWS::ApiGateway::Method                         | RestApi/SydneyCyclesRestApi/Default/v1/users/me/memberships/OPTIONS (RestApiSydneyCyclesRestApiv1usersmemembershipsOPTIONS0309E7A4) 
+SydneyCyclesStack | 28/53 | 10:49:05 PM | UPDATE_COMPLETE      | AWS::ApiGateway::Method                         | RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/rides/{rideId}/participants/{userId}/attendance/OPTIONS (RestApiSydneyCyclesRestApiv1clubsclubIdridesrideIdparticipantsuserIdattendanceOPTIONS09C975B5) 
+SydneyCyclesStack | 29/53 | 10:49:06 PM | UPDATE_COMPLETE      | AWS::ApiGateway::Method                         | RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/member/OPTIONS (RestApiSydneyCyclesRestApiv1clubsclubIdmemberOPTIONS88D876E1) 
+SydneyCyclesStack | 30/53 | 10:49:07 PM | UPDATE_COMPLETE      | AWS::ApiGateway::Method                         | RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/routes/{routeId}/analytics/OPTIONS (RestApiSydneyCyclesRestApiv1clubsclubIdroutesrouteIdanalyticsOPTIONSB69C3984) 
+SydneyCyclesStack | 31/53 | 10:49:07 PM | UPDATE_COMPLETE      | AWS::ApiGateway::Method                         | RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/rides/{rideId}/summary/OPTIONS (RestApiSydneyCyclesRestApiv1clubsclubIdridesrideIdsummaryOPTIONS15CB30A5) 
+SydneyCyclesStack | 32/53 | 10:49:07 PM | UPDATE_COMPLETE      | AWS::ApiGateway::Method                         | RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/routes/{routeId}/files/{version}/status/OPTIONS (RestApiSydneyCyclesRestApiv1clubsclubIdroutesrouteIdfilesversionstatusOPTIONSD0DA728E) 
+SydneyCyclesStack | 33/53 | 10:49:08 PM | UPDATE_COMPLETE      | AWS::ApiGateway::Method                         | RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/routes/{routeId}/files/upload-url/OPTIONS (RestApiSydneyCyclesRestApiv1clubsclubIdroutesrouteIdfilesuploadurlOPTIONS75E350E0) 
+SydneyCyclesStack | 34/53 | 10:49:10 PM | UPDATE_COMPLETE      | AWS::ApiGateway::Method                         | RestApi/SydneyCyclesRestApi/Default/v1/users/me/rides/OPTIONS (RestApiSydneyCyclesRestApiv1usersmeridesOPTIONSB48052BA) 
+SydneyCyclesStack | 35/53 | 10:49:11 PM | UPDATE_COMPLETE      | AWS::ApiGateway::Method                         | RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/members/me/OPTIONS (RestApiSydneyCyclesRestApiv1clubsclubIdmembersmeOPTIONS200231EA) 
+SydneyCyclesStack | 36/53 | 10:49:11 PM | UPDATE_COMPLETE      | AWS::ApiGateway::Method                         | RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/OPTIONS (RestApiSydneyCyclesRestApiv1clubsclubIdOPTIONS3D70AB7D) 
+SydneyCyclesStack | 37/53 | 10:49:11 PM | UPDATE_COMPLETE      | AWS::ApiGateway::Method                         | RestApi/SydneyCyclesRestApi/Default/integrations/strava/callback/OPTIONS (RestApiSydneyCyclesRestApiintegrationsstravacallbackOPTIONS700CE527) 
+SydneyCyclesStack | 38/53 | 10:49:14 PM | UPDATE_COMPLETE      | AWS::ApiGateway::Method                         | RestApi/SydneyCyclesRestApi/Default/integrations/strava/connect/OPTIONS (RestApiSydneyCyclesRestApiintegrationsstravaconnectOPTIONS2F45AC3E) 
+SydneyCyclesStack | 39/53 | 10:49:15 PM | UPDATE_COMPLETE      | AWS::ApiGateway::Method                         | RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/routes/OPTIONS (RestApiSydneyCyclesRestApiv1clubsclubIdroutesOPTIONS59C8556D) 
+SydneyCyclesStack | 40/53 | 10:49:15 PM | UPDATE_COMPLETE      | AWS::ApiGateway::Method                         | RestApi/SydneyCyclesRestApi/Default/integrations/strava/webhook/OPTIONS (RestApiSydneyCyclesRestApiintegrationsstravawebhookOPTIONS04F70857) 
+SydneyCyclesStack | 41/53 | 10:49:15 PM | UPDATE_COMPLETE      | AWS::ApiGateway::Method                         | RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/templates/OPTIONS (RestApiSydneyCyclesRestApiv1clubsclubIdtemplatesOPTIONSB09AAAFD) 
+SydneyCyclesStack | 42/53 | 10:49:17 PM | UPDATE_COMPLETE      | AWS::ApiGateway::Method                         | RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/rides/{rideId}/participants/{userId}/evidence/manual/OPTIONS (RestApiSydneyCyclesRestApiv1clubsclubIdridesrideIdparticipantsuserIdevidencemanualOPTIONS8B59F770) 
+SydneyCyclesStack | 43/53 | 10:49:17 PM | UPDATE_COMPLETE      | AWS::ApiGateway::Method                         | RestApi/SydneyCyclesRestApi/Default/integrations/OPTIONS (RestApiSydneyCyclesRestApiintegrationsOPTIONSE4FF2A8D) 
+SydneyCyclesStack | 44/53 | 10:49:21 PM | UPDATE_COMPLETE      | AWS::ApiGateway::Method                         | RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/routes/{routeId}/files/{version}/download/OPTIONS (RestApiSydneyCyclesRestApiv1clubsclubIdroutesrouteIdfilesversiondownloadOPTIONS9362812F) 
+SydneyCyclesStack | 45/53 | 10:49:23 PM | UPDATE_COMPLETE      | AWS::ApiGateway::Method                         | RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/rides/{rideId}/OPTIONS (RestApiSydneyCyclesRestApiv1clubsclubIdridesrideIdOPTIONS328AA053) 
+SydneyCyclesStack | 46/53 | 10:49:27 PM | UPDATE_COMPLETE      | AWS::ApiGateway::Method                         | RestApi/SydneyCyclesRestApi/Default/v1/users/me/invitations/OPTIONS (RestApiSydneyCyclesRestApiv1usersmeinvitationsOPTIONSBC0CECD4) 
+SydneyCyclesStack | 47/53 | 10:49:34 PM | UPDATE_COMPLETE      | AWS::ApiGateway::Method                         | RestApi/SydneyCyclesRestApi/Default/health/OPTIONS (RestApiSydneyCyclesRestApihealthOPTIONS497D08D8) 
+SydneyCyclesStack | 48/53 | 10:49:36 PM | UPDATE_COMPLETE      | AWS::ApiGateway::Method                         | RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/invitations/OPTIONS (RestApiSydneyCyclesRestApiv1clubsclubIdinvitationsOPTIONS54544D72) 
+SydneyCyclesStack | 48/53 | 10:49:38 PM | CREATE_IN_PROGRESS   | AWS::ApiGateway::Deployment                     | RestApi/SydneyCyclesRestApi/Deployment (RestApiSydneyCyclesRestApiDeployment050DCABAd3e76031ef0cb0af1dc8188d84634e83) 
+SydneyCyclesStack | 48/53 | 10:49:39 PM | CREATE_IN_PROGRESS   | AWS::ApiGateway::Deployment                     | RestApi/SydneyCyclesRestApi/Deployment (RestApiSydneyCyclesRestApiDeployment050DCABAd3e76031ef0cb0af1dc8188d84634e83) Resource creation Initiated
+SydneyCyclesStack | 49/53 | 10:49:40 PM | CREATE_COMPLETE      | AWS::ApiGateway::Deployment                     | RestApi/SydneyCyclesRestApi/Deployment (RestApiSydneyCyclesRestApiDeployment050DCABAd3e76031ef0cb0af1dc8188d84634e83) 
+SydneyCyclesStack | 49/53 | 10:49:41 PM | UPDATE_IN_PROGRESS   | AWS::ApiGateway::Stage                          | RestApi/SydneyCyclesRestApi/DeploymentStage.development (RestApiSydneyCyclesRestApiDeploymentStagedevelopmentDF98341E) 
+SydneyCyclesStack | 50/53 | 10:49:42 PM | UPDATE_COMPLETE      | AWS::ApiGateway::Stage                          | RestApi/SydneyCyclesRestApi/DeploymentStage.development (RestApiSydneyCyclesRestApiDeploymentStagedevelopmentDF98341E) 
+SydneyCyclesStack | 51/53 | 10:49:47 PM | UPDATE_COMPLETE_CLEA | AWS::CloudFormation::Stack                      | SydneyCyclesStack 
+SydneyCyclesStack | 51/53 | 10:49:48 PM | DELETE_IN_PROGRESS   | AWS::ApiGateway::Deployment                     | RestApiSydneyCyclesRestApiDeployment050DCABAa3afea49ae2cd8ccd87a1f05c2653259 
+SydneyCyclesStack | 52/53 | 10:49:49 PM | DELETE_COMPLETE      | AWS::ApiGateway::Deployment                     | RestApiSydneyCyclesRestApiDeployment050DCABAa3afea49ae2cd8ccd87a1f05c2653259 
+SydneyCyclesStack | 53/53 | 10:49:50 PM | UPDATE_COMPLETE      | AWS::CloudFormation::Stack                      | SydneyCyclesStack 
+
+ ✅  SydneyCyclesStack
+
+✨  Deployment time: 167.64s
+
+Outputs:
+SydneyCyclesStack.CreateClubFunctionName = sydney-cycles-create-club-development
+SydneyCyclesStack.GetClubFunctionName = sydney-cycles-get-club-development
+SydneyCyclesStack.GetCurrentUserFunctionName = sydney-cycles-get-current-user-development
+SydneyCyclesStack.GetUserByIdFunctionName = sydney-cycles-get-user-by-id-development
+SydneyCyclesStack.ListClubsFunctionName = sydney-cycles-list-clubs-development
+SydneyCyclesStack.MainTableArn = arn:aws:dynamodb:us-east-2:924748161040:table/sydney-cycles-main-development
+SydneyCyclesStack.MainTableName = sydney-cycles-main-development
+SydneyCyclesStack.RestApiId = s6ccfzfcwh
+SydneyCyclesStack.RestApiSydneyCyclesRestApiEndpointD3CB654C = https://s6ccfzfcwh.execute-api.us-east-2.amazonaws.com/development/
+SydneyCyclesStack.RestApiUrl = https://s6ccfzfcwh.execute-api.us-east-2.amazonaws.com/development/
+SydneyCyclesStack.RouteFileServiceRoutesBucketNameEA8816EA = sydney-cycles-routes-development
+SydneyCyclesStack.RouteFileServiceRoutesDistributionDomainD3789A1C = d3exrki0kwnech.cloudfront.net
+SydneyCyclesStack.RouteFileServiceRoutesDistributionId1FDAD890 = E18RLFFDZS4X38
+SydneyCyclesStack.UpdateClubFunctionName = sydney-cycles-update-club-development
+SydneyCyclesStack.UpdateUserFunctionName = sydney-cycles-update-user-development
+SydneyCyclesStack.UserPoolClientId = 760idnu1d0mul2o10lut6rt7la
+SydneyCyclesStack.UserPoolId = us-east-2_t5UUpOmPL
+Stack ARN:
+arn:aws:cloudformation:us-east-2:924748161040:stack/SydneyCyclesStack/d97b54d0-ddab-11f0-afc1-022c02959519
+
+✨  Total time: 213.41s
+
+
+NOTICES         (What's this? https://github.com/aws/aws-cdk/wiki/CLI-Notices)
+
+34892	CDK CLI collects telemetry data on command usage starting at version 2.1100.0 (unless opted out)
+
+	Overview: We do not collect customer content and we anonymize the
+	          telemetry we do collect. See the attached issue for more
+	          information on what data is collected, why, and how to
+	          opt-out. Telemetry will NOT be collected for any CDK CLI
+	          version prior to version 2.1100.0 - regardless of
+	          opt-in/out. You can also view the telemetry we collect by
+	          logging it to a local file, by adding
+	          `--telemetry-file=my/local/file` to any `cdk` command.
+
+	Affected versions: cli: ^2.1100.0
+
+	More information at: https://github.com/aws/aws-cdk/issues/34892
+
+
+34635	Support for this Node.js version will end soon
+
+	Overview: Support for Node.js v18.20.8 ends on November 30,
+	          2025. Please upgrade to a recent LTS version.
+
+	Affected versions: node: >=18.0.0 <20.0.0
+
+	More information at: https://github.com/aws/aws-cdk/issues/34635
+
+
+If you don’t want to see a notice anymore, use "cdk acknowledge <id>". For example, "cdk acknowledge 34892".
