@@ -1,384 +1,258 @@
-"use client"
+/**
+ * Rides Listing Page - Phase 3.3.1
+ * 
+ * Displays upcoming rides across user's clubs with filters.
+ * Implements canonical ride card model and empty state handling.
+ * 
+ * Updated: 2026-02-05 - Trigger fresh Vercel deployment after CORS fix
+ */
 
-import { useState } from "react"
-import { useAuth } from "@/contexts/auth-context"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Avatar, AvatarFallback } from "@/components/ui/avatar"
-import { Calendar, Clock, MapPin, Users, Plus, MessageCircle, Star } from "lucide-react"
-import { Header } from "@/components/header"
-import { Footer } from "@/components/footer"
-import { CreateRideDialog } from "@/components/rides/create-ride-dialog"
-import { RideDetailsDialog } from "@/components/rides/ride-details-dialog"
-import { FindBuddiesDialog } from "@/components/rides/find-buddies-dialog"
+'use client';
 
-// Mock rides data
-const mockRides = [
-  {
-    id: 1,
-    title: "Morning Harbour Bridge Loop",
-    organizer: { name: "Sarah M.", avatar: "SM" },
-    date: "2024-01-15",
-    time: "07:00",
-    location: "Circular Quay",
-    distance: "25km",
-    pace: "Moderate",
-    difficulty: "Intermediate",
-    attendees: 8,
-    maxAttendees: 12,
-    description: "Beautiful morning ride across the Harbour Bridge with coffee stop at Milsons Point",
-    route: "Circular Quay → Harbour Bridge → Milsons Point → Return",
-    isJoined: false,
-  },
-  {
-    id: 2,
-    title: "Bondi to Coogee Coastal Cruise",
-    organizer: { name: "Mike T.", avatar: "MT" },
-    date: "2024-01-16",
-    time: "09:00",
-    location: "Bondi Beach",
-    distance: "15km",
-    pace: "Leisurely",
-    difficulty: "Beginner",
-    attendees: 15,
-    maxAttendees: 20,
-    description: "Relaxed coastal ride with plenty of photo stops and beach views",
-    route: "Bondi Beach → Bronte → Clovelly → Coogee",
-    isJoined: true,
-  },
-  {
-    id: 3,
-    title: "Blue Mountains Challenge",
-    organizer: { name: "Alex R.", avatar: "AR" },
-    date: "2024-01-20",
-    time: "08:00",
-    location: "Katoomba",
-    distance: "45km",
-    pace: "Fast",
-    difficulty: "Advanced",
-    attendees: 6,
-    maxAttendees: 10,
-    description: "Challenging hill climb through the Blue Mountains with stunning views",
-    route: "Katoomba → Leura → Wentworth Falls → Return",
-    isJoined: false,
-  },
-]
-
-const suggestedBuddies = [
-  {
-    id: 1,
-    name: "Emma K.",
-    avatar: "EK",
-    location: "Bondi Beach",
-    level: "Intermediate",
-    interests: ["Road Cycling", "Coffee Rides"],
-    compatibility: 95,
-  },
-  {
-    id: 2,
-    name: "James L.",
-    avatar: "JL",
-    location: "Manly",
-    level: "Advanced",
-    interests: ["Hill Climbing", "Long Distance"],
-    compatibility: 88,
-  },
-  {
-    id: 3,
-    name: "Sophie W.",
-    avatar: "SW",
-    location: "Surry Hills",
-    level: "Beginner",
-    interests: ["Casual Rides", "Social"],
-    compatibility: 92,
-  },
-]
+import { useState, useMemo } from 'react';
+import { Header } from '@/components/header';
+import { Footer } from '@/components/footer';
+import { RideCard } from '@/components/rides/ride-card';
+import { RideFiltersComponent } from '@/components/rides/ride-filters';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Loader2, Calendar, AlertCircle } from 'lucide-react';
+import { useMyClubs } from '@/hooks/use-clubs';
+import { useRides } from '@/hooks/use-rides';
+import { useAuth } from '@/contexts/auth-context';
+import { useRouter } from 'next/navigation';
+import { RideFilters } from '@/lib/types/rides';
 
 export default function RidesPage() {
-  const { user } = useAuth()
-  const [rides, setRides] = useState(mockRides)
-  const [createRideOpen, setCreateRideOpen] = useState(false)
-  const [selectedRide, setSelectedRide] = useState<(typeof mockRides)[0] | null>(null)
-  const [findBuddiesOpen, setFindBuddiesOpen] = useState(false)
+  const router = useRouter();
+  const { user } = useAuth();
+  const { data: clubs, isLoading: clubsLoading } = useMyClubs();
+  
+  // Default filters: past 7 days + next 30 days (to catch test rides)
+  const [filters, setFilters] = useState<RideFilters>({
+    datePreset: 'next-30-days',
+    startDate: (() => {
+      const start = new Date();
+      start.setDate(start.getDate() - 7); // Include rides from past 7 days
+      return start.toISOString();
+    })(),
+    endDate: (() => {
+      const end = new Date();
+      end.setDate(end.getDate() + 30);
+      return end.toISOString();
+    })(),
+  });
 
-  const handleJoinRide = (rideId: number) => {
-    setRides(
-      rides.map((ride) =>
-        ride.id === rideId
-          ? { ...ride, isJoined: !ride.isJoined, attendees: ride.isJoined ? ride.attendees - 1 : ride.attendees + 1 }
-          : ride,
-      ),
-    )
-  }
+  // Get active club IDs
+  const activeClubIds = useMemo(() => {
+    if (!clubs) return [];
+    return clubs
+      .filter(c => c.membershipStatus === 'active')
+      .map(c => c.clubId);
+  }, [clubs]);
 
-  const handleCreateRide = (rideData: any) => {
-    const newRide = {
-      id: rides.length + 1,
-      ...rideData,
-      organizer: { name: user?.name || "You", avatar: user?.name?.charAt(0).toUpperCase() || "U" },
-      attendees: 1,
-      isJoined: true,
+  // Filter by specific club if selected
+  const clubIdsToFetch = useMemo(() => {
+    if (filters.clubId) {
+      return [filters.clubId];
     }
-    setRides([newRide, ...rides])
-    setCreateRideOpen(false)
-  }
+    return activeClubIds;
+  }, [filters.clubId, activeClubIds]);
 
+  // Fetch rides
+  const { data: rides, isLoading: ridesLoading, error } = useRides(clubIdsToFetch, filters);
+
+  // Client-side search filter
+  const filteredRides = useMemo(() => {
+    if (!rides) return [];
+    if (!filters.search) return rides;
+    
+    const searchLower = filters.search.toLowerCase();
+    return rides.filter(ride => 
+      ride.title.toLowerCase().includes(searchLower)
+    );
+  }, [rides, filters.search]);
+
+  // Get club name for ride card
+  const getClubName = (clubId: string) => {
+    return clubs?.find(c => c.clubId === clubId)?.clubName;
+  };
+
+  // Loading state
   if (!user) {
     return (
       <div className="min-h-screen bg-background">
         <Header />
-        <div className="container mx-auto px-4 py-16 text-center">
-          <h1 className="text-2xl md:text-3xl font-bold mb-4">Please sign in to access rides</h1>
-          <p className="text-muted-foreground">Sign in to create and join cycling rides</p>
-        </div>
+        <main className="container mx-auto px-4 py-8">
+          <div className="max-w-4xl mx-auto text-center py-20">
+            <Calendar className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
+            <h2 className="text-2xl font-semibold mb-4">Sign in to View Rides</h2>
+            <p className="text-muted-foreground mb-6">
+              Join clubs and discover upcoming rides in your area.
+            </p>
+            <Button onClick={() => router.push('/auth/login?redirect=/rides')}>
+              Sign In
+            </Button>
+          </div>
+        </main>
         <Footer />
       </div>
-    )
+    );
+  }
+
+  if (clubsLoading) {
+    return (
+      <div className="min-h-screen bg-background">
+        <Header />
+        <main className="container mx-auto px-4 py-8">
+          <div className="flex flex-col items-center justify-center py-20">
+            <Loader2 className="h-12 w-12 animate-spin text-primary mb-4" />
+            <p className="text-muted-foreground">Loading your clubs...</p>
+          </div>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
+
+  // Empty state: No active memberships
+  const activeClubs = clubs?.filter(c => c.membershipStatus === 'active') || [];
+  const pendingClubs = clubs?.filter(c => c.membershipStatus === 'pending') || [];
+
+  if (activeClubs.length === 0) {
+    if (pendingClubs.length > 0) {
+      // Pending applications only
+      return (
+        <div className="min-h-screen bg-background">
+          <Header />
+          <main className="container mx-auto px-4 py-8">
+            <div className="max-w-4xl mx-auto text-center py-20">
+              <Calendar className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
+              <h2 className="text-2xl font-semibold mb-4">Applications Pending Approval</h2>
+              <p className="text-muted-foreground mb-6">
+                You have {pendingClubs.length} pending club {pendingClubs.length === 1 ? 'application' : 'applications'}. 
+                Rides will appear once your membership is approved.
+              </p>
+              <Button onClick={() => router.push('/my-clubs')}>
+                View My Applications
+              </Button>
+            </div>
+          </main>
+          <Footer />
+        </div>
+      );
+    }
+
+    // No clubs at all
+    return (
+      <div className="min-h-screen bg-background">
+        <Header />
+        <main className="container mx-auto px-4 py-8">
+          <div className="max-w-4xl mx-auto text-center py-20">
+            <Calendar className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
+            <h2 className="text-2xl font-semibold mb-4">No Clubs Yet</h2>
+            <p className="text-muted-foreground mb-6">
+              Browse clubs and join to see upcoming rides.
+            </p>
+            <Button onClick={() => router.push('/clubs')}>
+              Browse Clubs
+            </Button>
+          </div>
+        </main>
+        <Footer />
+      </div>
+    );
   }
 
   return (
     <div className="min-h-screen bg-background">
       <Header />
 
-      <div className="container mx-auto px-4 py-6 md:py-8">
-        <div className="flex flex-col gap-4 mb-6 md:mb-8 md:flex-row md:justify-between md:items-center">
-          <div className="text-center md:text-left">
-            <h1 className="text-2xl md:text-3xl font-bold mb-2">Cycling Rides</h1>
-            <p className="text-sm md:text-base text-muted-foreground">
-              Join rides or create your own cycling adventures
-            </p>
+      <main className="container mx-auto px-4 py-8">
+        <div className="max-w-4xl mx-auto">
+          {/* Page Header */}
+          <div className="mb-6">
+            <h1 className="text-3xl font-bold mb-2">Upcoming Rides</h1>
+            <div className="flex items-center gap-2">
+              <p className="text-muted-foreground">
+                Rides from your clubs
+              </p>
+              <Badge variant="outline" className="bg-blue-50 text-blue-700 border-blue-200">
+                My clubs only
+              </Badge>
+            </div>
           </div>
-          <div className="flex flex-col gap-2 sm:flex-row sm:justify-center md:justify-end">
-            <Button onClick={() => setFindBuddiesOpen(true)} variant="outline" className="w-full sm:w-auto">
-              <Users className="w-4 h-4 mr-2" />
-              Find Buddies
-            </Button>
-            <Button onClick={() => setCreateRideOpen(true)} className="w-full sm:w-auto">
-              <Plus className="w-4 h-4 mr-2" />
-              Create Ride
-            </Button>
+
+          {/* Filters */}
+          <div className="mb-6">
+            <RideFiltersComponent
+              clubs={clubs || []}
+              filters={filters}
+              onFiltersChange={setFilters}
+            />
           </div>
+
+          {/* Loading State */}
+          {ridesLoading && (
+            <div className="flex flex-col items-center justify-center py-12">
+              <Loader2 className="h-8 w-8 animate-spin text-primary mb-4" />
+              <p className="text-muted-foreground">Loading rides...</p>
+            </div>
+          )}
+
+          {/* Error State */}
+          {error && (
+            <div className="flex flex-col items-center justify-center py-12">
+              <AlertCircle className="h-12 w-12 text-destructive mb-4" />
+              <h3 className="font-semibold text-lg mb-2">Unable to Load Rides</h3>
+              <p className="text-muted-foreground text-center mb-6">
+                {error instanceof Error ? error.message : 'Please try again later.'}
+              </p>
+              <Button onClick={() => window.location.reload()}>
+                Retry
+              </Button>
+            </div>
+          )}
+
+          {/* Rides List */}
+          {!ridesLoading && !error && filteredRides.length > 0 && (
+            <div className="space-y-3">
+              {filteredRides.map((ride) => (
+                <RideCard
+                  key={ride.rideId}
+                  ride={ride}
+                  clubName={getClubName(ride.clubId)}
+                />
+              ))}
+            </div>
+          )}
+
+          {/* Empty State: No Rides */}
+          {!ridesLoading && !error && filteredRides.length === 0 && (
+            <div className="text-center py-12">
+              <Calendar className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
+              <h3 className="font-semibold text-lg mb-2">No Upcoming Rides</h3>
+              <p className="text-muted-foreground mb-6">
+                {filters.search 
+                  ? `No rides match "${filters.search}"`
+                  : filters.clubId
+                  ? 'No upcoming rides scheduled for this club.'
+                  : 'No upcoming rides scheduled in your clubs.'}
+              </p>
+              {filters.search || filters.clubId ? (
+                <Button 
+                  variant="outline" 
+                  onClick={() => setFilters({ datePreset: 'next-30-days' })}
+                >
+                  Clear Filters
+                </Button>
+              ) : null}
+            </div>
+          )}
         </div>
-
-        <Tabs defaultValue="upcoming" className="space-y-4 md:space-y-6">
-          <TabsList className="grid w-full grid-cols-3 h-auto">
-            <TabsTrigger value="upcoming" className="text-xs sm:text-sm py-2">
-              Upcoming Rides
-            </TabsTrigger>
-            <TabsTrigger value="my-rides" className="text-xs sm:text-sm py-2">
-              My Rides
-            </TabsTrigger>
-            <TabsTrigger value="past" className="text-xs sm:text-sm py-2">
-              Past Rides
-            </TabsTrigger>
-          </TabsList>
-
-          <TabsContent value="upcoming" className="space-y-4">
-            {rides.map((ride) => (
-              <Card key={ride.id} className="cursor-pointer hover:shadow-md transition-shadow">
-                <CardContent className="p-4 md:p-6">
-                  <div className="space-y-4">
-                    {/* Header section with title and organizer */}
-                    <div className="flex flex-col gap-3 sm:flex-row sm:justify-between sm:items-start">
-                      <div className="flex-1 space-y-2">
-                        <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-3">
-                          <h3 className="text-lg md:text-xl font-semibold leading-tight">{ride.title}</h3>
-                          <Badge
-                            variant={
-                              ride.difficulty === "Beginner"
-                                ? "secondary"
-                                : ride.difficulty === "Intermediate"
-                                  ? "default"
-                                  : "destructive"
-                            }
-                            className="w-fit"
-                          >
-                            {ride.difficulty}
-                          </Badge>
-                        </div>
-                      </div>
-                      <div className="flex items-center justify-between sm:flex-col sm:items-end sm:gap-2">
-                        <div className="flex items-center gap-2">
-                          <Avatar className="w-8 h-8">
-                            <AvatarFallback>{ride.organizer.avatar}</AvatarFallback>
-                          </Avatar>
-                          <span className="text-sm text-muted-foreground">{ride.organizer.name}</span>
-                        </div>
-                        <div className="text-sm text-muted-foreground">
-                          {ride.attendees}/{ride.maxAttendees} riders
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Date, time, location info */}
-                    <div className="grid grid-cols-1 gap-2 text-sm text-muted-foreground sm:grid-cols-3 sm:gap-4">
-                      <div className="flex items-center gap-2">
-                        <Calendar className="w-4 h-4 flex-shrink-0" />
-                        <span>{new Date(ride.date).toLocaleDateString()}</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <Clock className="w-4 h-4 flex-shrink-0" />
-                        <span>{ride.time}</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <MapPin className="w-4 h-4 flex-shrink-0" />
-                        <span>{ride.location}</span>
-                      </div>
-                    </div>
-
-                    {/* Description */}
-                    <p className="text-sm md:text-base text-muted-foreground leading-relaxed">{ride.description}</p>
-
-                    {/* Distance and pace badges */}
-                    <div className="flex flex-wrap gap-2">
-                      <Badge variant="outline">{ride.distance}</Badge>
-                      <Badge variant="outline">{ride.pace}</Badge>
-                    </div>
-
-                    {/* Action buttons */}
-                    <div className="flex flex-col gap-2 pt-2 sm:flex-row sm:justify-between sm:items-center">
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => setSelectedRide(ride)}
-                        className="w-full sm:w-auto"
-                      >
-                        <MessageCircle className="w-4 h-4 mr-2" />
-                        View Details
-                      </Button>
-                      <Button
-                        onClick={() => handleJoinRide(ride.id)}
-                        variant={ride.isJoined ? "secondary" : "default"}
-                        size="sm"
-                        className="w-full sm:w-auto"
-                      >
-                        {ride.isJoined ? "Leave Ride" : "Join Ride"}
-                      </Button>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </TabsContent>
-
-          <TabsContent value="my-rides" className="space-y-4">
-            {rides
-              .filter((ride) => ride.isJoined)
-              .map((ride) => (
-                <Card key={ride.id}>
-                  <CardContent className="p-4 md:p-6">
-                    <div className="flex flex-col gap-4 sm:flex-row sm:justify-between sm:items-start">
-                      <div className="space-y-3">
-                        <h3 className="text-lg md:text-xl font-semibold">{ride.title}</h3>
-                        <div className="grid grid-cols-1 gap-2 text-sm text-muted-foreground sm:grid-cols-2">
-                          <div className="flex items-center gap-2">
-                            <Calendar className="w-4 h-4" />
-                            <span>{new Date(ride.date).toLocaleDateString()}</span>
-                          </div>
-                          <div className="flex items-center gap-2">
-                            <Clock className="w-4 h-4" />
-                            <span>{ride.time}</span>
-                          </div>
-                        </div>
-                        <Badge variant="secondary" className="w-fit">
-                          Joined
-                        </Badge>
-                      </div>
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => setSelectedRide(ride)}
-                        className="w-full sm:w-auto"
-                      >
-                        <MessageCircle className="w-4 h-4 mr-2" />
-                        Chat
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-          </TabsContent>
-
-          <TabsContent value="past" className="space-y-4">
-            <div className="text-center py-12 text-muted-foreground">
-              <p className="text-sm md:text-base">No past rides yet. Join some rides to see your cycling history!</p>
-            </div>
-          </TabsContent>
-        </Tabs>
-
-        <Card className="mt-6 md:mt-8">
-          <CardHeader className="p-4 md:p-6">
-            <CardTitle className="flex items-center gap-2 text-lg md:text-xl">
-              <Users className="w-5 h-5" />
-              Suggested Ride Buddies
-            </CardTitle>
-            <CardDescription className="text-sm md:text-base">
-              Connect with cyclists who match your interests and location
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="p-4 md:p-6 pt-0">
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {suggestedBuddies.map((buddy) => (
-                <div key={buddy.id} className="border rounded-lg p-4 space-y-3">
-                  <div className="flex items-center gap-3">
-                    <Avatar className="w-10 h-10">
-                      <AvatarFallback>{buddy.avatar}</AvatarFallback>
-                    </Avatar>
-                    <div className="min-w-0 flex-1">
-                      <h4 className="font-semibold text-sm md:text-base truncate">{buddy.name}</h4>
-                      <p className="text-xs md:text-sm text-muted-foreground truncate">{buddy.location}</p>
-                    </div>
-                  </div>
-                  <div className="space-y-2">
-                    <div className="flex items-center gap-2">
-                      <Star className="w-4 h-4 text-yellow-500 flex-shrink-0" />
-                      <span className="text-sm">{buddy.compatibility}% match</span>
-                    </div>
-                    <Badge variant="outline" className="text-xs">
-                      {buddy.level}
-                    </Badge>
-                  </div>
-                  <div className="flex flex-wrap gap-1">
-                    {buddy.interests.map((interest) => (
-                      <Badge key={interest} variant="secondary" className="text-xs">
-                        {interest}
-                      </Badge>
-                    ))}
-                  </div>
-                  <Button size="sm" className="w-full mt-3">
-                    Connect
-                  </Button>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
-      </div>
+      </main>
 
       <Footer />
-
-      <CreateRideDialog
-        isOpen={createRideOpen}
-        onClose={() => setCreateRideOpen(false)}
-        onCreateRide={handleCreateRide}
-      />
-
-      {selectedRide && (
-        <RideDetailsDialog
-          ride={selectedRide}
-          isOpen={!!selectedRide}
-          onClose={() => setSelectedRide(null)}
-          onJoinRide={() => handleJoinRide(selectedRide.id)}
-        />
-      )}
-
-      <FindBuddiesDialog
-        isOpen={findBuddiesOpen}
-        onClose={() => setFindBuddiesOpen(false)}
-        buddies={suggestedBuddies}
-      />
     </div>
-  )
+  );
 }
