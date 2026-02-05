@@ -10916,7 +10916,7 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-924748161040-us-east-2",
-     "S3Key": "c40d9e1adeab621bb829bcaafa1fe26bc7e13ec21de0e0b76312b6ab470632e7.zip"
+     "S3Key": "5c611fade0a2bd8d29ed6e2560005d108698b69e8dd64da488e26d5041da6b92.zip"
     },
     "Description": "List club members (club members)",
     "Environment": {
@@ -10967,7 +10967,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "SydneyCyclesStack/ClubService/ListMembersFunction/Resource",
-    "aws:asset:path": "asset.c40d9e1adeab621bb829bcaafa1fe26bc7e13ec21de0e0b76312b6ab470632e7",
+    "aws:asset:path": "asset.5c611fade0a2bd8d29ed6e2560005d108698b69e8dd64da488e26d5041da6b92",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }

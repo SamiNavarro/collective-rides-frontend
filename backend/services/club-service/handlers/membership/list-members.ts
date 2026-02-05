@@ -13,6 +13,7 @@ import { ClubRole, MembershipStatus, MEMBERSHIP_CONSTRAINTS } from '../../../../
 import { ClubCapability } from '../../../../shared/types/club-authorization';
 import { createEnhancedAuthContext } from '../../../../shared/auth/auth-context';
 import { createSuccessResponse, handleLambdaError, logStructured } from '../../../../shared/utils/lambda-utils';
+import { HttpStatusCode } from '../../../../shared/types/api';
 import { ValidationError } from '../../../../shared/utils/errors';
 import { DynamoDBUserRepository } from '../../../user-profile/infrastructure/dynamodb-user-repository';
 import { DynamoDBClubRepository } from '../../infrastructure/dynamodb-club-repository';
@@ -39,6 +40,7 @@ const authService = new ClubAuthorizationService(membershipRepository, authoriza
  */
 export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> {
   const requestId = event.requestContext.requestId;
+  const origin = event.headers?.origin || event.headers?.Origin;
   
   logStructured('INFO', 'Processing list club members request', {
     requestId,
@@ -138,7 +140,7 @@ export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayPr
       timestamp: new Date().toISOString(),
     };
 
-    return createSuccessResponse(response);
+    return createSuccessResponse(response, HttpStatusCode.OK, origin);
   } catch (error) {
     logStructured('ERROR', 'Error processing list club members request', {
       requestId,
@@ -146,6 +148,6 @@ export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayPr
       error: error instanceof Error ? error.message : 'Unknown error',
     });
 
-    return handleLambdaError(error, requestId);
+    return handleLambdaError(error, requestId, origin);
   }
 }
