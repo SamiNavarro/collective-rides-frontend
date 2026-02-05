@@ -16,6 +16,8 @@ const membershipHelper = new MembershipHelper(dynamoClient, tableName);
 const rideService = new RideService(rideRepository);
 
 export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
+  const origin = event.headers?.origin || event.headers?.Origin;
+  
   try {
     // Get auth context
     const authContext = await getAuthContext(event);
@@ -23,7 +25,7 @@ export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPr
     const rideId = event.pathParameters?.rideId;
     
     if (!clubId || !rideId) {
-      return createResponse(400, { error: 'Club ID and Ride ID are required' });
+      return createResponse(400, { error: 'Club ID and Ride ID are required' }, origin);
     }
 
     // Populate club memberships for authorization
@@ -55,18 +57,20 @@ export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPr
         publishMessage: request.publishMessage
       },
       timestamp: new Date().toISOString()
-    });
+    }, origin);
 
   } catch (error: any) {
     console.error('Publish ride error:', error);
+    
+    const origin = event.headers?.origin || event.headers?.Origin;
     
     if (error.statusCode) {
       return createResponse(error.statusCode, { 
         error: error.message,
         errorType: error.errorType 
-      });
+      }, origin);
     }
     
-    return createResponse(500, { error: 'Internal server error' });
+    return createResponse(500, { error: 'Internal server error' }, origin);
   }
 };

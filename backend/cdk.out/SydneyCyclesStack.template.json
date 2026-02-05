@@ -12911,7 +12911,7 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-924748161040-us-east-2",
-     "S3Key": "436f20390711da75387db117462b6de8bc8cce8f52f25407b9d3e13ebefe7e69.zip"
+     "S3Key": "6d1742bdf4c0c278a65603c8114e55e2117b02597792e6c3b3c7f055d8a7dd09.zip"
     },
     "Description": "Publish a draft ride",
     "Environment": {
@@ -12959,7 +12959,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "SydneyCyclesStack/RideService/PublishRideHandler/Resource",
-    "aws:asset:path": "asset.436f20390711da75387db117462b6de8bc8cce8f52f25407b9d3e13ebefe7e69",
+    "aws:asset:path": "asset.6d1742bdf4c0c278a65603c8114e55e2117b02597792e6c3b3c7f055d8a7dd09",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -13295,7 +13295,7 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-924748161040-us-east-2",
-     "S3Key": "ca631e2795ddbe6b915ea42965aa4a9475ed772819244ffeefd337793ba25595.zip"
+     "S3Key": "c222ba5edcfeb22f5d3a5c9c2c6a396e29a6333ba35d5a8ae820bbbfdb035dd6.zip"
     },
     "Description": "Get ride details by ID",
     "Environment": {
@@ -13343,7 +13343,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "SydneyCyclesStack/RideService/GetRideHandler/Resource",
-    "aws:asset:path": "asset.ca631e2795ddbe6b915ea42965aa4a9475ed772819244ffeefd337793ba25595",
+    "aws:asset:path": "asset.c222ba5edcfeb22f5d3a5c9c2c6a396e29a6333ba35d5a8ae820bbbfdb035dd6",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -13487,7 +13487,7 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-924748161040-us-east-2",
-     "S3Key": "a9351817b8c73084cb05f405cbbeefc164970b09b5aea1f49c77dec8384ba426.zip"
+     "S3Key": "3e1682a730bdf9a3127851686c2569dc81a6439f38c914ae13c1132f69eb9e88.zip"
     },
     "Description": "Update ride details (Phase 3.3.4)",
     "Environment": {
@@ -13535,7 +13535,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "SydneyCyclesStack/RideService/UpdateRideHandler/Resource",
-    "aws:asset:path": "asset.a9351817b8c73084cb05f405cbbeefc164970b09b5aea1f49c77dec8384ba426",
+    "aws:asset:path": "asset.3e1682a730bdf9a3127851686c2569dc81a6439f38c914ae13c1132f69eb9e88",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -13679,7 +13679,7 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-924748161040-us-east-2",
-     "S3Key": "b4c6fad2ff524b81dadbc8ff6487fa925aa06fcc86d7190815690533512ada3b.zip"
+     "S3Key": "18de7e1d9174dfadd12679a1f74fc4ee89a1f9d73920753fdeaee17bae3d3320.zip"
     },
     "Description": "Cancel a ride (Phase 3.3.4)",
     "Environment": {
@@ -13727,7 +13727,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "SydneyCyclesStack/RideService/CancelRideHandler/Resource",
-    "aws:asset:path": "asset.b4c6fad2ff524b81dadbc8ff6487fa925aa06fcc86d7190815690533512ada3b",
+    "aws:asset:path": "asset.18de7e1d9174dfadd12679a1f74fc4ee89a1f9d73920753fdeaee17bae3d3320",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -13871,7 +13871,7 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-924748161040-us-east-2",
-     "S3Key": "e8d3425933929b230f47bd4d70522561421ba836d7bdaa8dcabe019bba24e56d.zip"
+     "S3Key": "a53f517723854160c43e22b9752c3870b97e8128c94c14b3f67acaef5b46ff6f.zip"
     },
     "Description": "Join a published ride",
     "Environment": {
@@ -13919,7 +13919,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "SydneyCyclesStack/RideService/JoinRideHandler/Resource",
-    "aws:asset:path": "asset.e8d3425933929b230f47bd4d70522561421ba836d7bdaa8dcabe019bba24e56d",
+    "aws:asset:path": "asset.a53f517723854160c43e22b9752c3870b97e8128c94c14b3f67acaef5b46ff6f",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -14063,7 +14063,7 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-924748161040-us-east-2",
-     "S3Key": "2682499c5ce84265f5062599c5d993e4437a10884fd09fd9b3083108f4c359da.zip"
+     "S3Key": "564a8411ed3fe3b25a3facd737d02630b25cfdbd23f13c4822c9aae059abd91b.zip"
     },
     "Description": "Leave a ride",
     "Environment": {
@@ -14111,7 +14111,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "SydneyCyclesStack/RideService/LeaveRideHandler/Resource",
-    "aws:asset:path": "asset.2682499c5ce84265f5062599c5d993e4437a10884fd09fd9b3083108f4c359da",
+    "aws:asset:path": "asset.564a8411ed3fe3b25a3facd737d02630b25cfdbd23f13c4822c9aae059abd91b",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }

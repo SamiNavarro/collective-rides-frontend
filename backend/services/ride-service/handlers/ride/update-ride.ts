@@ -17,6 +17,8 @@ const rideService = new RideService(rideRepository);
 
 export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   console.log('Update ride handler invoked');
+  const origin = event.headers?.origin || event.headers?.Origin;
+  
   try {
     // Get auth context
     const authContext = await getAuthContext(event);
@@ -24,11 +26,11 @@ export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPr
     const rideId = event.pathParameters?.rideId;
     
     if (!clubId) {
-      return createResponse(400, { error: 'Club ID is required' });
+      return createResponse(400, { error: 'Club ID is required' }, origin);
     }
     
     if (!rideId) {
-      return createResponse(400, { error: 'Ride ID is required' });
+      return createResponse(400, { error: 'Ride ID is required' }, origin);
     }
 
     // Populate club memberships for authorization
@@ -50,7 +52,7 @@ export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPr
     } catch (error) {
       return createResponse(403, { 
         error: 'Insufficient privileges to edit this ride' 
-      });
+      }, origin);
     }
 
     // Parse request
@@ -63,18 +65,20 @@ export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPr
       success: true,
       data: updatedRide.toJSON(),
       timestamp: new Date().toISOString()
-    });
+    }, origin);
 
   } catch (error: any) {
     console.error('Update ride error:', error);
+    
+    const origin = event.headers?.origin || event.headers?.Origin;
     
     if (error.statusCode) {
       return createResponse(error.statusCode, { 
         error: error.message,
         errorType: error.errorType 
-      });
+      }, origin);
     }
     
-    return createResponse(500, { error: 'Internal server error' });
+    return createResponse(500, { error: 'Internal server error' }, origin);
   }
 };
