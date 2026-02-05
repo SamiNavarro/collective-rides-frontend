@@ -19,6 +19,7 @@ import {
   ApiResponse,
   PaginatedResponse 
 } from '@/lib/types/clubs';
+import { toast } from '@/hooks/use-toast';
 
 /**
  * Mock data for development testing
@@ -131,7 +132,10 @@ export const useClub = (clubId: string) => {
   return useQuery({
     queryKey: ['clubs', clubId, 'v3'], // Bust cache again
     queryFn: async (): Promise<ClubDetail> => {
+      console.log('🔍 useClub: Fetching club:', clubId);
       const response = await api.clubs.get(clubId);
+      console.log('📦 useClub: Full response:', JSON.stringify(response, null, 2));
+      
       if (!response.success) {
         throw new Error(response.error || 'Failed to fetch club');
       }
@@ -141,6 +145,14 @@ export const useClub = (clubId: string) => {
       if (clubData && typeof clubData === 'object' && 'data' in clubData && 'success' in clubData) {
         clubData = clubData.data;
       }
+      
+      console.log('✅ useClub: Final club data:', {
+        id: clubData.id,
+        name: clubData.name,
+        hasMembership: !!clubData.userMembership,
+        role: clubData.userMembership?.role,
+        status: clubData.userMembership?.status,
+      });
       
       return clubData as ClubDetail;
     },
@@ -157,11 +169,13 @@ export const useClubMembers = (clubId: string) => {
   return useQuery({
     queryKey: ['clubs', clubId, 'members'],
     queryFn: async (): Promise<ClubMember[]> => {
-      const response = await api.clubs.getMembers(clubId);
+      const response = await api.clubs.listMembers(clubId);
       if (!response.success) {
         throw new Error(response.error || 'Failed to fetch club members');
       }
-      return response.data; // Single unwrap (response.data is the array)
+      // Handle both array and wrapped response
+      const data = Array.isArray(response.data) ? response.data : response.data?.data || [];
+      return data;
     },
     enabled: !!clubId,
     staleTime: 2 * 60 * 1000, // 2 minutes cache (member data changes more frequently)
@@ -173,24 +187,32 @@ export const useClubMembers = (clubId: string) => {
  * Get club rides (for club detail page)
  * Fetches upcoming published rides for a specific club
  */
-export const useClubRides = (clubId: string, options?: { enabled?: boolean }) => {
+export const useClubRides = (clubId: string, options?: { enabled?: boolean; status?: 'published' | 'draft' }) => {
+  const status = options?.status || 'published';
+  
   return useQuery({
-    queryKey: ['clubs', clubId, 'rides'],
+    queryKey: ['clubs', clubId, 'rides', status],
     queryFn: async () => {
-      const response = await api.rides.list();
+      const response = await api.rides.listForClub(clubId, { status });
       if (!response.success) {
         throw new Error(response.error || 'Failed to fetch club rides');
       }
       
-      // Filter rides for this club and only published/upcoming rides
-      const allRides = Array.isArray(response.data) ? response.data : [];
-      const clubRides = allRides
-        .filter((ride: any) => ride.clubId === clubId && ride.status === 'published')
-        .filter((ride: any) => new Date(ride.startTime) > new Date()) // Only future rides
-        .sort((a: any, b: any) => new Date(a.startTime).getTime() - new Date(b.startTime).getTime()) // Sort by date
-        .slice(0, 5); // Limit to 5 rides
+      const allRides = Array.isArray(response.data) ? response.data : response.data?.data || [];
       
-      return clubRides;
+      // For published rides, filter for upcoming only and limit to 5
+      if (status === 'published') {
+        const upcomingRides = allRides
+          .filter((ride: any) => new Date(ride.startDateTime) > new Date()) // Only future rides
+          .sort((a: any, b: any) => new Date(a.startDateTime).getTime() - new Date(b.startDateTime).getTime()) // Sort by date
+          .slice(0, 5); // Limit to 5 rides
+        return upcomingRides;
+      }
+      
+      // For draft rides, return all sorted by creation date (newest first)
+      return allRides.sort((a: any, b: any) => 
+        new Date(b.createdAt || b.startDateTime).getTime() - new Date(a.createdAt || a.startDateTime).getTime()
+      );
     },
     enabled: !!clubId && (options?.enabled !== false),
     staleTime: 1 * 60 * 1000, // 1 minute cache (ride data changes frequently)
@@ -265,7 +287,37 @@ export const useJoinClub = () => {
       if (context?.previousDiscovery) {
         queryClient.setQueryData(['clubs', 'discovery'], context.previousDiscovery);
       }
+      
       console.error('Failed to join club:', error);
+      
+      // Show user-friendly error toast
+      const errorMessage = error instanceof Error ? error.message : 'Failed to join club';
+      
+      if (errorMessage.includes('409') || errorMessage.includes('already')) {
+        toast({
+          title: 'Already a Member',
+          description: 'You are already a member of this club.',
+          variant: 'default',
+        });
+      } else if (errorMessage.includes('403') || errorMessage.includes('forbidden')) {
+        toast({
+          title: 'Access Denied',
+          description: 'You do not have permission to join this club.',
+          variant: 'destructive',
+        });
+      } else if (errorMessage.includes('network') || errorMessage.includes('fetch')) {
+        toast({
+          title: 'Connection Error',
+          description: 'Please check your internet connection and try again.',
+          variant: 'destructive',
+        });
+      } else {
+        toast({
+          title: 'Failed to Join Club',
+          description: errorMessage,
+          variant: 'destructive',
+        });
+      }
     },
     onSuccess: (data, variables) => {
       console.log('🔄 useJoinClub: Invalidating queries after successful join...');
@@ -310,6 +362,224 @@ export const useLeaveClub = () => {
     },
     onError: (error) => {
       console.error('❌ useLeaveClub: Mutation error:', error);
+      
+      // Show user-friendly error toast
+      const errorMessage = error instanceof Error ? error.message : 'Failed to leave club';
+      
+      if (errorMessage.includes('403') || errorMessage.includes('forbidden')) {
+        toast({
+          title: 'Cannot Leave Club',
+          description: 'You do not have permission to leave this club.',
+          variant: 'destructive',
+        });
+      } else if (errorMessage.includes('network') || errorMessage.includes('fetch')) {
+        toast({
+          title: 'Connection Error',
+          description: 'Please check your internet connection and try again.',
+          variant: 'destructive',
+        });
+      } else {
+        toast({
+          title: 'Failed to Leave Club',
+          description: errorMessage,
+          variant: 'destructive',
+        });
+      }
+    },
+  });
+};
+
+/**
+ * Update club mutation (Phase 3.4)
+ */
+export const useUpdateClub = () => {
+  const queryClient = useQueryClient();
+  
+  return useMutation({
+    mutationFn: async ({ 
+      clubId, 
+      data 
+    }: { 
+      clubId: string; 
+      data: any;
+    }) => {
+      const response = await api.clubs.update(clubId, data);
+      if (!response.success || !response.data) {
+        throw new Error(response.error || 'Failed to update club');
+      }
+      return response.data;
+    },
+    onSuccess: (data, { clubId }) => {
+      // Invalidate club detail and lists
+      queryClient.invalidateQueries({ queryKey: ['clubs', clubId] });
+      queryClient.invalidateQueries({ queryKey: ['clubs'] });
+      queryClient.invalidateQueries({ queryKey: ['users', 'me', 'clubs'] });
+      
+      toast({
+        title: 'Club Updated',
+        description: 'Club settings have been saved.',
+      });
+    },
+    onError: (error) => {
+      toast({
+        title: 'Failed to Update Club',
+        description: error instanceof Error ? error.message : 'An error occurred',
+        variant: 'destructive',
+      });
+    },
+  });
+};
+
+/**
+ * Get club members with filters (Phase 3.4)
+ */
+export const useClubMembersFiltered = (
+  clubId: string, 
+  options?: { status?: string; role?: string; enabled?: boolean }
+) => {
+  return useQuery({
+    queryKey: ['clubs', clubId, 'members', options],
+    queryFn: async (): Promise<ClubMember[]> => {
+      const response = await api.clubs.listMembers(clubId, {
+        status: options?.status,
+        role: options?.role,
+      });
+      if (!response.success) {
+        throw new Error(response.error || 'Failed to fetch members');
+      }
+      // Handle both array and wrapped response
+      const data = Array.isArray(response.data) ? response.data : response.data?.data || [];
+      return data;
+    },
+    enabled: !!clubId && (options?.enabled !== false),
+    staleTime: 1 * 60 * 1000, // 1 minute cache
+    retry: 2,
+  });
+};
+
+/**
+ * Update member role mutation (Phase 3.4)
+ */
+export const useUpdateMemberRole = () => {
+  const queryClient = useQueryClient();
+  
+  return useMutation({
+    mutationFn: async ({ 
+      clubId, 
+      userId, 
+      role,
+      reason 
+    }: { 
+      clubId: string; 
+      userId: string; 
+      role: string;
+      reason?: string;
+    }) => {
+      const response = await api.clubs.updateMember(clubId, userId, { role, reason });
+      if (!response.success) {
+        throw new Error(response.error || 'Failed to update member role');
+      }
+      return response.data;
+    },
+    onSuccess: (data, { clubId }) => {
+      queryClient.invalidateQueries({ queryKey: ['clubs', clubId, 'members'] });
+      
+      toast({
+        title: 'Member Role Updated',
+        description: 'Member role has been changed.',
+      });
+    },
+    onError: (error) => {
+      toast({
+        title: 'Failed to Update Role',
+        description: error instanceof Error ? error.message : 'An error occurred',
+        variant: 'destructive',
+      });
+    },
+  });
+};
+
+/**
+ * Remove member mutation (Phase 3.4)
+ */
+export const useRemoveMember = () => {
+  const queryClient = useQueryClient();
+  
+  return useMutation({
+    mutationFn: async ({ 
+      clubId, 
+      userId,
+      reason 
+    }: { 
+      clubId: string; 
+      userId: string; 
+      reason?: string;
+    }) => {
+      const response = await api.clubs.removeMember(clubId, userId, { reason });
+      if (!response.success) {
+        throw new Error(response.error || 'Failed to remove member');
+      }
+      return response.data;
+    },
+    onSuccess: (data, { clubId }) => {
+      queryClient.invalidateQueries({ queryKey: ['clubs', clubId, 'members'] });
+      
+      toast({
+        title: 'Member Removed',
+        description: 'Member has been removed from the club.',
+      });
+    },
+    onError: (error) => {
+      toast({
+        title: 'Failed to Remove Member',
+        description: error instanceof Error ? error.message : 'An error occurred',
+        variant: 'destructive',
+      });
+    },
+  });
+};
+
+/**
+ * Process join request mutation (Phase 3.4)
+ */
+export const useProcessJoinRequest = () => {
+  const queryClient = useQueryClient();
+  
+  return useMutation({
+    mutationFn: async ({ 
+      clubId, 
+      membershipId,
+      action,
+      message 
+    }: { 
+      clubId: string; 
+      membershipId: string;
+      action: 'approve' | 'reject';
+      message?: string;
+    }) => {
+      const response = await api.clubs.processJoinRequest(clubId, membershipId, { action, message });
+      if (!response.success) {
+        throw new Error(response.error || 'Failed to process request');
+      }
+      return response.data;
+    },
+    onSuccess: (data, { clubId, action }) => {
+      // Invalidate both pending and active member lists
+      queryClient.invalidateQueries({ queryKey: ['clubs', clubId, 'members'] });
+      
+      toast({
+        title: action === 'approve' ? 'Request Approved' : 'Request Rejected',
+        description: action === 'approve' 
+          ? 'Member has been added to the club.' 
+          : 'Join request has been rejected.',
+      });
+    },
+    onError: (error) => {
+      toast({
+        title: 'Failed to Process Request',
+        description: error instanceof Error ? error.message : 'An error occurred',
+        variant: 'destructive',
+      });
     },
   });
 };

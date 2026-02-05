@@ -56,7 +56,13 @@ export class ApiClient {
       // Add authentication if required
       if (requireAuth) {
         const idToken = await cognitoAuth.getIdToken();
+        console.log('🔐 API Client: Getting token for request', {
+          endpoint,
+          hasToken: !!idToken,
+          tokenLength: idToken?.length,
+        });
         if (!idToken) {
+          console.error('❌ API Client: No token available!');
           return {
             success: false,
             error: 'Authentication required',
@@ -146,8 +152,13 @@ export class ApiClient {
   /**
    * DELETE request
    */
-  async delete<T = any>(endpoint: string, requireAuth = true): Promise<ApiResponse<T>> {
-    return this.request<T>(endpoint, { method: 'DELETE', requireAuth });
+  async delete<T = any>(endpoint: string, options?: { data?: any; requireAuth?: boolean }): Promise<ApiResponse<T>> {
+    const requireAuth = options?.requireAuth !== undefined ? options.requireAuth : true;
+    return this.request<T>(endpoint, { 
+      method: 'DELETE', 
+      body: options?.data,
+      requireAuth 
+    });
   }
 
   /**
@@ -220,27 +231,61 @@ export const api = {
       const queryString = queryParams.toString();
       return apiClient.get(`/v1/clubs${queryString ? `?${queryString}` : ''}`, false);
     },
-    get: (id: string) => apiClient.get(`/v1/clubs/${id}`, false),
+    get: (id: string) => apiClient.get(`/v1/clubs/${id}`), // Send auth if available (optional auth)
     create: (data: any) => apiClient.post('/v1/clubs', data),
     update: (id: string, data: any) => apiClient.put(`/v1/clubs/${id}`, data),
     join: (id: string, data: any) => apiClient.post(`/v1/clubs/${id}/members`, data),
-    leave: (id: string) => apiClient.delete(`/v1/clubs/${id}/members/me`),
-    getMembers: (id: string) => apiClient.get(`/v1/clubs/${id}/members`),
+    leave: (id: string) => apiClient.delete(`/v1/clubs/${id}/members/me`, { requireAuth: true }),
+    // Member management (Phase 3.4)
+    listMembers: (id: string, params?: { status?: string; role?: string; limit?: number; cursor?: string }) => {
+      const queryParams = new URLSearchParams();
+      if (params?.status) queryParams.append('status', params.status);
+      if (params?.role) queryParams.append('role', params.role);
+      if (params?.limit) queryParams.append('limit', params.limit.toString());
+      if (params?.cursor) queryParams.append('cursor', params.cursor);
+      const queryString = queryParams.toString();
+      return apiClient.get(`/v1/clubs/${id}/members${queryString ? `?${queryString}` : ''}`);
+    },
+    updateMember: (clubId: string, userId: string, data: { role: string; reason?: string }) => 
+      apiClient.put(`/v1/clubs/${clubId}/members/${userId}`, data),
+    removeMember: (clubId: string, userId: string, data?: { reason?: string }) => 
+      apiClient.delete(`/v1/clubs/${clubId}/members/${userId}`, { data }),
+    processJoinRequest: (clubId: string, membershipId: string, data: { action: string; message?: string }) => 
+      apiClient.put(`/v1/clubs/${clubId}/requests/${membershipId}`, data),
   },
 
-  // Ride endpoints
+  // Ride endpoints (Phase 3.3)
   rides: {
-    list: () => apiClient.get('/v1/rides'),
-    get: (id: string) => apiClient.get(`/v1/rides/${id}`),
-    create: (data: any) => apiClient.post('/v1/rides', data),
-    join: (id: string) => apiClient.post(`/v1/rides/${id}/participants`),
-    leave: (id: string) => apiClient.delete(`/v1/rides/${id}/participants/me`),
+    // List rides for a specific club
+    listForClub: (clubId: string, params?: { status?: string; startDate?: string; limit?: number; cursor?: string }) => {
+      const queryParams = new URLSearchParams();
+      if (params?.status) queryParams.append('status', params.status);
+      if (params?.startDate) queryParams.append('startDate', params.startDate);
+      if (params?.limit) queryParams.append('limit', params.limit.toString());
+      if (params?.cursor) queryParams.append('cursor', params.cursor);
+      const queryString = queryParams.toString();
+      return apiClient.get(`/v1/clubs/${clubId}/rides${queryString ? `?${queryString}` : ''}`);
+    },
+    // Get ride detail
+    get: (clubId: string, rideId: string) => apiClient.get(`/v1/clubs/${clubId}/rides/${rideId}`),
+    // Create ride (Phase 3.3.3)
+    create: (clubId: string, data: any) => apiClient.post(`/v1/clubs/${clubId}/rides`, data),
+    // Update ride (Phase 3.3.4)
+    update: (clubId: string, rideId: string, data: any) => apiClient.put(`/v1/clubs/${clubId}/rides/${rideId}`, data),
+    // Publish ride (Phase 3.3.3)
+    publish: (clubId: string, rideId: string) => apiClient.post(`/v1/clubs/${clubId}/rides/${rideId}/publish`, {}),
+    // Cancel ride (Phase 3.3.4)
+    cancel: (clubId: string, rideId: string, data: { reason?: string }) => apiClient.delete(`/v1/clubs/${clubId}/rides/${rideId}`, { data }),
+    // Join ride (Phase 3.3.2)
+    join: (clubId: string, rideId: string, data?: any) => apiClient.post(`/v1/clubs/${clubId}/rides/${rideId}/join`, data || {}),
+    // Leave ride
+    leave: (clubId: string, rideId: string) => apiClient.delete(`/v1/clubs/${clubId}/rides/${rideId}/participants/me`, { requireAuth: true }),
   },
 
   // Strava endpoints
   strava: {
     connect: () => apiClient.get('/integrations/strava/connect'),
-    disconnect: () => apiClient.delete('/integrations/strava/disconnect'),
+    disconnect: () => apiClient.delete('/integrations/strava/disconnect', { requireAuth: true }),
   },
 
   // Health check

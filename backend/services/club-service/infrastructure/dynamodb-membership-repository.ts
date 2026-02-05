@@ -269,13 +269,22 @@ export class DynamoDBMembershipRepository implements IMembershipRepository {
         },
       };
 
-      // Add status filter
+      // Add status filter and entity type filter to avoid duplicates
+      // Filter for USER_MEMBERSHIP records only (not CLUB_MEMBERSHIP records)
       if (status) {
-        queryParams.FilterExpression = '#status = :status';
+        queryParams.FilterExpression = '#status = :status AND #entityType = :entityType';
         queryParams.ExpressionAttributeNames = {
           '#status': 'status',
+          '#entityType': 'entityType',
         };
         queryParams.ExpressionAttributeValues[':status'] = status;
+        queryParams.ExpressionAttributeValues[':entityType'] = 'USER_MEMBERSHIP';
+      } else {
+        queryParams.FilterExpression = '#entityType = :entityType';
+        queryParams.ExpressionAttributeNames = {
+          '#entityType': 'entityType',
+        };
+        queryParams.ExpressionAttributeValues[':entityType'] = 'USER_MEMBERSHIP';
       }
 
       const command = new QueryCommand(queryParams);
