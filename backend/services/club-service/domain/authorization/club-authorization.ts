@@ -151,11 +151,12 @@ export class ClubAuthorizationService {
             return false;
         }
 
-        // Role hierarchy: Owner > Admin > Member
-        const roleHierarchy = {
+        // Role hierarchy: Owner > Admin > Captain > Member
+        const roleHierarchy: Record<ClubRole, number> = {
             [ClubRole.MEMBER]: 1,
-            [ClubRole.ADMIN]: 2,
-            [ClubRole.OWNER]: 3,
+            [ClubRole.CAPTAIN]: 2,
+            [ClubRole.ADMIN]: 3,
+            [ClubRole.OWNER]: 4,
         };
 
         const userLevel = roleHierarchy[membership.role];

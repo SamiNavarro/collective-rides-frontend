@@ -10,6 +10,14 @@ export class RideAuthorizationService {
       RideCapability.JOIN_RIDES,
       RideCapability.CREATE_RIDE_PROPOSALS
     ],
+    [ClubRole.CAPTAIN]: [
+      RideCapability.VIEW_CLUB_RIDES,
+      RideCapability.JOIN_RIDES,
+      RideCapability.CREATE_RIDE_PROPOSALS,
+      RideCapability.VIEW_DRAFT_RIDES,
+      RideCapability.PUBLISH_OFFICIAL_RIDES,
+      RideCapability.MANAGE_PARTICIPANTS
+    ],
     [ClubRole.ADMIN]: [
       RideCapability.VIEW_CLUB_RIDES,
       RideCapability.JOIN_RIDES,

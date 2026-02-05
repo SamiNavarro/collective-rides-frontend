@@ -12,6 +12,7 @@
  */
 export declare enum ClubRole {
     MEMBER = "member",
+    CAPTAIN = "captain",
     ADMIN = "admin",
     OWNER = "owner"
 }

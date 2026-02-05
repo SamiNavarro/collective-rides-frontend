@@ -1,0 +1,383 @@
+
+> sydney-cycles-backend@1.0.0 deploy
+> cdk deploy
+
+[WARNING] aws-cdk-lib.aws_cognito.UserPoolProps#advancedSecurityMode is deprecated.
+  Advanced Security Mode is deprecated due to user pool feature plans. Use StandardThreatProtectionMode and CustomThreatProtectionMode to set Thread Protection level.
+  This API will be removed in the next major release.
+[WARNING] aws-cdk-lib.aws_cognito.AdvancedSecurityMode is deprecated.
+  Advanced Security Mode is deprecated due to user pool feature plans. Use StandardThreatProtectionMode and CustomThreatProtectionMode to set Thread Protection level.
+  This API will be removed in the next major release.
+[WARNING] aws-cdk-lib.aws_cognito.AdvancedSecurityMode#AUDIT is deprecated.
+  
+  This API will be removed in the next major release.
+[WARNING] aws-cdk-lib.aws_dynamodb.TableOptions#pointInTimeRecovery is deprecated.
+  use `pointInTimeRecoverySpecification` instead
+  This API will be removed in the next major release.
+[WARNING] aws-cdk-lib.aws_apigateway.RestApiProps#minimumCompressionSize is deprecated.
+  - superseded by `minCompressionSize`
+  This API will be removed in the next major release.
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+Bundling asset SydneyCyclesStack/UserProfileService/GetCurrentUserFunction/Code/Stage...
+
+  ...a430f5e411e8143bb8219e0fb85b392a2050f8c33b672a4-building/index.js  37.5kb
+
+⚡ Done in 68ms
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+Bundling asset SydneyCyclesStack/UserProfileService/GetUserByIdFunction/Code/Stage...
+
+  ...374ad2a19d88eae83bc09c9efada67cc085036277cd4088-building/index.js  39.0kb
+
+⚡ Done in 11ms
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+Bundling asset SydneyCyclesStack/UserProfileService/UpdateUserFunction/Code/Stage...
+
+  ...47da7aee316f2e6a9627bd89039779c9b800ff270876429-building/index.js  39.3kb
+
+⚡ Done in 12ms
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+Bundling asset SydneyCyclesStack/ClubService/ListClubsFunction/Code/Stage...
+
+  ...a59a0d4c84734364dbc0ed472cb4f376de455d9379b9fb3-building/index.js  64.5kb
+
+⚡ Done in 17ms
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+Bundling asset SydneyCyclesStack/ClubService/GetClubFunction/Code/Stage...
+
+  ...8ace7ce90e7373d4e875ef4cdcb1b971f99e05c9e07f821-building/index.js  30.3kb
+
+⚡ Done in 18ms
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+Bundling asset SydneyCyclesStack/ClubService/CreateClubFunction/Code/Stage...
+
+  ...8abf7a31bcc97d1c0cb24868f41439963438f183cbceddd-building/index.js  56.2kb
+
+⚡ Done in 13ms
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+Bundling asset SydneyCyclesStack/ClubService/UpdateClubFunction/Code/Stage...
+
+  ...2eca2cf36ade73dd86bc4fe67599cf7d6b1c867ba196b79-building/index.js  56.7kb
+
+⚡ Done in 22ms
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+Bundling asset SydneyCyclesStack/ClubService/JoinClubFunction/Code/Stage...
+
+  ...5040e7d02c6bc08feeca787f85843402e4c658a24a7e1db-building/index.js  96.7kb
+
+⚡ Done in 18ms
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+Bundling asset SydneyCyclesStack/ClubService/LeaveClubFunction/Code/Stage...
+
+  ...8ddd9cc249a538f3d49e2db56899474e71b23fc1e7c95d3-building/index.js  96.1kb
+
+⚡ Done in 17ms
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+Bundling asset SydneyCyclesStack/ClubService/ListMembersFunction/Code/Stage...
+
+  ...d910f0e84a539df7d889838ef4acebf03f137f8e4dbcddc-building/index.js  97.5kb
+
+⚡ Done in 21ms
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+Bundling asset SydneyCyclesStack/ClubService/UpdateMemberFunction/Code/Stage...
+
+  ...0b630d84a75fb2a4ede3260542ca8ef97c289749a5d5658-building/index.js  97.3kb
+
+⚡ Done in 19ms
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+Bundling asset SydneyCyclesStack/ClubService/RemoveMemberFunction/Code/Stage...
+
+  ...942cb9bf4f08302b86d0e1d2a56bb5ca13452da138dd9f9-building/index.js  96.9kb
+
+⚡ Done in 16ms
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+Bundling asset SydneyCyclesStack/ClubService/InviteUserFunction/Code/Stage...
+
+  ...a375d4a17fc4793528a00eef329fdd0e007e05424c027d-building/index.js  122.9kb
+
+⚡ Done in 22ms
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+Bundling asset SydneyCyclesStack/ClubService/AcceptInvitationFunction/Code/Stage...
+
+  ...650c09bc14089c42e50a5e1df9db79dca0e16d1c7df978-building/index.js  123.6kb
+
+⚡ Done in 19ms
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+Bundling asset SydneyCyclesStack/ClubService/ListInvitationsFunction/Code/Stage...
+
+  ...e39bd2ce00542666f10438f82f440a85b724b3f6d985c1-building/index.js  122.6kb
+
+⚡ Done in 20ms
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+Bundling asset SydneyCyclesStack/ClubService/GetMembershipsFunction/Code/Stage...
+
+  ...647ceff5c30af2394e5f922502328125544828e864413b7-building/index.js  96.1kb
+
+⚡ Done in 22ms
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+Bundling asset SydneyCyclesStack/ClubService/ProcessJoinRequestFunction/Code/Stage...
+
+  ...c00a6c3c921b9914d2e9e3c6fd44458e31a5253e3167e6-building/index.js  123.3kb
+
+⚡ Done in 49ms
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+Bundling asset SydneyCyclesStack/ClubService/GetUserClubsFunction/Code/Stage...
+
+  ...34ebda68aeeed89f4f3d958c9e428ea07ecbea52e80bfb0-building/index.js  97.4kb
+
+⚡ Done in 38ms
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+Bundling asset SydneyCyclesStack/RideService/CreateRideHandler/Code/Stage...
+
+  ...9849fc493e0dae980c8709740840a762606d90f686bd1c1-building/index.js  62.9kb
+
+⚡ Done in 19ms
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+Bundling asset SydneyCyclesStack/RideService/PublishRideHandler/Code/Stage...
+
+  ...b2c79be50e56bbefaa9d80a8bedc1fbf6aafa0ab3415950-building/index.js  40.5kb
+
+⚡ Done in 19ms
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+Bundling asset SydneyCyclesStack/RideService/ListRidesHandler/Code/Stage...
+
+  ...f7dba0ab35912b887d2cc56790f3db8f9f1bdc09d7edef8-building/index.js  42.3kb
+
+⚡ Done in 17ms
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+Bundling asset SydneyCyclesStack/RideService/GetRideHandler/Code/Stage...
+
+  ...aeb10b924bc8d97732c7f6d8fc5b18d0b5c2aa152461d85-building/index.js  62.9kb
+
+⚡ Done in 12ms
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+Bundling asset SydneyCyclesStack/RideService/JoinRideHandler/Code/Stage...
+
+  ...a870691d4373f83a37a79d7c4c0d5fa7fd3a6dd6bc04d06-building/index.js  53.1kb
+
+⚡ Done in 16ms
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+Bundling asset SydneyCyclesStack/RideService/LeaveRideHandler/Code/Stage...
+
+  ...c767f36c6b241d7f6eaae67fd99e5b783490bbfbc057ea7-building/index.js  43.2kb
+
+⚡ Done in 14ms
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+Bundling asset SydneyCyclesStack/RideService/GetUserRidesHandler/Code/Stage...
+
+  ...00492a1d2e6f93277c57cedeefef83351cc4e01187a81fa-building/index.js  43.5kb
+
+⚡ Done in 14ms
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+Bundling asset SydneyCyclesStack/RideService/CompleteRideHandler/Code/Stage...
+
+  ...2e2c124381ffea9be2341d6797f3c058a3a1de8c456bbc01-building/index.js  5.7kb
+
+⚡ Done in 8ms
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+Bundling asset SydneyCyclesStack/RideService/GetRideSummaryHandler/Code/Stage...
+
+  ...83beba22c734c691f538c64e6cdd96c4f3723b3abd9ddade-building/index.js  5.6kb
+
+⚡ Done in 11ms
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+Bundling asset SydneyCyclesStack/RideService/UpdateAttendanceHandler/Code/Stage...
+
+  ...06602e783ba9841ff444466ed1fad8070ec511e7266dac35-building/index.js  5.8kb
+
+⚡ Done in 11ms
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+[WARNING] aws-cdk-lib.aws_lambda.FunctionOptions#logRetention is deprecated.
+  use `logGroup` instead
+  This API will be removed in the next major release.
+Bundling asset SydneyCyclesStack/RideService/LinkManualEvidenceHandler/Code/Stage...
+
+  ...db4b4c4cd70d8f7643a66bf1e2bacd5d4d2231ffb4bbdc69-building/index.js  6.3kb
+
+⚡ Done in 9ms
+/Users/saminavarro/Downloads/collective-rides-project/backend/node_modules/constructs/src/construct.ts:430
+      throw new Error(`There is already a Construct with name '${childName}' in ${typeName}${name.length > 0 ? ' [' + name + ']' : ''}`);
+            ^
+Error: There is already a Construct with name 'OPTIONS' in Resource2 [join]
+    at Node.addChild (/Users/saminavarro/Downloads/collective-rides-project/backend/node_modules/constructs/src/construct.ts:430:13)
+    at new Node (/Users/saminavarro/Downloads/collective-rides-project/backend/node_modules/constructs/src/construct.ts:71:17)
+    at new Construct (/Users/saminavarro/Downloads/collective-rides-project/backend/node_modules/constructs/src/construct.ts:482:17)
+    at new Resource (/Users/saminavarro/Downloads/collective-rides-project/backend/node_modules/aws-cdk-lib/core/lib/resource.js:1:1542)
+    at new Method2 (/Users/saminavarro/Downloads/collective-rides-project/backend/node_modules/aws-cdk-lib/aws-apigateway/lib/method.js:1:7547)
+    at new Method2 (/Users/saminavarro/Downloads/collective-rides-project/backend/node_modules/aws-cdk-lib/core/lib/prop-injectable.js:1:681)
+    at WrappedClass.addMethod (/Users/saminavarro/Downloads/collective-rides-project/backend/node_modules/aws-cdk-lib/aws-apigateway/lib/resource.js:1:3504)
+    at WrappedClass.addCorsPreflight (/Users/saminavarro/Downloads/collective-rides-project/backend/node_modules/aws-cdk-lib/aws-apigateway/lib/resource.js:1:5928)
+    at new RideService (/Users/saminavarro/Downloads/collective-rides-project/backend/infrastructure/lib/ride-service.ts:204:18)
+    at new SydneyCyclesStack (/Users/saminavarro/Downloads/collective-rides-project/backend/infrastructure/lib/sydney-cycles-stack.ts:74:25)
+
+NOTICES         (What's this? https://github.com/aws/aws-cdk/wiki/CLI-Notices)
+
+34892	CDK CLI collects telemetry data on command usage starting at version 2.1100.0 (unless opted out)
+
+	Overview: We do not collect customer content and we anonymize the
+	          telemetry we do collect. See the attached issue for more
+	          information on what data is collected, why, and how to
+	          opt-out. Telemetry will NOT be collected for any CDK CLI
+	          version prior to version 2.1100.0 - regardless of
+	          opt-in/out. You can also view the telemetry we collect by
+	          logging it to a local file, by adding
+	          `--telemetry-file=my/local/file` to any `cdk` command.
+
+	Affected versions: cli: ^2.1100.0
+
+	More information at: https://github.com/aws/aws-cdk/issues/34892
+
+
+34635	Support for this Node.js version will end soon
+
+	Overview: Support for Node.js v18.20.8 ends on November 30,
+	          2025. Please upgrade to a recent LTS version.
+
+	Affected versions: node: >=18.0.0 <20.0.0
+
+	More information at: https://github.com/aws/aws-cdk/issues/34635
+
+
+If you don’t want to see a notice anymore, use "cdk acknowledge <id>". For example, "cdk acknowledge 34892".
+npx ts-node --prefer-ts-exts infrastructure/bin/app.ts: Subprocess exited with error 1

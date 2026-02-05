@@ -4,6 +4,7 @@ import { createResponse, parseJSON } from '../../../../shared/utils/lambda-utils
 import { getAuthContext } from '../../../../shared/auth/auth-context';
 import { DynamoDBRideRepository } from '../../infrastructure/dynamodb-ride-repository';
 import { DynamoDBParticipationRepository } from '../../infrastructure/dynamodb-participation-repository';
+import { MembershipHelper } from '../../infrastructure/dynamodb-membership-helper';
 import { ParticipationService } from '../../domain/participation/participation-service';
 import { RideAuthorizationService } from '../../domain/authorization/ride-authorization';
 import { RideCapability } from '../../../../shared/types/ride-authorization';
@@ -13,6 +14,7 @@ const dynamoClient = new DynamoDBClient({});
 const tableName = process.env.DYNAMODB_TABLE_NAME!;
 const rideRepository = new DynamoDBRideRepository(dynamoClient, tableName);
 const participationRepository = new DynamoDBParticipationRepository(dynamoClient, tableName);
+const membershipHelper = new MembershipHelper(dynamoClient, tableName);
 const participationService = new ParticipationService(participationRepository, rideRepository);
 
 export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
@@ -25,6 +27,10 @@ export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPr
     if (!clubId || !rideId) {
       return createResponse(400, { error: 'Club ID and Ride ID are required' });
     }
+
+    // Populate club memberships for authorization
+    const memberships = await membershipHelper.getUserMemberships(authContext.userId);
+    authContext.clubMemberships = memberships;
 
     // Check authorization - club membership required to join rides
     await RideAuthorizationService.requireRideCapability(

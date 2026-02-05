@@ -74,6 +74,15 @@ export function Header() {
                 <MapPin className="w-4 h-4" />
                 <span>Routes</span>
               </Link>
+              {user && (
+                <Link
+                  href="/rides"
+                  className="flex items-center space-x-2 text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  <Calendar className="w-4 h-4" />
+                  <span>Rides</span>
+                </Link>
+              )}
               <Link
                 href="/coffee"
                 className="flex items-center space-x-2 text-muted-foreground hover:text-foreground transition-colors"
@@ -110,13 +119,6 @@ export function Header() {
                   >
                     <Users className="w-4 h-4" />
                     <span>My Clubs</span>
-                  </Link>
-                  <Link
-                    href="/rides"
-                    className="flex items-center space-x-2 text-primary hover:text-primary/80 transition-colors font-medium"
-                  >
-                    <Calendar className="w-4 h-4" />
-                    <span>My Rides</span>
                   </Link>
                   {hasSiteAdminAccess && (
                     <Link
@@ -188,12 +190,6 @@ export function Header() {
                       <Link href="/my-clubs">
                         <Users className="mr-2 h-4 w-4" />
                         <span>My Clubs</span>
-                      </Link>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem asChild>
-                      <Link href="/rides">
-                        <Calendar className="mr-2 h-4 w-4" />
-                        <span>My Rides</span>
                       </Link>
                     </DropdownMenuItem>
                     {(hasSiteAdminAccess || hasClubAdminAccess || hasRideCaptainAccess) && (
@@ -303,6 +299,16 @@ export function Header() {
                       <MapPin className="w-5 h-5" />
                       <span>Routes</span>
                     </Link>
+                    {user && (
+                      <Link
+                        href="/rides"
+                        className="flex items-center space-x-3 px-3 py-3 rounded-lg text-base font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-all duration-200"
+                        onClick={closeMobileMenu}
+                      >
+                        <Calendar className="w-5 h-5" />
+                        <span>Rides</span>
+                      </Link>
+                    )}
                     <Link
                       href="/coffee"
                       className="flex items-center space-x-3 px-3 py-3 rounded-lg text-base font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-all duration-200"
@@ -372,14 +378,6 @@ export function Header() {
                           >
                             <Users className="w-5 h-5" />
                             <span>My Clubs</span>
-                          </Link>
-                          <Link
-                            href="/rides"
-                            className="flex items-center space-x-3 px-3 py-3 rounded-lg text-base font-medium text-primary hover:text-primary/80 hover:bg-primary/5 transition-all duration-200"
-                            onClick={closeMobileMenu}
-                          >
-                            <Calendar className="w-5 h-5" />
-                            <span>My Rides</span>
                           </Link>
                           {hasSiteAdminAccess && (
                             <>

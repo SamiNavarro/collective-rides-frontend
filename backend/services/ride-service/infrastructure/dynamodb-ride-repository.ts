@@ -93,6 +93,7 @@ export class DynamoDBRideRepository implements RideRepository {
   async findByClubId(clubId: string, query: ListRidesQuery): Promise<PaginatedRides> {
     let keyCondition: string;
     let expressionAttributeValues: Record<string, any>;
+    let indexName: string | undefined;
 
     if (query.status) {
       // Query by status using GSI2
@@ -100,26 +101,46 @@ export class DynamoDBRideRepository implements RideRepository {
       expressionAttributeValues = {
         ':pk': `CLUB#${clubId}#RIDES#${query.status}`
       };
+      indexName = 'GSI2';
+
+      // Add date filtering to GSI2SK if provided
+      if (query.startDate || query.endDate) {
+        if (query.startDate && query.endDate) {
+          keyCondition += ' AND GSI2SK BETWEEN :startDate AND :endDate';
+          expressionAttributeValues[':startDate'] = `DATE#${query.startDate}`;
+          expressionAttributeValues[':endDate'] = `DATE#${query.endDate}~`;
+        } else if (query.startDate) {
+          keyCondition += ' AND GSI2SK >= :startDate';
+          expressionAttributeValues[':startDate'] = `DATE#${query.startDate}`;
+        } else if (query.endDate) {
+          keyCondition += ' AND GSI2SK <= :endDate';
+          expressionAttributeValues[':endDate'] = `DATE#${query.endDate}~`;
+        }
+      } else {
+        // Must provide sort key condition for GSI2
+        keyCondition += ' AND begins_with(GSI2SK, :skPrefix)';
+        expressionAttributeValues[':skPrefix'] = 'DATE#';
+      }
     } else {
-      // Query all rides for club
+      // Query all rides for club using main table
       keyCondition = 'PK = :pk';
       expressionAttributeValues = {
         ':pk': `CLUB#${clubId}#RIDES`
       };
-    }
 
-    // Add date filtering if provided
-    if (query.startDate || query.endDate) {
-      if (query.startDate && query.endDate) {
-        keyCondition += ' AND SK BETWEEN :startDate AND :endDate';
-        expressionAttributeValues[':startDate'] = `DATE#${query.startDate}#RIDE#`;
-        expressionAttributeValues[':endDate'] = `DATE#${query.endDate}#RIDE#~`;
-      } else if (query.startDate) {
-        keyCondition += ' AND SK >= :startDate';
-        expressionAttributeValues[':startDate'] = `DATE#${query.startDate}#RIDE#`;
-      } else if (query.endDate) {
-        keyCondition += ' AND SK <= :endDate';
-        expressionAttributeValues[':endDate'] = `DATE#${query.endDate}#RIDE#~`;
+      // Add date filtering to SK if provided
+      if (query.startDate || query.endDate) {
+        if (query.startDate && query.endDate) {
+          keyCondition += ' AND SK BETWEEN :startDate AND :endDate';
+          expressionAttributeValues[':startDate'] = `DATE#${query.startDate}#RIDE#`;
+          expressionAttributeValues[':endDate'] = `DATE#${query.endDate}#RIDE#~`;
+        } else if (query.startDate) {
+          keyCondition += ' AND SK >= :startDate';
+          expressionAttributeValues[':startDate'] = `DATE#${query.startDate}#RIDE#`;
+        } else if (query.endDate) {
+          keyCondition += ' AND SK <= :endDate';
+          expressionAttributeValues[':endDate'] = `DATE#${query.endDate}#RIDE#~`;
+        }
       }
     }
 
@@ -131,8 +152,8 @@ export class DynamoDBRideRepository implements RideRepository {
       ScanIndexForward: true // Sort by date ascending
     };
 
-    if (query.status) {
-      queryParams.IndexName = 'GSI2';
+    if (indexName) {
+      queryParams.IndexName = indexName;
     }
 
     if (query.cursor) {

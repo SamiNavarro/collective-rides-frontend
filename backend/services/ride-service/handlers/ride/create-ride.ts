@@ -5,6 +5,7 @@ import { getAuthContext } from '../../../../shared/auth/auth-context';
 import { validateRequest } from '../../../../shared/utils/validation';
 import { DynamoDBRideRepository } from '../../infrastructure/dynamodb-ride-repository';
 import { DynamoDBParticipationRepository } from '../../infrastructure/dynamodb-participation-repository';
+import { MembershipHelper } from '../../infrastructure/dynamodb-membership-helper';
 import { RideService } from '../../domain/ride/ride-service';
 import { ParticipationService } from '../../domain/participation/participation-service';
 import { ParticipationEntity } from '../../domain/participation/participation';
@@ -16,19 +17,26 @@ const dynamoClient = new DynamoDBClient({});
 const tableName = process.env.DYNAMODB_TABLE_NAME!;
 const rideRepository = new DynamoDBRideRepository(dynamoClient, tableName);
 const participationRepository = new DynamoDBParticipationRepository(dynamoClient, tableName);
+const membershipHelper = new MembershipHelper(dynamoClient, tableName);
 const rideService = new RideService(rideRepository);
 const participationService = new ParticipationService(participationRepository, rideRepository);
 
 export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   console.log('Create ride handler invoked'); // Added for rebuild trigger
+  const origin = event.headers?.origin || event.headers?.Origin;
+  
   try {
     // Get auth context
     const authContext = await getAuthContext(event);
     const clubId = event.pathParameters?.clubId;
     
     if (!clubId) {
-      return createResponse(400, { error: 'Club ID is required' });
+      return createResponse(400, { error: 'Club ID is required' }, origin);
     }
+
+    // Populate club memberships for authorization
+    const memberships = await membershipHelper.getUserMemberships(authContext.userId);
+    authContext.clubMemberships = memberships;
 
     // Check authorization - any club member can create ride proposals
     await RideAuthorizationService.requireRideCapability(
@@ -54,7 +62,7 @@ export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPr
     if (request.publishImmediately && !canPublish) {
       return createResponse(403, { 
         error: 'Insufficient privileges to publish rides immediately' 
-      });
+      }, origin);
     }
 
     // Create ride
@@ -72,7 +80,7 @@ export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPr
       success: true,
       data: ride.toJSON(),
       timestamp: new Date().toISOString()
-    });
+    }, origin);
 
   } catch (error: any) {
     console.error('Create ride error:', error);
@@ -81,9 +89,9 @@ export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPr
       return createResponse(error.statusCode, { 
         error: error.message,
         errorType: error.errorType 
-      });
+      }, origin);
     }
     
-    return createResponse(500, { error: 'Internal server error' });
+    return createResponse(500, { error: 'Internal server error' }, origin);
   }
 };

@@ -454,7 +454,7 @@
     "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Account"
    }
   },
-  "RestApiSydneyCyclesRestApiDeployment050DCABA6657102c1d12c7b5b1bcbaaeca815fac": {
+  "RestApiSydneyCyclesRestApiDeployment050DCABAd3e76031ef0cb0af1dc8188d84634e83": {
    "Type": "AWS::ApiGateway::Deployment",
    "Properties": {
     "Description": "Sydney Cycling Platform v1 REST API - development",
@@ -510,7 +510,11 @@
     "RestApiSydneyCyclesRestApiv1clubsclubIdridesrideIdcompleteOPTIONS6B8B7170",
     "RestApiSydneyCyclesRestApiv1clubsclubIdridesrideIdcompletePOST71C48072",
     "RestApiSydneyCyclesRestApiv1clubsclubIdridesrideIdcomplete3A8B3901",
+    "RestApiSydneyCyclesRestApiv1clubsclubIdridesrideIdDELETE801E71B2",
     "RestApiSydneyCyclesRestApiv1clubsclubIdridesrideIdGETAD30378F",
+    "RestApiSydneyCyclesRestApiv1clubsclubIdridesrideIdjoinOPTIONS6F59756F",
+    "RestApiSydneyCyclesRestApiv1clubsclubIdridesrideIdjoinPOST8D72BB30",
+    "RestApiSydneyCyclesRestApiv1clubsclubIdridesrideIdjoin72E053E3",
     "RestApiSydneyCyclesRestApiv1clubsclubIdridesrideIdOPTIONS328AA053",
     "RestApiSydneyCyclesRestApiv1clubsclubIdridesrideIdparticipantsuserIdattendanceOPTIONS09C975B5",
     "RestApiSydneyCyclesRestApiv1clubsclubIdridesrideIdparticipantsuserIdattendancePUTB7676853",
@@ -531,6 +535,7 @@
     "RestApiSydneyCyclesRestApiv1clubsclubIdridesrideIdpublishOPTIONSB73211EA",
     "RestApiSydneyCyclesRestApiv1clubsclubIdridesrideIdpublishPOST86CB404E",
     "RestApiSydneyCyclesRestApiv1clubsclubIdridesrideIdpublishA6AEAA46",
+    "RestApiSydneyCyclesRestApiv1clubsclubIdridesrideIdPUT5F69753C",
     "RestApiSydneyCyclesRestApiv1clubsclubIdridesrideId137AEB35",
     "RestApiSydneyCyclesRestApiv1clubsclubIdridesrideIdsummaryGETA23C9C16",
     "RestApiSydneyCyclesRestApiv1clubsclubIdridesrideIdsummaryOPTIONS15CB30A5",
@@ -619,7 +624,7 @@
      "Format": "{\"requestId\":\"$context.requestId\",\"ip\":\"$context.identity.sourceIp\",\"user\":\"$context.identity.user\",\"caller\":\"$context.identity.caller\",\"requestTime\":\"$context.requestTime\",\"httpMethod\":\"$context.httpMethod\",\"resourcePath\":\"$context.resourcePath\",\"status\":\"$context.status\",\"protocol\":\"$context.protocol\",\"responseLength\":\"$context.responseLength\"}"
     },
     "DeploymentId": {
-     "Ref": "RestApiSydneyCyclesRestApiDeployment050DCABA6657102c1d12c7b5b1bcbaaeca815fac"
+     "Ref": "RestApiSydneyCyclesRestApiDeployment050DCABAd3e76031ef0cb0af1dc8188d84634e83"
     },
     "MethodSettings": [
      {
@@ -682,7 +687,7 @@
         "method.response.header.Access-Control-Max-Age": "'3600'"
        },
        "ResponseTemplates": {
-        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\" || $origin == \"https://collective-rides-frontend-*.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
        },
        "StatusCode": "204"
       }
@@ -755,7 +760,7 @@
         "method.response.header.Access-Control-Max-Age": "'3600'"
        },
        "ResponseTemplates": {
-        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\" || $origin == \"https://collective-rides-frontend-*.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
        },
        "StatusCode": "204"
       }
@@ -928,7 +933,7 @@
         "method.response.header.Access-Control-Max-Age": "'3600'"
        },
        "ResponseTemplates": {
-        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\" || $origin == \"https://collective-rides-frontend-*.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
        },
        "StatusCode": "204"
       }
@@ -995,7 +1000,7 @@
         "method.response.header.Access-Control-Max-Age": "'3600'"
        },
        "ResponseTemplates": {
-        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\" || $origin == \"https://collective-rides-frontend-*.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
        },
        "StatusCode": "204"
       }
@@ -1062,7 +1067,7 @@
         "method.response.header.Access-Control-Max-Age": "'3600'"
        },
        "ResponseTemplates": {
-        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\" || $origin == \"https://collective-rides-frontend-*.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
        },
        "StatusCode": "204"
       }
@@ -1247,7 +1252,7 @@
         "method.response.header.Access-Control-Max-Age": "'3600'"
        },
        "ResponseTemplates": {
-        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\" || $origin == \"https://collective-rides-frontend-*.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
        },
        "StatusCode": "204"
       }
@@ -1429,7 +1434,7 @@
         "method.response.header.Access-Control-Max-Age": "'3600'"
        },
        "ResponseTemplates": {
-        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\" || $origin == \"https://collective-rides-frontend-*.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
        },
        "StatusCode": "204"
       }
@@ -1613,7 +1618,7 @@
         "method.response.header.Access-Control-Max-Age": "'3600'"
        },
        "ResponseTemplates": {
-        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\" || $origin == \"https://collective-rides-frontend-*.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
        },
        "StatusCode": "204"
       }
@@ -1795,7 +1800,7 @@
         "method.response.header.Access-Control-Max-Age": "'3600'"
        },
        "ResponseTemplates": {
-        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\" || $origin == \"https://collective-rides-frontend-*.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
        },
        "StatusCode": "204"
       }
@@ -1960,7 +1965,7 @@
         "method.response.header.Access-Control-Max-Age": "'3600'"
        },
        "ResponseTemplates": {
-        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\" || $origin == \"https://collective-rides-frontend-*.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
        },
        "StatusCode": "204"
       }
@@ -2302,7 +2307,7 @@
         "method.response.header.Access-Control-Max-Age": "'3600'"
        },
        "ResponseTemplates": {
-        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\" || $origin == \"https://collective-rides-frontend-*.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
        },
        "StatusCode": "204"
       }
@@ -2623,7 +2628,7 @@
         "method.response.header.Access-Control-Max-Age": "'3600'"
        },
        "ResponseTemplates": {
-        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\" || $origin == \"https://collective-rides-frontend-*.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
        },
        "StatusCode": "204"
       }
@@ -2962,7 +2967,7 @@
         "method.response.header.Access-Control-Max-Age": "'3600'"
        },
        "ResponseTemplates": {
-        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\" || $origin == \"https://collective-rides-frontend-*.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
        },
        "StatusCode": "204"
       }
@@ -3278,7 +3283,7 @@
         "method.response.header.Access-Control-Max-Age": "'3600'"
        },
        "ResponseTemplates": {
-        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\" || $origin == \"https://collective-rides-frontend-*.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
        },
        "StatusCode": "204"
       }
@@ -3466,7 +3471,7 @@
         "method.response.header.Access-Control-Max-Age": "'3600'"
        },
        "ResponseTemplates": {
-        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\" || $origin == \"https://collective-rides-frontend-*.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
        },
        "StatusCode": "204"
       }
@@ -3533,7 +3538,7 @@
         "method.response.header.Access-Control-Max-Age": "'3600'"
        },
        "ResponseTemplates": {
-        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\" || $origin == \"https://collective-rides-frontend-*.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
        },
        "StatusCode": "204"
       }
@@ -3844,7 +3849,7 @@
         "method.response.header.Access-Control-Max-Age": "'3600'"
        },
        "ResponseTemplates": {
-        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\" || $origin == \"https://collective-rides-frontend-*.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
        },
        "StatusCode": "204"
       }
@@ -4035,7 +4040,7 @@
         "method.response.header.Access-Control-Max-Age": "'3600'"
        },
        "ResponseTemplates": {
-        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\" || $origin == \"https://collective-rides-frontend-*.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
        },
        "StatusCode": "204"
       }
@@ -4102,7 +4107,7 @@
         "method.response.header.Access-Control-Max-Age": "'3600'"
        },
        "ResponseTemplates": {
-        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\" || $origin == \"https://collective-rides-frontend-*.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
        },
        "StatusCode": "204"
       }
@@ -4291,7 +4296,7 @@
         "method.response.header.Access-Control-Max-Age": "'3600'"
        },
        "ResponseTemplates": {
-        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\" || $origin == \"https://collective-rides-frontend-*.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
        },
        "StatusCode": "204"
       }
@@ -4554,7 +4559,7 @@
         "method.response.header.Access-Control-Max-Age": "'3600'"
        },
        "ResponseTemplates": {
-        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\" || $origin == \"https://collective-rides-frontend-*.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
        },
        "StatusCode": "204"
       }
@@ -4686,6 +4691,202 @@
     "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/rides/{rideId}/GET/Resource"
    }
   },
+  "RestApiSydneyCyclesRestApiv1clubsclubIdridesrideIdPUTApiPermissionSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514PUTv1clubsclubIdridesrideIdD5EE168D": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "RideServiceUpdateRideHandler97106527",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:aws:execute-api:us-east-2:924748161040:",
+       {
+        "Ref": "RestApiSydneyCyclesRestApiC3FBF1D6"
+       },
+       "/",
+       {
+        "Ref": "RestApiSydneyCyclesRestApiDeploymentStagedevelopmentDF98341E"
+       },
+       "/PUT/v1/clubs/*/rides/*"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/rides/{rideId}/PUT/ApiPermission.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.PUT..v1.clubs.{clubId}.rides.{rideId}"
+   }
+  },
+  "RestApiSydneyCyclesRestApiv1clubsclubIdridesrideIdPUTApiPermissionTestSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514PUTv1clubsclubIdridesrideId52342DD7": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "RideServiceUpdateRideHandler97106527",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:aws:execute-api:us-east-2:924748161040:",
+       {
+        "Ref": "RestApiSydneyCyclesRestApiC3FBF1D6"
+       },
+       "/test-invoke-stage/PUT/v1/clubs/*/rides/*"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/rides/{rideId}/PUT/ApiPermission.Test.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.PUT..v1.clubs.{clubId}.rides.{rideId}"
+   }
+  },
+  "RestApiSydneyCyclesRestApiv1clubsclubIdridesrideIdPUT5F69753C": {
+   "Type": "AWS::ApiGateway::Method",
+   "Properties": {
+    "AuthorizationType": "COGNITO_USER_POOLS",
+    "AuthorizerId": {
+     "Ref": "RestApiCognitoAuthorizerD2BF1AF9"
+    },
+    "HttpMethod": "PUT",
+    "Integration": {
+     "IntegrationHttpMethod": "POST",
+     "Type": "AWS_PROXY",
+     "Uri": {
+      "Fn::Join": [
+       "",
+       [
+        "arn:aws:apigateway:us-east-2:lambda:path/2015-03-31/functions/",
+        {
+         "Fn::GetAtt": [
+          "RideServiceUpdateRideHandler97106527",
+          "Arn"
+         ]
+        },
+        "/invocations"
+       ]
+      ]
+     }
+    },
+    "ResourceId": {
+     "Ref": "RestApiSydneyCyclesRestApiv1clubsclubIdridesrideId137AEB35"
+    },
+    "RestApiId": {
+     "Ref": "RestApiSydneyCyclesRestApiC3FBF1D6"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/rides/{rideId}/PUT/Resource"
+   }
+  },
+  "RestApiSydneyCyclesRestApiv1clubsclubIdridesrideIdDELETEApiPermissionSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514DELETEv1clubsclubIdridesrideIdD4BEF299": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "RideServiceCancelRideHandlerF1002F0E",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:aws:execute-api:us-east-2:924748161040:",
+       {
+        "Ref": "RestApiSydneyCyclesRestApiC3FBF1D6"
+       },
+       "/",
+       {
+        "Ref": "RestApiSydneyCyclesRestApiDeploymentStagedevelopmentDF98341E"
+       },
+       "/DELETE/v1/clubs/*/rides/*"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/rides/{rideId}/DELETE/ApiPermission.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.DELETE..v1.clubs.{clubId}.rides.{rideId}"
+   }
+  },
+  "RestApiSydneyCyclesRestApiv1clubsclubIdridesrideIdDELETEApiPermissionTestSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514DELETEv1clubsclubIdridesrideIdFB92D6D9": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "RideServiceCancelRideHandlerF1002F0E",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:aws:execute-api:us-east-2:924748161040:",
+       {
+        "Ref": "RestApiSydneyCyclesRestApiC3FBF1D6"
+       },
+       "/test-invoke-stage/DELETE/v1/clubs/*/rides/*"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/rides/{rideId}/DELETE/ApiPermission.Test.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.DELETE..v1.clubs.{clubId}.rides.{rideId}"
+   }
+  },
+  "RestApiSydneyCyclesRestApiv1clubsclubIdridesrideIdDELETE801E71B2": {
+   "Type": "AWS::ApiGateway::Method",
+   "Properties": {
+    "AuthorizationType": "COGNITO_USER_POOLS",
+    "AuthorizerId": {
+     "Ref": "RestApiCognitoAuthorizerD2BF1AF9"
+    },
+    "HttpMethod": "DELETE",
+    "Integration": {
+     "IntegrationHttpMethod": "POST",
+     "Type": "AWS_PROXY",
+     "Uri": {
+      "Fn::Join": [
+       "",
+       [
+        "arn:aws:apigateway:us-east-2:lambda:path/2015-03-31/functions/",
+        {
+         "Fn::GetAtt": [
+          "RideServiceCancelRideHandlerF1002F0E",
+          "Arn"
+         ]
+        },
+        "/invocations"
+       ]
+      ]
+     }
+    },
+    "ResourceId": {
+     "Ref": "RestApiSydneyCyclesRestApiv1clubsclubIdridesrideId137AEB35"
+    },
+    "RestApiId": {
+     "Ref": "RestApiSydneyCyclesRestApiC3FBF1D6"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/rides/{rideId}/DELETE/Resource"
+   }
+  },
   "RestApiSydneyCyclesRestApiv1clubsclubIdridesrideIdpublishA6AEAA46": {
    "Type": "AWS::ApiGateway::Resource",
    "Properties": {
@@ -4719,7 +4920,7 @@
         "method.response.header.Access-Control-Max-Age": "'3600'"
        },
        "ResponseTemplates": {
-        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\" || $origin == \"https://collective-rides-frontend-*.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
        },
        "StatusCode": "204"
       }
@@ -4851,6 +5052,171 @@
     "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/rides/{rideId}/publish/POST/Resource"
    }
   },
+  "RestApiSydneyCyclesRestApiv1clubsclubIdridesrideIdjoin72E053E3": {
+   "Type": "AWS::ApiGateway::Resource",
+   "Properties": {
+    "ParentId": {
+     "Ref": "RestApiSydneyCyclesRestApiv1clubsclubIdridesrideId137AEB35"
+    },
+    "PathPart": "join",
+    "RestApiId": {
+     "Ref": "RestApiSydneyCyclesRestApiC3FBF1D6"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/rides/{rideId}/join/Resource"
+   }
+  },
+  "RestApiSydneyCyclesRestApiv1clubsclubIdridesrideIdjoinOPTIONS6F59756F": {
+   "Type": "AWS::ApiGateway::Method",
+   "Properties": {
+    "ApiKeyRequired": false,
+    "AuthorizationType": "NONE",
+    "HttpMethod": "OPTIONS",
+    "Integration": {
+     "IntegrationResponses": [
+      {
+       "ResponseParameters": {
+        "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
+        "method.response.header.Access-Control-Allow-Origin": "'http://localhost:3000'",
+        "method.response.header.Vary": "'Origin'",
+        "method.response.header.Access-Control-Allow-Methods": "'GET,POST,PUT,DELETE,OPTIONS'",
+        "method.response.header.Access-Control-Allow-Credentials": "'true'",
+        "method.response.header.Access-Control-Max-Age": "'3600'"
+       },
+       "ResponseTemplates": {
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+       },
+       "StatusCode": "204"
+      }
+     ],
+     "RequestTemplates": {
+      "application/json": "{ statusCode: 200 }"
+     },
+     "Type": "MOCK"
+    },
+    "MethodResponses": [
+     {
+      "ResponseParameters": {
+       "method.response.header.Access-Control-Allow-Headers": true,
+       "method.response.header.Access-Control-Allow-Origin": true,
+       "method.response.header.Vary": true,
+       "method.response.header.Access-Control-Allow-Methods": true,
+       "method.response.header.Access-Control-Allow-Credentials": true,
+       "method.response.header.Access-Control-Max-Age": true
+      },
+      "StatusCode": "204"
+     }
+    ],
+    "ResourceId": {
+     "Ref": "RestApiSydneyCyclesRestApiv1clubsclubIdridesrideIdjoin72E053E3"
+    },
+    "RestApiId": {
+     "Ref": "RestApiSydneyCyclesRestApiC3FBF1D6"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/rides/{rideId}/join/OPTIONS/Resource"
+   }
+  },
+  "RestApiSydneyCyclesRestApiv1clubsclubIdridesrideIdjoinPOSTApiPermissionSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514POSTv1clubsclubIdridesrideIdjoin69667525": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "RideServiceJoinRideHandler5EAA6A72",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:aws:execute-api:us-east-2:924748161040:",
+       {
+        "Ref": "RestApiSydneyCyclesRestApiC3FBF1D6"
+       },
+       "/",
+       {
+        "Ref": "RestApiSydneyCyclesRestApiDeploymentStagedevelopmentDF98341E"
+       },
+       "/POST/v1/clubs/*/rides/*/join"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/rides/{rideId}/join/POST/ApiPermission.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.POST..v1.clubs.{clubId}.rides.{rideId}.join"
+   }
+  },
+  "RestApiSydneyCyclesRestApiv1clubsclubIdridesrideIdjoinPOSTApiPermissionTestSydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514POSTv1clubsclubIdridesrideIdjoin69181DA9": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "RideServiceJoinRideHandler5EAA6A72",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:aws:execute-api:us-east-2:924748161040:",
+       {
+        "Ref": "RestApiSydneyCyclesRestApiC3FBF1D6"
+       },
+       "/test-invoke-stage/POST/v1/clubs/*/rides/*/join"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/rides/{rideId}/join/POST/ApiPermission.Test.SydneyCyclesStackRestApiSydneyCyclesRestApiDCA06514.POST..v1.clubs.{clubId}.rides.{rideId}.join"
+   }
+  },
+  "RestApiSydneyCyclesRestApiv1clubsclubIdridesrideIdjoinPOST8D72BB30": {
+   "Type": "AWS::ApiGateway::Method",
+   "Properties": {
+    "AuthorizationType": "COGNITO_USER_POOLS",
+    "AuthorizerId": {
+     "Ref": "RestApiCognitoAuthorizerD2BF1AF9"
+    },
+    "HttpMethod": "POST",
+    "Integration": {
+     "IntegrationHttpMethod": "POST",
+     "Type": "AWS_PROXY",
+     "Uri": {
+      "Fn::Join": [
+       "",
+       [
+        "arn:aws:apigateway:us-east-2:lambda:path/2015-03-31/functions/",
+        {
+         "Fn::GetAtt": [
+          "RideServiceJoinRideHandler5EAA6A72",
+          "Arn"
+         ]
+        },
+        "/invocations"
+       ]
+      ]
+     }
+    },
+    "ResourceId": {
+     "Ref": "RestApiSydneyCyclesRestApiv1clubsclubIdridesrideIdjoin72E053E3"
+    },
+    "RestApiId": {
+     "Ref": "RestApiSydneyCyclesRestApiC3FBF1D6"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RestApi/SydneyCyclesRestApi/Default/v1/clubs/{clubId}/rides/{rideId}/join/POST/Resource"
+   }
+  },
   "RestApiSydneyCyclesRestApiv1clubsclubIdridesrideIdparticipantsDC8C56D8": {
    "Type": "AWS::ApiGateway::Resource",
    "Properties": {
@@ -4884,7 +5250,7 @@
         "method.response.header.Access-Control-Max-Age": "'3600'"
        },
        "ResponseTemplates": {
-        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\" || $origin == \"https://collective-rides-frontend-*.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
        },
        "StatusCode": "204"
       }
@@ -5049,7 +5415,7 @@
         "method.response.header.Access-Control-Max-Age": "'3600'"
        },
        "ResponseTemplates": {
-        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\" || $origin == \"https://collective-rides-frontend-*.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
        },
        "StatusCode": "204"
       }
@@ -5214,7 +5580,7 @@
         "method.response.header.Access-Control-Max-Age": "'3600'"
        },
        "ResponseTemplates": {
-        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\" || $origin == \"https://collective-rides-frontend-*.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
        },
        "StatusCode": "204"
       }
@@ -5281,7 +5647,7 @@
         "method.response.header.Access-Control-Max-Age": "'3600'"
        },
        "ResponseTemplates": {
-        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\" || $origin == \"https://collective-rides-frontend-*.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
        },
        "StatusCode": "204"
       }
@@ -5446,7 +5812,7 @@
         "method.response.header.Access-Control-Max-Age": "'3600'"
        },
        "ResponseTemplates": {
-        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\" || $origin == \"https://collective-rides-frontend-*.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
        },
        "StatusCode": "204"
       }
@@ -5513,7 +5879,7 @@
         "method.response.header.Access-Control-Max-Age": "'3600'"
        },
        "ResponseTemplates": {
-        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\" || $origin == \"https://collective-rides-frontend-*.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
        },
        "StatusCode": "204"
       }
@@ -5678,7 +6044,7 @@
         "method.response.header.Access-Control-Max-Age": "'3600'"
        },
        "ResponseTemplates": {
-        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\" || $origin == \"https://collective-rides-frontend-*.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
        },
        "StatusCode": "204"
       }
@@ -5843,7 +6209,7 @@
         "method.response.header.Access-Control-Max-Age": "'3600'"
        },
        "ResponseTemplates": {
-        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\" || $origin == \"https://collective-rides-frontend-*.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
        },
        "StatusCode": "204"
       }
@@ -6008,7 +6374,7 @@
         "method.response.header.Access-Control-Max-Age": "'3600'"
        },
        "ResponseTemplates": {
-        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\" || $origin == \"https://collective-rides-frontend-*.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
        },
        "StatusCode": "204"
       }
@@ -6075,7 +6441,7 @@
         "method.response.header.Access-Control-Max-Age": "'3600'"
        },
        "ResponseTemplates": {
-        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\" || $origin == \"https://collective-rides-frontend-*.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
        },
        "StatusCode": "204"
       }
@@ -6142,7 +6508,7 @@
         "method.response.header.Access-Control-Max-Age": "'3600'"
        },
        "ResponseTemplates": {
-        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\" || $origin == \"https://collective-rides-frontend-*.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
        },
        "StatusCode": "204"
       }
@@ -6209,7 +6575,7 @@
         "method.response.header.Access-Control-Max-Age": "'3600'"
        },
        "ResponseTemplates": {
-        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\" || $origin == \"https://collective-rides-frontend-*.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
        },
        "StatusCode": "204"
       }
@@ -6374,7 +6740,7 @@
         "method.response.header.Access-Control-Max-Age": "'3600'"
        },
        "ResponseTemplates": {
-        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\" || $origin == \"https://collective-rides-frontend-*.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
        },
        "StatusCode": "204"
       }
@@ -6441,7 +6807,7 @@
         "method.response.header.Access-Control-Max-Age": "'3600'"
        },
        "ResponseTemplates": {
-        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\" || $origin == \"https://collective-rides-frontend-*.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
        },
        "StatusCode": "204"
       }
@@ -6606,7 +6972,7 @@
         "method.response.header.Access-Control-Max-Age": "'3600'"
        },
        "ResponseTemplates": {
-        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\" || $origin == \"https://collective-rides-frontend-*.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
        },
        "StatusCode": "204"
       }
@@ -6771,7 +7137,7 @@
         "method.response.header.Access-Control-Max-Age": "'3600'"
        },
        "ResponseTemplates": {
-        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\" || $origin == \"https://collective-rides-frontend-*.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
        },
        "StatusCode": "204"
       }
@@ -6936,7 +7302,7 @@
         "method.response.header.Access-Control-Max-Age": "'3600'"
        },
        "ResponseTemplates": {
-        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\" || $origin == \"https://collective-rides-frontend-*.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
        },
        "StatusCode": "204"
       }
@@ -7101,7 +7467,7 @@
         "method.response.header.Access-Control-Max-Age": "'3600'"
        },
        "ResponseTemplates": {
-        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\" || $origin == \"https://collective-rides-frontend-*.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
        },
        "StatusCode": "204"
       }
@@ -7364,7 +7730,7 @@
         "method.response.header.Access-Control-Max-Age": "'3600'"
        },
        "ResponseTemplates": {
-        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\" || $origin == \"https://collective-rides-frontend-*.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
        },
        "StatusCode": "204"
       }
@@ -7431,7 +7797,7 @@
         "method.response.header.Access-Control-Max-Age": "'3600'"
        },
        "ResponseTemplates": {
-        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\" || $origin == \"https://collective-rides-frontend-*.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
        },
        "StatusCode": "204"
       }
@@ -7622,7 +7988,7 @@
         "method.response.header.Access-Control-Max-Age": "'3600'"
        },
        "ResponseTemplates": {
-        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\" || $origin == \"https://collective-rides-frontend-*.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
        },
        "StatusCode": "204"
       }
@@ -7689,7 +8055,7 @@
         "method.response.header.Access-Control-Max-Age": "'3600'"
        },
        "ResponseTemplates": {
-        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\" || $origin == \"https://collective-rides-frontend-*.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
        },
        "StatusCode": "204"
       }
@@ -7756,7 +8122,7 @@
         "method.response.header.Access-Control-Max-Age": "'3600'"
        },
        "ResponseTemplates": {
-        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\" || $origin == \"https://collective-rides-frontend-*.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
        },
        "StatusCode": "204"
       }
@@ -7918,7 +8284,7 @@
         "method.response.header.Access-Control-Max-Age": "'3600'"
        },
        "ResponseTemplates": {
-        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\" || $origin == \"https://collective-rides-frontend-*.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
        },
        "StatusCode": "204"
       }
@@ -8080,7 +8446,7 @@
         "method.response.header.Access-Control-Max-Age": "'3600'"
        },
        "ResponseTemplates": {
-        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\" || $origin == \"https://collective-rides-frontend-*.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
+        "application/json": "#set($origin = $input.params().header.get(\"Origin\"))\n#if($origin == \"\")\n  #set($origin = $input.params().header.get(\"origin\"))\n#end\n#if($origin == \"http://127.0.0.1:3000\" || $origin == \"https://collective-rides-frontend.vercel.app\")\n  #set($context.responseOverride.header.Access-Control-Allow-Origin = $origin)\n#end"
        },
        "StatusCode": "204"
       }
@@ -9344,7 +9710,7 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-924748161040-us-east-2",
-     "S3Key": "b718c9fd3c9214e9e85f63302f0c91f59b64cae035c81900631b4124f8a53081.zip"
+     "S3Key": "1702aa47ff2fd0aaab500c9127cd8812b7359c1535ec926df6dae5546bc636d7.zip"
     },
     "Description": "List clubs with pagination and filtering (public endpoint)",
     "Environment": {
@@ -9395,7 +9761,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "SydneyCyclesStack/ClubService/ListClubsFunction/Resource",
-    "aws:asset:path": "asset.b718c9fd3c9214e9e85f63302f0c91f59b64cae035c81900631b4124f8a53081",
+    "aws:asset:path": "asset.1702aa47ff2fd0aaab500c9127cd8812b7359c1535ec926df6dae5546bc636d7",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -9545,7 +9911,7 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-924748161040-us-east-2",
-     "S3Key": "85d9af4433f46235b2f5568252d025df39b59abf8bd67918cc9bccbcbcb9cd1e.zip"
+     "S3Key": "541b2ff9636bc36f8574754c4746d5abe5f53ea1b28ee7e46d3d38dc178bdd44.zip"
     },
     "Description": "Get club details by ID (public endpoint)",
     "Environment": {
@@ -9596,7 +9962,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "SydneyCyclesStack/ClubService/GetClubFunction/Resource",
-    "aws:asset:path": "asset.85d9af4433f46235b2f5568252d025df39b59abf8bd67918cc9bccbcbcb9cd1e",
+    "aws:asset:path": "asset.541b2ff9636bc36f8574754c4746d5abe5f53ea1b28ee7e46d3d38dc178bdd44",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -10148,7 +10514,7 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-924748161040-us-east-2",
-     "S3Key": "0853f65b846626005a5db37f0ffe9b6da9e9bcf1cd2ef770806c5bae6c6cb2de.zip"
+     "S3Key": "c41cbd2f18a5f186db19fcbe2e867a8505084f9d6a82868b60791d039120249b.zip"
     },
     "Description": "Join club (authenticated users)",
     "Environment": {
@@ -10199,7 +10565,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "SydneyCyclesStack/ClubService/JoinClubFunction/Resource",
-    "aws:asset:path": "asset.0853f65b846626005a5db37f0ffe9b6da9e9bcf1cd2ef770806c5bae6c6cb2de",
+    "aws:asset:path": "asset.c41cbd2f18a5f186db19fcbe2e867a8505084f9d6a82868b60791d039120249b",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -10349,7 +10715,7 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-924748161040-us-east-2",
-     "S3Key": "77a464af3d076753a1f71a74044d291452126154fd20fdbd10e56828425ff168.zip"
+     "S3Key": "19a6fd97ee2f6d9cccdc06e192e689b7cb6693d44efe33edd4e968f4b03276cd.zip"
     },
     "Description": "Leave club (authenticated users)",
     "Environment": {
@@ -10400,7 +10766,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "SydneyCyclesStack/ClubService/LeaveClubFunction/Resource",
-    "aws:asset:path": "asset.77a464af3d076753a1f71a74044d291452126154fd20fdbd10e56828425ff168",
+    "aws:asset:path": "asset.19a6fd97ee2f6d9cccdc06e192e689b7cb6693d44efe33edd4e968f4b03276cd",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -10550,7 +10916,7 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-924748161040-us-east-2",
-     "S3Key": "1b199335fef53d322807e6393ba996022903bc7154dbad0b2ccbb208c6f94dc2.zip"
+     "S3Key": "c40d9e1adeab621bb829bcaafa1fe26bc7e13ec21de0e0b76312b6ab470632e7.zip"
     },
     "Description": "List club members (club members)",
     "Environment": {
@@ -10601,7 +10967,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "SydneyCyclesStack/ClubService/ListMembersFunction/Resource",
-    "aws:asset:path": "asset.1b199335fef53d322807e6393ba996022903bc7154dbad0b2ccbb208c6f94dc2",
+    "aws:asset:path": "asset.c40d9e1adeab621bb829bcaafa1fe26bc7e13ec21de0e0b76312b6ab470632e7",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -10751,7 +11117,7 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-924748161040-us-east-2",
-     "S3Key": "d6ec066a2f9d7df183b5a16dd41a77985177d393b1b248297511c380d99b883a.zip"
+     "S3Key": "bd7ae2f843ddfbc0d8e78c59e9dd1a11bfcd1485b848f04a2ca9617459729b70.zip"
     },
     "Description": "Update member role (club admins)",
     "Environment": {
@@ -10802,7 +11168,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "SydneyCyclesStack/ClubService/UpdateMemberFunction/Resource",
-    "aws:asset:path": "asset.d6ec066a2f9d7df183b5a16dd41a77985177d393b1b248297511c380d99b883a",
+    "aws:asset:path": "asset.bd7ae2f843ddfbc0d8e78c59e9dd1a11bfcd1485b848f04a2ca9617459729b70",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -10952,7 +11318,7 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-924748161040-us-east-2",
-     "S3Key": "db126f4fc3b779e192358af892eb85450ed80bba14bb57c0fe3eb10d6bce6cac.zip"
+     "S3Key": "5f403ce3082fa86db1a04399fcb9b753b5f91991371b8f56eb99f996def86593.zip"
     },
     "Description": "Remove member from club (club admins)",
     "Environment": {
@@ -11003,7 +11369,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "SydneyCyclesStack/ClubService/RemoveMemberFunction/Resource",
-    "aws:asset:path": "asset.db126f4fc3b779e192358af892eb85450ed80bba14bb57c0fe3eb10d6bce6cac",
+    "aws:asset:path": "asset.5f403ce3082fa86db1a04399fcb9b753b5f91991371b8f56eb99f996def86593",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -11153,7 +11519,7 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-924748161040-us-east-2",
-     "S3Key": "fbdf4428de91db44da853873ee3313a62ac61e019e58f2398853d29fba3bcd9d.zip"
+     "S3Key": "97a6b1983669635fbb99888dc8e394555e93911ea9e37104cbba41a2fab45ba7.zip"
     },
     "Description": "Invite user to club (club admins)",
     "Environment": {
@@ -11204,7 +11570,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "SydneyCyclesStack/ClubService/InviteUserFunction/Resource",
-    "aws:asset:path": "asset.fbdf4428de91db44da853873ee3313a62ac61e019e58f2398853d29fba3bcd9d",
+    "aws:asset:path": "asset.97a6b1983669635fbb99888dc8e394555e93911ea9e37104cbba41a2fab45ba7",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -11354,7 +11720,7 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-924748161040-us-east-2",
-     "S3Key": "014768985a81cbc27c3ab82f9db2f6cefa4639d9727842f7e855acb5a5ab729d.zip"
+     "S3Key": "85be941a9180f48d23ddba4427289f8ab83789f1d77d6a5190eb1e986a21a60c.zip"
     },
     "Description": "Accept or decline invitation (authenticated users)",
     "Environment": {
@@ -11405,7 +11771,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "SydneyCyclesStack/ClubService/AcceptInvitationFunction/Resource",
-    "aws:asset:path": "asset.014768985a81cbc27c3ab82f9db2f6cefa4639d9727842f7e855acb5a5ab729d",
+    "aws:asset:path": "asset.85be941a9180f48d23ddba4427289f8ab83789f1d77d6a5190eb1e986a21a60c",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -11555,7 +11921,7 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-924748161040-us-east-2",
-     "S3Key": "ca81edb38efbb5f5417e8a04603150333ec75648482964e22d6b3db04d4aef9e.zip"
+     "S3Key": "914b151bc3885cb7deffbb56246a11741a2493d6710380321574ccda2261b33e.zip"
     },
     "Description": "List user invitations (authenticated users)",
     "Environment": {
@@ -11606,7 +11972,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "SydneyCyclesStack/ClubService/ListInvitationsFunction/Resource",
-    "aws:asset:path": "asset.ca81edb38efbb5f5417e8a04603150333ec75648482964e22d6b3db04d4aef9e",
+    "aws:asset:path": "asset.914b151bc3885cb7deffbb56246a11741a2493d6710380321574ccda2261b33e",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -11756,7 +12122,7 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-924748161040-us-east-2",
-     "S3Key": "18ea2b0ccef893909f250ed07261a2332e00af9489b093d97eb0c72594fde71d.zip"
+     "S3Key": "25de3ba4c13be265886b43df2415cfd546813087a997e3d265c77ec895df534a.zip"
     },
     "Description": "Get user memberships (authenticated users)",
     "Environment": {
@@ -11807,7 +12173,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "SydneyCyclesStack/ClubService/GetMembershipsFunction/Resource",
-    "aws:asset:path": "asset.18ea2b0ccef893909f250ed07261a2332e00af9489b093d97eb0c72594fde71d",
+    "aws:asset:path": "asset.25de3ba4c13be265886b43df2415cfd546813087a997e3d265c77ec895df534a",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -11957,7 +12323,7 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-924748161040-us-east-2",
-     "S3Key": "e056ddbda36757e7f23292ecc82ce3e89fbe3f229b5a3b0713c7eb789dfa916f.zip"
+     "S3Key": "c13963e6ae9730a2894f5281116dd24cc261e0d44765580d9292b6d96611f7f7.zip"
     },
     "Description": "Process join request (club admins)",
     "Environment": {
@@ -12008,7 +12374,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "SydneyCyclesStack/ClubService/ProcessJoinRequestFunction/Resource",
-    "aws:asset:path": "asset.e056ddbda36757e7f23292ecc82ce3e89fbe3f229b5a3b0713c7eb789dfa916f",
+    "aws:asset:path": "asset.c13963e6ae9730a2894f5281116dd24cc261e0d44765580d9292b6d96611f7f7",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -12158,7 +12524,7 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-924748161040-us-east-2",
-     "S3Key": "d6813e5b775e64605ef2d9f635982bf575acf05a6860412f0a293b1cb1b575d6.zip"
+     "S3Key": "f0e23046f7883a3802ea5391eb24e3e7f4527e0a4ac5a777177e175009db2667.zip"
     },
     "Description": "Get user clubs with hydrated data (authenticated users)",
     "Environment": {
@@ -12209,7 +12575,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "SydneyCyclesStack/ClubService/GetUserClubsFunction/Resource",
-    "aws:asset:path": "asset.d6813e5b775e64605ef2d9f635982bf575acf05a6860412f0a293b1cb1b575d6",
+    "aws:asset:path": "asset.f0e23046f7883a3802ea5391eb24e3e7f4527e0a4ac5a777177e175009db2667",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -12353,7 +12719,7 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-924748161040-us-east-2",
-     "S3Key": "000c0d3c63499e04e35b9c7ab618d5ae38fa8eb0c78452c7a17e76227c210cdf.zip"
+     "S3Key": "7c6d59fd407753ee4478496595aef75558703d5172d10b9321ad08ca0b6ed178.zip"
     },
     "Description": "Create new ride (draft or published)",
     "Environment": {
@@ -12401,7 +12767,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "SydneyCyclesStack/RideService/CreateRideHandler/Resource",
-    "aws:asset:path": "asset.000c0d3c63499e04e35b9c7ab618d5ae38fa8eb0c78452c7a17e76227c210cdf",
+    "aws:asset:path": "asset.7c6d59fd407753ee4478496595aef75558703d5172d10b9321ad08ca0b6ed178",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -12545,7 +12911,7 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-924748161040-us-east-2",
-     "S3Key": "0c405d1a37b16cc67b26a209c7c0f1381df07d9b96e0b694cda78e14051ef11d.zip"
+     "S3Key": "436f20390711da75387db117462b6de8bc8cce8f52f25407b9d3e13ebefe7e69.zip"
     },
     "Description": "Publish a draft ride",
     "Environment": {
@@ -12593,7 +12959,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "SydneyCyclesStack/RideService/PublishRideHandler/Resource",
-    "aws:asset:path": "asset.0c405d1a37b16cc67b26a209c7c0f1381df07d9b96e0b694cda78e14051ef11d",
+    "aws:asset:path": "asset.436f20390711da75387db117462b6de8bc8cce8f52f25407b9d3e13ebefe7e69",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -12737,7 +13103,7 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-924748161040-us-east-2",
-     "S3Key": "ce3565d23ea300f49e549266faf7210592d73b2e825180a9ed58d83ff819bd32.zip"
+     "S3Key": "75465830e85307791622c1fbbf3ab7b1c49e19deff9eb04a1ababc1d274db5fa.zip"
     },
     "Description": "List rides with filtering and pagination",
     "Environment": {
@@ -12785,7 +13151,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "SydneyCyclesStack/RideService/ListRidesHandler/Resource",
-    "aws:asset:path": "asset.ce3565d23ea300f49e549266faf7210592d73b2e825180a9ed58d83ff819bd32",
+    "aws:asset:path": "asset.75465830e85307791622c1fbbf3ab7b1c49e19deff9eb04a1ababc1d274db5fa",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -12929,7 +13295,7 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-924748161040-us-east-2",
-     "S3Key": "2b91d4389401c9e7f654d3c9f88e4ed4bf4fcb8a3e055a46e3d3aec01495c8e6.zip"
+     "S3Key": "ca631e2795ddbe6b915ea42965aa4a9475ed772819244ffeefd337793ba25595.zip"
     },
     "Description": "Get ride details by ID",
     "Environment": {
@@ -12977,7 +13343,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "SydneyCyclesStack/RideService/GetRideHandler/Resource",
-    "aws:asset:path": "asset.2b91d4389401c9e7f654d3c9f88e4ed4bf4fcb8a3e055a46e3d3aec01495c8e6",
+    "aws:asset:path": "asset.ca631e2795ddbe6b915ea42965aa4a9475ed772819244ffeefd337793ba25595",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -13006,6 +13372,390 @@
    },
    "Metadata": {
     "aws:cdk:path": "SydneyCyclesStack/RideService/GetRideHandler/LogRetention/Resource"
+   }
+  },
+  "RideServiceUpdateRideHandlerServiceRoleF22183C4": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "Environment",
+      "Value": "development"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Phase",
+      "Value": "2.5-RideCompletion"
+     },
+     {
+      "Key": "Project",
+      "Value": "SydneyCycles"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RideService/UpdateRideHandler/ServiceRole/Resource"
+   }
+  },
+  "RideServiceUpdateRideHandlerServiceRoleDefaultPolicyA629CFAE": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "dynamodb:BatchGetItem",
+        "dynamodb:BatchWriteItem",
+        "dynamodb:DeleteItem",
+        "dynamodb:GetItem",
+        "dynamodb:PutItem",
+        "dynamodb:Query",
+        "dynamodb:Scan",
+        "dynamodb:TransactGetItems",
+        "dynamodb:TransactWriteItems",
+        "dynamodb:UpdateItem"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "MainTableSydneyCyclesMainTable4AA7164E",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "MainTableSydneyCyclesMainTable4AA7164E",
+             "Arn"
+            ]
+           },
+           "/index/*"
+          ]
+         ]
+        }
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "RideServiceUpdateRideHandlerServiceRoleDefaultPolicyA629CFAE",
+    "Roles": [
+     {
+      "Ref": "RideServiceUpdateRideHandlerServiceRoleF22183C4"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RideService/UpdateRideHandler/ServiceRole/DefaultPolicy/Resource"
+   }
+  },
+  "RideServiceUpdateRideHandler97106527": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-924748161040-us-east-2",
+     "S3Key": "a9351817b8c73084cb05f405cbbeefc164970b09b5aea1f49c77dec8384ba426.zip"
+    },
+    "Description": "Update ride details (Phase 3.3.4)",
+    "Environment": {
+     "Variables": {
+      "DYNAMODB_TABLE_NAME": {
+       "Ref": "MainTableSydneyCyclesMainTable4AA7164E"
+      },
+      "NODE_OPTIONS": "--enable-source-maps",
+      "ENVIRONMENT": "development"
+     }
+    },
+    "FunctionName": "sydney-cycles-update-ride-development",
+    "Handler": "index.handler",
+    "MemorySize": 256,
+    "Role": {
+     "Fn::GetAtt": [
+      "RideServiceUpdateRideHandlerServiceRoleF22183C4",
+      "Arn"
+     ]
+    },
+    "Runtime": "nodejs24.x",
+    "Tags": [
+     {
+      "Key": "Environment",
+      "Value": "development"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Phase",
+      "Value": "2.5-RideCompletion"
+     },
+     {
+      "Key": "Project",
+      "Value": "SydneyCycles"
+     }
+    ],
+    "Timeout": 30
+   },
+   "DependsOn": [
+    "RideServiceUpdateRideHandlerServiceRoleDefaultPolicyA629CFAE",
+    "RideServiceUpdateRideHandlerServiceRoleF22183C4"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RideService/UpdateRideHandler/Resource",
+    "aws:asset:path": "asset.a9351817b8c73084cb05f405cbbeefc164970b09b5aea1f49c77dec8384ba426",
+    "aws:asset:is-bundled": true,
+    "aws:asset:property": "Code"
+   }
+  },
+  "RideServiceUpdateRideHandlerLogRetention4A85B095": {
+   "Type": "Custom::LogRetention",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aFD4BFC8A",
+      "Arn"
+     ]
+    },
+    "LogGroupName": {
+     "Fn::Join": [
+      "",
+      [
+       "/aws/lambda/",
+       {
+        "Ref": "RideServiceUpdateRideHandler97106527"
+       }
+      ]
+     ]
+    },
+    "RetentionInDays": 7
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RideService/UpdateRideHandler/LogRetention/Resource"
+   }
+  },
+  "RideServiceCancelRideHandlerServiceRoleD773633B": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "Environment",
+      "Value": "development"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Phase",
+      "Value": "2.5-RideCompletion"
+     },
+     {
+      "Key": "Project",
+      "Value": "SydneyCycles"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RideService/CancelRideHandler/ServiceRole/Resource"
+   }
+  },
+  "RideServiceCancelRideHandlerServiceRoleDefaultPolicy37897AE4": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "dynamodb:BatchGetItem",
+        "dynamodb:BatchWriteItem",
+        "dynamodb:DeleteItem",
+        "dynamodb:GetItem",
+        "dynamodb:PutItem",
+        "dynamodb:Query",
+        "dynamodb:Scan",
+        "dynamodb:TransactGetItems",
+        "dynamodb:TransactWriteItems",
+        "dynamodb:UpdateItem"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "MainTableSydneyCyclesMainTable4AA7164E",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "MainTableSydneyCyclesMainTable4AA7164E",
+             "Arn"
+            ]
+           },
+           "/index/*"
+          ]
+         ]
+        }
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "RideServiceCancelRideHandlerServiceRoleDefaultPolicy37897AE4",
+    "Roles": [
+     {
+      "Ref": "RideServiceCancelRideHandlerServiceRoleD773633B"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RideService/CancelRideHandler/ServiceRole/DefaultPolicy/Resource"
+   }
+  },
+  "RideServiceCancelRideHandlerF1002F0E": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": "cdk-hnb659fds-assets-924748161040-us-east-2",
+     "S3Key": "b4c6fad2ff524b81dadbc8ff6487fa925aa06fcc86d7190815690533512ada3b.zip"
+    },
+    "Description": "Cancel a ride (Phase 3.3.4)",
+    "Environment": {
+     "Variables": {
+      "DYNAMODB_TABLE_NAME": {
+       "Ref": "MainTableSydneyCyclesMainTable4AA7164E"
+      },
+      "NODE_OPTIONS": "--enable-source-maps",
+      "ENVIRONMENT": "development"
+     }
+    },
+    "FunctionName": "sydney-cycles-cancel-ride-development",
+    "Handler": "index.handler",
+    "MemorySize": 256,
+    "Role": {
+     "Fn::GetAtt": [
+      "RideServiceCancelRideHandlerServiceRoleD773633B",
+      "Arn"
+     ]
+    },
+    "Runtime": "nodejs24.x",
+    "Tags": [
+     {
+      "Key": "Environment",
+      "Value": "development"
+     },
+     {
+      "Key": "ManagedBy",
+      "Value": "CDK"
+     },
+     {
+      "Key": "Phase",
+      "Value": "2.5-RideCompletion"
+     },
+     {
+      "Key": "Project",
+      "Value": "SydneyCycles"
+     }
+    ],
+    "Timeout": 30
+   },
+   "DependsOn": [
+    "RideServiceCancelRideHandlerServiceRoleDefaultPolicy37897AE4",
+    "RideServiceCancelRideHandlerServiceRoleD773633B"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RideService/CancelRideHandler/Resource",
+    "aws:asset:path": "asset.b4c6fad2ff524b81dadbc8ff6487fa925aa06fcc86d7190815690533512ada3b",
+    "aws:asset:is-bundled": true,
+    "aws:asset:property": "Code"
+   }
+  },
+  "RideServiceCancelRideHandlerLogRetentionFD00B68F": {
+   "Type": "Custom::LogRetention",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "LogRetentionaae0aa3c5b4d4f87b02d85b201efdd8aFD4BFC8A",
+      "Arn"
+     ]
+    },
+    "LogGroupName": {
+     "Fn::Join": [
+      "",
+      [
+       "/aws/lambda/",
+       {
+        "Ref": "RideServiceCancelRideHandlerF1002F0E"
+       }
+      ]
+     ]
+    },
+    "RetentionInDays": 7
+   },
+   "Metadata": {
+    "aws:cdk:path": "SydneyCyclesStack/RideService/CancelRideHandler/LogRetention/Resource"
    }
   },
   "RideServiceJoinRideHandlerServiceRoleEDB697F6": {
@@ -13121,7 +13871,7 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-924748161040-us-east-2",
-     "S3Key": "629da5a0336745ebdb1f63584e0bbd7648120a80ce90cb2fd57a0a483cb079e0.zip"
+     "S3Key": "e8d3425933929b230f47bd4d70522561421ba836d7bdaa8dcabe019bba24e56d.zip"
     },
     "Description": "Join a published ride",
     "Environment": {
@@ -13169,7 +13919,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "SydneyCyclesStack/RideService/JoinRideHandler/Resource",
-    "aws:asset:path": "asset.629da5a0336745ebdb1f63584e0bbd7648120a80ce90cb2fd57a0a483cb079e0",
+    "aws:asset:path": "asset.e8d3425933929b230f47bd4d70522561421ba836d7bdaa8dcabe019bba24e56d",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -13313,7 +14063,7 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-924748161040-us-east-2",
-     "S3Key": "fec2560fab788f9c811aa163ff11f084967947c4fa6eb12aefdef719c1bd4337.zip"
+     "S3Key": "2682499c5ce84265f5062599c5d993e4437a10884fd09fd9b3083108f4c359da.zip"
     },
     "Description": "Leave a ride",
     "Environment": {
@@ -13361,7 +14111,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "SydneyCyclesStack/RideService/LeaveRideHandler/Resource",
-    "aws:asset:path": "asset.fec2560fab788f9c811aa163ff11f084967947c4fa6eb12aefdef719c1bd4337",
+    "aws:asset:path": "asset.2682499c5ce84265f5062599c5d993e4437a10884fd09fd9b3083108f4c359da",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -13505,7 +14255,7 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-924748161040-us-east-2",
-     "S3Key": "1b01349c948f9b0e0e715863fc3ce00602b9c3e29c1094f5800a8115b0b77f8c.zip"
+     "S3Key": "dd766fadd569b57f13ee006b04af99fb0cd51c89afdf615382d1f8cf2c75770d.zip"
     },
     "Description": "Get user ride history and participation",
     "Environment": {
@@ -13553,7 +14303,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "SydneyCyclesStack/RideService/GetUserRidesHandler/Resource",
-    "aws:asset:path": "asset.1b01349c948f9b0e0e715863fc3ce00602b9c3e29c1094f5800a8115b0b77f8c",
+    "aws:asset:path": "asset.dd766fadd569b57f13ee006b04af99fb0cd51c89afdf615382d1f8cf2c75770d",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -14772,7 +15522,7 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-924748161040-us-east-2",
-     "S3Key": "98b6fb4e3146ce08cf90da2ceb08166c38ab6cd23b545200946556b5cd76a765.zip"
+     "S3Key": "2512c5eb01ed22aa2f292405bc599d689d17d12c82ede0707a27bf207412bba4.zip"
     },
     "Environment": {
      "Variables": {
@@ -14819,7 +15569,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "SydneyCyclesStack/RouteFileService/FileUploadHandler/Resource",
-    "aws:asset:path": "asset.98b6fb4e3146ce08cf90da2ceb08166c38ab6cd23b545200946556b5cd76a765",
+    "aws:asset:path": "asset.2512c5eb01ed22aa2f292405bc599d689d17d12c82ede0707a27bf207412bba4",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -14887,7 +15637,7 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-924748161040-us-east-2",
-     "S3Key": "3bd4e4c167cc1ed686d8c78bb8edab41c8cebd559f4c01024113251c1592c991.zip"
+     "S3Key": "c12ab0c16d92d88892d1a10a44d7a50cc2b9d1916869eab33e4cde61876a62ba.zip"
     },
     "Environment": {
      "Variables": {
@@ -14940,7 +15690,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "SydneyCyclesStack/RouteFileService/FileDownloadHandler/Resource",
-    "aws:asset:path": "asset.3bd4e4c167cc1ed686d8c78bb8edab41c8cebd559f4c01024113251c1592c991",
+    "aws:asset:path": "asset.c12ab0c16d92d88892d1a10a44d7a50cc2b9d1916869eab33e4cde61876a62ba",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -14950,7 +15700,7 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-924748161040-us-east-2",
-     "S3Key": "6da1b74e6883e40e6868708882e96f087ddf0ecb0d386fba17c3ed364461ca43.zip"
+     "S3Key": "6b4ce15798fffc1f715c87e6c32d2f7c8a48ceefea42bc6310b8523b12ebf879.zip"
     },
     "Environment": {
      "Variables": {
@@ -15003,7 +15753,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "SydneyCyclesStack/RouteFileService/AnalyticsHandler/Resource",
-    "aws:asset:path": "asset.6da1b74e6883e40e6868708882e96f087ddf0ecb0d386fba17c3ed364461ca43",
+    "aws:asset:path": "asset.6b4ce15798fffc1f715c87e6c32d2f7c8a48ceefea42bc6310b8523b12ebf879",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -15192,7 +15942,7 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-924748161040-us-east-2",
-     "S3Key": "2e6d7f99245a8235c0310600a500e4134562623a36a14aebabf1895f49fe1914.zip"
+     "S3Key": "9b3f63a36d24a4c6f111e2c9e526486246bbe112b5c19cb9c713fb2b9443c504.zip"
     },
     "Environment": {
      "Variables": {
@@ -15236,7 +15986,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "SydneyCyclesStack/RouteTemplateService/TemplateHandler/Resource",
-    "aws:asset:path": "asset.2e6d7f99245a8235c0310600a500e4134562623a36a14aebabf1895f49fe1914",
+    "aws:asset:path": "asset.9b3f63a36d24a4c6f111e2c9e526486246bbe112b5c19cb9c713fb2b9443c504",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -15246,7 +15996,7 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-924748161040-us-east-2",
-     "S3Key": "044414e2405d31425c8c7d94f939445111048aaf30576a337526361a449a9fd5.zip"
+     "S3Key": "469d629ed75f0e98842d46381f188ffa404c6dff1f237e5700014157a8124b51.zip"
     },
     "Environment": {
      "Variables": {
@@ -15290,7 +16040,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "SydneyCyclesStack/RouteTemplateService/SearchHandler/Resource",
-    "aws:asset:path": "asset.044414e2405d31425c8c7d94f939445111048aaf30576a337526361a449a9fd5",
+    "aws:asset:path": "asset.469d629ed75f0e98842d46381f188ffa404c6dff1f237e5700014157a8124b51",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }

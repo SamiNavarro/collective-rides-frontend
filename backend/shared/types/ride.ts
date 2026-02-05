@@ -76,6 +76,9 @@ export interface Route {
   externalUrl?: string;
   externalType?: string;
   
+  // Optional notes field (Phase 3.3.4+)
+  notes?: string;
+  
   // Metadata
   version?: string;
   createdAt?: string;

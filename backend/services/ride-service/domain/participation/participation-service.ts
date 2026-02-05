@@ -37,9 +37,11 @@ export class ParticipationService {
       throw new RideNotFoundError(rideId);
     }
 
-    // Check if user is already participating
+    // Check if user is already participating (ignore withdrawn/removed)
     const existingParticipation = await this.participationRepository.findByRideAndUser(rideId, userId);
-    if (existingParticipation) {
+    if (existingParticipation && 
+        existingParticipation.status !== ParticipationStatus.WITHDRAWN && 
+        existingParticipation.status !== ParticipationStatus.REMOVED) {
       throw new AlreadyParticipatingError(userId, rideId);
     }
 
@@ -92,6 +94,12 @@ export class ParticipationService {
       throw new ParticipationNotFoundError(`${rideId}:${userId}`);
     }
 
+    // Check if already withdrawn or removed
+    if (participation.status === ParticipationStatus.WITHDRAWN || 
+        participation.status === ParticipationStatus.REMOVED) {
+      throw new ParticipationNotFoundError(`${rideId}:${userId}`);
+    }
+
     // Cannot remove captain without transferring role
     if (participation.role === RideRole.CAPTAIN) {
       throw new CannotRemoveCaptainError();
@@ -102,14 +110,17 @@ export class ParticipationService {
       throw new RideNotFoundError(rideId);
     }
 
+    // Store the current status before withdrawing
+    const previousStatus = participation.status;
+
     participation.withdraw();
     await this.participationRepository.update(participation);
 
-    // Update ride counts
-    if (participation.status === ParticipationStatus.CONFIRMED) {
+    // Update ride counts based on previous status
+    if (previousStatus === ParticipationStatus.CONFIRMED) {
       ride.decrementParticipants();
       await this.promoteFromWaitlistIfNeeded(rideId, ride);
-    } else if (participation.status === ParticipationStatus.WAITLISTED) {
+    } else if (previousStatus === ParticipationStatus.WAITLISTED) {
       ride.decrementWaitlist();
       await this.reorderWaitlist(rideId);
     }

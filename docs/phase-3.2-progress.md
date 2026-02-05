@@ -193,6 +193,23 @@ Ready to move to **Phase 3.3: Ride Discovery & Participation**
 
 ---
 
+**Status**: ✅ **Phase 3.2 Complete - Ready for Phase 3.3**
+
+## Polish Fixes Applied (January 20, 2026)
+
+Before starting Phase 3.3, applied 4 quick polish fixes based on user feedback:
+
+1. ✅ **Privacy-First Member Count**: Changed default to bucketed counts (was showing exact)
+2. ✅ **CTA Action Guard**: Prevent duplicate join calls when pending
+3. ✅ **URL Encoding**: Login redirect properly encoded
+4. ✅ **Error Handling**: Toast notifications for all join/leave errors
+
+**Documentation**: `docs/phase-3.2-polish-fixes.md`  
+**Time**: ~15 minutes  
+**Files**: `app/clubs/[clubId]/page.tsx`, `hooks/use-clubs.ts`, `app/layout.tsx`
+
+---
+
 ## Notes
 
 - Phase 3.2 completed ahead of schedule (4 days vs estimated 1-2 weeks)

@@ -82,6 +82,26 @@ export const ROLE_CAPABILITIES: Record<ClubRole, ClubCapability[]> = {
     ClubCapability.VIEW_ROUTE_ANALYTICS,
     ClubCapability.VIEW_CLUB_TEMPLATES,
   ],
+  [ClubRole.CAPTAIN]: [
+    // Inherits all member capabilities
+    ClubCapability.VIEW_CLUB_DETAILS,
+    ClubCapability.VIEW_PUBLIC_MEMBERS,
+    ClubCapability.LEAVE_CLUB,
+    ClubCapability.VIEW_CLUB_RIDES,
+    ClubCapability.JOIN_RIDES,
+    ClubCapability.CREATE_RIDE_PROPOSALS,
+    ClubCapability.DOWNLOAD_ROUTE_FILES,
+    ClubCapability.VIEW_ROUTE_ANALYTICS,
+    ClubCapability.VIEW_CLUB_TEMPLATES,
+    // Captain-specific ride capabilities (Phase 2.3)
+    ClubCapability.VIEW_DRAFT_RIDES,
+    ClubCapability.PUBLISH_OFFICIAL_RIDES,
+    ClubCapability.MANAGE_RIDES,
+    ClubCapability.MANAGE_PARTICIPANTS,
+    // Route file captain capabilities (Phase 2.4 MVP)
+    ClubCapability.UPLOAD_ROUTE_FILES,
+    ClubCapability.CREATE_ROUTE_TEMPLATES,
+  ],
   [ClubRole.ADMIN]: [
     // Inherits all member capabilities
     ClubCapability.VIEW_CLUB_DETAILS,

@@ -280,8 +280,9 @@ function validateMembershipData(membership: ClubMembership): void {
 function validateRoleTransition(currentRole: ClubRole, newRole: ClubRole): void {
   // Define allowed role transitions
   const allowedTransitions: Record<ClubRole, ClubRole[]> = {
-    [ClubRole.MEMBER]: [ClubRole.ADMIN], // Members can be promoted to admin
-    [ClubRole.ADMIN]: [ClubRole.MEMBER], // Admins can be demoted to member
+    [ClubRole.MEMBER]: [ClubRole.CAPTAIN, ClubRole.ADMIN], // Members can be promoted to captain or admin
+    [ClubRole.CAPTAIN]: [ClubRole.MEMBER, ClubRole.ADMIN], // Captains can be promoted to admin or demoted to member
+    [ClubRole.ADMIN]: [ClubRole.CAPTAIN, ClubRole.MEMBER], // Admins can be demoted to captain or member
     [ClubRole.OWNER]: [], // Owners cannot change roles (must transfer ownership)
   };
 

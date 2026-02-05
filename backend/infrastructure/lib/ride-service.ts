@@ -3,7 +3,7 @@ import * as cdk from 'aws-cdk-lib';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
 import * as lambdaNodejs from 'aws-cdk-lib/aws-lambda-nodejs';
 import { Table } from 'aws-cdk-lib/aws-dynamodb';
-import { RestApi, LambdaIntegration, Authorizer, AuthorizationType } from 'aws-cdk-lib/aws-apigateway';
+import { RestApi, LambdaIntegration, Authorizer, AuthorizationType, CorsOptions } from 'aws-cdk-lib/aws-apigateway';
 import { Duration } from 'aws-cdk-lib';
 import { PolicyStatement, Effect } from 'aws-cdk-lib/aws-iam';
 import * as logs from 'aws-cdk-lib/aws-logs';
@@ -100,6 +100,24 @@ export class RideService extends Construct {
     });
     getRideHandler.addToRolePolicy(dynamoPolicy);
 
+    const updateRideHandler = new lambdaNodejs.NodejsFunction(this, 'UpdateRideHandler', {
+      ...commonLambdaProps,
+      functionName: `sydney-cycles-update-ride-${environment}`,
+      description: 'Update ride details (Phase 3.3.4)',
+      entry: 'services/ride-service/handlers/ride/update-ride.ts',
+      handler: 'handler',
+    });
+    updateRideHandler.addToRolePolicy(dynamoPolicy);
+
+    const cancelRideHandler = new lambdaNodejs.NodejsFunction(this, 'CancelRideHandler', {
+      ...commonLambdaProps,
+      functionName: `sydney-cycles-cancel-ride-${environment}`,
+      description: 'Cancel a ride (Phase 3.3.4)',
+      entry: 'services/ride-service/handlers/ride/cancel-ride.ts',
+      handler: 'handler',
+    });
+    cancelRideHandler.addToRolePolicy(dynamoPolicy);
+
     // Participation Handlers
     const joinRideHandler = new lambdaNodejs.NodejsFunction(this, 'JoinRideHandler', {
       ...commonLambdaProps,
@@ -190,6 +208,18 @@ export class RideService extends Construct {
       authorizationType: AuthorizationType.COGNITO
     });
 
+    // Update ride endpoint (Phase 3.3.4)
+    rideResource.addMethod('PUT', new LambdaIntegration(updateRideHandler), {
+      authorizer,
+      authorizationType: AuthorizationType.COGNITO
+    });
+
+    // Cancel ride endpoint (Phase 3.3.4)
+    rideResource.addMethod('DELETE', new LambdaIntegration(cancelRideHandler), {
+      authorizer,
+      authorizationType: AuthorizationType.COGNITO
+    });
+
     // Publish ride endpoint
     const publishResource = rideResource.addResource('publish');
     publishResource.addMethod('POST', new LambdaIntegration(publishRideHandler), {
@@ -197,7 +227,14 @@ export class RideService extends Construct {
       authorizationType: AuthorizationType.COGNITO
     });
 
-    // Participation endpoints
+    // Join ride endpoint (Phase 3.3.2)
+    const joinResource = rideResource.addResource('join');
+    joinResource.addMethod('POST', new LambdaIntegration(joinRideHandler), {
+      authorizer,
+      authorizationType: AuthorizationType.COGNITO
+    });
+
+    // Participation endpoints (legacy - keeping for backward compatibility)
     const participantsResource = rideResource.addResource('participants');
     participantsResource.addMethod('POST', new LambdaIntegration(joinRideHandler), {
       authorizer,

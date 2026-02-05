@@ -62,6 +62,7 @@ export interface Route {
     externalId?: string;
     externalUrl?: string;
     externalType?: string;
+    notes?: string;
     version?: string;
     createdAt?: string;
     updatedAt?: string;

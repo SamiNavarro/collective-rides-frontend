@@ -4,6 +4,7 @@ import { GeistSans } from "geist/font/sans"
 import { GeistMono } from "geist/font/mono"
 import { AuthProvider } from "@/contexts/auth-context"
 import { QueryProvider } from "@/components/providers/query-provider"
+import { Toaster } from "@/components/ui/toaster"
 import "./globals.css"
 import { ThemeProvider } from "next-themes"
 
@@ -26,6 +27,7 @@ export default function RootLayout({
           <QueryProvider>
             <AuthProvider>{children}</AuthProvider>
           </QueryProvider>
+          <Toaster />
         </ThemeProvider>
       </body>
     </html>

@@ -35,6 +35,14 @@ export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPr
   } catch (error: any) {
     console.error('Leave ride error:', error);
     
+    // Handle specific error cases
+    if (error.errorType === 'PARTICIPATION_NOT_FOUND') {
+      return createResponse(404, { 
+        error: 'You are not participating in this ride',
+        errorType: error.errorType 
+      });
+    }
+    
     if (error.statusCode) {
       return createResponse(error.statusCode, { 
         error: error.message,

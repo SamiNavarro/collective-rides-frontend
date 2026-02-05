@@ -109,34 +109,37 @@ export default function LoginPage() {
                 </Button>
               </form>
 
-              <div className="mt-6 space-y-3">
-                <div className="text-center text-sm text-muted-foreground">
-                  Test Credentials
+              {/* Test credentials - only show in development */}
+              {process.env.NODE_ENV === 'development' && (
+                <div className="mt-6 space-y-3">
+                  <div className="text-center text-sm text-muted-foreground">
+                    Test Credentials
+                  </div>
+                  <div className="grid grid-cols-2 gap-2">
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      onClick={() => fillTestCredentials('admin')}
+                      disabled={isLoading}
+                    >
+                      Admin User
+                    </Button>
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      onClick={() => fillTestCredentials('user')}
+                      disabled={isLoading}
+                    >
+                      Regular User
+                    </Button>
+                  </div>
+                  <div className="text-xs text-muted-foreground text-center">
+                    Click buttons above to auto-fill test credentials
+                  </div>
                 </div>
-                <div className="grid grid-cols-2 gap-2">
-                  <Button
-                    type="button"
-                    variant="outline"
-                    size="sm"
-                    onClick={() => fillTestCredentials('admin')}
-                    disabled={isLoading}
-                  >
-                    Admin User
-                  </Button>
-                  <Button
-                    type="button"
-                    variant="outline"
-                    size="sm"
-                    onClick={() => fillTestCredentials('user')}
-                    disabled={isLoading}
-                  >
-                    Regular User
-                  </Button>
-                </div>
-                <div className="text-xs text-muted-foreground text-center">
-                  Click buttons above to auto-fill test credentials
-                </div>
-              </div>
+              )}
 
               <div className="mt-6 text-center text-sm">
                 <span className="text-muted-foreground">Don't have an account? </span>
@@ -147,26 +150,29 @@ export default function LoginPage() {
             </CardContent>
           </Card>
 
-          <div className="mt-6 text-center">
-            <div className="text-sm text-muted-foreground mb-2">
-              Other testing options:
+          {/* Debug links - only show in development */}
+          {process.env.NODE_ENV === 'development' && (
+            <div className="mt-6 text-center">
+              <div className="text-sm text-muted-foreground mb-2">
+                Other testing options:
+              </div>
+              <div className="space-x-2">
+                <a 
+                  href="/test-cognito" 
+                  className="text-sm text-primary hover:underline"
+                >
+                  Test Cognito Page
+                </a>
+                <span className="text-muted-foreground">•</span>
+                <a 
+                  href="/debug-auth" 
+                  className="text-sm text-primary hover:underline"
+                >
+                  Debug Auth
+                </a>
+              </div>
             </div>
-            <div className="space-x-2">
-              <a 
-                href="/test-cognito" 
-                className="text-sm text-primary hover:underline"
-              >
-                Test Cognito Page
-              </a>
-              <span className="text-muted-foreground">•</span>
-              <a 
-                href="/debug-auth" 
-                className="text-sm text-primary hover:underline"
-              >
-                Debug Auth
-              </a>
-            </div>
-          </div>
+          )}
         </div>
       </div>
       <Footer />

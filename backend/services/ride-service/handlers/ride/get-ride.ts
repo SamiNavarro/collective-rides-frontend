@@ -4,6 +4,7 @@ import { createResponse } from '../../../../shared/utils/lambda-utils';
 import { getAuthContext } from '../../../../shared/auth/auth-context';
 import { DynamoDBRideRepository } from '../../infrastructure/dynamodb-ride-repository';
 import { DynamoDBParticipationRepository } from '../../infrastructure/dynamodb-participation-repository';
+import { MembershipHelper } from '../../infrastructure/dynamodb-membership-helper';
 import { RideService } from '../../domain/ride/ride-service';
 import { ParticipationService } from '../../domain/participation/participation-service';
 import { RideAuthorizationService } from '../../domain/authorization/ride-authorization';
@@ -13,6 +14,7 @@ const dynamoClient = new DynamoDBClient({});
 const tableName = process.env.DYNAMODB_TABLE_NAME!;
 const rideRepository = new DynamoDBRideRepository(dynamoClient, tableName);
 const participationRepository = new DynamoDBParticipationRepository(dynamoClient, tableName);
+const membershipHelper = new MembershipHelper(dynamoClient, tableName);
 const rideService = new RideService(rideRepository);
 const participationService = new ParticipationService(participationRepository, rideRepository);
 
@@ -26,6 +28,10 @@ export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPr
     if (!clubId || !rideId) {
       return createResponse(400, { error: 'Club ID and Ride ID are required' });
     }
+
+    // Populate club memberships for authorization
+    const memberships = await membershipHelper.getUserMemberships(authContext.userId);
+    authContext.clubMemberships = memberships;
 
     // Get ride
     const ride = await rideService.getRide(rideId);
@@ -47,6 +53,13 @@ export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPr
 
     // Get participants
     const participants = await participationService.getRideParticipants(rideId);
+    
+    // Find viewer's participation (if any) - only if they're actively participating
+    const viewerParticipationEntity = participants.find(
+      p => p.userId === authContext.userId && 
+      (p.status === ParticipationStatus.CONFIRMED || p.status === ParticipationStatus.WAITLISTED)
+    );
+    const viewerParticipationData = viewerParticipationEntity?.toJSON();
     
     // Transform participants data
     const participantsData = participants
@@ -81,7 +94,14 @@ export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPr
       data: {
         ...rideData,
         participants: participantsData,
-        waitlist: waitlistData
+        waitlist: waitlistData,
+        // Viewer-specific participation context (Phase 3.3)
+        viewerParticipation: viewerParticipationData ? {
+          participationId: viewerParticipationData.participationId,
+          role: viewerParticipationData.role,
+          status: viewerParticipationData.status,
+          joinedAt: viewerParticipationData.joinedAt
+        } : undefined
       },
       timestamp: new Date().toISOString()
     });

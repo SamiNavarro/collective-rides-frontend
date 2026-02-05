@@ -1,0 +1,21 @@
+{
+  "SydneyCyclesStack": {
+    "RestApiId": "s6ccfzfcwh",
+    "RouteFileServiceRoutesDistributionDomainD3789A1C": "d3exrki0kwnech.cloudfront.net",
+    "GetUserByIdFunctionName": "sydney-cycles-get-user-by-id-development",
+    "ListClubsFunctionName": "sydney-cycles-list-clubs-development",
+    "GetCurrentUserFunctionName": "sydney-cycles-get-current-user-development",
+    "RestApiUrl": "https://s6ccfzfcwh.execute-api.us-east-2.amazonaws.com/development/",
+    "CreateClubFunctionName": "sydney-cycles-create-club-development",
+    "UpdateClubFunctionName": "sydney-cycles-update-club-development",
+    "RouteFileServiceRoutesDistributionId1FDAD890": "E18RLFFDZS4X38",
+    "MainTableArn": "arn:aws:dynamodb:us-east-2:924748161040:table/sydney-cycles-main-development",
+    "UserPoolClientId": "760idnu1d0mul2o10lut6rt7la",
+    "GetClubFunctionName": "sydney-cycles-get-club-development",
+    "UserPoolId": "us-east-2_t5UUpOmPL",
+    "UpdateUserFunctionName": "sydney-cycles-update-user-development",
+    "RestApiSydneyCyclesRestApiEndpointD3CB654C": "https://s6ccfzfcwh.execute-api.us-east-2.amazonaws.com/development/",
+    "RouteFileServiceRoutesBucketNameEA8816EA": "sydney-cycles-routes-development",
+    "MainTableName": "sydney-cycles-main-development"
+  }
+}

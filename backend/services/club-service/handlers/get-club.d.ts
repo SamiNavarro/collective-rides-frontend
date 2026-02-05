@@ -1,11 +1,13 @@
 /**
- * Get Club Handler - Phase 2.1
+ * Get Club Handler - Phase 2.1 + Phase 3.4 Enhancement
  *
  * Lambda handler for GET /clubs/{id} endpoint.
  * Public endpoint for retrieving club details by ID.
+ * Enhanced to include user membership information when authenticated.
  *
  * Compliance:
  * - Phase 2.1 Spec: .kiro/specs/phase-2.1.club-service.v1.md
+ * - Phase 3.4 Enhancement: Include userMembership for management UI
  */
 import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
 /**
