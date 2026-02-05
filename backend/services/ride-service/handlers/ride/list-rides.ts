@@ -3,6 +3,7 @@ import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
 import { createResponse } from '../../../../shared/utils/lambda-utils';
 import { getAuthContext } from '../../../../shared/auth/auth-context';
 import { DynamoDBRideRepository } from '../../infrastructure/dynamodb-ride-repository';
+import { MembershipHelper } from '../../infrastructure/dynamodb-membership-helper';
 import { RideService } from '../../domain/ride/ride-service';
 import { RideAuthorizationService } from '../../domain/authorization/ride-authorization';
 import { RideCapability } from '../../../../shared/types/ride-authorization';
@@ -11,17 +12,25 @@ import { ListRidesQuery, RideStatus } from '../../../../shared/types/ride';
 const dynamoClient = new DynamoDBClient({});
 const tableName = process.env.DYNAMODB_TABLE_NAME!;
 const rideRepository = new DynamoDBRideRepository(dynamoClient, tableName);
+const membershipHelper = new MembershipHelper(dynamoClient, tableName);
 const rideService = new RideService(rideRepository);
 
 export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   try {
+    // Get origin for CORS
+    const origin = event.headers?.origin || event.headers?.Origin;
+    
     // Get auth context
     const authContext = await getAuthContext(event);
     const clubId = event.pathParameters?.clubId;
     
     if (!clubId) {
-      return createResponse(400, { error: 'Club ID is required' });
+      return createResponse(400, { error: 'Club ID is required' }, origin);
     }
+
+    // Populate club memberships for authorization
+    const memberships = await membershipHelper.getUserMemberships(authContext.userId);
+    authContext.clubMemberships = memberships;
 
     // Check basic authorization - club membership required
     await RideAuthorizationService.requireRideCapability(
@@ -45,7 +54,7 @@ export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPr
 
     // Validate limit
     if (query.limit && (query.limit < 1 || query.limit > 100)) {
-      return createResponse(400, { error: 'Limit must be between 1 and 100' });
+      return createResponse(400, { error: 'Limit must be between 1 and 100' }, origin);
     }
 
     // Check if user can view draft rides
@@ -55,7 +64,7 @@ export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPr
     if (query.includeDrafts && !canViewDrafts) {
       return createResponse(403, { 
         error: 'Insufficient privileges to view draft rides' 
-      });
+      }, origin);
     }
 
     // Get rides
@@ -79,6 +88,7 @@ export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPr
       const rideData = ride.toJSON();
       return {
         rideId: rideData.rideId,
+        clubId: clubId, // Include clubId for frontend routing
         title: rideData.title,
         rideType: rideData.rideType,
         difficulty: rideData.difficulty,
@@ -114,18 +124,21 @@ export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPr
         nextCursor: result.nextCursor
       },
       timestamp: new Date().toISOString()
-    });
+    }, origin);
 
   } catch (error: any) {
     console.error('List rides error:', error);
+    
+    // Get origin for CORS in error responses
+    const origin = event.headers?.origin || event.headers?.Origin;
     
     if (error.statusCode) {
       return createResponse(error.statusCode, { 
         error: error.message,
         errorType: error.errorType 
-      });
+      }, origin);
     }
     
-    return createResponse(500, { error: 'Internal server error' });
+    return createResponse(500, { error: 'Internal server error' }, origin);
   }
 };
