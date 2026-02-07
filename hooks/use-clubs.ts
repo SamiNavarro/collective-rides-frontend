@@ -203,7 +203,10 @@ export const useClubRides = (clubId: string, options?: { enabled?: boolean; stat
       // For published rides, filter for upcoming only and limit to 5
       if (status === 'published') {
         const upcomingRides = allRides
-          .filter((ride: any) => new Date(ride.startDateTime) > new Date()) // Only future rides
+          .filter((ride: any) => {
+            const startDate = new Date(ride.startDateTime);
+            return !isNaN(startDate.getTime()) && startDate > new Date(); // Only valid future dates
+          })
           .sort((a: any, b: any) => new Date(a.startDateTime).getTime() - new Date(b.startDateTime).getTime()) // Sort by date
           .slice(0, 5); // Limit to 5 rides
         return upcomingRides;
