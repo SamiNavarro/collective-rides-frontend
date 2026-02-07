@@ -204,14 +204,21 @@ export const useClubRides = (clubId: string, options?: { enabled?: boolean; stat
       const allRides = Array.isArray(response.data) ? response.data : response.data?.data || [];
       console.log('📊 useClubRides: Extracted rides array:', allRides.length, 'rides');
       
+      // Handle double-wrapped response (backend returns {success, data: {success, data: [...]}})
+      let ridesArray = allRides;
+      if (!Array.isArray(allRides) && allRides.data && Array.isArray(allRides.data)) {
+        console.log('🔄 useClubRides: Unwrapping double-wrapped response');
+        ridesArray = allRides.data;
+      }
+      
       // Log first ride for debugging
-      if (allRides.length > 0) {
-        console.log('🔍 useClubRides: First ride sample:', JSON.stringify(allRides[0], null, 2));
+      if (ridesArray.length > 0) {
+        console.log('🔍 useClubRides: First ride sample:', JSON.stringify(ridesArray[0], null, 2));
       }
       
       // For published rides, filter for upcoming only and limit to 5
       if (status === 'published') {
-        const upcomingRides = allRides
+        const upcomingRides = ridesArray
           .filter((ride: any) => {
             // Check if ride has required fields
             if (!ride.startDateTime) {
@@ -235,7 +242,7 @@ export const useClubRides = (clubId: string, options?: { enabled?: boolean; stat
       }
       
       // For draft rides, return all sorted by creation date (newest first)
-      return allRides.sort((a: any, b: any) => 
+      return ridesArray.sort((a: any, b: any) => 
         new Date(b.createdAt || b.startDateTime).getTime() - new Date(a.createdAt || a.startDateTime).getTime()
       );
     },
