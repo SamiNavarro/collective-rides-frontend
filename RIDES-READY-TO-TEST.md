@@ -1,7 +1,7 @@
 # Rides Feature Ready for Testing ✅
 
-**Date**: February 7, 2026  
-**Status**: 🚀 Ready to Test
+**Date**: February 8, 2026  
+**Status**: 🚀 Ready to Test (Updated - Invalid Date Fix Applied)
 
 ## What Was Fixed
 
@@ -13,7 +13,12 @@
    - Now handles both `startDateTime` and `startTime`
    - Prevents date display errors
 
-3. **Test Data Created** - Seeded 5 future published rides for testing
+3. **Invalid Date Display** - Fixed "Invalid Date" showing in upcoming rides (Feb 8, 2026)
+   - Added validation in `useClubRides` hook to filter out rides with invalid dates
+   - Added UI safety check to display error message instead of "Invalid Date"
+   - Rides with missing/invalid `startDateTime` are now filtered out
+
+4. **Test Data Created** - Seeded 5 future published rides for testing
    - All rides are for Attaquer Cycling Club
    - Dates range from tomorrow to 2 weeks out
    - Mix of difficulty levels (easy, moderate, hard)
@@ -65,6 +70,7 @@
 
 ✅ **No CORS errors** - All API calls should work  
 ✅ **No 404 errors** - Ride detail pages should load  
+✅ **No "Invalid Date"** - All dates display correctly or show error message  
 ✅ **Correct dates** - All dates should be in the future  
 ✅ **Proper formatting** - Dates and times display correctly  
 ✅ **Working navigation** - Can navigate between club and ride pages  
