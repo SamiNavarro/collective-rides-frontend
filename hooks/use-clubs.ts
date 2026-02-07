@@ -193,22 +193,34 @@ export const useClubRides = (clubId: string, options?: { enabled?: boolean; stat
   return useQuery({
     queryKey: ['clubs', clubId, 'rides', status],
     queryFn: async () => {
+      console.log('🔍 useClubRides: Fetching rides for club:', clubId, 'status:', status);
       const response = await api.rides.listForClub(clubId, { status });
+      console.log('📦 useClubRides: Raw response:', JSON.stringify(response, null, 2));
+      
       if (!response.success) {
         throw new Error(response.error || 'Failed to fetch club rides');
       }
       
       const allRides = Array.isArray(response.data) ? response.data : response.data?.data || [];
+      console.log('📊 useClubRides: Extracted rides array:', allRides.length, 'rides');
+      
+      // Log first ride for debugging
+      if (allRides.length > 0) {
+        console.log('🔍 useClubRides: First ride sample:', JSON.stringify(allRides[0], null, 2));
+      }
       
       // For published rides, filter for upcoming only and limit to 5
       if (status === 'published') {
         const upcomingRides = allRides
           .filter((ride: any) => {
             const startDate = new Date(ride.startDateTime);
-            return !isNaN(startDate.getTime()) && startDate > new Date(); // Only valid future dates
+            const isValid = !isNaN(startDate.getTime()) && startDate > new Date();
+            console.log(`  Ride "${ride.title}": startDateTime=${ride.startDateTime}, valid=${isValid}`);
+            return isValid; // Only valid future dates
           })
           .sort((a: any, b: any) => new Date(a.startDateTime).getTime() - new Date(b.startDateTime).getTime()) // Sort by date
           .slice(0, 5); // Limit to 5 rides
+        console.log('✅ useClubRides: Returning', upcomingRides.length, 'upcoming rides');
         return upcomingRides;
       }
       
