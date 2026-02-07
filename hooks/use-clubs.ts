@@ -213,6 +213,16 @@ export const useClubRides = (clubId: string, options?: { enabled?: boolean; stat
       if (status === 'published') {
         const upcomingRides = allRides
           .filter((ride: any) => {
+            // Check if ride has required fields
+            if (!ride.startDateTime) {
+              console.warn(`⚠️ Ride "${ride.title}" missing startDateTime:`, ride);
+              return false;
+            }
+            if (!ride.rideId && !ride.id) {
+              console.warn(`⚠️ Ride "${ride.title}" missing rideId/id:`, ride);
+              return false;
+            }
+            
             const startDate = new Date(ride.startDateTime);
             const isValid = !isNaN(startDate.getTime()) && startDate > new Date();
             console.log(`  Ride "${ride.title}": startDateTime=${ride.startDateTime}, valid=${isValid}`);
